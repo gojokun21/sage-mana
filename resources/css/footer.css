@@ -1,0 +1,329 @@
+/* ==========================================================================
+   Footer — ported from mana-naturii.
+   ========================================================================== */
+
+.footer {
+  background: #1F3D33;
+  color: #fff;
+}
+
+.footer .container {
+  padding: 80px 15px;
+}
+
+.footer h3 {
+  font-weight: 600;
+  font-size: 20px;
+  color: #fff;
+  margin: 0 0 30px;
+  position: relative;
+}
+
+.footer h3::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100px;
+  height: 1px;
+  background: rgba(169, 202, 165, 0.46);
+  border-radius: 2px;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.footer a:hover { color: #ededed; }
+
+/* ============================
+   Top block (logo + tagline centered)
+   ============================ */
+.main_footer {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.logo_footer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.logo_footer img {
+  max-width: 292px;
+  height: auto;
+}
+
+.main_footer p {
+  color: #fff;
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0;
+}
+
+/* ============================
+   4-column grid
+   ============================ */
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+/* Tablet */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .footer-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.footer-column .footer-accordion-content {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  margin-bottom: 12px;
+}
+
+.footer-column li:last-child { margin-bottom: 0; }
+
+.footer-column li a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+  padding-bottom: 2px;
+}
+
+.footer-column li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: #fff;
+  transition: width 0.25s ease;
+}
+
+.footer-column li a:hover::after { width: 100%; }
+
+/* Icons in contact list */
+.footer-contact-list li a,
+.footer-contact-list li .footer-contact-static {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+.footer-contact-list svg { flex-shrink: 0; }
+
+/* ============================
+   Company details + socials
+   ============================ */
+.footer-company-details {
+  list-style: none;
+  padding: 18px 0 0;
+  margin: 20px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-company-details li {
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.footer-company-details li:first-child {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.footer_social {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.footer_social a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  color: #1F3D33;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.footer_social a:hover {
+  background: var(--green);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* ============================
+   ANPC block (desktop inside col 1, mobile full row)
+   ============================ */
+.anpc {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.anpc img {
+  max-width: 148px;
+  height: auto;
+  display: block;
+}
+
+.anpc_mobile { display: none; }
+
+/* ============================
+   Copyright strip
+   ============================ */
+.copyright {
+  padding: 20px 0;
+}
+
+.copyright .container {
+  padding: 20px 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(169, 202, 165, 0.46);
+  gap: 20px;
+}
+
+.copyright p {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+}
+
+.footer-payment-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-payment-icons img {
+  height: 32px;
+  width: auto;
+}
+
+/* ============================
+   Mobile accordion (<768px)
+   ============================ */
+@media (max-width: 767px) {
+  .footer .container {
+    padding: 32px 15px 20px;
+  }
+
+  .main_footer {
+    margin-bottom: 20px;
+  }
+
+  .main_footer p { font-size: 14px; line-height: 22px; }
+
+  .logo_footer img { max-width: 220px; }
+
+  .footer-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .footer h3 {
+    font-size: 17px;
+    margin: 0;
+  }
+
+  .footer h3::before { display: none; }
+
+  .footer-accordion {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 14px 0;
+    margin: 0;
+    user-select: none;
+  }
+
+  .footer-accordion-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: background 0.25s ease, transform 0.3s ease;
+  }
+
+  .footer-accordion-icon svg { transition: transform 0.3s ease; }
+
+  .footer-accordion.is-open .footer-accordion-icon { background: var(--green); }
+  .footer-accordion.is-open .footer-accordion-icon svg { transform: rotate(180deg); }
+
+  .footer-accordion-content,
+  .footer-accordion .footer-company-details,
+  .footer-accordion .footer_social,
+  .footer-accordion .anpc_desktop {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    transition: max-height 0.35s ease-out, padding 0.35s ease-out, margin 0.35s ease-out;
+  }
+
+  .footer-accordion.is-open .footer-accordion-content { max-height: 600px; padding-bottom: 16px; }
+  .footer-accordion.is-open .footer-company-details { max-height: 260px; padding-top: 16px; margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.15); }
+  .footer-accordion.is-open .footer_social { max-height: 100px; padding-top: 16px; }
+  .footer-accordion.is-open .anpc_desktop { max-height: 100px; padding-top: 16px; }
+
+  .anpc_desktop { display: none; }
+  .anpc_mobile {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0 0;
+    gap: 8px;
+  }
+  .anpc_mobile img { max-width: 130px; }
+
+  .copyright {
+    padding: 14px 0 24px;
+  }
+
+  .copyright .container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 15px 0;
+    text-align: center;
+  }
+
+  .copyright p { font-size: 13px; }
+
+  .footer-payment-icons img { height: 26px; }
+}
+
+/* Desktop — accordion is purely visual-only (no JS needed) */
+@media (min-width: 768px) {
+  .footer-accordion-icon { display: none; }
+  .footer-accordion-header { cursor: default; }
+}

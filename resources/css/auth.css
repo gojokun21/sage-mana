@@ -1,0 +1,532 @@
+/* ==========================================================================
+   Login / Register — shared styles (modal + standalone page).
+   ========================================================================== */
+
+/* ============================
+   Standalone login/register page (/contul-meu/ for guests)
+   ============================ */
+.natura-auth-page {
+  max-width: 520px;
+  margin: 40px auto 80px;
+}
+
+.natura-auth-tabs--page {
+  margin: 0 auto 24px;
+  max-width: 420px;
+}
+
+.natura-auth-card {
+  background: #fff;
+  border: 1px solid #eceef1;
+  border-radius: 18px;
+  padding: 40px 36px 36px;
+}
+
+.natura-auth-card__header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.natura-auth-card__eyebrow {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #98a0ab;
+}
+
+.natura-auth-card__title {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 500;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+
+.natura-auth-card__subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #55606b;
+  line-height: 1.5;
+}
+
+.natura-auth-benefits-list {
+  margin: 8px 0 22px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.natura-auth-benefits-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 13px;
+  color: #55606b;
+}
+
+.natura-auth-benefits-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  background: var(--green) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") no-repeat center / 11px;
+  border-radius: 50%;
+}
+
+/* Back link variant on lost-password */
+.natura-auth-switch--back {
+  display: flex;
+  justify-content: center;
+}
+
+.natura-auth-switch--back a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #55606b;
+  font-weight: 500;
+}
+
+.natura-auth-switch--back a:hover { color: var(--green); }
+
+/* Success card (confirmation screen) */
+.natura-auth-card--success {
+  text-align: center;
+}
+
+.natura-auth-success-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(56, 99, 86, 0.12);
+  color: var(--green);
+  border-radius: 50%;
+}
+
+.natura-auth-confirmation-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+/* Outline submit variant */
+.natura-auth-submit--outline {
+  background: #fff;
+  color: #1a1a1a;
+  border: 1px solid #d7dbdf;
+}
+
+.natura-auth-submit--outline:hover {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
+/* Info tip box (on reset-password) */
+.natura-auth-info--tip {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 4px 0 22px;
+  padding: 14px 16px;
+  background: #f7faf9;
+  border: 1px solid #e1ece8;
+  border-radius: 12px;
+  color: #55606b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.natura-auth-info--tip strong {
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Password match indicator */
+.natura-password-match {
+  margin: 8px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #98a0ab;
+  min-height: 14px;
+}
+
+.natura-password-match.is-match { color: #16a34a; }
+.natura-password-match.is-mismatch { color: #dc2626; }
+
+@media (max-width: 560px) {
+  .natura-auth-page { margin: 24px 12px 48px; }
+  .natura-auth-card { padding: 28px 22px 24px; border-radius: 14px; }
+  .natura-auth-card__title { font-size: 22px; }
+  .natura-auth-success-icon { width: 54px; height: 54px; }
+}
+
+/* ==========================================================================
+   Modal-specific
+   ========================================================================== */
+
+.natura-login-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+.natura-login-modal.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.natura-login-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.natura-login-modal__content {
+  position: relative;
+  width: calc(100% - 32px);
+  max-width: 600px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 18px;
+  padding: 60px 40px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.24);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.3s cubic-bezier(.16,1,.3,1);
+}
+
+.natura-login-modal.is-visible .natura-login-modal__content {
+  transform: translateY(0) scale(1);
+}
+
+.natura-login-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  font-size: 28px;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.natura-login-modal__close:hover {
+  background: #f3f3f3;
+  color: #333;
+}
+
+body.natura-login-open {
+  overflow: hidden;
+}
+
+/* ============================ Tabs ============================ */
+.natura-auth-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  background: #f5f5f7;
+  border-radius: 12px;
+  margin: 10px auto;
+}
+
+.natura-auth-tab {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 12px;
+  background: transparent;
+  color: #555;
+  border: 0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.natura-auth-tab:hover { color: #222; }
+
+.natura-auth-tab.is-active {
+  background: #fff;
+  color: var(--green);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.natura-auth-panel { display: none; }
+.natura-auth-panel.is-active { display: block; }
+
+.natura-auth-title {
+  margin: 4px 0 22px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+/* ============================ Form fields ============================ */
+.natura-login-form { display: block; }
+
+.natura-auth-field {
+  margin-bottom: 16px;
+}
+
+.natura-auth-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+}
+
+.natura-auth-field input[type="text"],
+.natura-auth-field input[type="email"],
+.natura-auth-field input[type="password"] {
+  width: 100%;
+  height: 46px;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 15px;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.natura-auth-field input:focus-visible {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(56, 99, 86, 0.14);
+}
+
+.natura-password-wrap { position: relative; }
+
+.natura-password-wrap input { padding-right: 42px; }
+
+.natura-password-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: #888;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.natura-password-toggle:hover { color: var(--green); background: #f3f3f3; }
+
+.natura-password-toggle.is-revealed { color: var(--green); }
+
+.natura-password-strength {
+  height: 4px;
+  background: #eee;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.natura-password-strength__bar {
+  height: 100%;
+  width: 0;
+  transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+/* ============================ Row (remember + lost password) ============================ */
+.natura-auth-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0 16px;
+  flex-wrap: wrap;
+}
+
+.natura-auth-remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+}
+
+.natura-auth-remember input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--green);
+}
+
+.natura-auth-lostpass {
+  font-size: 13px;
+  color: var(--green);
+  font-weight: 500;
+}
+
+.natura-auth-lostpass:hover { color: var(--dark-green); text-decoration: underline; }
+
+/* ============================ Error box ============================ */
+.natura-auth-error {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #b91c1c;
+  font-size: 14px;
+  display: none;
+}
+
+.natura-auth-error.is-visible { display: block; }
+
+/* ============================ Submit ============================ */
+.natura-auth-submit {
+  width: 100%;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: var(--green);
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.natura-auth-submit:hover:not(:disabled) { background: var(--dark-green); }
+.natura-auth-submit:active { transform: translateY(1px); }
+.natura-auth-submit:disabled { opacity: 0.75; cursor: not-allowed; }
+
+/* ============================ Switch link ============================ */
+.natura-auth-switch {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.natura-auth-switch a {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.natura-auth-switch a:hover { color: var(--dark-green); text-decoration: underline; }
+
+/* ============================ Benefits (register) ============================ */
+.natura-auth-benefits {
+  margin: 16px 0 18px;
+  padding: 14px 16px;
+  background: rgba(56, 99, 86, 0.06);
+  border-radius: 10px;
+}
+
+.natura-auth-benefits h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.natura-auth-benefits ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.natura-auth-benefits li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.natura-auth-benefits li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  background: var(--green) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") no-repeat center / 10px;
+  border-radius: 50%;
+}
+
+.natura-auth-info {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  background: #f5f5f7;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #555;
+}
+
+.natura-auth-page .woocommerce-privacy-policy-text {
+  margin: 16px 0 20px;
+  padding: 14px 18px;
+  background: #f3f7f5;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #2a2a2a;
+}
+
+.natura-auth-page .woocommerce-privacy-policy-text p {
+  margin: 0;
+}
+
+.natura-auth-page .woocommerce-privacy-policy-text a {
+  color: var(--green);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.natura-auth-page .woocommerce-privacy-policy-text a:hover {
+  color: var(--dark-green);
+}
+
+@media (max-width: 480px) {
+  .natura-login-modal__content {
+    padding: 24px 20px 20px;
+    border-radius: 14px;
+  }
+  .natura-auth-title { font-size: 20px; }
+}

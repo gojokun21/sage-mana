@@ -1,0 +1,114 @@
+/* ==========================================================================
+   .qty-stepper — canonical quantity component.
+   Used by WC templates (via global/quantity-input.php override) and by
+   hand-written markup (via the qty-stepper Blade partial).
+   ========================================================================== */
+
+.qty-stepper {
+  display: inline-flex;
+  align-items: stretch;
+  height: 44px;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+  width: max-content;
+}
+
+.qty-stepper__btn {
+  flex: 0 0 auto;
+  width: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #333;
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.qty-stepper__btn:hover {
+  background: #f3f3f3;
+  color: var(--green, #386356);
+}
+
+.qty-stepper__btn:active {
+  background: #ececec;
+}
+
+.qty-stepper__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.qty-stepper__input {
+  flex: 0 0 auto;
+  width: 48px;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid #e2e2e2;
+  border-right: 1px solid #e2e2e2;
+  background: transparent;
+  color: #1a1a1a;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.qty-stepper__input::-webkit-outer-spin-button,
+.qty-stepper__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.qty-stepper__input:focus {
+  outline: none;
+  background: #fafafa;
+}
+
+.qty-stepper__input[readonly] {
+  cursor: default;
+}
+
+.qty-stepper__input[readonly]:focus {
+  background: transparent;
+}
+
+.qty-stepper.is-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ---------------- Compact variant (mini-cart, sticky bar, tables) ---------------- */
+
+.qty-stepper--sm {
+  height: 36px;
+  border-radius: 50px;
+  border-color: #ddd;
+  background: #f9f9f9;
+}
+
+.qty-stepper--sm .qty-stepper__btn {
+  width: 34px;
+  font-size: 1rem;
+  color: #444;
+}
+
+.qty-stepper--sm .qty-stepper__btn:hover {
+  background: #eee;
+}
+
+.qty-stepper--sm .qty-stepper__input {
+  width: 38px;
+  border-left: 0;
+  border-right: 0;
+  background: transparent;
+  font-size: 0.9rem;
+}

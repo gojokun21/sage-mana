@@ -1,0 +1,165 @@
+/* ============================================
+   Product Add-to-Cart area (single product + variations)
+   Quantity controls + "Adaugă în coș" button
+   ============================================ */
+
+.woocommerce-ajax-add-to-cart {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 1rem 0 34px;
+}
+
+/* Primary add-to-cart button — pill style to match legacy */
+.mn-atc-btn,
+a.mn-atc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 0;
+  height: 48px;
+  padding: 6px 37px;
+  background: var(--green, #386356);
+  color: #fff !important;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid var(--green, #386356);
+  border-radius: 58px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.05s ease, opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.mn-atc-btn:hover,
+a.mn-atc-btn:hover {
+  background: var(--dark-green, #2c5047);
+  border-color: var(--dark-green, #2c5047);
+  color: #fff !important;
+}
+
+.mn-atc-btn:active {
+  transform: translateY(1px);
+}
+
+.mn-atc-btn:focus-visible {
+  outline: 2px solid var(--dark-green, #2c5047);
+  outline-offset: 2px;
+}
+
+/* WooCommerce AJAX loading state */
+.mn-atc-btn.loading {
+  opacity: 0.7;
+  pointer-events: none;
+  position: relative;
+  padding-right: 2.5rem;
+}
+
+.mn-atc-btn.loading::after {
+  content: '';
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: mn-atc-spin 0.7s linear infinite;
+}
+
+@keyframes mn-atc-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Post-add "added" state — whole button morphs to success style briefly.
+   JS swaps textContent to "✓ Adăugat" and toggles this class. */
+.mn-atc-btn.added,
+a.mn-atc-btn.added {
+  background: var(--dark-green, #2c5047) !important;
+  border-color: var(--dark-green, #2c5047) !important;
+  color: #fff !important;
+  animation: mn-atc-added-pulse 0.35s ease;
+}
+
+@keyframes mn-atc-added-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.woocommerce-ajax-add-to-cart .added_to_cart,
+.added_to_cart.wc-forward {
+  display: none !important;
+}
+
+/* Unavailable / out of stock fallback — inherits shape + padding from .btn-primary */
+.mn-unavail-btn,
+.btn_unavailable {
+  width: 100%;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.mn-hidden {
+  display: none !important;
+}
+
+/* Add-to-cart toast — top-right, under the sticky menu, theme green. */
+.mn-atc-toast {
+  position: fixed;
+  top: 110px;
+  right: 24px;
+  max-width: 360px;
+  padding: 14px 18px 14px 46px;
+  background: var(--green, #386356);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+  box-shadow: 0 12px 32px rgba(56, 99, 86, 0.28);
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.3s cubic-bezier(.16,1,.3,1);
+  z-index: 10001;
+}
+
+.mn-atc-toast::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin-top: -11px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M8 12l3 3 5-6'/></svg>");
+}
+
+.mn-atc-toast.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.admin-bar .mn-atc-toast { top: 142px; }
+
+@media (max-width: 640px) {
+  .mn-atc-toast {
+    top: 90px;
+    right: 12px;
+    left: 12px;
+    max-width: none;
+  }
+
+  .admin-bar .mn-atc-toast { top: 136px; }
+}
+
+/* Single-product quantity visuals come from .qty-stepper (qty-stepper.css).
+   .mn-qty-wrap stays as a layout wrapper around the stepper. */

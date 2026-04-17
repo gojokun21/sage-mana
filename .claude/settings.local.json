@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -i \"\\\\.css$\")",
+      "Read(//c/Users/Sorin-kun/Local Sites/sage10-natura/app/public/wp-content/themes/mana-naturii/**)"
+    ]
+  }
+}

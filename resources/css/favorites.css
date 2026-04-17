@@ -1,0 +1,185 @@
+/* ==========================================================================
+   Favorites (heart toggle + header badge + list page)
+   ========================================================================== */
+
+.natura-fav-btn {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: #9a9a9a;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, color 0.2s ease, background 0.2s ease;
+  padding: 0;
+}
+
+.natura-fav-btn:hover {
+  color: var(--green);
+  transform: scale(1.08);
+}
+
+.natura-fav-btn.is-active {
+  color: var(--green);
+}
+
+.natura-fav-btn.is-active .natura-fav-icon path {
+  fill-opacity: 1;
+}
+
+.natura-fav-btn.is-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.natura-fav-btn .natura-fav-icon {
+  transition: transform 0.2s ease;
+}
+
+.natura-fav-btn.is-active .natura-fav-icon {
+  animation: naturaFavPop 0.35s ease;
+}
+
+@keyframes naturaFavPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+/* Inside product cards, the wrapper is already positioned absolutely. */
+.favorite_btn {
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+}
+
+/* Header badge count-bump */
+.cf-fav-count.is-bumping {
+  animation: naturaFavBump 0.4s ease;
+}
+
+@keyframes naturaFavBump {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+/* Toast */
+.natura-fav-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translate(-50%, 20px);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.25s ease;
+  z-index: 10000;
+}
+
+.natura-fav-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Favorites list page (shortcode) */
+.natura-favorites {
+  margin-top: 40px;
+  margin-bottom: 80px;
+}
+
+.natura-favorites__header {
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.natura-favorites__title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.natura-favorites__count {
+  margin: 6px 0 0;
+  font-size: 15px;
+  color: #666;
+}
+
+.natura-favorites-list {
+  display: grid;
+  grid-template-columns: repeat(var(--natura-fav-cols, 3), 1fr);
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.natura-favorites-list > .product-card,
+.natura-favorites-list > li.product {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.natura-favorites-list > .product-card.is-removing,
+.natura-favorites-list > li.product.is-removing {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.natura-favorites-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  padding: 80px 24px;
+  background: #fff;
+  border-radius: 24px;
+  color: #555;
+}
+
+.natura-favorites-empty svg {
+  color: #d9d9d9;
+}
+
+.natura-favorites-empty__text {
+  margin: 0;
+  font-size: 18px;
+  color: #444;
+  max-width: 480px;
+  line-height: 1.5;
+}
+
+.natura-favorites-empty__cta {
+  margin-top: 4px;
+}
+
+@media (max-width: 1023px) {
+  .natura-favorites__title { font-size: 26px; }
+  .natura-favorites-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 640px) {
+  .natura-favorites { margin-top: 24px; }
+  .natura-favorites__title { font-size: 22px; }
+  .natura-favorites-empty { padding: 60px 20px; }
+  .natura-favorites-empty__text { font-size: 16px; }
+  .natura-favorites-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
