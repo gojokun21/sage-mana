@@ -90,10 +90,8 @@
          data-product_packaging="{{ wp_strip_all_tags($product->get_short_description()) }}"
          aria-label="{{ esc_attr(sprintf(__('Adaugă %s în coș', 'sage'), $title)) }}"
          rel="nofollow">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M2 3h2l3 13h12l2-9H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="9" cy="20" r="1.5" fill="currentColor"/>
-          <circle cx="17" cy="20" r="1.5" fill="currentColor"/>
+        <svg class="cart-shopping" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M0.5625 1.125C0.250781 1.125 0 1.37578 0 1.6875C0 1.99922 0.250781 2.25 0.5625 2.25H1.62422C1.71563 2.25 1.79297 2.31562 1.80937 2.40469L3.03047 9.11484C3.17578 9.91641 3.87422 10.5 4.68984 10.5H10.6875C10.9992 10.5 11.25 10.2492 11.25 9.9375C11.25 9.62578 10.9992 9.375 10.6875 9.375H4.68984C4.41797 9.375 4.18594 9.18047 4.13672 8.91328L4.01719 8.25H11.1328C11.8547 8.25 12.4734 7.73672 12.607 7.02656L13.3336 3.13828C13.4203 2.67656 13.0664 2.25 12.5953 2.25H2.92266L2.91328 2.20312C2.80078 1.57969 2.25703 1.125 1.62187 1.125H0.5625ZM4.875 13.5C5.49609 13.5 6 12.9961 6 12.375C6 11.7539 5.49609 11.25 4.875 11.25C4.25391 11.25 3.75 11.7539 3.75 12.375C3.75 12.9961 4.25391 13.5 4.875 13.5ZM10.125 13.5C10.7461 13.5 11.25 12.9961 11.25 12.375C11.25 11.7539 10.7461 11.25 10.125 11.25C9.50391 11.25 9 11.7539 9 12.375C9 12.9961 9.50391 13.5 10.125 13.5Z" fill="currentColor"/>
         </svg>
         {{ esc_html($product->add_to_cart_text()) }}
       </a>

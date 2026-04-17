@@ -1058,7 +1058,7 @@ body.menu-open {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 5px;
+  padding: 10px;
   background: #00a697;
   color: white;
   font-size: 14px;
@@ -2815,5 +2815,6 @@ p.demo_store {
 @import "./about.css";
 @import "./contact.css";
 @import "./page.css";
+@import "./page-404.css";
 @import "./blog.css";
 @import "./responsive.css";

@@ -24,6 +24,26 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
 }
 
+/* Pre-init: show only the first slide and lay out the wrapper like flex,
+   so the page doesn't flash a vertical stack before Swiper boots. */
+.hero-swiper:not(.swiper-initialized) .swiper-wrapper {
+  display: flex;
+}
+
+.hero-swiper:not(.swiper-initialized) .swiper-slide {
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+.hero-swiper:not(.swiper-initialized) .swiper-slide ~ .swiper-slide {
+  display: none;
+}
+
+.hero-swiper:not(.swiper-initialized) .hero-swiper__btn,
+.hero-swiper:not(.swiper-initialized) .hero-swiper__pagination {
+  visibility: hidden;
+}
+
 .hero-slide {
   display: block;
 }
@@ -159,6 +179,41 @@
   overflow: hidden;
 }
 
+/* Pre-init: lay out slides horizontally so the container reserves its
+   eventual height (no CLS for the content below). The "settling" between
+   our pre-init widths and Swiper's final widths is hidden behind the
+   fade-in below — the mismatch never becomes visible. */
+.home-slider__swiper:not(.swiper-initialized) .swiper-wrapper {
+  display: flex;
+}
+
+.home-slider__swiper:not(.swiper-initialized) .swiper-slide {
+  flex: 0 0 auto;
+  width: 50%;
+}
+
+@media (min-width: 768px) {
+  .home-slider__swiper:not(.swiper-initialized) .swiper-slide { width: 33.333%; }
+}
+
+@media (min-width: 1200px) {
+  .home-slider__swiper:not(.swiper-initialized) .swiper-slide { width: 25%; }
+}
+
+/* Fade-in choreography. Default hidden so the pre-init → Swiper-init layout
+   shift happens invisibly; revealed once Swiper's `init` callback fires
+   (JS adds `.is-ready` one frame after layout settles). The container
+   still reserves vertical space (opacity, not display), so no CLS below.
+   No-JS fallback: see <noscript> override in layouts/app.blade.php. */
+.home-slider__swiper {
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.home-slider__swiper.is-ready {
+  opacity: 1;
+}
+
 .home-slider__btn {
   position: absolute;
   top: 50%;
@@ -193,26 +248,27 @@
 .home-slider__btn--next { right: -23px; }
 
 .home-slider__pagination {
-  margin-top: 20px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
-  gap: 6px;
 }
 
 .home-slider__pagination .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: #d4d4d4;
-  opacity: 1;
+  background: #C4C4C4;
+  opacity: 0.8;
+  margin: 0 5px !important;
+  transition: all 0.3s ease;
   cursor: pointer;
-  transition: background 0.2s ease, width 0.25s ease;
 }
 
 .home-slider__pagination .swiper-pagination-bullet-active {
   background: var(--green);
-  width: 24px;
-  border-radius: 999px;
+  width: 28px;
+  border-radius: 30px;
+  opacity: 1;
 }
 
 /* ============================
@@ -273,7 +329,7 @@
 /* ============================
    Benefits strip — sizes preserved from legacy theme
    ============================ */
-.home-benefit {
+.swiper-slide.home-benefit {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -745,13 +801,18 @@ a.home-review__product-title:hover { color: var(--green); }
 }
 
 @media (max-width: 768px) {
-  .home-section { margin-bottom: 60px; }
+  .home-section { margin-bottom: 30px; }
   .home-section__title { font-size: 24px; }
   .home-category__thumb { width: 92px; height: 92px; }
   .home-category__name { font-size: 13px; }
-  .home-benefit { padding: 16px 18px; gap: 14px; }
+  .swiper-slide.home-benefit {
+    justify-content: center;
+    padding: 10px 14px;
+    gap: 12px;
+  }
   .home-benefit__icon { width: 36px; height: 36px; }
-  .home-benefit__title { font-size: 15px; }
+  .home-benefit__content { flex: 0 1 auto; }
+  .home-benefit__title { font-size: 15px; margin: 0 0 2px; }
   .home-benefit__description { font-size: 13px; }
   .home-promo-badges { top: 22px; left: 22px; }
   .home-promo-badge { font-size: 10px; padding: 3px 7px; }

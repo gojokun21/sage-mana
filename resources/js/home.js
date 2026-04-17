@@ -107,7 +107,12 @@ var HOME_SLIDER_OPTIONS = {
   'promo-products': HOME_PRODUCT_OPTIONS,
 };
 
-document.querySelectorAll('[data-home-swiper]').forEach(function (el) {
+/**
+ * Init each slider when it enters (or is near) the viewport. Spreads init
+ * cost across scrolling instead of a synchronous pile-up on load, and masks
+ * the layout "settling" with a CSS fade-in (see `.is-ready` in home.css).
+ */
+function initHomeSlider(el) {
   var name = el.getAttribute('data-home-swiper');
   var opts = HOME_SLIDER_OPTIONS[name];
   if (!opts) return;
@@ -128,11 +133,41 @@ document.querySelectorAll('[data-home-swiper]').forEach(function (el) {
           el: container.querySelector('[data-home-slider-pagination="' + name + '"]'),
           clickable: true,
         },
+        on: {
+          init: function () {
+            // Defer one frame so Swiper's layout settles before the fade-in.
+            requestAnimationFrame(function () {
+              el.classList.add('is-ready');
+            });
+          },
+        },
       },
       opts
     )
   );
-});
+}
+
+var homeSliders = document.querySelectorAll('[data-home-swiper]');
+
+if ('IntersectionObserver' in window && homeSliders.length) {
+  var io = new IntersectionObserver(
+    function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        initHomeSlider(entry.target);
+      });
+    },
+    { rootMargin: '300px 0px' }
+  );
+
+  homeSliders.forEach(function (el) {
+    io.observe(el);
+  });
+} else {
+  // Fallback (very old browsers): init everything up front.
+  homeSliders.forEach(initHomeSlider);
+}
 
 /* ---------------- Fancybox video (testimonials) ----------------
  * Fancybox binds declaratively via `data-fancybox` attributes.

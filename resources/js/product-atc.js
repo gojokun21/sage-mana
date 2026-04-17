@@ -23,6 +23,12 @@
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('a.mn-atc-btn');
     if (!btn) return;
+    // Variable and grouped strictly require per-variation/per-child input
+    // from the product page — let the browser follow the link. Bundles are
+    // AJAX-addable with their default configuration; if the plugin rejects
+    // the defaults, the error toast surfaces the reason.
+    if (btn.classList.contains('product_type_variable')) return;
+    if (btn.classList.contains('product_type_grouped')) return;
     if (!ready()) return;
     if (btn.classList.contains('loading')) { e.preventDefault(); return; }
 

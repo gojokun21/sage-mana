@@ -70,8 +70,6 @@
             <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-
-        <div class="hero-swiper__pagination" data-hero-pagination></div>
       </div>
     </section>
   @endif

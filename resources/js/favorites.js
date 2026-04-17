@@ -91,8 +91,20 @@
     var productId = parseInt(btn.dataset.productId, 10);
     if (!productId || inflight.has(productId)) return;
 
+    // Optimistic update — flip the heart immediately, revert on failure.
+    var wasActive = btn.classList.contains('is-active');
+    var willBeActive = !wasActive;
+    reflectState(productId, willBeActive);
+
+    var currentIds = Array.isArray(cfg.ids) ? cfg.ids.slice() : [];
+    var optimisticIds = willBeActive
+      ? currentIds.indexOf(productId) === -1 ? currentIds.concat(productId) : currentIds
+      : currentIds.filter(function (id) { return id !== productId; });
+    updateBadge(optimisticIds.length);
+    cfg.ids = optimisticIds;
+    showToast(willBeActive ? cfg.i18n.added : cfg.i18n.removed);
+
     inflight.add(productId);
-    btn.classList.add('is-loading');
 
     var form = new FormData();
     form.append('action', 'natura_favorites');
@@ -109,20 +121,23 @@
           throw new Error((res && res.data && res.data.message) || cfg.i18n.error);
         }
         var data = res.data;
+        // Reconcile with server truth (handles race conditions).
         reflectState(data.product_id, !!data.in);
         updateBadge(data.count);
         cfg.ids = data.ids || [];
-        showToast(data.in ? cfg.i18n.added : cfg.i18n.removed);
 
         if (!data.in) {
           removeCardFromList(data.product_id);
         }
       })
       .catch(function (err) {
+        // Revert optimistic change.
+        reflectState(productId, wasActive);
+        updateBadge(currentIds.length);
+        cfg.ids = currentIds;
         showToast((err && err.message) || cfg.i18n.error);
       })
       .finally(function () {
-        btn.classList.remove('is-loading');
         inflight.delete(productId);
       });
   }

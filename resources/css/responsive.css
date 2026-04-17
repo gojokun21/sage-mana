@@ -466,6 +466,10 @@
     font-size: 12px;
   }
   .home-reviews .home-slider__pagination { margin-top: 16px; }
+  .home-slider__pagination{ margin-top: 16px; }
+  .home-testimonial__overlay{display: none;}
+  .home-section__cta .btn-primary{ padding: 7px 30px; font-size: 14px;}
+  .benefits_wrap li, .benefits_wrap h2{font-size: 12px; line-height: 18px;}
 }
 
 @media (max-width: 480px) {

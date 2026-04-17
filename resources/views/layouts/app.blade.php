@@ -7,6 +7,8 @@
     @php(wp_head())
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <noscript><style>.home-slider__swiper{opacity:1 !important;}</style></noscript>
   </head>
 
   <body @php(body_class())>

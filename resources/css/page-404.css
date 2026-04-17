@@ -1,0 +1,183 @@
+/* ==========================================================================
+   404 page — centered hero, big badge, search + CTAs.
+   ========================================================================== */
+
+.error-404 {
+  padding: 80px 0 100px;
+}
+
+.error-404__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 40px;
+  background: #fff;
+  border-radius: 24px;
+  border: 1px solid #ececec;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.04);
+  text-align: center;
+}
+
+.error-404__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -4px;
+  color: var(--green);
+  background: linear-gradient(135deg, var(--green), var(--dark-green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+}
+
+.error-404__title {
+  margin: 0 0 14px;
+  font-size: 34px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+
+.error-404__subtitle {
+  margin: 0 auto 32px;
+  max-width: 520px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* ------ Search ------ */
+.error-404__search {
+  display: flex;
+  align-items: center;
+  max-width: 480px;
+  margin: 0 auto 28px;
+  background: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 58px;
+  padding: 4px 4px 4px 20px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.error-404__search:focus-within {
+  border-color: var(--green);
+  background: #fff;
+}
+
+.error-404__search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 10px 8px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #1a1a1a;
+  outline: none;
+}
+
+.error-404__search input::placeholder { color: #888; }
+
+.error-404__search button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 58px;
+  background: var(--green);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.error-404__search button:hover { background: var(--dark-green); }
+.error-404__search button svg { flex-shrink: 0; }
+
+/* ------ Actions ------ */
+.error-404__actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.error-404__actions .error-404__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  min-height: 46px;
+  padding: 11px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  border-radius: 58px;
+  box-sizing: border-box;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.error-404__btn--ghost {
+  background: transparent;
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.error-404__btn--ghost:hover {
+  background: var(--green);
+  color: #fff;
+}
+
+/* ------ Secondary links ------ */
+.error-404__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  padding-top: 24px;
+  border-top: 1px solid #efefef;
+  font-size: 14px;
+  color: #777;
+}
+
+.error-404__links a {
+  color: var(--green);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.error-404__links a:hover { color: var(--dark-green); text-decoration: underline; }
+
+/* ------ Screen-reader only ------ */
+.error-404 .sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------ Responsive ------ */
+@media (max-width: 640px) {
+  .error-404 { padding: 40px 0 60px; }
+  .error-404__inner { padding: 36px 20px; border-radius: 18px; }
+  .error-404__badge { font-size: 84px; letter-spacing: -2px; }
+  .error-404__title { font-size: 24px; }
+  .error-404__subtitle { font-size: 15px; }
+
+  .error-404__search { padding-left: 14px; }
+  .error-404__search button { padding: 9px 14px; }
+  .error-404__search button span { display: none; }
+
+  .error-404__actions { flex-direction: column; }
+  .error-404__actions .error-404__btn { width: 100%; min-width: 0; }
+}

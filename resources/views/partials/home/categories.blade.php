@@ -50,6 +50,8 @@
           <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
+
+      <div class="home-slider__pagination" data-home-slider-pagination="categories"></div>
     </div>
   </section>
 @endif

@@ -193,6 +193,11 @@ import 'swiper/css/pagination';
           900: { slidesPerView: 3, spaceBetween: 24 },
           1200: { slidesPerView: 4, spaceBetween: 24 },
         },
+        on: {
+          init() {
+            requestAnimationFrame(() => testimonialsEl.classList.add('is-ready'));
+          },
+        },
       });
     }
 
@@ -207,6 +212,11 @@ import 'swiper/css/pagination';
         observeParents: true,
         loop: reviewsEl.querySelectorAll('.swiper-slide').length > 1,
         autoplay: { delay: 5000, disableOnInteraction: false },
+        on: {
+          init() {
+            requestAnimationFrame(() => reviewsEl.classList.add('is-ready'));
+          },
+        },
       });
     }
 
