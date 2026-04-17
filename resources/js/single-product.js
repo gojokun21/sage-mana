@@ -110,6 +110,11 @@ import 'swiper/css/pagination';
       observeSlideChildren: true,
       loop: reviewsEl.querySelectorAll('.swiper-slide').length > 1,
       autoplay: { delay: 5000, disableOnInteraction: false },
+      on: {
+        init() {
+          requestAnimationFrame(() => reviewsEl.classList.add('is-ready'));
+        },
+      },
     });
   };
 
