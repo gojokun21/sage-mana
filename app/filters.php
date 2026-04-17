@@ -105,3 +105,44 @@ add_filter('pings_open', function ($open, $post_id) {
 add_filter('comments_array', function ($comments, $post_id) {
     return get_post_type($post_id) === 'post' ? [] : $comments;
 }, 10, 2);
+
+/**
+ * Show 13 products per page on shop and product archives.
+ */
+add_filter('loop_shop_per_page', fn () => 15, 20);
+
+/**
+ * On the shop and category archives, list simple/variable products first and
+ * bundle products at the end, while preserving the active sort within each
+ * group. Bundles are detected via the WooCommerce `product_type` taxonomy.
+ */
+add_filter('posts_clauses', function ($clauses, $query) {
+    if (is_admin() || !$query->is_main_query()) {
+        return $clauses;
+    }
+
+    if (!is_shop() && !is_product_taxonomy()) {
+        return $clauses;
+    }
+
+    $term = get_term_by('slug', 'bundle', 'product_type');
+    if (!$term) {
+        return $clauses;
+    }
+
+    global $wpdb;
+
+    $clauses['join'] .= $wpdb->prepare(
+        " LEFT JOIN {$wpdb->term_relationships} AS sage_bundle_tr
+            ON {$wpdb->posts}.ID = sage_bundle_tr.object_id
+           AND sage_bundle_tr.term_taxonomy_id = %d ",
+        $term->term_taxonomy_id
+    );
+
+    $bundle_flag = '(CASE WHEN sage_bundle_tr.object_id IS NULL THEN 0 ELSE 1 END)';
+    $clauses['orderby'] = $bundle_flag . ' ASC'
+        . (!empty($clauses['orderby']) ? ', ' . $clauses['orderby'] : '');
+    $clauses['groupby'] = "{$wpdb->posts}.ID";
+
+    return $clauses;
+}, 10, 2);

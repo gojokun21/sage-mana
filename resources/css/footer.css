@@ -169,7 +169,18 @@
 .footer_social a:hover {
   background: var(--green);
   color: #fff;
+  border-color: var(--green);
   transform: translateY(-3px);
+}
+
+.footer_social a img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.footer_social a:hover img {
+  filter: brightness(0) invert(1);
 }
 
 /* ============================

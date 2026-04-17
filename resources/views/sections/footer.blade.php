@@ -223,18 +223,18 @@
 
                 <div class="footer_social">
                   @if ($link_fb)
-                    <a href="{{ esc_url($link_fb) }}" target="_blank" rel="noopener" aria-label="{{ __('Facebook', 'sage') }}">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5h1.6V4.6c-.8-.1-1.6-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.4H7.8V14h2.7v8h3z"/></svg>
+                    <a aria-label="{{ __('Deschide pagina noastră de Facebook', 'sage') }}" href="{{ esc_url($link_fb) }}" target="_blank" rel="noopener">
+                      <img src="{{ esc_url($tpl_uri . '/resources/images/icons/facebook.svg') }}" alt="">
                     </a>
                   @endif
                   @if ($link_ig)
-                    <a href="{{ esc_url($link_ig) }}" target="_blank" rel="noopener" aria-label="{{ __('Instagram', 'sage') }}">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+                    <a aria-label="{{ __('Deschide profilul nostru de Instagram', 'sage') }}" href="{{ esc_url($link_ig) }}" target="_blank" rel="noopener">
+                      <img src="{{ esc_url($tpl_uri . '/resources/images/icons/instagram.svg') }}" alt="">
                     </a>
                   @endif
                   @if ($link_tt)
-                    <a href="{{ esc_url($link_tt) }}" target="_blank" rel="noopener" aria-label="{{ __('TikTok', 'sage') }}">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.3 8.4a5.4 5.4 0 0 1-3.1-1v7a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .8.1v3c-.3-.1-.5-.1-.8-.1a2.5 2.5 0 1 0 2.5 2.5V2h3a5.4 5.4 0 0 0 3.1 4.4v2z"/></svg>
+                    <a aria-label="{{ __('Deschide profilul nostru de TikTok', 'sage') }}" href="{{ esc_url($link_tt) }}" target="_blank" rel="noopener">
+                      <img src="{{ esc_url($tpl_uri . '/resources/images/icons/tiktok.svg') }}" alt="">
                     </a>
                   @endif
                 </div>
