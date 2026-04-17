@@ -863,6 +863,161 @@
 }
 
 /* ==========================================================================
+   Edit Address form — card layout matching edit-account
+   ========================================================================== */
+
+.woocommerce-MyAccount-content .woocommerce-address-fields {
+  background: #fff;
+  border: 1px solid #eceef1;
+  border-radius: 18px;
+  padding: 28px 32px 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.woocommerce-MyAccount-content form:has(> .woocommerce-address-fields) > h2 {
+  margin: 0 0 18px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #eceef1;
+}
+
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 0;
+  margin-top: 6px;
+}
+
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper .form-row {
+  margin-bottom: 16px;
+}
+
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper .form-row-wide,
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper #wc_order_billing_tip_facturare_fgo_client_field,
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper #billing_company_field,
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper #wc_order_billing_cui_fgo_client_field,
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper #wc_order_nr_reg_comertului_fgo_client_field,
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper #billing_address_1_field,
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper #billing_address_2_field,
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper #billing_country_field,
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper #billing_email_field,
+.woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper #billing_phone_field {
+  grid-column: 1 / -1;
+}
+
+.woocommerce-MyAccount-content .woocommerce-address-fields .form-row-first,
+.woocommerce-MyAccount-content .woocommerce-address-fields .form-row-last {
+  width: 100%;
+  float: none;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.woocommerce-MyAccount-content .woocommerce-address-fields label.required_field,
+.woocommerce-MyAccount-content .woocommerce-address-fields label.screen-reader-text {
+  position: static;
+  clip: auto;
+  height: auto;
+  width: auto;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #55606b;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+.woocommerce-MyAccount-content .woocommerce-address-fields .form-row .required,
+.woocommerce-MyAccount-content .woocommerce-address-fields .form-row abbr.required {
+  color: #c53030;
+  text-decoration: none;
+  margin-left: 2px;
+}
+
+.woocommerce-MyAccount-content .woocommerce-address-fields .form-row .optional {
+  color: #98a0ab;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 4px;
+}
+
+/* Select2 single select — match height + radius */
+.woocommerce-MyAccount-content .woocommerce-address-fields .select2-container--default .select2-selection--single {
+  height: 46px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.woocommerce-MyAccount-content .woocommerce-address-fields .select2-container--default .select2-selection--single .select2-selection__rendered {
+  padding: 0;
+  font-size: 15px;
+  color: #1a1a1a;
+  line-height: 1.4;
+}
+
+.woocommerce-MyAccount-content .woocommerce-address-fields .select2-container--default .select2-selection--single .select2-selection__arrow {
+  top: 50%;
+  right: 10px;
+  height: 100%;
+  transform: translateY(-50%);
+}
+
+.woocommerce-MyAccount-content .woocommerce-address-fields .select2-container--default.select2-container--focus .select2-selection--single,
+.woocommerce-MyAccount-content .woocommerce-address-fields .select2-container--default.select2-container--open .select2-selection--single {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(56, 99, 86, 0.08);
+}
+
+/* Submit row */
+.woocommerce-MyAccount-content form:has(> .woocommerce-address-fields) > p:last-child {
+  margin: 20px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #eceef1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.woocommerce-MyAccount-content form:has(> .woocommerce-address-fields) button[type="submit"] {
+  height: 44px;
+  padding: 0 24px;
+  background: var(--green);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.woocommerce-MyAccount-content form:has(> .woocommerce-address-fields) button[type="submit"]:hover {
+  background: var(--dark-green);
+}
+
+/* Responsive: single column on narrow screens */
+@media (max-width: 640px) {
+  .woocommerce-MyAccount-content .woocommerce-address-fields {
+    padding: 22px 18px 18px;
+  }
+  .woocommerce-MyAccount-content .woocommerce-address-fields__field-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .woocommerce-MyAccount-content form:has(> .woocommerce-address-fields) > p:last-child {
+    justify-content: stretch;
+  }
+  .woocommerce-MyAccount-content form:has(> .woocommerce-address-fields) button[type="submit"] {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
    View Order page — single order view inside My Account
    ========================================================================== */
 

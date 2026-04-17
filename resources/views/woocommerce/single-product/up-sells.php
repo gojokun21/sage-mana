@@ -2,53 +2,65 @@
 /**
  * Single Product Up-Sells
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product/up-sells.php.
+ * Custom: rendered as Swiper slider to match `.related_products_slider`.
+ * Init lives in resources/js/single-product.js.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see         https://woocommerce.com/document/template-structure/
- * @package     WooCommerce\Templates
- * @version     9.6.0
+ * @see https://woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates
+ * @version 9.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( $upsells ) : ?>
+$upsells = is_array( $upsells )
+	? array_filter( $upsells, function ( $p ) {
+		return $p instanceof WC_Product && $p->is_visible();
+	} )
+	: array();
+
+if ( ! empty( $upsells ) ) : ?>
 
 	<section class="up-sells upsells products">
-		<?php
-		$heading = apply_filters( 'woocommerce_product_upsells_products_heading', __( 'You may also like&hellip;', 'woocommerce' ) );
 
-		if ( $heading ) :
-			?>
-			<h2><?php echo esc_html( $heading ); ?></h2>
-		<?php endif; ?>
+		<div class="upsells-header">
+			<?php
+			$heading = apply_filters( 'woocommerce_product_upsells_products_heading', __( 'You may also like&hellip;', 'woocommerce' ) );
 
-		<?php woocommerce_product_loop_start(); ?>
+			if ( $heading ) : ?>
+				<h2 class="upsells-heading"><?php echo esc_html( $heading ); ?></h2>
+			<?php endif; ?>
+			<div class="upsells-nav-arrows">
+				<div class="swiper-button-prev upsells-prev">
+					<img src="<?php echo get_template_directory_uri(); ?>/assets/images/left-nav.svg" alt="">
+				</div>
+				<div class="swiper-button-next upsells-next">
+					<img src="<?php echo get_template_directory_uri(); ?>/assets/images/right-nav.svg" alt="">
+				</div>
+			</div>
+		</div>
 
-			<?php foreach ( $upsells as $upsell ) : ?>
-
-				<?php
-				$post_object = get_post( $upsell->get_id() );
-
-				setup_postdata( $GLOBALS['post'] = $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
-
-				wc_get_template_part( 'content', 'product' );
-				?>
-
-			<?php endforeach; ?>
-
-		<?php woocommerce_product_loop_end(); ?>
+		<div class="swiper upsells_products_slider">
+			<div class="swiper-wrapper">
+				<?php foreach ( $upsells as $upsell ) : ?>
+					<?php
+					$post_object = get_post( $upsell->get_id() );
+					setup_postdata( $GLOBALS['post'] = $post_object ); // phpcs:ignore
+					?>
+					<div class="swiper-slide upsells-slide">
+						<ul class="products upsells-slide__list">
+							<?php wc_get_template_part( 'content', 'product' ); ?>
+						</ul>
+					</div>
+				<?php endforeach; ?>
+			</div>
+			<div class="swiper-pagination upsells-pagination"></div>
+		</div>
 
 	</section>
 
-	<?php
+<?php
 endif;
 
 wp_reset_postdata();

@@ -91,6 +91,7 @@ var HOME_SLIDER_OPTIONS = {
   testimonials: {
     slidesPerView: 2,
     spaceBetween: 12,
+    centerInsufficientSlides: true,
     breakpoints: {
       640: { slidesPerView: 2, spaceBetween: 20 },
       900: { slidesPerView: 3, spaceBetween: 24 },

@@ -62,6 +62,30 @@ function mini_cart_handler(): void
                     wp_send_json_error(['message' => __('Produs invalid', 'sage')]);
                 }
 
+                // Pre-check bundle aggregate stock explicitly — WC's filter
+                // chain can be bypassed by third-party plugins when the
+                // bundle itself doesn't manage stock, so we run the same
+                // logic here before add_to_cart() runs.
+                if (function_exists(__NAMESPACE__ . '\\bundle_cart_available')) {
+                    $product_for_check = wc_get_product($product_id);
+                    if ($product_for_check) {
+                        $available = bundle_cart_available($product_for_check);
+                        if ($available !== null && $qty > $available) {
+                            $message = $available > 0
+                                ? sprintf(
+                                    __('Poți adăuga maxim %1$d bucăți din "%2$s". Stoc disponibil: %1$d.', 'sage'),
+                                    $available,
+                                    $product_for_check->get_name()
+                                )
+                                : sprintf(
+                                    __('"%s" este deja în coș la cantitatea maximă disponibilă.', 'sage'),
+                                    $product_for_check->get_name()
+                                );
+                            wp_send_json_error(['message' => $message]);
+                        }
+                    }
+                }
+
                 $added = $cart->add_to_cart($product_id, $qty, $variation_id, $variation);
                 if (! $added) {
                     $notices = wc_get_notices('error');
@@ -92,6 +116,36 @@ function mini_cart_handler(): void
                     if ($qty <= 0) {
                         $cart->remove_cart_item($key);
                     } else {
+                        $values = $cart->cart_contents[$key];
+                        $product_for_check = $values['data'] ?? null;
+
+                        // Explicit bundle-stock pre-check for updates (same
+                        // reasoning as the 'add' branch above).
+                        if ($product_for_check instanceof \WC_Product
+                            && function_exists(__NAMESPACE__ . '\\bundle_cart_available')) {
+                            $existing_qty = (int) ($values['quantity'] ?? 0);
+                            $available = bundle_cart_available($product_for_check, $existing_qty);
+                            if ($available !== null && $qty > $available) {
+                                wp_send_json_error([
+                                    'message' => sprintf(
+                                        __('Cantitatea maximă disponibilă pentru "%1$s" este %2$d.', 'sage'),
+                                        $product_for_check->get_name(),
+                                        $available
+                                    ),
+                                ]);
+                            }
+                        }
+
+                        $passed = apply_filters('woocommerce_update_cart_validation', true, $key, $values, $qty);
+                        if (! $passed) {
+                            $notices = wc_get_notices('error');
+                            wc_clear_notices();
+                            $raw = ! empty($notices) ? ($notices[0]['notice'] ?? '') : '';
+                            $message = $raw
+                                ? html_entity_decode(wp_strip_all_tags($raw), ENT_QUOTES, 'UTF-8')
+                                : __('Cantitatea nu poate fi actualizată.', 'sage');
+                            wp_send_json_error(['message' => $message]);
+                        }
                         $cart->set_quantity($key, $qty, true);
                     }
                 }

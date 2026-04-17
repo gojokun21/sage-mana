@@ -94,7 +94,6 @@ a {
 }
 
 .main_menu {
-  padding-top: 16px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -997,8 +996,8 @@ body.menu-open {
   font-weight: 500;
 }
 .product-card img {
-  width: 180px;
-  height: 180px;
+  width: 260px;
+  height: 260px;
   object-fit: contain;
 }
 
@@ -1386,8 +1385,12 @@ body.menu-open {
 
 .single_products_container {
   display: flex;
+  align-items: flex-start;
 }
-.woocommerce-product-gallery { width: 50%; }
+.woocommerce-product-gallery {
+  width: 50%;
+  opacity: 1 !important;
+}
 .woocommerce div.product div.summary { width: 50%; }
 
 .summary_white {
@@ -1486,6 +1489,7 @@ body.menu-open {
 .product-main-swiper img {
   width: 100%;
   height: auto;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -2115,6 +2119,116 @@ body.menu-open {
 .related-pagination .swiper-pagination-bullet-active { background: var(--green); }
 
 /* ==========================================================================
+   Up-sells slider — "S-ar putea să-ți placă și..."
+   ========================================================================== */
+
+.up-sells.upsells {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  position: relative;
+}
+
+.upsells-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.upsells-heading {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+
+.upsells-nav-arrows {
+  display: flex;
+  gap: 12px;
+}
+
+.upsells-prev,
+.upsells-next {
+  position: static;
+  width: 48px;
+  height: 48px;
+  background: var(--green);
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.upsells-prev:hover,
+.upsells-next:hover {
+  background: var(--dark-green);
+  border-color: var(--dark-green);
+}
+
+.upsells-prev img,
+.upsells-next img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.upsells-prev::after,
+.upsells-next::after { display: none; }
+
+.upsells-prev .swiper-navigation-icon,
+.upsells-next .swiper-navigation-icon { display: none; }
+
+.upsells-prev.swiper-button-disabled,
+.upsells-next.swiper-button-disabled { opacity: 0.35; cursor: not-allowed; }
+
+.upsells_products_slider { overflow: hidden; }
+
+.upsells_products_slider .swiper-slide { height: auto; }
+
+.upsells-slide__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.up-sells .product-card {
+  padding: 16px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  height: 100%;
+}
+
+.upsells-pagination {
+  position: relative !important;
+  bottom: 0;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.upsells-pagination .swiper-pagination-bullet {
+  background: #ccc;
+  opacity: 1;
+  transition: background 0.2s ease;
+}
+
+.upsells-pagination .swiper-pagination-bullet-active { background: var(--green); }
+
+@media (max-width: 900px) {
+  .upsells-heading { font-size: 22px; }
+  .upsells-header { gap: 16px; margin-bottom: 20px; }
+  .upsells-prev,
+  .upsells-next { width: 40px; height: 40px; }
+  .upsells-prev img,
+  .upsells-next img { width: 16px; height: 16px; }
+}
+
+/* ==========================================================================
    Ingredient tab table (custom tab: Ingrediente)
    ========================================================================== */
 
@@ -2668,6 +2782,25 @@ p.demo_store {
   margin: 0 auto;
 }
 
+.woocommerce-cart .single_page{
+  padding: 0;
+}
+
+.woocommerce-dashboard .single_page{
+  padding: 0;
+}
+
+.woocommerce-dashboard .page-header h1{
+  margin-bottom: 0;
+}
+
+.cmplz-manage-consent {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+@import "./toast.css";
 @import "./mini-cart.css";
 @import "./cart-modal.css";
 @import "./qty-stepper.css";

@@ -1,0 +1,79 @@
+.natura-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translate(-50%, 20px);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.25s ease;
+  /* Above mini-cart drawer (9999), cart modal, and WC overlays. */
+  z-index: 100000;
+  max-width: calc(100vw - 32px);
+  text-align: center;
+}
+
+/* When the mini-cart drawer is open it takes the full viewport on mobile
+   and 420px on desktop — reposition the toast so it isn't hidden behind
+   the drawer footer / buttons. */
+body.mini-cart-open .natura-toast {
+  bottom: auto;
+  top: 24px;
+  transform: translate(-50%, -20px);
+}
+
+body.mini-cart-open .natura-toast.is-visible {
+  transform: translate(-50%, 0);
+}
+
+.natura-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.natura-toast--error {
+  background: #b91c1c;
+}
+
+.natura-toast--success {
+  background: #16a34a;
+}
+
+/* Mobile: longer messages wrap awkwardly inside the pill — switch to a
+   rounded rectangle that spans most of the viewport with more breathing
+   room so Romanian diacritics don't feel cramped. */
+@media (max-width: 640px) {
+  .natura-toast {
+    left: 16px;
+    right: 16px;
+    bottom: 20px;
+    transform: translateY(20px);
+    width: auto;
+    max-width: none;
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .natura-toast.is-visible {
+    transform: translateY(0);
+  }
+
+  body.mini-cart-open .natura-toast {
+    top: 16px;
+    bottom: auto;
+    transform: translateY(-20px);
+  }
+
+  body.mini-cart-open .natura-toast.is-visible {
+    transform: translateY(0);
+  }
+}

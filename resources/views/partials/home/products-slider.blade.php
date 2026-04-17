@@ -76,7 +76,9 @@
                 </div>
               @endif
 
-              @php wc_get_template_part('content', 'product') @endphp
+              <ul class="products home-product-slide__list">
+                @php wc_get_template_part('content', 'product') @endphp
+              </ul>
             </div>
           @endwhile
 

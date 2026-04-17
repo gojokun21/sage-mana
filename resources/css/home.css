@@ -77,7 +77,7 @@
 
 /* Pagination bullets */
 .hero-swiper__pagination {
-  display: none;
+  display: flex;
   position: absolute;
   bottom: 20px;
   left: 0;
@@ -88,9 +88,9 @@
   padding: 0 20px;
 }
 
-@media (min-width: 1366px) {
+@media (min-width: 1200px) {
   .hero-swiper__pagination {
-    display: flex;
+    display: none;
   }
 }
 
@@ -248,7 +248,7 @@
   height: 120px;
   border-radius: 16px;
   overflow: hidden;
-  margin-bottom: 18px;
+  margin-bottom: 5px;
   background: #f7f7f8;
 }
 
@@ -685,6 +685,15 @@ a.home-review__product-title:hover { color: var(--green); }
   height: 100%;
 }
 
+/* Reset default <ul> styling — the list only exists for valid HTML
+   (content-product renders an <li> root). */
+.home-product-slide__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 /* ============================
    Promo badges — "Populare" / "Promoție" overlay on each card.
    ============================ */
@@ -739,7 +748,7 @@ a.home-review__product-title:hover { color: var(--green); }
   .home-section { margin-bottom: 60px; }
   .home-section__title { font-size: 24px; }
   .home-category__thumb { width: 92px; height: 92px; }
-  .home-category__name { font-size: 15px; }
+  .home-category__name { font-size: 13px; }
   .home-benefit { padding: 16px 18px; gap: 14px; }
   .home-benefit__icon { width: 36px; height: 36px; }
   .home-benefit__title { font-size: 15px; }

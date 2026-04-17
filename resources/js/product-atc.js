@@ -101,26 +101,10 @@
     }, 1400);
   }
 
-  /* ---------------- Error toast ---------------- */
-
-  var toastEl = null;
-  var toastTimer = null;
-
   function showAddError(message) {
-    if (!toastEl) {
-      toastEl = document.createElement('div');
-      toastEl.className = 'mn-atc-toast';
-      toastEl.setAttribute('role', 'alert');
-      toastEl.setAttribute('aria-live', 'assertive');
-      document.body.appendChild(toastEl);
+    if (window.NaturaToast && typeof window.NaturaToast.show === 'function') {
+      window.NaturaToast.show(message, { variant: 'error', duration: 4000 });
     }
-    toastEl.textContent = message;
-    toastEl.classList.add('is-visible');
-
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () {
-      toastEl.classList.remove('is-visible');
-    }, 4000);
   }
 
   // Dispatch WC's `added_to_cart` jQuery event so cart-modal.js can open
@@ -165,7 +149,7 @@
         } else if (data) {
           // Request went through but cart count didn't change — likely a
           // validation block (stock, min/max, variation requirement, etc.).
-          showAddError('Produsul nu a putut fi adăugat.');
+          showAddError('Ai atins cantitatea maximă disponibilă.');
         }
       })
       .catch(function (err) {

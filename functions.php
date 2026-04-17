@@ -50,7 +50,7 @@ Application::configure()
 |
 */
 
-collect(['setup', 'filters', 'permalinks', 'ajax-search', 'woocommerce-tabs', 'mini-cart', 'cart-modal', 'favorites', 'cart', 'checkout', 'home', 'auth'])
+collect(['setup', 'filters', 'permalinks', 'ajax-search', 'woocommerce-tabs', 'mini-cart', 'cart-modal', 'favorites', 'cart', 'checkout', 'home', 'auth', 'bundle-stock'])
     ->each(function ($file) {
         if (! locate_template($file = "app/{$file}.php", true, true)) {
             wp_die(

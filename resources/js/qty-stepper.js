@@ -26,13 +26,21 @@
     var current = parseFloat(input.value);
     if (isNaN(current)) current = isFinite(min) ? min : 0;
 
-    var next = clamp(
-      direction === 'inc' ? current + stepVal : current - stepVal,
-      isFinite(min) ? min : 0,
-      max
-    );
+    var requested = direction === 'inc' ? current + stepVal : current - stepVal;
+    var next = clamp(requested, isFinite(min) ? min : 0, max);
 
-    if (next === current) return;
+    if (next === current) {
+      // Hit a boundary — surface a toast so the user knows why the
+      // stepper "did nothing". Only for the upper bound (stock limit).
+      if (direction === 'inc' && requested > max
+          && window.NaturaToast && typeof window.NaturaToast.show === 'function') {
+        window.NaturaToast.show(
+          'Ai atins cantitatea maximă disponibilă.',
+          { variant: 'error', duration: 3000 }
+        );
+      }
+      return;
+    }
 
     input.value = next;
     input.dispatchEvent(new Event('input', { bubbles: true }));

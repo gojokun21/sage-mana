@@ -369,6 +369,19 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 })();
 
+/* ==================== COMPLIANZ CONSENT REOPEN ==================== */
+(function () {
+  var link = document.querySelector('.open-consent');
+  if (!link) return;
+
+  link.addEventListener('click', function (e) {
+    var btn = document.querySelector('.cmplz-manage-consent');
+    if (!btn) return;
+    e.preventDefault();
+    btn.click();
+  });
+})();
+
 /* ==================== SHOP FILTER TOGGLE (mobile) ==================== */
 (function () {
   var toggle = document.getElementById('filterToggle');
@@ -384,6 +397,9 @@ document.addEventListener('DOMContentLoaded', function () {
   toggle.setAttribute('aria-controls', 'shopFilter');
   toggle.setAttribute('aria-expanded', 'false');
 })();
+
+/* ==================== EAGER: TOAST (global) ==================== */
+import('./toast.js');
 
 /* ==================== LAZY: MINI CART ==================== */
 if (document.getElementById('miniCartDrawer')) {
@@ -451,6 +467,7 @@ if (document.querySelector('.mn-atc-btn, form.cart')) {
 if (
   document.querySelector('.product-main-swiper') ||
   document.querySelector('.related_products_slider') ||
+  document.querySelector('.upsells_products_slider') ||
   document.querySelector('.custom-product-tabs') ||
   document.getElementById('sticky-price-container')
 ) {

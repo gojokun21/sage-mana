@@ -177,6 +177,7 @@ import 'swiper/css/pagination';
         speed: 500,
         grabCursor: true,
         watchOverflow: true,
+        centerInsufficientSlides: true,
         observer: true,
         observeParents: true,
         navigation: {

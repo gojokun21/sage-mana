@@ -275,8 +275,59 @@
 }
 
 @media (max-width: 640px) {
+  .modal-buttons{
+    flex-direction: column;
+  }
+  .btn-green{
+    text-align: center;
+  }
+  .modal-overlay .modal-alert.success{
+    width: 52%;
+  }
   .home-testimonial__thumb img{
-    height: 300px;
+    height: 250px;
+  }
+  .product-card h3{
+    font-size: 14px;
+  }
+  .home-categories{
+    margin-bottom: 30px;
+  }
+  .home-testimonial__play {
+    width: 50px;
+    height: 50px;
+  }
+  .home-testimonial__play img,
+  .home-testimonial__play svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .upsell-discount-badge{
+    padding: 5px;
+  }
+
+  .woocommerce-ajax-add-to-cart {
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+  .woocommerce-ajax-add-to-cart .mn-qty-wrap {
+    flex: 0 0 45%;
+    min-width: 0;
+  }
+  .woocommerce-ajax-add-to-cart .mn-qty-wrap .qty-stepper {
+    display: flex;
+    width: 100%;
+    border-radius: 58px;
+  }
+  .woocommerce-ajax-add-to-cart .mn-qty-wrap .qty-stepper__input {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+  .woocommerce-ajax-add-to-cart .mn-atc-btn {
+    padding-left: 16px;
+    padding-right: 16px;
   }
   .sort_wrapper {
     flex-direction: column;
@@ -301,6 +352,12 @@
   .menu__left .shopping-cart > span:not(.cart_icon_wrapper) {
     display: none;
   }
+
+  .related .product-card{
+    padding: 8px;
+  }
+
+
 
   .menu__left {
     gap: 10px;
@@ -343,7 +400,7 @@
   }
   .protocol_badge svg { width: 10px; height: 12px; }
   .protocol_badge_product { width: 100%; }
-  .home-category__link{padding: 10px;}
+  .home-category__link{padding: 10px;justify-content: flex-start;}
 
   .summary_white { padding: 16px; }
   .summary_white .price_custom { margin-top: 26px; margin-bottom: 12px; }
@@ -370,6 +427,13 @@
   .hero-slide img{
     height: auto;
   }
+  .modal-buttons{
+    flex-direction: column;
+    text-align: center;
+  }
+  .page-header h1{
+    font-size: 26px;
+  }
   .home-banner__content p:nth-child(2),
   .home-banner__content p:nth-child(3) {
     display: none;
@@ -381,6 +445,27 @@
   .home-banner__right img{
     min-height: 282px;
   }
+
+  .home-reviews { margin-bottom: 48px; }
+  .home-review { padding: 18px 16px; border-radius: 16px; }
+  .home-review__head { gap: 12px; }
+  .home-review__avatar { width: 42px; height: 42px; }
+  .home-review__name { font-size: 16px; }
+  .home-review__content {
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .home-review__divider { margin: 16px 0; }
+  .home-review__product { gap: 10px; }
+  .home-review__product-thumb { width: 64px; height: 64px; }
+  .home-review__product-title { font-size: 14px; }
+  .home-review__product-price { font-size: 13px; }
+  .home-review__cta {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+  .home-reviews .home-slider__pagination { margin-top: 16px; }
 }
 
 @media (max-width: 480px) {

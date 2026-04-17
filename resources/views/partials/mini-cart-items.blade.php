@@ -34,6 +34,15 @@
         $thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'woocommerce_thumbnail') : wc_placeholder_img_src();
         $permalink = $product->is_visible() ? $product->get_permalink($item) : '';
         $line_total = WC()->cart->get_product_subtotal($product, $item['quantity']);
+        $item_max = $product->get_max_purchase_quantity();
+        $item_max = ($item_max > 0) ? (int) $item_max : '';
+
+        $total_sales = (int) $product->get_total_sales();
+        $sales_label = $total_sales > 0
+          ? ($total_sales === 1
+              ? __('1 persoană a cumpărat acest produs', 'sage')
+              : sprintf(__('%d persoane au cumpărat acest produs', 'sage'), $total_sales))
+          : '';
       @endphp
 
       <li class="mini-cart-item" data-cart-item-key="{{ $key }}">
@@ -46,6 +55,15 @@
             {{ $product->get_name() }}
           </a>
 
+          @if ($sales_label)
+            <div class="mini-cart-item__sales">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M17 20h5v-2a4 4 0 0 0-3-3.87M9 20H3v-2a4 4 0 0 1 3-3.87m3 5.87a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm7-8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>{{ $sales_label }}</span>
+            </div>
+          @endif
+
           @if ($item['variation'] ?? false)
             <div class="mini-cart-item__meta">
               {!! wc_get_formatted_cart_item_data($item) !!}
@@ -57,6 +75,7 @@
               'name' => 'quantity',
               'value' => $item['quantity'],
               'min' => 0,
+              'max' => $item_max,
               'size' => 'sm',
               'input_class' => 'mini-cart-qty-input',
               'input_attrs' => ['data-mini-cart-qty-input' => '1', 'aria-label' => __('Cantitate', 'sage')],
@@ -75,10 +94,33 @@
     @endforeach
   </ul>
 
+  @php
+    $needs_shipping = $cart->needs_shipping();
+    $shipping_total_html = $needs_shipping ? $cart->get_cart_shipping_total() : '';
+  @endphp
+
   <footer class="mini-cart-footer">
-    <div class="mini-cart-footer__subtotal">
+    <div class="mini-cart-footer__row">
       <span>{{ __('Subtotal', 'sage') }}</span>
       <strong data-mini-cart-subtotal>{!! $cart->get_cart_subtotal() !!}</strong>
+    </div>
+
+    @if ($needs_shipping)
+      <div class="mini-cart-footer__row">
+        <span>{{ __('Livrare', 'sage') }}</span>
+        <strong data-mini-cart-shipping>
+          @if ($shipping_total_html)
+            {!! $shipping_total_html !!}
+          @else
+            {{ __('Se calculează la checkout', 'sage') }}
+          @endif
+        </strong>
+      </div>
+    @endif
+
+    <div class="mini-cart-footer__row mini-cart-footer__total">
+      <span>{{ __('Total', 'sage') }}</span>
+      <strong data-mini-cart-total>{!! $cart->get_total() !!}</strong>
     </div>
 
     <div class="mini-cart-footer__actions">

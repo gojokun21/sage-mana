@@ -67,6 +67,32 @@ import 'swiper/css/pagination';
   });
 })();
 
+/* ==================== UP-SELLS (SWIPER) ==================== */
+(function () {
+  const upsellsEl = document.querySelector('.upsells_products_slider');
+  if (!upsellsEl) return;
+
+  new Swiper(upsellsEl, {
+    modules: [Navigation, Pagination],
+    slidesPerView: 2,
+    spaceBetween: 12,
+    watchOverflow: true,
+    navigation: {
+      prevEl: '.upsells-prev',
+      nextEl: '.upsells-next',
+    },
+    pagination: {
+      el: '.upsells-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      640: { slidesPerView: 2, spaceBetween: 15 },
+      1024: { slidesPerView: 3, spaceBetween: 20 },
+      1280: { slidesPerView: 4, spaceBetween: 30 },
+    },
+  });
+})();
+
 /* ==================== REVIEWS SLIDER (shared with home) ==================== */
 (function () {
   const reviewsEl = document.querySelector('.home-reviews [data-home-swiper="reviews"]');
@@ -196,6 +222,34 @@ import 'swiper/css/pagination';
     });
   }
 
+  // Call the mini-cart add endpoint directly. Independent of mini-cart.js
+  // load state to avoid a race when the user clicks the sticky bar before
+  // the lazy-loaded drawer script is ready.
+  function addViaEndpoint(productId, qty) {
+    var cfg = window.natura_mini_cart;
+    if (!cfg) return Promise.reject(new Error('Configurare indisponibilă. Reîncarcă pagina.'));
+
+    var form = new FormData();
+    form.append('action', 'natura_mini_cart');
+    form.append('op', 'add');
+    form.append('nonce', cfg.nonce);
+    form.append('product_id', productId);
+    form.append('qty', qty);
+
+    return fetch(cfg.ajax_url, {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: form,
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (json) {
+        if (!json || !json.success) {
+          throw new Error((json && json.data && json.data.message) || cfg.i18n.error);
+        }
+        return json.data;
+      });
+  }
+
   container.querySelectorAll('.sticky-add-to-cart, .sticky-add-to-cart-mobile').forEach(function (btn) {
     if (btn.tagName !== 'BUTTON') return;
     btn.addEventListener('click', function (e) {
@@ -209,7 +263,6 @@ import 'swiper/css/pagination';
 
       if (!productId) return;
 
-      // Keep main form input in sync (for any listeners/analytics on the page).
       if (mainQtyInput && qtyInput) {
         mainQtyInput.value = qtyInput.value;
         mainQtyInput.dispatchEvent(new Event('change', { bubbles: true }));
@@ -223,30 +276,25 @@ import 'swiper/css/pagination';
         btn.disabled = false;
       };
 
-      // Fire WC's `added_to_cart` so cart-modal.js opens the confirmation
-      // popup. Our custom endpoint doesn't emit it on its own; the button's
-      // data-attrs carry what the modal needs.
       const fireAddedToCart = () => {
         if (!window.jQuery) return;
         window.jQuery(document.body).trigger('added_to_cart', [null, '', window.jQuery(btn)]);
       };
 
-      // Prefer our custom mini-cart API.
-      if (window.NaturaMiniCart && typeof window.NaturaMiniCart.add === 'function') {
-        window.NaturaMiniCart.add({ product_id: productId, qty })
-          .then((data) => {
-            if (data && !data.is_empty) fireAddedToCart();
-            done();
-          })
-          .catch(done);
-        return;
-      }
-
-      // Fallback: delegate to the main ajax-add-to-cart button if present.
-      if (mainAddToCart) {
-        mainAddToCart.click();
-      }
-      done();
+      addViaEndpoint(productId, qty)
+        .then((data) => {
+          if (window.NaturaMiniCart && typeof window.NaturaMiniCart.refresh === 'function') {
+            window.NaturaMiniCart.refresh();
+          }
+          if (data && !data.is_empty) fireAddedToCart();
+          done();
+        })
+        .catch((err) => {
+          if (window.NaturaToast && typeof window.NaturaToast.show === 'function') {
+            window.NaturaToast.show(err.message, { variant: 'error', duration: 4000 });
+          }
+          done();
+        });
     });
   });
 })();

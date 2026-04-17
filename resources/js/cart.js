@@ -195,10 +195,27 @@
   // Otherwise → fetch fresh fragments and swap items/totals/shipping in-place.
   var syncTimer = null;
   var isSyncingFromMiniCart = false;
+  // Counts cart-originated updates still waiting for their echo back through
+  //   swapFragments → updated_cart_totals (jQuery) → mini-cart.js refetches →
+  //   natura:mini-cart:updated
+  // The counter is incremented inside swapFragments at the exact moment the
+  // jQuery trigger fires, so it's 1:1 with expected echoes. Each echo decrements
+  // and gets skipped, preventing a second spinner. The safety timer resets the
+  // counter if the echo never arrives (e.g., no jQuery, mini-cart fetch fails).
+  var pendingOwnEchoes = 0;
+  var ownEchoSafetyTimer = null;
+
   document.addEventListener('natura:mini-cart:updated', function (e) {
     if (! cartForm) return;
     if (e && e.detail && e.detail.is_empty) {
       location.reload();
+      return;
+    }
+
+    // Cart.js triggered this round-trip — fragments already applied locally.
+    if (pendingOwnEchoes > 0) {
+      pendingOwnEchoes--;
+      if (pendingOwnEchoes === 0) clearTimeout(ownEchoSafetyTimer);
       return;
     }
 
@@ -331,6 +348,11 @@
     // Skip when we're syncing FROM the mini-cart — otherwise we'd bounce back
     // into mini-cart.js which listens to `updated_cart_totals` and loops.
     if (!isSyncingFromMiniCart && window.jQuery) {
+      // Increment here (not in scheduleQtyUpdate) so the counter is in sync
+      // with the actual jQuery trigger — one echo per trigger.
+      pendingOwnEchoes++;
+      clearTimeout(ownEchoSafetyTimer);
+      ownEchoSafetyTimer = setTimeout(function () { pendingOwnEchoes = 0; }, 5000);
       window.jQuery(document.body).trigger('updated_cart_totals');
     }
 
