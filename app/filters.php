@@ -27,6 +27,21 @@ add_filter('excerpt_more', function () {
 add_filter('wp_img_tag_add_auto_sizes', '__return_false');
 
 /**
+ * Turn off TinyPNG's `<picture>` wrapping on the frontend. Our images are
+ * already native `.webp` so the "serve WebP via <picture>" feature has
+ * nothing useful to do. Worse, when wrapping a bare `<img>` the plugin's
+ * auto-generated `<source>` omits the `sizes` attribute (see
+ * class-tiny-source-base.php:236 — copied only when augmenting an existing
+ * `<source>`), which makes mobile browsers fall back to `100vw` and pick
+ * the largest srcset candidate.
+ *
+ * This filter is the plugin's own public API (class-tiny-picture.php:77,
+ * @since 3.6.9) — we're not fighting the plugin, we're opting out of one
+ * feature through a hook they expose. Upload-time compression stays on.
+ */
+add_filter('tiny_replace_with_picture', '__return_false');
+
+/**
  * Disable WooCommerce default stylesheets (layout, smallscreen, general, blocks).
  */
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
