@@ -15,10 +15,11 @@
 
   /**
    * ACF image fields can return an array, a numeric ID, or a URL string.
-   * Normalize to [url, width, height] using WP's sized attachment when we
-   * have an ID. Falls back gracefully when only a URL is available.
+   * Normalize to [id, url, width, height] so we can both fall back to a URL
+   * and emit a responsive srcset when we have an attachment ID.
    */
   $normalize_image = function ($image, string $size = 'full'): array {
+    $id = null;
     $url = '';
     $width = null;
     $height = null;
@@ -37,7 +38,8 @@
         $height = $image['height'] ?? null;
       }
     } elseif (is_numeric($image)) {
-      $src = wp_get_attachment_image_src((int) $image, $size);
+      $id = (int) $image;
+      $src = wp_get_attachment_image_src($id, $size);
       if ($src) {
         [$url, $width, $height] = $src;
       }
@@ -45,7 +47,7 @@
       $url = $image;
     }
 
-    return [$url, $width, $height];
+    return [$id ? (int) $id : null, $url, $width, $height];
   };
 @endphp
 
@@ -65,8 +67,13 @@
               $mobile = get_sub_field('mobile_image');
               $link = get_sub_field('link');
 
-              [$image_url, $image_w, $image_h] = $normalize_image($image, 'full');
-              [$mobile_url, $mobile_w, $mobile_h] = $normalize_image($mobile, 'large');
+              [$image_id, $image_url, $image_w, $image_h] = $normalize_image($image, 'full');
+              [$mobile_id, $mobile_url, $mobile_w, $mobile_h] = $normalize_image($mobile, 'large');
+
+              // Auto-generated srcset from every registered size (150/300/600/768/1024).
+              // Lets the browser pick the smallest variant that covers the viewport × DPR.
+              $image_srcset = $image_id ? wp_get_attachment_image_srcset($image_id, 'full') : '';
+              $mobile_srcset = $mobile_id ? wp_get_attachment_image_srcset($mobile_id, 'large') : '';
 
               $image_alt = is_array($image) ? ($image['alt'] ?? '') : '';
               $is_first = $i === 1;
@@ -80,11 +87,13 @@
               <picture>
                 @if ($mobile_url)
                   <source media="(max-width: 768px)"
-                          srcset="{{ esc_url($mobile_url) }}"
+                          srcset="{{ $mobile_srcset ?: esc_url($mobile_url) }}"
+                          sizes="100vw"
                           @if ($mobile_w) width="{{ $mobile_w }}" @endif
                           @if ($mobile_h) height="{{ $mobile_h }}" @endif>
                 @endif
                 <img src="{{ esc_url($image_url) }}"
+                     @if ($image_srcset) srcset="{{ $image_srcset }}" sizes="100vw" @endif
                      alt="{{ esc_attr($image_alt) }}"
                      @if ($image_w) width="{{ $image_w }}" @endif
                      @if ($image_h) height="{{ $image_h }}" @endif

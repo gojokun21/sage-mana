@@ -16,19 +16,29 @@
   @php
     the_row();
     $hero_image = get_sub_field('image');
-    $hero_image_url = is_array($hero_image) ? ($hero_image['url'] ?? '') : $hero_image;
+    $hero_image_id = is_array($hero_image) ? ($hero_image['ID'] ?? $hero_image['id'] ?? null) : (is_numeric($hero_image) ? (int) $hero_image : null);
+    $hero_image_url = is_array($hero_image) ? ($hero_image['url'] ?? '') : (is_string($hero_image) ? $hero_image : '');
     $hero_image_alt = is_array($hero_image) ? ($hero_image['alt'] ?? '') : '';
+
+    // Displayed ~390x260; medium_large is plenty even at DPR=2.
+    $reviews_hero_html = $hero_image_id
+        ? wp_get_attachment_image($hero_image_id, 'medium_large', false, [
+            'alt' => esc_attr($hero_image_alt),
+            'sizes' => '(max-width: 768px) 90vw, 400px',
+            'loading' => 'lazy',
+            'decoding' => 'async',
+        ])
+        : ($hero_image_url
+            ? '<img src="' . esc_url($hero_image_url) . '" alt="' . esc_attr($hero_image_alt) . '" loading="lazy" decoding="async">'
+            : '');
   @endphp
 
   @if (have_rows('items'))
     <section class="home-section home-reviews" aria-label="{{ esc_attr__('Recenzii clienți', 'sage') }}">
       <div class="home-reviews__grid">
-        @if ($hero_image_url)
+        @if ($reviews_hero_html)
           <div class="home-reviews__left">
-            <img src="{{ esc_url($hero_image_url) }}"
-                 alt="{{ esc_attr($hero_image_alt) }}"
-                 loading="lazy"
-                 decoding="async">
+            {!! $reviews_hero_html !!}
           </div>
         @endif
 
@@ -49,8 +59,20 @@
 
                     $profile_url = is_array($profile_image) ? ($profile_image['url'] ?? '') : $profile_image;
                     $profile_alt = is_array($profile_image) ? ($profile_image['alt'] ?? '') : $profile_name;
-                    $product_img_url = is_array($product_image) ? ($product_image['url'] ?? '') : $product_image;
+                    $product_img_id = is_array($product_image) ? ($product_image['ID'] ?? $product_image['id'] ?? null) : (is_numeric($product_image) ? (int) $product_image : null);
+                    $product_img_url = is_array($product_image) ? ($product_image['url'] ?? '') : (is_string($product_image) ? $product_image : '');
                     $product_img_alt = is_array($product_image) ? ($product_image['alt'] ?? '') : $product_title;
+
+                    // Displayed ~64x64; thumbnail (150x150) is perfect.
+                    $product_img_html = $product_img_id
+                        ? wp_get_attachment_image($product_img_id, 'thumbnail', false, [
+                            'alt' => esc_attr($product_img_alt),
+                            'loading' => 'lazy',
+                            'decoding' => 'async',
+                        ])
+                        : ($product_img_url
+                            ? '<img src="' . esc_url($product_img_url) . '" alt="' . esc_attr($product_img_alt) . '" loading="lazy" decoding="async">'
+                            : '');
                   @endphp
 
                   <div class="swiper-slide home-review">
@@ -79,19 +101,13 @@
                       <div class="home-review__divider"></div>
 
                       <div class="home-review__product">
-                        @if ($link && $product_img_url)
+                        @if ($link && $product_img_html)
                           <a href="{{ esc_url($link) }}" class="home-review__product-thumb">
-                            <img src="{{ esc_url($product_img_url) }}"
-                                 alt="{{ esc_attr($product_img_alt) }}"
-                                 loading="lazy"
-                                 decoding="async">
+                            {!! $product_img_html !!}
                           </a>
-                        @elseif ($product_img_url)
+                        @elseif ($product_img_html)
                           <div class="home-review__product-thumb">
-                            <img src="{{ esc_url($product_img_url) }}"
-                                 alt="{{ esc_attr($product_img_alt) }}"
-                                 loading="lazy"
-                                 decoding="async">
+                            {!! $product_img_html !!}
                           </div>
                         @endif
 

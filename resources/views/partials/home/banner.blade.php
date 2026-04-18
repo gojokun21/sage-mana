@@ -17,8 +17,21 @@
     the_row();
     $content = get_sub_field('content_section');
     $image = get_sub_field('image');
-    $image_url = is_array($image) ? ($image['url'] ?? '') : $image;
+    $image_id = is_array($image) ? ($image['ID'] ?? $image['id'] ?? null) : (is_numeric($image) ? (int) $image : null);
+    $image_url = is_array($image) ? ($image['url'] ?? '') : (is_string($image) ? $image : '');
     $image_alt = is_array($image) ? ($image['alt'] ?? '') : '';
+
+    // Displayed ~423x282; medium_large covers mobile DPR=2 without overshooting.
+    $banner_img_html = $image_id
+        ? wp_get_attachment_image($image_id, 'medium_large', false, [
+            'alt' => esc_attr($image_alt),
+            'sizes' => '(max-width: 768px) 90vw, 450px',
+            'loading' => 'lazy',
+            'decoding' => 'async',
+        ])
+        : ($image_url
+            ? '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($image_alt) . '" loading="lazy" decoding="async">'
+            : '');
   @endphp
 
   <section class="home-section home-banner">
@@ -46,12 +59,9 @@
         </div>
       </div>
 
-      @if ($image_url)
+      @if ($banner_img_html)
         <div class="home-banner__right">
-          <img src="{{ esc_url($image_url) }}"
-               alt="{{ esc_attr($image_alt) }}"
-               loading="lazy"
-               decoding="async">
+          {!! $banner_img_html !!}
         </div>
       @endif
     </div>

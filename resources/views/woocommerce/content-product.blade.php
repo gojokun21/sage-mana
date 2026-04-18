@@ -8,7 +8,20 @@
   $product_id = $product->get_id();
   $title = $product->get_name();
   $link = get_permalink($product_id);
-  $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'large');
+  $thumb_id = get_post_thumbnail_id($product_id);
+
+  // Responsive thumb: woocommerce_single (600px) as base, WP auto-emits srcset
+  // with every other registered size (thumbnail 150, woocommerce_thumbnail 300,
+  // medium 300, etc). Sizes hint: ~45vw on mobile (2 cards per row / slider),
+  // ~260px on desktop cards. Browser picks the smallest that fits × DPR.
+  $thumb_html = $thumb_id
+      ? wp_get_attachment_image($thumb_id, 'woocommerce_single', false, [
+          'alt' => esc_attr($title),
+          'sizes' => '(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 260px',
+          'loading' => 'lazy',
+          'decoding' => 'async',
+      ])
+      : '<img src="' . esc_url(wc_placeholder_img_src()) . '" alt="' . esc_attr($title) . '" loading="lazy" decoding="async">';
 
   $regular_price = $product->get_regular_price();
   $sale_price = $product->get_sale_price();
@@ -31,7 +44,7 @@
       {!! \App\favorite_button($product_id) !!}
     </div>
     <a href="{{ esc_url($link) }}">
-      <img src="{{ esc_url($image[0] ?? '') }}" alt="{{ esc_attr($title) }}">
+      {!! $thumb_html !!}
     </a>
   </div>
 

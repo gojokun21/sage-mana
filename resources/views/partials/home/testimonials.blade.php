@@ -44,19 +44,29 @@
                 $product_name = get_sub_field('product_name');
                 $video = get_sub_field('video_file');
 
-                $image_url = is_array($image) ? ($image['url'] ?? '') : $image;
+                $image_id = is_array($image) ? ($image['ID'] ?? $image['id'] ?? null) : (is_numeric($image) ? (int) $image : null);
+                $image_url = is_array($image) ? ($image['url'] ?? '') : (is_string($image) ? $image : '');
                 $image_alt = is_array($image) ? ($image['alt'] ?? '') : '';
                 $video_url = is_array($video) ? ($video['url'] ?? '') : $video;
+
+                // Displayed ~191x340 → medium_large (768w) as base is plenty;
+                // WP auto-emits srcset with smaller sizes so mobile DPR=2 fetches
+                // ~400-500px tops instead of 1080x1412.
+                $thumb_html = $image_id
+                    ? wp_get_attachment_image($image_id, 'medium_large', false, [
+                        'alt' => esc_attr($image_alt ?: $product_name),
+                        'sizes' => '(max-width: 768px) 45vw, 220px',
+                        'loading' => 'lazy',
+                        'decoding' => 'async',
+                    ])
+                    : ($image_url
+                        ? '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($image_alt ?: $product_name) . '" loading="lazy" decoding="async">'
+                        : '');
               @endphp
 
               <div class="swiper-slide home-testimonial">
                 <div class="home-testimonial__thumb">
-                  @if ($image_url)
-                    <img src="{{ esc_url($image_url) }}"
-                         alt="{{ esc_attr($image_alt ?: $product_name) }}"
-                         loading="lazy"
-                         decoding="async">
-                  @endif
+                  {!! $thumb_html !!}
 
                   @if ($video_url)
                     <a class="home-testimonial__play"
