@@ -128,6 +128,45 @@ add_action('wp_enqueue_scripts', function () {
 }, 100);
 
 /**
+ * Defer non-critical 3rd-party scripts so they don't block parsing/rendering.
+ *
+ * `defer` keeps execution order between deferred scripts and runs them after
+ * the document is parsed — safe for analytics/tracking code that only fires
+ * on user interaction (no UX path depends on them being ready during HTML
+ * parse).
+ *
+ * Matches by src path so plugin handle renames don't break the rule.
+ */
+add_filter('script_loader_tag', function ($tag, $handle, $src) {
+    if (is_admin()) {
+        return $tag;
+    }
+
+    $defer_needles = [
+        '/duracelltomi-google-tag-manager/', // GTM4WP (gtm.js, gtm4wp-woocommerce, form-tracker)
+    ];
+
+    $match = false;
+    foreach ($defer_needles as $needle) {
+        if (is_string($src) && str_contains($src, $needle)) {
+            $match = true;
+            break;
+        }
+    }
+
+    if (! $match) {
+        return $tag;
+    }
+
+    // Already deferred or async — leave it.
+    if (str_contains($tag, ' defer') || str_contains($tag, ' async')) {
+        return $tag;
+    }
+
+    return str_replace('<script ', '<script defer ', $tag);
+}, 10, 3);
+
+/**
  * Add theme classes to the loop add-to-cart button.
  */
 add_filter('woocommerce_loop_add_to_cart_args', function ($args, $product) {
