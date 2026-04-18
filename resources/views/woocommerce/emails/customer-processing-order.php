@@ -18,7 +18,7 @@
 use Automattic\WooCommerce\Utilities\FeaturesUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+  exit;
 }
 
 $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improvements' );
@@ -28,13 +28,22 @@ $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improveme
  */
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-<div class="email-introduction">
-<p><?php printf( 'Bună, %s,', esc_html( $order->get_billing_first_name() ) ); ?></p>
-<p>Îți mulțumim pentru comandă! 💚</p>
-<p><?php printf( 'Am primit comanda ta %s din %s, iar aceasta este acum în curs de procesare.', esc_html( $order->get_order_number() ), esc_html( wc_format_datetime( $order->get_date_created() ) ) ); ?></p>
-<p><strong>📦 Ce urmează?</strong></p>
-<p>Pregătim coletul tău cu grijă și îl vom expedia în cel mai scurt timp. Vei primi un nou email imediat ce comanda pleacă spre tine.</p>
-</div>
+  <div class="email-introduction">
+    <p><?php printf( 'Bună, %s,', esc_html( $order->get_billing_first_name() ) ); ?></p>
+    <p>Îți mulțumim pentru comandă! 💚</p>
+    <p><?php printf( 'Am primit comanda ta %s din %s, iar aceasta este acum în curs de procesare.', esc_html( $order->get_order_number() ), esc_html( wc_format_datetime( $order->get_date_created() ) ) ); ?></p>
+    <?php if ( $order->get_payment_method() === 'cod' ) : ?>
+      <p>Pentru comenzile cu plata la livrare, este necesară o <strong>confirmare telefonică</strong>.</p>
+      <p>Un coleg din echipa noastră te va contacta în cel mai scurt timp pentru validarea comenzii.</p>
+      <p>👉 <strong>Comanda va fi procesată și expediată doar după confirmarea telefonică.</strong></p>
+      <p><strong>📦 Ce urmează?</strong></p>
+      <p>După confirmare, pregătim coletul tău cu grijă și îl vom expedia cât mai rapid. Vei primi un nou email imediat ce comanda pleacă spre tine.</p>
+    <?php else : ?>
+      <p>Plata ta a fost confirmată cu succes. ✅</p>
+      <p><strong>📦 Ce urmează?</strong></p>
+      <p>Pregătim coletul tău cu grijă și îl vom expedia în cel mai scurt timp. Vei primi un nou email imediat ce comanda pleacă spre tine.</p>
+    <?php endif; ?>
+  </div>
 
 <?php
 
@@ -61,9 +70,9 @@ do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_
  * Show user-defined additional content - this is set in each email's settings.
  */
 if ( $additional_content ) {
-	echo $email_improvements_enabled ? '<table border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation"><tr><td class="email-additional-content">' : '';
-	echo wp_kses_post( wpautop( wptexturize( $additional_content ) ) );
-	echo $email_improvements_enabled ? '</td></tr></table>' : '';
+  echo $email_improvements_enabled ? '<table border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation"><tr><td class="email-additional-content">' : '';
+  echo wp_kses_post( wpautop( wptexturize( $additional_content ) ) );
+  echo $email_improvements_enabled ? '</td></tr></table>' : '';
 }
 
 /*
