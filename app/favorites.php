@@ -210,7 +210,41 @@ function favorites_handler(): void
 
         check_ajax_referer('natura_favorites_nonce', 'nonce');
 
+        if ($op === 'set') {
+            // Idempotent: client sends `desired` (1/0); we set state to that
+            // value regardless of current. A replay of the same request is a
+            // no-op. Safer than `toggle` when requests retry or duplicate due
+            // to `keepalive: true` + navigation edge cases.
+            $product_id = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
+            $desired = isset($_POST['desired']) && $_POST['desired'] === '1';
+
+            if (! $product_id || ! get_post($product_id)) {
+                wp_send_json_error(['message' => __('Produs invalid', 'sage')]);
+            }
+
+            $ids = get_favorites();
+            $is_in = in_array($product_id, $ids, true);
+
+            if ($desired && ! $is_in) {
+                $ids[] = $product_id;
+                save_favorites($ids);
+            } elseif (! $desired && $is_in) {
+                $ids = array_values(array_diff($ids, [$product_id]));
+                save_favorites($ids);
+            }
+
+            wp_send_json_success([
+                'in' => $desired,
+                'count' => count($ids),
+                'ids' => $ids,
+                'product_id' => $product_id,
+                'nonce' => wp_create_nonce('natura_favorites_nonce'),
+            ]);
+        }
+
         if ($op === 'toggle') {
+            // Legacy non-idempotent path — kept so cached older JS still works
+            // during a rollout. New clients use `op=set`.
             $product_id = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
 
             if (! $product_id || ! get_post($product_id)) {

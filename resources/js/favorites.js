@@ -102,24 +102,39 @@
   // Hydration: fetch fresh ids + nonce from a non-cached endpoint.
   // admin-ajax.php is never cached, so this gives us the real per-user state
   // even when the surrounding HTML came from a full-page cache.
-  var hydrated = fetch(cfg.ajax_url + '?action=natura_favorites&op=get', {
-    method: 'GET',
-    credentials: 'same-origin',
-    headers: { 'X-Requested-With': 'XMLHttpRequest' },
-  })
-    .then(function (r) { return r.json(); })
-    .then(function (res) {
-      if (!res || !res.success) throw new Error('hydration');
-      var data = res.data || {};
-      cfg.ids = Array.isArray(data.ids) ? data.ids.map(function (n) { return parseInt(n, 10); }) : [];
-      cfg.nonce = data.nonce || null;
-      reflectAllFromCfg();
-      if (typeof data.count === 'number') updateBadge(data.count);
+  var hydrated;
+
+  function hydrate() {
+    hydrated = fetch(cfg.ajax_url + '?action=natura_favorites&op=get', {
+      method: 'GET',
+      credentials: 'same-origin',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
     })
-    .catch(function () {
-      // Silent: the first click will re-await this promise and surface an
-      // error toast if the nonce is still missing.
-    });
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res || !res.success) throw new Error('hydration');
+        var data = res.data || {};
+        cfg.ids = Array.isArray(data.ids) ? data.ids.map(function (n) { return parseInt(n, 10); }) : [];
+        cfg.nonce = data.nonce || null;
+        reflectAllFromCfg();
+        if (typeof data.count === 'number') updateBadge(data.count);
+      })
+      .catch(function () {
+        // Silent: the first click will re-await this promise and surface an
+        // error toast if the nonce is still missing.
+      });
+    return hydrated;
+  }
+
+  hydrate();
+
+  // bfcache restore (Safari/Firefox Back): JS modules aren't re-executed, so
+  // cfg.ids is frozen at the moment of navigation away. Re-hydrate so the
+  // user sees the real state in case another tab changed it meanwhile, or
+  // their last toggle finished after navigation via keepalive.
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) hydrate();
+  });
 
   // Incremental merge helpers — operate on the LIVE cfg.ids at call time so
   // concurrent toggles don't step on each other. Never assign a snapshot of
@@ -155,13 +170,20 @@
 
     var form = new FormData();
     form.append('action', 'natura_favorites');
-    form.append('op', 'toggle');
+    // Idempotent: send the desired final state, not a toggle. A retry or a
+    // duplicated request just re-asserts the same state server-side.
+    form.append('op', 'set');
+    form.append('desired', willBeActive ? '1' : '0');
     form.append('nonce', cfg.nonce);
     form.append('product_id', String(productId));
 
     fetch(cfg.ajax_url, {
       method: 'POST',
       credentials: 'same-origin',
+      // Survive page unload — if the user clicks a heart and immediately
+      // navigates, the request continues to the server instead of getting
+      // aborted, which used to cause the "count dropped by one" bug.
+      keepalive: true,
       headers: { 'X-Requested-With': 'XMLHttpRequest' },
       body: form,
     })
