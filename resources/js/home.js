@@ -5,9 +5,9 @@
 
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+// Swiper core/navigation/pagination CSS is shipped eagerly from app.js —
+// see that file's header for context. Don't re-import here or the styles
+// end up in this lazy chunk and arrive too late for LCP.
 
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';

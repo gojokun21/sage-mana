@@ -1,3 +1,17 @@
+/* ==================== EAGER: SWIPER CORE CSS ====================
+ * Imported in the main entry so the styles ship in app.css (loaded sync in
+ * <head>) instead of in the lazy JS chunks where they'd arrive only after
+ * `home.js` / `single-product.js` etc. executed. That previously caused a
+ * measured 8-second LCP delay: the hero `<img>` was preloaded and painted
+ * at FCP, but once Swiper's CSS eventually loaded the slider, browsers
+ * reflowed the `.swiper-slide` layout and LCP jumped to the post-reflow
+ * paint. With Swiper core CSS present from the first paint, no reflow —
+ * LCP collapses to ~= FCP.
+ */
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/thumbs';
 
 /* ==================== NAVBAR SCROLL HIDE/SHOW ==================== */
 (function () {

@@ -7,8 +7,7 @@
 
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
+// Swiper CSS is shipped eagerly from app.js — see that file's header.
 
 (function () {
   const el = document.querySelector('.blog_slider');

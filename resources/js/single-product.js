@@ -8,10 +8,7 @@
 
 import Swiper from 'swiper';
 import { Thumbs, Navigation, Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/thumbs';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+// Swiper CSS is shipped eagerly from app.js — see that file's header.
 
 /* ==================== GALLERY (SWIPER) ==================== */
 (function () {
