@@ -228,6 +228,12 @@ function page_bundles(): array
         $bundles[] = 'resources/css/cart-bundle.css';
     }
 
+    // Single product page: qty UI + shared review styles (reviews tab
+    // renders partials.home.reviews — see woocommerce/single-product/tabs/tabs.php:59).
+    if (function_exists('is_product') && is_product()) {
+        $bundles[] = 'resources/css/product-bundle.css';
+    }
+
     // My Account (all sub-pages: dashboard, orders, addresses, login/register
     // shown to logged-out users, lost-password flow, etc.).
     if (function_exists('is_account_page') && is_account_page()) {

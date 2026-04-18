@@ -1,9 +1,6 @@
 /* About page.
- * Partials in `partials/about/` reuse home-section / home-slider /
- * home-testimonials / home-reviews class names (the sections are
- * visually identical — same Swiper layouts, same ACF sources). Pull
- * home.css in here so those styles apply when the About template renders.
- * The bytes duplicate with home-bundle on disk, but each page only
- * downloads one of the two — no over-the-wire waste. */
-@import "./home.css";
+ * Partials in `partials/about/` reuse section / slider / reviews /
+ * testimonial layouts. Pull only those shared blocks, not the whole
+ * home.css (saves ~50% vs importing home.css in full). */
+@import "./home-shared.css";
 @import "./about.css";

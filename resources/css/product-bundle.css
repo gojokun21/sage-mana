@@ -1,0 +1,5 @@
+/* Single product page.
+ * The reviews tab (`woocommerce/single-product/tabs/tabs.php:59`) renders
+ * `partials.home.reviews` — needs the shared section/slider/review styles. */
+@import "./home-shared.css";
+@import "./product-qty.css";

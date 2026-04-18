@@ -1,2 +1,4 @@
-/* Home-only CSS. Enqueued only when `template-home.blade.php` renders. */
+/* Home template. `home-shared.css` holds the section/slider/reviews/
+ * testimonial styles that About and Single Product also need. */
+@import "./home-shared.css";
 @import "./home.css";

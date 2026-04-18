@@ -1,4 +1,4 @@
-/* Cart + Checkout pages + single-product qty UI. */
+/* Cart + Checkout pages. `product-qty.css` moved to product-bundle —
+ * it styles the single-product add-to-cart area, not the cart totals. */
 @import "./cart.css";
 @import "./checkout.css";
-@import "./product-qty.css";
