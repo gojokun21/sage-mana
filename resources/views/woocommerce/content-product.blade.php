@@ -10,21 +10,37 @@
   $link = get_permalink($product_id);
   $thumb_id = get_post_thumbnail_id($product_id);
 
-  // Responsive thumb: `large` (up to 1024px) as base — srcset then includes
-  // 150/300/768/1024 + any WC sizes. Larger than `woocommerce_single` so
-  // DPR=2 desktop (Retina Mac / iPad) picks 768 instead of topping out at
-  // 600; the extra detail is visible on a 260px display at 2x.
+  // Responsive thumb — built manually to bypass the `wp_get_attachment_image`
+  // filter, which a third-party optimizer hooks on for secondary WP_Query
+  // contexts (home product sliders) and wraps our <img> in a broken
+  // <picture><source type="image/webp">…<img></picture> structure. Since
+  // the images are already WebP natively and we already emit srcset+sizes,
+  // the wrapper adds zero value — it just invalidates srcset resolution and
+  // makes browsers fall back to the 1000w original. Using the underlying
+  // URL + srcset helpers (which don't run the same filter chain) keeps the
+  // output clean across every query context.
   //
-  // Sizes hint: ~45vw on mobile (2 cards per row). Above 640px the card
-  // image is fixed at 260px (see `.product-card img` in app.css).
-  $thumb_html = $thumb_id
-      ? wp_get_attachment_image($thumb_id, 'large', false, [
-          'alt' => esc_attr($title),
-          'sizes' => '(max-width: 640px) 45vw, 260px',
-          'loading' => 'lazy',
-          'decoding' => 'async',
-      ])
-      : '<img src="' . esc_url(wc_placeholder_img_src()) . '" alt="' . esc_attr($title) . '" loading="lazy" decoding="async">';
+  // Base: `large` (1024px max). srcset auto-included: 150/300/500/600/
+  // 768/1024 per aspect ratio match. Sizes: ~45vw mobile (2 cards/row);
+  // above 640px the card image is fixed at 260px (see .product-card img).
+  if ($thumb_id) {
+      $src_info = wp_get_attachment_image_src($thumb_id, 'large');
+      $src_url = $src_info ? $src_info[0] : '';
+      $src_w = $src_info ? (int) $src_info[1] : 0;
+      $src_h = $src_info ? (int) $src_info[2] : 0;
+      $srcset = wp_get_attachment_image_srcset($thumb_id, 'large') ?: '';
+
+      $thumb_html = sprintf(
+          '<img src="%s"%s sizes="(max-width: 640px) 45vw, 260px" alt="%s"%s%s loading="lazy" decoding="async" class="attachment-large size-large">',
+          esc_url($src_url),
+          $srcset ? ' srcset="' . esc_attr($srcset) . '"' : '',
+          esc_attr($title),
+          $src_w ? ' width="' . $src_w . '"' : '',
+          $src_h ? ' height="' . $src_h . '"' : ''
+      );
+  } else {
+      $thumb_html = '<img src="' . esc_url(wc_placeholder_img_src()) . '" alt="' . esc_attr($title) . '" loading="lazy" decoding="async">';
+  }
 
   $regular_price = $product->get_regular_price();
   $sale_price = $product->get_sale_price();
