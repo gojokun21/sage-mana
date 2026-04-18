@@ -258,5 +258,10 @@ function page_bundles(): array
         $bundles[] = 'resources/css/page-404-bundle.css';
     }
 
+    // Responsive rules LAST in the cascade. They override feature-level
+    // styles from the page bundles — pre-split, responsive.css was imported
+    // at the end of app.css for the same reason.
+    $bundles[] = 'resources/css/responsive.css';
+
     return $bundles;
 }

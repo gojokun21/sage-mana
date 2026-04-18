@@ -27,6 +27,7 @@ export default defineConfig({
         'resources/css/contact-bundle.css',
         'resources/css/page-404-bundle.css',
         'resources/css/product-bundle.css',
+        'resources/css/responsive.css',
       ],
       refresh: true,
       assets: ['resources/images/**', 'resources/fonts/**'],

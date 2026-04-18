@@ -2818,4 +2818,7 @@ p.demo_store {
 @import "./auth.css";           /* login modal triggered from header — any page */
 @import "./footer.css";         /* footer everywhere */
 @import "./page.css";           /* generic page wrapper */
-@import "./responsive.css";     /* universal responsive rules */
+
+/* responsive.css moved to its own entry — App\page_bundles() appends it
+ * LAST so its @media overrides win over the per-page bundle styles
+ * (home-bundle, cart-bundle, etc.), restoring the pre-split cascade order. */
