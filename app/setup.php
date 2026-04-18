@@ -189,3 +189,58 @@ add_action('widgets_init', function () {
         'id' => 'sidebar-footer',
     ] + $config);
 });
+
+/**
+ * Per-page CSS bundle resolver.
+ *
+ * Returns the list of Vite inputs for the current request: always the
+ * universal app.css + app.js, plus any page-specific bundle that matches.
+ * Called from layouts/app.blade.php so the page-specific CSS ships only
+ * where it's actually used, keeping the home-page critical CSS payload
+ * small (the biggest win for LCP on a mostly-CSS-bound first paint).
+ *
+ * Conditionals intentionally broad (OR-ed checks) so a page template
+ * AND a front-page/cart/etc. detection can both trigger — we'd rather
+ * ship a bundle once when unneeded than miss it and render unstyled.
+ */
+function page_bundles(): array
+{
+    $bundles = ['resources/css/app.css', 'resources/js/app.js'];
+
+    // Home: either set as static front page, or any page using the Home template.
+    if (is_front_page() || is_page_template('views/template-home.blade.php')) {
+        $bundles[] = 'resources/css/home-bundle.css';
+    }
+
+    // Cart + Checkout pages. WC's helpers return false on non-WC contexts
+    // so the function_exists guard is just for admin / REST safety.
+    if (function_exists('is_cart') && (is_cart() || is_checkout())) {
+        $bundles[] = 'resources/css/cart-bundle.css';
+    }
+
+    // My Account (all sub-pages: dashboard, orders, addresses, login/register
+    // shown to logged-out users, lost-password flow, etc.).
+    if (function_exists('is_account_page') && is_account_page()) {
+        $bundles[] = 'resources/css/account-bundle.css';
+    }
+
+    if (is_page_template('views/template-about.blade.php')) {
+        $bundles[] = 'resources/css/about-bundle.css';
+    }
+
+    if (is_page_template('views/template-contact.blade.php')) {
+        $bundles[] = 'resources/css/contact-bundle.css';
+    }
+
+    // Blog: any post type = 'post' view, archives, categories, tags, blog template.
+    if (is_singular('post') || is_home() || is_archive() || is_category() || is_tag()
+        || is_page_template('views/template-blog.blade.php')) {
+        $bundles[] = 'resources/css/blog-bundle.css';
+    }
+
+    if (is_404()) {
+        $bundles[] = 'resources/css/page-404-bundle.css';
+    }
+
+    return $bundles;
+}

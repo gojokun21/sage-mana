@@ -1,0 +1,2 @@
+/* Home-only CSS. Enqueued only when `template-home.blade.php` renders. */
+@import "./home.css";

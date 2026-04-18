@@ -2806,21 +2806,15 @@ p.demo_store {
   padding: 0;
 }
 
-@import "./toast.css";
-@import "./mini-cart.css";
-@import "./cart-modal.css";
-@import "./qty-stepper.css";
-@import "./product-qty.css";
-@import "./favorites.css";
-@import "./cart.css";
-@import "./checkout.css";
-@import "./home.css";
-@import "./footer.css";
-@import "./auth.css";
-@import "./myaccount.css";
-@import "./about.css";
-@import "./contact.css";
-@import "./page.css";
-@import "./page-404.css";
-@import "./blog.css";
-@import "./responsive.css";
+/* Universal bundle — loaded on every page.
+ * Per-page CSS is split into *-bundle.css files and enqueued conditionally
+ * from `App\page_bundles()` (see app/setup.php). Keep this list small —
+ * anything that isn't visible on every page belongs in a page bundle. */
+@import "./toast.css";          /* global toasts — any page can trigger */
+@import "./mini-cart.css";      /* drawer mounted in the header everywhere */
+@import "./cart-modal.css";     /* add-to-cart confirmation modal */
+@import "./qty-stepper.css";    /* used inside mini-cart + cart + product */
+@import "./favorites.css";      /* heart buttons on product cards */
+@import "./footer.css";         /* footer everywhere */
+@import "./page.css";           /* generic page wrapper */
+@import "./responsive.css";     /* universal responsive rules */

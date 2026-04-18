@@ -6,7 +6,7 @@
     @php(do_action('get_header'))
     @php(wp_head())
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(\App\page_bundles())
 
     <noscript><style>.home-slider__swiper{opacity:1 !important;}</style></noscript>
   </head>
