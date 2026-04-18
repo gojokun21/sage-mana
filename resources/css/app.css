@@ -82,6 +82,7 @@ a {
    Header
    ============================================ */
 .navbar__menu {
+  padding-top: 16px;
   position: sticky;
   top: 0;
   z-index: 999;

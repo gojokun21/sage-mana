@@ -166,10 +166,7 @@
 
   .related-header { gap: 16px; }
   .related-products-heading { font-size: 22px; }
-  .related-prev,
-  .related-next { width: 40px; height: 40px; }
-  .related-prev img,
-  .related-next img { width: 16px; height: 16px; }
+  .related-nav-arrows { display: none; }
 
   #tab-ingrediente_tab .ingrediente-content ul { columns: 1; }
   #tab-ingrediente_tab .ingrediente-content table { font-size: 13px; }
