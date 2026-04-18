@@ -51,9 +51,13 @@
     if (!productId) return;
     if (pendingProductIds.has(productId)) return;
 
-    var scope = btn.closest('.woocommerce-ajax-add-to-cart') || document;
-    var qtyInput = scope.querySelector('input.qty, input[name="quantity"]');
-    var qty = qtyInput ? Math.max(1, parseInt(qtyInput.value, 10) || 1) : 1;
+    // Read qty from the button's own data attribute. Loop buttons ship
+    // with `data-quantity="1"` (see content-product.blade.php); we do NOT
+    // scan the DOM for `input.qty` as a fallback because the mini-cart
+    // drawer renders qty inputs for every cart line — e.g. if a Lion
+    // product sits in the drawer at qty=3, adding ANY archive product
+    // would inherit that 3 instead of defaulting to 1.
+    var qty = Math.max(1, parseInt(btn.getAttribute('data-quantity') || '1', 10) || 1);
 
     pendingProductIds.add(productId);
     setLoading(btn, true);

@@ -20,11 +20,12 @@
     $hero_image_url = is_array($hero_image) ? ($hero_image['url'] ?? '') : (is_string($hero_image) ? $hero_image : '');
     $hero_image_alt = is_array($hero_image) ? ($hero_image['alt'] ?? '') : '';
 
-    // Displayed ~390x260; medium_large is plenty even at DPR=2.
+    // Displayed ~500-550px on desktop (5/12 grid, stacks under 900px).
+    // Source image should be ≥1200w for crisp retina desktops.
     $reviews_hero_html = $hero_image_id
         ? wp_get_attachment_image($hero_image_id, 'medium_large', false, [
             'alt' => esc_attr($hero_image_alt),
-            'sizes' => '(max-width: 768px) 90vw, 400px',
+            'sizes' => '(max-width: 900px) 90vw, 550px',
             'loading' => 'lazy',
             'decoding' => 'async',
         ])

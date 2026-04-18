@@ -21,11 +21,13 @@
     $image_url = is_array($image) ? ($image['url'] ?? '') : (is_string($image) ? $image : '');
     $image_alt = is_array($image) ? ($image['alt'] ?? '') : '';
 
-    // Displayed ~423x282; medium_large covers mobile DPR=2 without overshooting.
+    // Displayed ~600-700px on desktop (50% of grid, stacks under 900px).
+    // `sizes` must reflect that or browsers pick a too-small srcset candidate
+    // and upscale. Source image should be ≥1600w for crisp retina desktops.
     $banner_img_html = $image_id
         ? wp_get_attachment_image($image_id, 'medium_large', false, [
             'alt' => esc_attr($image_alt),
-            'sizes' => '(max-width: 768px) 90vw, 450px',
+            'sizes' => '(max-width: 900px) 90vw, 700px',
             'loading' => 'lazy',
             'decoding' => 'async',
         ])
