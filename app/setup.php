@@ -146,6 +146,24 @@ add_action('after_setup_theme', function () {
     add_theme_support('wc-product-gallery-zoom');
     add_theme_support('wc-product-gallery-lightbox');
     add_theme_support('wc-product-gallery-slider');
+
+    /**
+     * Intermediate image size that fills the srcset gap between `medium`
+     * (300w) and `medium_large` (768w). Without it, Retina mobile (DPR=2)
+     * wanting ~400px picks the 768 variant (smallest candidate >= 400) —
+     * way oversized for 120–200px product cards and ~190px testimonial
+     * thumbs.
+     *
+     * Width 500, no hard crop, unconstrained height → scales to preserve
+     * aspect ratio. Works across squares (1000x1000 product → 500x500),
+     * portraits (768x1004 testimonial → 500x652), and landscapes
+     * (882x600 review banner → 500x340). WP keeps it in srcset whenever
+     * the aspect matches the base image.
+     *
+     * NOTE: After deploy, run `wp media regenerate --yes` so existing
+     * attachments pick up this size.
+     */
+    add_image_size('natura-mid', 500, 9999, false);
 }, 20);
 
 /**
