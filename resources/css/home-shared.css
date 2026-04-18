@@ -112,6 +112,13 @@
 .home-slider__btn--prev { left: -23px; }
 .home-slider__btn--next { right: -23px; }
 
+/* Hide the prev/next nav below container breakpoint — the container caps
+ * around 1400px, so the buttons positioned at -23px fall off-screen.
+ * Applies everywhere this slider shell is used (home, about, single product). */
+@media (max-width: 1495px) {
+  .home-slider__btn { display: none; }
+}
+
 .home-slider__pagination {
   margin-top: 30px;
   display: flex;

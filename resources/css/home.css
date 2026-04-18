@@ -414,10 +414,6 @@
   font-size: 15px;
 }
 
-@media (max-width: 1495px) {
-  .home-slider__btn { display: none; }
-}
-
 @media (max-width: 768px) {
   .home-section { margin-bottom: 30px; }
   .home-section__title { font-size: 24px; }
