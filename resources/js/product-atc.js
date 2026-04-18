@@ -18,31 +18,44 @@
  */
 
 (function () {
+  // Tracks in-flight adds by product_id so the same product can't be added
+  // twice by tapping two different buttons (same product appears in multiple
+  // sliders on the home page — "Populare" + "Promoție" — each with its own
+  // `.loading` class, so per-button guards aren't enough).
+  var pendingProductIds = new Set();
+
   /* ---------------- Path 1: simple <a> .mn-atc-btn ---------------- */
 
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('a.mn-atc-btn');
     if (!btn) return;
     // Variable and grouped strictly require per-variation/per-child input
-    // from the product page — let the browser follow the link. Bundles are
-    // AJAX-addable with their default configuration; if the plugin rejects
-    // the defaults, the error toast surfaces the reason.
+    // from the product page — let the browser follow the link.
     if (btn.classList.contains('product_type_variable')) return;
     if (btn.classList.contains('product_type_grouped')) return;
-    if (!ready()) return;
-    if (btn.classList.contains('loading')) { e.preventDefault(); return; }
 
+    // Claim the event unconditionally — BEFORE any `ready()` check. The
+    // button ships with both `ajax_add_to_cart` (WC jQuery handler target)
+    // and a real `href` that would add-via-URL on navigation. If our module
+    // hasn't finished loading when the user taps, bailing early lets either
+    // of those fire, and the user then taps again — producing two adds.
+    // Always stop propagation + default so we're the only add path.
     e.preventDefault();
     e.stopPropagation();
     if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
 
+    if (btn.classList.contains('loading')) return;
+    if (!ready()) return;
+
     var productId = parseInt(btn.getAttribute('data-product_id') || '0', 10);
     if (!productId) return;
+    if (pendingProductIds.has(productId)) return;
 
     var scope = btn.closest('.woocommerce-ajax-add-to-cart') || document;
     var qtyInput = scope.querySelector('input.qty, input[name="quantity"]');
     var qty = qtyInput ? Math.max(1, parseInt(qtyInput.value, 10) || 1) : 1;
 
+    pendingProductIds.add(productId);
     setLoading(btn, true);
     window.NaturaMiniCart.add({ product_id: productId, qty: qty })
       .then(function (data) {
@@ -54,7 +67,10 @@
       .catch(function (err) {
         showAddError(err && err.message ? err.message : 'Nu s-a putut adăuga produsul.');
       })
-      .finally(function () { setLoading(btn, false); });
+      .finally(function () {
+        setLoading(btn, false);
+        pendingProductIds.delete(productId);
+      });
   }, true); // capture — beats WC core's jQuery `.ajax_add_to_cart` handler
 
   /* ---------------- Path 2: form.cart submit ---------------- */

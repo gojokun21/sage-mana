@@ -151,6 +151,43 @@ add_action('wp_enqueue_scripts', function () {
     }, 5);
 });
 
+/* ---------------------------------------------------------------------------
+ * No-cache on the favorites list page
+ *
+ * The list is server-rendered from a per-user cookie (guests) or user meta
+ * (logged-in). Full-page caching on production would bake whoever's list
+ * loaded the cached HTML into every subsequent visitor's view — so the
+ * reporter of a bug sees "I added a favorite but the page is empty" because
+ * the cached HTML was built when their cookie wasn't present yet.
+ *
+ * Detected by template slug OR by the [natura_favorites_list] shortcode so
+ * it works whether the page uses `template-favorite.blade.php` directly or
+ * any page with the shortcode embedded.
+ * ------------------------------------------------------------------------- */
+
+add_action('template_redirect', function () {
+    if (! is_singular()) {
+        return;
+    }
+
+    $post = get_post();
+    if (! $post) {
+        return;
+    }
+
+    $is_fav_template = str_contains((string) get_page_template_slug($post->ID), 'template-favorite');
+    $has_fav_shortcode = has_shortcode((string) $post->post_content, 'natura_favorites_list');
+
+    if (! $is_fav_template && ! $has_fav_shortcode) {
+        return;
+    }
+
+    nocache_headers();
+    if (! defined('DONOTCACHEPAGE')) {
+        define('DONOTCACHEPAGE', true);
+    }
+}, 1);
+
 add_action('wp_ajax_natura_favorites', __NAMESPACE__ . '\\favorites_handler');
 add_action('wp_ajax_nopriv_natura_favorites', __NAMESPACE__ . '\\favorites_handler');
 
