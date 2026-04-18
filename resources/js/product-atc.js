@@ -51,13 +51,19 @@
     if (!productId) return;
     if (pendingProductIds.has(productId)) return;
 
-    // Read qty from the button's own data attribute. Loop buttons ship
-    // with `data-quantity="1"` (see content-product.blade.php); we do NOT
-    // scan the DOM for `input.qty` as a fallback because the mini-cart
-    // drawer renders qty inputs for every cart line — e.g. if a Lion
-    // product sits in the drawer at qty=3, adding ANY archive product
-    // would inherit that 3 instead of defaulting to 1.
-    var qty = Math.max(1, parseInt(btn.getAttribute('data-quantity') || '1', 10) || 1);
+    // Qty resolution:
+    //   - Single product page: button sits inside `.woocommerce-ajax-add-to-cart`
+    //     alongside the qty stepper input — read the user's selected quantity.
+    //   - Archive / loop: no such wrapper; use the button's `data-quantity`
+    //     attribute (emitted at `1` in content-product.blade.php).
+    // We intentionally do NOT fall back to `document.querySelector('input.qty')`
+    // because the mini-cart drawer also renders qty inputs — if a product is
+    // in the drawer at qty=3, any archive add-to-cart would inherit that 3.
+    var scope = btn.closest('.woocommerce-ajax-add-to-cart');
+    var qtyInput = scope ? scope.querySelector('input.qty, input[name="quantity"]') : null;
+    var qty = qtyInput
+      ? Math.max(1, parseInt(qtyInput.value, 10) || 1)
+      : Math.max(1, parseInt(btn.getAttribute('data-quantity') || '1', 10) || 1);
 
     pendingProductIds.add(productId);
     setLoading(btn, true);
