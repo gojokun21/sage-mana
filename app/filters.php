@@ -27,6 +27,54 @@ add_action('wp_enqueue_scripts', function () {
 }, 100);
 
 /**
+ * Load Contact Form 7 assets only on pages that actually embed a [contact-form-7]
+ * shortcode. CF7 enqueues its CSS + JS globally by default, which is dead weight
+ * on the home page, shop, product pages, etc.
+ */
+add_action('wp_enqueue_scripts', function () {
+    $needs_cf7 = false;
+
+    if (is_singular()) {
+        $post = get_post();
+        if ($post && has_shortcode((string) $post->post_content, 'contact-form-7')) {
+            $needs_cf7 = true;
+        }
+    }
+
+    if ($needs_cf7) {
+        return;
+    }
+
+    wp_dequeue_style('contact-form-7');
+    wp_dequeue_script('contact-form-7');
+}, 100);
+
+/**
+ * mn-quantity-bundles is only used on single product pages — dequeue its
+ * CSS + JS everywhere else. Matches by src path instead of handle name so
+ * we don't break if the plugin renames its handles.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (is_product()) {
+        return;
+    }
+
+    $needle = '/mn-quantity-bundles/';
+
+    foreach (wp_styles()->registered as $handle => $style) {
+        if (is_string($style->src) && str_contains($style->src, $needle)) {
+            wp_dequeue_style($handle);
+        }
+    }
+
+    foreach (wp_scripts()->registered as $handle => $script) {
+        if (is_string($script->src) && str_contains($script->src, $needle)) {
+            wp_dequeue_script($handle);
+        }
+    }
+}, 100);
+
+/**
  * Add theme classes to the loop add-to-cart button.
  */
 add_filter('woocommerce_loop_add_to_cart_args', function ($args, $product) {
