@@ -10,14 +10,17 @@
   $link = get_permalink($product_id);
   $thumb_id = get_post_thumbnail_id($product_id);
 
-  // Responsive thumb: woocommerce_single (600px) as base, WP auto-emits srcset
-  // with every other registered size (thumbnail 150, woocommerce_thumbnail 300,
-  // medium 300, etc). Sizes hint: ~45vw on mobile (2 cards per row / slider),
-  // ~260px on desktop cards. Browser picks the smallest that fits × DPR.
+  // Responsive thumb: `large` (up to 1024px) as base — srcset then includes
+  // 150/300/768/1024 + any WC sizes. Larger than `woocommerce_single` so
+  // DPR=2 desktop (Retina Mac / iPad) picks 768 instead of topping out at
+  // 600; the extra detail is visible on a 260px display at 2x.
+  //
+  // Sizes hint: ~45vw on mobile (2 cards per row). Above 640px the card
+  // image is fixed at 260px (see `.product-card img` in app.css).
   $thumb_html = $thumb_id
-      ? wp_get_attachment_image($thumb_id, 'woocommerce_single', false, [
+      ? wp_get_attachment_image($thumb_id, 'large', false, [
           'alt' => esc_attr($title),
-          'sizes' => '(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 260px',
+          'sizes' => '(max-width: 640px) 45vw, 260px',
           'loading' => 'lazy',
           'decoding' => 'async',
       ])
