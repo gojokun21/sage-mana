@@ -207,8 +207,18 @@ function page_bundles(): array
 {
     $bundles = ['resources/css/app.css', 'resources/js/app.js'];
 
+    // Sage/Acorn stores the template slug in a format that doesn't always
+    // match `is_page_template('views/template-X.blade.php')` across versions
+    // (it can be `template-X.blade.php`, `views/template-X.blade.php`, etc.).
+    // A substring check on the slug is robust to that — matches any of the
+    // shapes WP returns. Follows the same pattern as app/favorites.php:178.
+    $template_slug = (string) get_page_template_slug();
+
+    $template_has = static fn (string $needle): bool
+        => $template_slug !== '' && str_contains($template_slug, $needle);
+
     // Home: either set as static front page, or any page using the Home template.
-    if (is_front_page() || is_page_template('views/template-home.blade.php')) {
+    if (is_front_page() || $template_has('template-home')) {
         $bundles[] = 'resources/css/home-bundle.css';
     }
 
@@ -224,17 +234,17 @@ function page_bundles(): array
         $bundles[] = 'resources/css/account-bundle.css';
     }
 
-    if (is_page_template('views/template-about.blade.php')) {
+    if ($template_has('template-about')) {
         $bundles[] = 'resources/css/about-bundle.css';
     }
 
-    if (is_page_template('views/template-contact.blade.php')) {
+    if ($template_has('template-contact')) {
         $bundles[] = 'resources/css/contact-bundle.css';
     }
 
     // Blog: any post type = 'post' view, archives, categories, tags, blog template.
     if (is_singular('post') || is_home() || is_archive() || is_category() || is_tag()
-        || is_page_template('views/template-blog.blade.php')) {
+        || $template_has('template-blog')) {
         $bundles[] = 'resources/css/blog-bundle.css';
     }
 
