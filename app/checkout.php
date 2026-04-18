@@ -40,6 +40,13 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         $fields['billing']['billing_phone']['required'] = true;
     }
 
+    // Email is optional — customers can check out with phone only.
+    // WC still validates format when the field is filled in (the 'email'
+    // validate rule stays), but won't block submission on empty input.
+    if (isset($fields['billing']['billing_email'])) {
+        $fields['billing']['billing_email']['required'] = false;
+    }
+
     if (isset($fields['billing']['billing_company'])) {
         $fields['billing']['billing_company']['label'] = __('Nume Firmă', 'sage');
         $fields['billing']['billing_company']['placeholder'] = __('Introdu numele firmei', 'sage');

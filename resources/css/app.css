@@ -2800,6 +2800,10 @@ p.demo_store {
   position: absolute;
 }
 
+.woocommerce-order-received .single_page{
+  padding: 0;
+}
+
 @import "./toast.css";
 @import "./mini-cart.css";
 @import "./cart-modal.css";

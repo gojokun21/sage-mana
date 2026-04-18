@@ -785,7 +785,7 @@
 .or-page {
   max-width: 860px;
   margin: 0 auto;
-  padding: 0 15px 60px;
+  padding: 0 0 60px;
 }
 
 .or-section-title {

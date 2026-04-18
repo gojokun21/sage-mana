@@ -38,8 +38,7 @@
             <button class="about_readmore_btn"
                     type="button"
                     data-readmore-toggle
-                    aria-expanded="false"
-                    hidden>
+                    aria-expanded="false">
               {{ __('Află mai mult', 'sage') }}
             </button>
           </div>

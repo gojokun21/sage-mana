@@ -72,7 +72,6 @@
 .about_description {
   position: relative;
   overflow: hidden;
-  transition: max-height 0.4s ease;
 }
 
 .about_description p{
@@ -95,9 +94,6 @@
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-
-.about_description.is-clamped::after { opacity: 1; }
-.about_description.is-expanded::after { opacity: 0; }
 
 .about_readmore_btn {
   display: none;
@@ -402,8 +398,23 @@
   .why_content { padding: 20px; }
   .why_content h2 { font-size: 22px; }
 
-  /* Read-more button — visible only on mobile */
-  .about_readmore_btn[hidden] { display: none; }
+  /* Description — clamped by default on mobile so no JS is needed to
+     apply the initial collapsed state (was causing a visible "collapse"
+     animation on load). JS only unclamps when content fits or on click. */
+  .about_description {
+    max-height: 100px;
+    transition: max-height 0.4s ease;
+  }
+  .about_description::after { opacity: 1; }
+  .about_description.is-expanded { max-height: 100vh; }
+  .about_description.is-expanded::after { opacity: 0; }
+  .about_description.no-clamp {
+    max-height: none;
+    transition: none;
+  }
+  .about_description.no-clamp::after { display: none; }
+
+  /* Read-more button — visible only on mobile, hidden when content fits. */
   .about_readmore_btn {
     display: inline-block;
     align-self: flex-start;
@@ -417,6 +428,7 @@
     font-size: 14px;
     transition: background 0.2s ease, border-color 0.2s ease;
   }
+  .about_description.no-clamp ~ .about_readmore_btn { display: none; }
   .about_readmore_btn:hover,
   .about_readmore_btn:focus-visible {
     background: rgba(255, 255, 255, 0.1);

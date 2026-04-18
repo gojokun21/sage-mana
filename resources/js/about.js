@@ -84,6 +84,17 @@ import 'swiper/css/pagination';
 })();
 
 /* ==================== READ-MORE (mobile only) ==================== */
+/*
+ * The clamp itself is driven by CSS (`.about_description` has `max-height:
+ * 100px` on mobile). JS only:
+ *   - adds `.no-clamp` when the content already fits (hides the button
+ *     and removes the clamp via a CSS sibling selector),
+ *   - toggles `.is-expanded` on click.
+ *
+ * Crucially, JS never mutates `max-height` inline — any toggle goes
+ * through a class change, so there's no flash of full content collapsing
+ * after hydration.
+ */
 (function () {
   const COLLAPSED_HEIGHT = 100;
   const MOBILE_BP = 640;
@@ -95,58 +106,27 @@ import 'swiper/css/pagination';
   const inner = wrap.querySelector('.about_description__inner');
   if (!inner) return;
 
-  let expanded = false;
-
-  function measure() {
-    wrap.style.maxHeight = 'none';
-    const full = inner.scrollHeight;
-    wrap.style.maxHeight = '';
-    return full;
-  }
-
-  function apply() {
+  function evaluate() {
     const isMobile = window.innerWidth <= MOBILE_BP;
-    const fullH = measure();
-    const needsClamp = isMobile && fullH > COLLAPSED_HEIGHT + 20;
-
-    if (!needsClamp) {
-      wrap.classList.remove('is-clamped', 'is-expanded');
-      wrap.style.maxHeight = '';
-      btn.hidden = true;
-      btn.setAttribute('aria-expanded', 'false');
-      expanded = false;
-      return;
-    }
-
-    btn.hidden = false;
-
-    if (expanded) {
-      wrap.classList.remove('is-clamped');
-      wrap.classList.add('is-expanded');
-      wrap.style.maxHeight = fullH + 'px';
-      btn.textContent = 'Mai puțin';
-      btn.setAttribute('aria-expanded', 'true');
-    } else {
-      wrap.classList.add('is-clamped');
-      wrap.classList.remove('is-expanded');
-      wrap.style.maxHeight = COLLAPSED_HEIGHT + 'px';
-      btn.textContent = 'Află mai mult';
-      btn.setAttribute('aria-expanded', 'false');
-    }
+    // `scrollHeight` on the inner element is unaffected by the wrap's
+    // max-height clip, so we can measure without mutating any styles.
+    const fits = inner.scrollHeight <= COLLAPSED_HEIGHT + 20;
+    wrap.classList.toggle('no-clamp', !isMobile || fits);
   }
 
   btn.addEventListener('click', () => {
-    expanded = !expanded;
-    apply();
+    const expanded = wrap.classList.toggle('is-expanded');
+    btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    btn.textContent = expanded ? 'Mai puțin' : 'Află mai mult';
   });
 
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(apply, 150);
+    resizeTimer = setTimeout(evaluate, 150);
   });
 
-  apply();
+  evaluate();
 })();
 
 /* ==================== TESTIMONIALS + REVIEWS SWIPERS ==================== */
