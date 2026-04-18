@@ -110,6 +110,24 @@ add_action('wp_enqueue_scripts', function () {
 }, 100);
 
 /**
+ * Drop jquery-migrate on the home page. It's a back-compat shim for deprecated
+ * jQuery 1.x/2.x APIs; nothing that runs on the home relies on them.
+ *
+ * Strips it from the `jquery` meta-handle's deps at enqueue time so the shim
+ * isn't pulled in when jQuery itself is printed.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (is_admin() || ! is_front_page()) {
+        return;
+    }
+
+    $registered = wp_scripts()->registered['jquery'] ?? null;
+    if ($registered && ! empty($registered->deps)) {
+        $registered->deps = array_diff((array) $registered->deps, ['jquery-migrate']);
+    }
+}, 100);
+
+/**
  * Add theme classes to the loop add-to-cart button.
  */
 add_filter('woocommerce_loop_add_to_cart_args', function ($args, $product) {
