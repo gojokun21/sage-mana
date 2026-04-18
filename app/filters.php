@@ -75,6 +75,41 @@ add_action('wp_enqueue_scripts', function () {
 }, 100);
 
 /**
+ * Trim dead-weight stylesheets on the front page.
+ *
+ *   - Gutenberg block library: the home template is a Blade view with custom
+ *     partials, no core blocks render.
+ *   - WooCommerce Product Bundles: bundles don't appear on the home page;
+ *     their CSS + JS bundle is ~30–40kB of nothing.
+ *
+ * Matches WooCommerce Product Bundles assets by src path so the rule survives
+ * handle renames in plugin updates.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (! is_front_page()) {
+        return;
+    }
+
+    wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('wp-block-library-theme');
+    wp_dequeue_style('global-styles');
+
+    $needle = '/woocommerce-product-bundles/';
+
+    foreach (wp_styles()->registered as $handle => $style) {
+        if (is_string($style->src) && str_contains($style->src, $needle)) {
+            wp_dequeue_style($handle);
+        }
+    }
+
+    foreach (wp_scripts()->registered as $handle => $script) {
+        if (is_string($script->src) && str_contains($script->src, $needle)) {
+            wp_dequeue_script($handle);
+        }
+    }
+}, 100);
+
+/**
  * Add theme classes to the loop add-to-cart button.
  */
 add_filter('woocommerce_loop_add_to_cart_args', function ($args, $product) {
