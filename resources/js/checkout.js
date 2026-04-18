@@ -111,8 +111,13 @@
    * FGO keeps a single `billing_cui` input that it relabels dynamically
    * ("Cod Unic" for PJ / "CNP" for PF). On this store we only collect a
    * CUI from business customers, so we HIDE the field for PF (tip=2)
-   * and show it for PJ (tip=1). Delegated `change` + re-sync on WC's
-   * `updated_checkout` so it survives AJAX re-renders. */
+   * and show it for PJ (tip=1).
+   *
+   * Visibility is driven by a body class (`natura-tip-pj` / `natura-tip-pf`)
+   * set server-side — see app/checkout.php + checkout.css. That way the
+   * field is hidden by CSS as soon as <body> is parsed, with no FOUC waiting
+   * for this lazy-loaded module to run. Here we only keep the class in sync
+   * with the current select value and manage the `required` attribute. */
 
   var CUI_LABEL_PJ = 'CUI (Cod Unic de Înregistrare)';
 
@@ -125,7 +130,8 @@
     if (!tipSelect || !cuiInput || !cuiRow) return;
 
     var isPJ = tipSelect.value === '1';
-    cuiRow.style.display = isPJ ? '' : 'none';
+    document.body.classList.toggle('natura-tip-pj', isPJ);
+    document.body.classList.toggle('natura-tip-pf', !isPJ);
 
     if (isPJ) {
       cuiInput.setAttribute('required', 'required');

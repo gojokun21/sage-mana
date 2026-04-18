@@ -118,6 +118,35 @@ add_action('wp', function () {
 });
 
 /* ---------------------------------------------------------------------------
+ * Initial CUI visibility — prevent FOUC before checkout.js runs
+ *
+ * `billing_cui` (CUI/CNP) is toggled by JS based on `billing_tip_facturare`
+ * (PF/PJ). Since checkout.js is lazy-imported, the field was flashing visible
+ * for a frame before JS hid it. Fix: render a body class reflecting the
+ * current tip value, and hide the CUI row via CSS when PF is selected.
+ * JS then only swaps the body class on change — no inline style, no FOUC,
+ * because the CSS rule applies as soon as <body> is parsed, before the CUI
+ * row even renders into the DOM.
+ * ------------------------------------------------------------------------- */
+
+add_filter('body_class', function ($classes) {
+    if (! function_exists('is_checkout') || ! is_checkout() || is_order_received_page()) {
+        return $classes;
+    }
+
+    $tip = '';
+    if (function_exists('WC') && WC()->checkout()) {
+        $tip = (string) WC()->checkout()->get_value('billing_tip_facturare');
+    }
+
+    // FGO defaults to '2' (Persoană Fizică) when unset. Anything other than
+    // '1' (Persoană Juridică) is treated as PF so the CUI row stays hidden.
+    $classes[] = $tip === '1' ? 'natura-tip-pj' : 'natura-tip-pf';
+
+    return $classes;
+});
+
+/* ---------------------------------------------------------------------------
  * No-cache on checkout / order-received (nonces + session-bound)
  * ------------------------------------------------------------------------- */
 

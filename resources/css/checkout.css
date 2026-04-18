@@ -7,6 +7,15 @@
   padding: 30px 0 60px;
 }
 
+/* CUI/CNP field visibility — driven by `.natura-tip-pj` / `.natura-tip-pf`
+   body class set server-side in app/checkout.php. Hides the field the moment
+   <body> is parsed so users never see it flash before checkout.js hydrates.
+   Covers both the FGO plugin variant and the fallback `billing_cui` field. */
+body.natura-tip-pf #wc_order_billing_cui_fgo_client_field,
+body.natura-tip-pf #billing_cui_field {
+  display: none;
+}
+
 /* ============================
    Progress steps (Coș → Casă → Finalizare)
    ============================ */
