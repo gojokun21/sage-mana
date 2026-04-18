@@ -121,21 +121,33 @@
       // error toast if the nonce is still missing.
     });
 
+  // Incremental merge helpers — operate on the LIVE cfg.ids at call time so
+  // concurrent toggles don't step on each other. Never assign a snapshot of
+  // cfg.ids back in, or a stale response overwrites a newer optimistic state.
+  function ensureId(id) {
+    if (cfg.ids.indexOf(id) === -1) cfg.ids.push(id);
+  }
+  function removeId(id) {
+    cfg.ids = cfg.ids.filter(function (x) { return x !== id; });
+  }
+
   function doToggle(btn) {
     var productId = parseInt(btn.dataset.productId, 10);
     if (!productId || inflight.has(productId)) return;
 
-    // Optimistic update — flip the heart immediately, revert on failure.
+    // Optimistic update — flip this product's state in-place. No snapshot of
+    // cfg.ids is taken, so other in-flight toggles keep their own optimistic
+    // flips and neither race can clobber the other.
     var wasActive = btn.classList.contains('is-active');
     var willBeActive = !wasActive;
     reflectState(productId, willBeActive);
 
-    var currentIds = cfg.ids.slice();
-    var optimisticIds = willBeActive
-      ? currentIds.indexOf(productId) === -1 ? currentIds.concat(productId) : currentIds
-      : currentIds.filter(function (id) { return id !== productId; });
-    updateBadge(optimisticIds.length);
-    cfg.ids = optimisticIds;
+    if (willBeActive) {
+      ensureId(productId);
+    } else {
+      removeId(productId);
+    }
+    updateBadge(cfg.ids.length);
     showToast(willBeActive ? cfg.i18n.added : cfg.i18n.removed);
 
     inflight.add(productId);
@@ -159,10 +171,18 @@
           throw new Error((res && res.data && res.data.message) || cfg.i18n.error);
         }
         var data = res.data;
-        // Reconcile with server truth (handles race conditions).
+        // Merge ONLY this product's state with what the server confirmed.
+        // Don't replace cfg.ids with data.ids — that's a point-in-time server
+        // snapshot that may predate a concurrent toggle whose response hasn't
+        // landed yet, and applying it here would roll back that toggle's
+        // optimistic state.
         reflectState(data.product_id, !!data.in);
-        updateBadge(data.count);
-        cfg.ids = (data.ids || []).map(function (n) { return parseInt(n, 10); });
+        if (data.in) {
+          ensureId(data.product_id);
+        } else {
+          removeId(data.product_id);
+        }
+        updateBadge(cfg.ids.length);
         if (data.nonce) cfg.nonce = data.nonce;
 
         if (!data.in) {
@@ -170,10 +190,15 @@
         }
       })
       .catch(function (err) {
-        // Revert optimistic change.
+        // Revert only this product's optimistic flip. Other concurrent toggles
+        // keep their state untouched.
         reflectState(productId, wasActive);
-        updateBadge(currentIds.length);
-        cfg.ids = currentIds;
+        if (wasActive) {
+          ensureId(productId);
+        } else {
+          removeId(productId);
+        }
+        updateBadge(cfg.ids.length);
         showToast((err && err.message) || cfg.i18n.error);
       })
       .finally(function () {
