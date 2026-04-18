@@ -56,18 +56,27 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         $fields['billing']['billing_address_1']['label'] = __('Strada și Numărul', 'sage');
     }
 
-    // Tag the CUI/CNP row with a known class so our CSS can reliably hide it
-    // for Persoană Fizică. Injecting through `class` here is FGO-independent:
-    // WC always passes this through to `woocommerce_form_field`, whereas
-    // relying on FGO's `{key}_field` ID or HTML structure proved brittle.
-    if (isset($fields['billing']['billing_cui'])) {
-        $existing = isset($fields['billing']['billing_cui']['class'])
-            ? (array) $fields['billing']['billing_cui']['class']
-            : [];
-        if (! in_array('natura-cui-row', $existing, true)) {
-            $existing[] = 'natura-cui-row';
+    // Tag PJ-only rows with known classes so our CSS can hide them for
+    // Persoană Fizică without a FOUC. Injecting through `class` here is
+    // FGO-independent: WC always passes this through to
+    // `woocommerce_form_field`, whereas relying on FGO's `{key}_field` ID or
+    // HTML structure proved brittle. Keyed by field slug → class name.
+    $pj_only_classes = [
+        'billing_cui' => 'natura-cui-row',
+        'billing_company' => 'natura-company-row',
+    ];
+
+    foreach ($pj_only_classes as $field_key => $marker_class) {
+        if (! isset($fields['billing'][$field_key])) {
+            continue;
         }
-        $fields['billing']['billing_cui']['class'] = $existing;
+        $existing = isset($fields['billing'][$field_key]['class'])
+            ? (array) $fields['billing'][$field_key]['class']
+            : [];
+        if (! in_array($marker_class, $existing, true)) {
+            $existing[] = $marker_class;
+        }
+        $fields['billing'][$field_key]['class'] = $existing;
     }
 
     return $fields;

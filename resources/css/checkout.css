@@ -7,19 +7,22 @@
   padding: 30px 0 60px;
 }
 
-/* CUI/CNP field visibility — driven by `.natura-tip-pj` / `.natura-tip-pf`
-   body class set server-side in app/checkout.php. Hides the field the moment
-   <body> is parsed so users never see it flash before checkout.js hydrates.
+/* PJ-only fields visibility — driven by `.natura-tip-pj` / `.natura-tip-pf`
+   body class set server-side in app/checkout.php. Hides the fields the
+   moment <body> is parsed so users never see them flash before checkout.js
+   hydrates.
 
-   `.natura-cui-row` is injected server-side via the `class` arg in the field
-   definition (see app/checkout.php). WC always forwards that to the rendered
-   <p class="form-row ..."> regardless of FGO's rendering quirks, so this is
-   the reliable hook. The ID selectors stay as belt-and-braces fallback.
-   `!important` beats jQuery `.show()` inline style that FGO's own JS runs
-   when `billing_tip_facturare=2` (PF). */
+   The `.natura-*-row` marker classes are injected server-side via the
+   `class` arg in each field definition (see app/checkout.php). WC always
+   forwards those to the rendered <p class="form-row ..."> regardless of
+   FGO's rendering quirks, so these are the reliable hooks. The ID
+   selectors stay as belt-and-braces fallback. `!important` beats jQuery
+   `.show()` inline style that FGO's own JS runs on change. */
 body.natura-tip-pf .natura-cui-row,
+body.natura-tip-pf .natura-company-row,
 body.natura-tip-pf #wc_order_billing_cui_fgo_client_field,
-body.natura-tip-pf #billing_cui_field {
+body.natura-tip-pf #billing_cui_field,
+body.natura-tip-pf #billing_company_field {
   display: none !important;
 }
 
