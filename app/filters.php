@@ -94,17 +94,35 @@ add_action('wp_enqueue_scripts', function () {
     wp_dequeue_style('wp-block-library-theme');
     wp_dequeue_style('global-styles');
 
-    $needle = '/woocommerce-product-bundles/';
+    $style_needles = [
+        '/woocommerce-product-bundles/',
+        '/woocommerce/assets/client/blocks/', // wc-blocks.css, checkout-blocks.css
+    ];
+    $script_needles = [
+        '/woocommerce-product-bundles/',
+    ];
 
     foreach (wp_styles()->registered as $handle => $style) {
-        if (is_string($style->src) && str_contains($style->src, $needle)) {
-            wp_dequeue_style($handle);
+        if (! is_string($style->src)) {
+            continue;
+        }
+        foreach ($style_needles as $needle) {
+            if (str_contains($style->src, $needle)) {
+                wp_dequeue_style($handle);
+                break;
+            }
         }
     }
 
     foreach (wp_scripts()->registered as $handle => $script) {
-        if (is_string($script->src) && str_contains($script->src, $needle)) {
-            wp_dequeue_script($handle);
+        if (! is_string($script->src)) {
+            continue;
+        }
+        foreach ($script_needles as $needle) {
+            if (str_contains($script->src, $needle)) {
+                wp_dequeue_script($handle);
+                break;
+            }
         }
     }
 }, 100);
@@ -144,6 +162,8 @@ add_filter('script_loader_tag', function ($tag, $handle, $src) {
 
     $defer_needles = [
         '/duracelltomi-google-tag-manager/', // GTM4WP (gtm.js, gtm4wp-woocommerce, form-tracker)
+        '/sourcebuster',                      // WC Order Attribution tracker
+        '/order-attribution',                 // WC Order Attribution integration
     ];
 
     $match = false;
