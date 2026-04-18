@@ -1552,6 +1552,7 @@ body.menu-open {
 
 /* Part-of (bundle content list — shown on a bundled product page) */
 .product_part_of {
+  margin-top: 12px;
   margin-bottom: 16px;
 }
 

@@ -137,10 +137,11 @@ add_action('wp_login', function (string $user_login, \WP_User $user): void {
 
 add_action('wp_enqueue_scripts', function () {
     add_action('wp_footer', function () {
+        // Intentionally NO `ids` or `nonce` here — both are per-user and
+        // would be poisoned by full-page caching on production. The client
+        // fetches them via the `op=get` hydration endpoint instead.
         echo '<script>var natura_favorites = ' . wp_json_encode([
             'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('natura_favorites_nonce'),
-            'ids' => get_favorites(),
             'i18n' => [
                 'added' => __('Adăugat la favorite', 'sage'),
                 'removed' => __('Eliminat din favorite', 'sage'),
@@ -155,13 +156,26 @@ add_action('wp_ajax_nopriv_natura_favorites', __NAMESPACE__ . '\\favorites_handl
 
 function favorites_handler(): void
 {
-    check_ajax_referer('natura_favorites_nonce', 'nonce');
-
-    $op = isset($_POST['op']) ? sanitize_key(wp_unslash($_POST['op'])) : 'toggle';
-    $product_id = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
+    $op = isset($_REQUEST['op']) ? sanitize_key(wp_unslash($_REQUEST['op'])) : 'toggle';
 
     try {
+        if ($op === 'get') {
+            // Read-only hydration. No CSRF check: this endpoint is the one
+            // that hands the client a fresh nonce, and it can only read the
+            // requester's own favorites (no impersonation possible).
+            $ids = get_favorites();
+            wp_send_json_success([
+                'count' => count($ids),
+                'ids' => $ids,
+                'nonce' => wp_create_nonce('natura_favorites_nonce'),
+            ]);
+        }
+
+        check_ajax_referer('natura_favorites_nonce', 'nonce');
+
         if ($op === 'toggle') {
+            $product_id = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
+
             if (! $product_id || ! get_post($product_id)) {
                 wp_send_json_error(['message' => __('Produs invalid', 'sage')]);
             }
@@ -173,15 +187,11 @@ function favorites_handler(): void
                 'count' => $result['count'],
                 'ids' => $result['ids'],
                 'product_id' => $product_id,
+                'nonce' => wp_create_nonce('natura_favorites_nonce'),
             ]);
         }
 
-        // op=get (default fallthrough)
-        $ids = get_favorites();
-        wp_send_json_success([
-            'count' => count($ids),
-            'ids' => $ids,
-        ]);
+        wp_send_json_error(['message' => __('Operație invalidă', 'sage')]);
     } catch (\Throwable $e) {
         wp_send_json_error(['message' => $e->getMessage()]);
     }

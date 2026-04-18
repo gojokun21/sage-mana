@@ -7,18 +7,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   background: transparent;
   border: none;
   cursor: pointer;
   transition: transform 0.2s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   z-index: 99;
 }
 
-.natura-fav-btn:hover {
-  transform: scale(1.15);
+@media (hover: hover) {
+  .natura-fav-btn:hover {
+    transform: scale(1.15);
+  }
 }
 
 .natura-fav-btn:active {
@@ -63,9 +67,14 @@
   transform: translate(-50%, -50%) scale(0);
 }
 
-.natura-fav-btn:hover .natura-fav-icon-empty {
-  color: var(--green);
-  transform: translate(-50%, -50%) scale(1.1);
+@media (hover: hover) {
+  .natura-fav-btn:hover .natura-fav-icon-empty {
+    color: var(--green);
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .natura-fav-btn.is-active:hover .natura-fav-icon-filled {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
 }
 
 .natura-fav-btn.is-active .natura-fav-icon-empty {
@@ -76,10 +85,6 @@
 .natura-fav-btn.is-active .natura-fav-icon-filled {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
-}
-
-.natura-fav-btn.is-active:hover .natura-fav-icon-filled {
-  transform: translate(-50%, -50%) scale(1.15);
 }
 
 /* Inside product cards, the wrapper is already positioned absolutely. */

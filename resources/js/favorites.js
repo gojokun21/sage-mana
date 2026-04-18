@@ -3,12 +3,16 @@
  * Heart-toggle UX. Lazy-loaded from app.js.
  *
  * Backend: `app/favorites.php` (WP AJAX action: `natura_favorites`).
- * Config: global `natura_favorites` { ajax_url, nonce, ids[], i18n }.
+ * Config:  global `natura_favorites` { ajax_url, i18n } — `ids` + `nonce`
+ *          are fetched on init to avoid page-cache poisoning on live.
  */
 
 (function () {
   var cfg = window.natura_favorites;
   if (!cfg || !cfg.ajax_url) return;
+
+  cfg.ids = [];
+  cfg.nonce = null;
 
   var inflight = new Set();
   var toastTimer = null;
@@ -32,6 +36,14 @@
           ? btn.dataset.labelRemove || 'Elimină din favorite'
           : btn.dataset.labelAdd || 'Adaugă la favorite'
       );
+    });
+  }
+
+  function reflectAllFromCfg() {
+    document.querySelectorAll('.natura-fav-btn').forEach(function (btn) {
+      var pid = parseInt(btn.dataset.productId, 10);
+      if (!pid) return;
+      reflectState(pid, cfg.ids.indexOf(pid) !== -1);
     });
   }
 
@@ -87,7 +99,29 @@
     }, 1800);
   }
 
-  function toggle(btn) {
+  // Hydration: fetch fresh ids + nonce from a non-cached endpoint.
+  // admin-ajax.php is never cached, so this gives us the real per-user state
+  // even when the surrounding HTML came from a full-page cache.
+  var hydrated = fetch(cfg.ajax_url + '?action=natura_favorites&op=get', {
+    method: 'GET',
+    credentials: 'same-origin',
+    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+  })
+    .then(function (r) { return r.json(); })
+    .then(function (res) {
+      if (!res || !res.success) throw new Error('hydration');
+      var data = res.data || {};
+      cfg.ids = Array.isArray(data.ids) ? data.ids.map(function (n) { return parseInt(n, 10); }) : [];
+      cfg.nonce = data.nonce || null;
+      reflectAllFromCfg();
+      if (typeof data.count === 'number') updateBadge(data.count);
+    })
+    .catch(function () {
+      // Silent: the first click will re-await this promise and surface an
+      // error toast if the nonce is still missing.
+    });
+
+  function doToggle(btn) {
     var productId = parseInt(btn.dataset.productId, 10);
     if (!productId || inflight.has(productId)) return;
 
@@ -96,7 +130,7 @@
     var willBeActive = !wasActive;
     reflectState(productId, willBeActive);
 
-    var currentIds = Array.isArray(cfg.ids) ? cfg.ids.slice() : [];
+    var currentIds = cfg.ids.slice();
     var optimisticIds = willBeActive
       ? currentIds.indexOf(productId) === -1 ? currentIds.concat(productId) : currentIds
       : currentIds.filter(function (id) { return id !== productId; });
@@ -105,6 +139,7 @@
     showToast(willBeActive ? cfg.i18n.added : cfg.i18n.removed);
 
     inflight.add(productId);
+    btn.classList.add('is-loading');
 
     var form = new FormData();
     form.append('action', 'natura_favorites');
@@ -112,10 +147,13 @@
     form.append('nonce', cfg.nonce);
     form.append('product_id', String(productId));
 
-    fetch(cfg.ajax_url, { method: 'POST', credentials: 'same-origin', body: form })
-      .then(function (r) {
-        return r.json();
-      })
+    fetch(cfg.ajax_url, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      body: form,
+    })
+      .then(function (r) { return r.json(); })
       .then(function (res) {
         if (!res || !res.success) {
           throw new Error((res && res.data && res.data.message) || cfg.i18n.error);
@@ -124,7 +162,8 @@
         // Reconcile with server truth (handles race conditions).
         reflectState(data.product_id, !!data.in);
         updateBadge(data.count);
-        cfg.ids = data.ids || [];
+        cfg.ids = (data.ids || []).map(function (n) { return parseInt(n, 10); });
+        if (data.nonce) cfg.nonce = data.nonce;
 
         if (!data.in) {
           removeCardFromList(data.product_id);
@@ -138,8 +177,24 @@
         showToast((err && err.message) || cfg.i18n.error);
       })
       .finally(function () {
+        btn.classList.remove('is-loading');
         inflight.delete(productId);
       });
+  }
+
+  function toggle(btn) {
+    if (cfg.nonce) {
+      doToggle(btn);
+      return;
+    }
+    // Hydration pending or failed — wait, then retry once.
+    hydrated.finally(function () {
+      if (!cfg.nonce) {
+        showToast(cfg.i18n.error);
+        return;
+      }
+      doToggle(btn);
+    });
   }
 
   document.addEventListener('click', function (e) {
