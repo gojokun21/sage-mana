@@ -2815,6 +2815,7 @@ p.demo_store {
 @import "./cart-modal.css";     /* add-to-cart confirmation modal */
 @import "./qty-stepper.css";    /* used inside mini-cart + cart + product */
 @import "./favorites.css";      /* heart buttons on product cards */
+@import "./auth.css";           /* login modal triggered from header — any page */
 @import "./footer.css";         /* footer everywhere */
 @import "./page.css";           /* generic page wrapper */
 @import "./responsive.css";     /* universal responsive rules */
