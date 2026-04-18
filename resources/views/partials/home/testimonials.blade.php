@@ -44,7 +44,7 @@
                 $product_name = get_sub_field('product_name');
                 $video = get_sub_field('video_file');
 
-                $image_id = is_array($image) ? ($image['ID'] ?? $image['id'] ?? null) : (is_numeric($image) ? (int) $image : null);
+                $image_id = \App\acf_image_id($image);
                 $image_url = is_array($image) ? ($image['url'] ?? '') : (is_string($image) ? $image : '');
                 $image_alt = is_array($image) ? ($image['alt'] ?? '') : '';
                 $video_url = is_array($video) ? ($video['url'] ?? '') : $video;

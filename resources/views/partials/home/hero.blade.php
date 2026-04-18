@@ -14,40 +14,34 @@
   }
 
   /**
-   * ACF image fields can return an array, a numeric ID, or a URL string.
-   * Normalize to [id, url, width, height] so we can both fall back to a URL
-   * and emit a responsive srcset when we have an attachment ID.
+   * Normalize ACF image value to [id, url, width, height]. Uses
+   * `\App\acf_image_id()` so Image URL / Image Array / Image ID return
+   * formats all resolve to a usable ID — critical for emitting srcset.
    */
   $normalize_image = function ($image, string $size = 'full'): array {
-    $id = null;
+    $id = \App\acf_image_id($image);
     $url = '';
     $width = null;
     $height = null;
 
-    if (is_array($image)) {
-      $id = $image['ID'] ?? $image['id'] ?? null;
-      if ($id) {
-        $src = wp_get_attachment_image_src((int) $id, $size);
-        if ($src) {
-          [$url, $width, $height] = $src;
-        }
-      }
-      if (! $url) {
-        $url = $image['url'] ?? '';
-        $width = $image['width'] ?? null;
-        $height = $image['height'] ?? null;
-      }
-    } elseif (is_numeric($image)) {
-      $id = (int) $image;
+    if ($id) {
       $src = wp_get_attachment_image_src($id, $size);
       if ($src) {
         [$url, $width, $height] = $src;
       }
-    } elseif (is_string($image)) {
-      $url = $image;
     }
 
-    return [$id ? (int) $id : null, $url, $width, $height];
+    if (! $url) {
+      if (is_array($image)) {
+        $url = $image['url'] ?? '';
+        $width = $image['width'] ?? null;
+        $height = $image['height'] ?? null;
+      } elseif (is_string($image)) {
+        $url = $image;
+      }
+    }
+
+    return [$id, $url, $width, $height];
   };
 @endphp
 

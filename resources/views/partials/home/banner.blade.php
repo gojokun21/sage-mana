@@ -17,7 +17,7 @@
     the_row();
     $content = get_sub_field('content_section');
     $image = get_sub_field('image');
-    $image_id = is_array($image) ? ($image['ID'] ?? $image['id'] ?? null) : (is_numeric($image) ? (int) $image : null);
+    $image_id = \App\acf_image_id($image);
     $image_url = is_array($image) ? ($image['url'] ?? '') : (is_string($image) ? $image : '');
     $image_alt = is_array($image) ? ($image['alt'] ?? '') : '';
 

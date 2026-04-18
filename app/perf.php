@@ -132,3 +132,58 @@ function hero_image_url($image, string $size = 'full'): ?string
 
     return is_string($image) ? $image : null;
 }
+
+/**
+ * Resolve an ACF image value to an attachment ID regardless of the field's
+ * "Return Format" setting (Image Array / Image URL / Image ID). When only a
+ * URL is available, falls back to `attachment_url_to_postid()` so the
+ * partials can still emit a responsive srcset.
+ *
+ * Memoized per-request — each unique URL resolves once, a handful of
+ * lookups per page render at worst.
+ */
+function acf_image_id($image): ?int
+{
+    if (empty($image)) {
+        return null;
+    }
+
+    if (is_numeric($image)) {
+        return (int) $image;
+    }
+
+    if (is_array($image)) {
+        $id = $image['ID'] ?? $image['id'] ?? null;
+        if ($id) {
+            return (int) $id;
+        }
+        $url = $image['url'] ?? null;
+    } elseif (is_string($image)) {
+        $url = $image;
+    } else {
+        return null;
+    }
+
+    if (! $url) {
+        return null;
+    }
+
+    static $local = [];
+    if (isset($local[$url])) {
+        return $local[$url];
+    }
+
+    // Cross-request cache via WP object cache — with Redis/Memcached on
+    // production this collapses to a memory hit (~0.1ms) instead of a DB
+    // query. Falls back to per-request only when no persistent cache.
+    $cache_key = 'url_' . md5($url);
+    $cached = wp_cache_get($cache_key, 'natura_acf_image_id');
+    if ($cached !== false) {
+        return $local[$url] = ((int) $cached) ?: null;
+    }
+
+    $found = attachment_url_to_postid((string) $url);
+    wp_cache_set($cache_key, (int) $found, 'natura_acf_image_id', HOUR_IN_SECONDS);
+
+    return $local[$url] = $found ?: null;
+}

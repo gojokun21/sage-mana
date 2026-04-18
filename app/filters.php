@@ -16,6 +16,17 @@ add_filter('excerpt_more', function () {
 });
 
 /**
+ * Disable the WP 6.7+ `sizes="auto"` prefix on lazy-loaded images. The
+ * feature has inconsistent browser support — in particular, Lighthouse and
+ * some Chromium builds treat the full `sizes` attribute as invalid when they
+ * don't understand `auto`, falling back to `100vw`. That makes the browser
+ * ask for a viewport-wide image from `srcset` and picks the 1000w original
+ * for a 120px-wide card. Disabling `auto` lets our explicit hint
+ * (`(max-width: 640px) 45vw, 260px`) do its job reliably.
+ */
+add_filter('wp_img_tag_add_auto_sizes', '__return_false');
+
+/**
  * Disable WooCommerce default stylesheets (layout, smallscreen, general, blocks).
  */
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');

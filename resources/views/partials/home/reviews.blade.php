@@ -16,7 +16,7 @@
   @php
     the_row();
     $hero_image = get_sub_field('image');
-    $hero_image_id = is_array($hero_image) ? ($hero_image['ID'] ?? $hero_image['id'] ?? null) : (is_numeric($hero_image) ? (int) $hero_image : null);
+    $hero_image_id = \App\acf_image_id($hero_image);
     $hero_image_url = is_array($hero_image) ? ($hero_image['url'] ?? '') : (is_string($hero_image) ? $hero_image : '');
     $hero_image_alt = is_array($hero_image) ? ($hero_image['alt'] ?? '') : '';
 
@@ -59,7 +59,7 @@
 
                     $profile_url = is_array($profile_image) ? ($profile_image['url'] ?? '') : $profile_image;
                     $profile_alt = is_array($profile_image) ? ($profile_image['alt'] ?? '') : $profile_name;
-                    $product_img_id = is_array($product_image) ? ($product_image['ID'] ?? $product_image['id'] ?? null) : (is_numeric($product_image) ? (int) $product_image : null);
+                    $product_img_id = \App\acf_image_id($product_image);
                     $product_img_url = is_array($product_image) ? ($product_image['url'] ?? '') : (is_string($product_image) ? $product_image : '');
                     $product_img_alt = is_array($product_image) ? ($product_image['alt'] ?? '') : $product_title;
 
