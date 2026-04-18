@@ -35,7 +35,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
     <?php if ( $order->get_payment_method() === 'cod' ) : ?>
       <p>Pentru comenzile cu plata la livrare, este necesară o <strong>confirmare telefonică</strong>.</p>
       <p>Un coleg din echipa noastră te va contacta în cel mai scurt timp pentru validarea comenzii.</p>
-      <p>👉 <strong>Comanda va fi procesată și expediată doar după confirmarea telefonică.</strong></p>
+      <p>👉 Comanda va fi procesată și expediată doar după confirmarea telefonică.</p>
       <p><strong>📦 Ce urmează?</strong></p>
       <p>După confirmare, pregătim coletul tău cu grijă și îl vom expedia cât mai rapid. Vei primi un nou email imediat ce comanda pleacă spre tine.</p>
     <?php else : ?>

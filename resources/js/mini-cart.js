@@ -87,7 +87,14 @@
           throw err;
         }
         render(json.data);
-        dispatch('natura:mini-cart:updated', json.data);
+        // Passive `get` refetches (triggered by WC jQuery events like
+        // `updated_cart_totals` / `wc_fragments_refreshed`) must NOT fire
+        // this event — cart.js listens to it and would sync back, creating
+        // a ping-pong that locks `.woocommerce-cart-form` with pointer-events:
+        // none mid-interaction. Only real mutations should propagate.
+        if (op !== 'get') {
+          dispatch('natura:mini-cart:updated', json.data);
+        }
         return json.data;
       })
       .catch(function (err) {

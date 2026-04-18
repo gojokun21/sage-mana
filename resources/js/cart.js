@@ -186,36 +186,30 @@
 
   /* ---------------- AJAX: qty change → update cart fragments ---------------- */
 
-  var cartForm = document.querySelector('.woocommerce-cart-form');
+  // Re-query every call: something on the cart page (WC core? a plugin?)
+  // replaces the <form.woocommerce-cart-form> element after the first AJAX
+  // round-trip. A captured reference becomes detached and listeners attached
+  // to it die silently. Always read fresh from the live DOM.
+  function getCartForm() {
+    return document.querySelector('.woocommerce-cart-form');
+  }
+
   var qtyTimers = Object.create(null);
   var qtyLatest = Object.create(null);
 
   // Keep the cart page in sync with mini-cart changes (qty / remove).
-  // Empty cart → full reload to let WC render the empty-cart template.
-  // Otherwise → fetch fresh fragments and swap items/totals/shipping in-place.
+  // mini-cart.js only dispatches `natura:mini-cart:updated` on real mutations
+  // (add/update/remove) — passive `get` refetches from WC jQuery events
+  // don't fire it — so we can sync unconditionally without echo counting.
+  // No `is-updating` during the passive sync: it blocks pointer-events and
+  // can eat clicks the user makes on the cart form.
   var syncTimer = null;
   var isSyncingFromMiniCart = false;
-  // Counts cart-originated updates still waiting for their echo back through
-  //   swapFragments → updated_cart_totals (jQuery) → mini-cart.js refetches →
-  //   natura:mini-cart:updated
-  // The counter is incremented inside swapFragments at the exact moment the
-  // jQuery trigger fires, so it's 1:1 with expected echoes. Each echo decrements
-  // and gets skipped, preventing a second spinner. The safety timer resets the
-  // counter if the echo never arrives (e.g., no jQuery, mini-cart fetch fails).
-  var pendingOwnEchoes = 0;
-  var ownEchoSafetyTimer = null;
 
   document.addEventListener('natura:mini-cart:updated', function (e) {
-    if (! cartForm) return;
+    if (! getCartForm()) return;
     if (e && e.detail && e.detail.is_empty) {
       location.reload();
-      return;
-    }
-
-    // Cart.js triggered this round-trip — fragments already applied locally.
-    if (pendingOwnEchoes > 0) {
-      pendingOwnEchoes--;
-      if (pendingOwnEchoes === 0) clearTimeout(ownEchoSafetyTimer);
       return;
     }
 
@@ -223,14 +217,12 @@
     clearTimeout(syncTimer);
     syncTimer = setTimeout(function () {
       isSyncingFromMiniCart = true;
-      cartForm.classList.add('is-updating');
       postCart({ op: 'get' })
         .then(function (res) {
           if (res && res.success) applyFragments(res.data);
         })
         .catch(function () {})
         .finally(function () {
-          cartForm.classList.remove('is-updating');
           // Release the flag after the DOM settles so swapFragments can skip
           // re-triggering `updated_cart_totals` and avoid a ping-pong loop.
           setTimeout(function () { isSyncingFromMiniCart = false; }, 300);
@@ -347,12 +339,9 @@
     // Let other scripts (mini-cart, analytics) react just like WC does natively.
     // Skip when we're syncing FROM the mini-cart — otherwise we'd bounce back
     // into mini-cart.js which listens to `updated_cart_totals` and loops.
+    // mini-cart.js's resulting `get` refetch is passive and won't dispatch
+    // `natura:mini-cart:updated`, so no echo counting is needed here.
     if (!isSyncingFromMiniCart && window.jQuery) {
-      // Increment here (not in scheduleQtyUpdate) so the counter is in sync
-      // with the actual jQuery trigger — one echo per trigger.
-      pendingOwnEchoes++;
-      clearTimeout(ownEchoSafetyTimer);
-      ownEchoSafetyTimer = setTimeout(function () { pendingOwnEchoes = 0; }, 5000);
       window.jQuery(document.body).trigger('updated_cart_totals');
     }
 
@@ -368,7 +357,8 @@
       delete qtyTimers[key];
       delete qtyLatest[key];
 
-      if (cartForm) cartForm.classList.add('is-updating');
+      var form = getCartForm();
+      if (form) form.classList.add('is-updating');
 
       postCart({ op: 'update_qty', key: key, qty: finalQty })
         .then(function (res) {
@@ -382,53 +372,59 @@
           showMessage(cfg.i18n.error, 'error');
         })
         .finally(function () {
-          if (cartForm) cartForm.classList.remove('is-updating');
+          var f = getCartForm();
+          if (f) f.classList.remove('is-updating');
         });
     }, 450);
   }
 
-  if (cartForm) {
-    // Qty change (both +/- via qty-stepper and direct edits).
-    cartForm.addEventListener('change', function (e) {
-      var input = e.target;
-      if (!input.matches || !input.matches('.qty-stepper__input, input.qty')) return;
+  // Delegate at document level so listeners survive the cart form being
+  // replaced by WC core / a fragment handler after the first AJAX round-trip.
+  // Scope with `closest('.woocommerce-cart-form')` so we don't hijack qty
+  // steppers elsewhere on the page (mini-cart drawer, etc.).
 
-      var row = input.closest('[data-cart-item-key]');
-      if (!row) return;
+  // Qty change (both +/- via qty-stepper and direct edits).
+  document.addEventListener('change', function (e) {
+    var input = e.target;
+    if (!input || !input.matches || !input.matches('.qty-stepper__input, input.qty')) return;
+    if (!input.closest('.woocommerce-cart-form')) return;
 
-      var qty = parseInt(input.value, 10);
-      if (isNaN(qty) || qty < 0) qty = 0;
+    var row = input.closest('[data-cart-item-key]');
+    if (!row) return;
 
-      scheduleQtyUpdate(row.getAttribute('data-cart-item-key'), qty);
-    });
+    var qty = parseInt(input.value, 10);
+    if (isNaN(qty) || qty < 0) qty = 0;
 
-    // Intercept remove links → AJAX.
-    cartForm.addEventListener('click', function (e) {
-      var link = e.target.closest && e.target.closest('[data-cart-item-remove]');
-      if (!link) return;
-      e.preventDefault();
+    scheduleQtyUpdate(row.getAttribute('data-cart-item-key'), qty);
+  });
 
-      var key = link.getAttribute('data-cart-item-remove');
-      if (!key) return;
+  // Intercept remove links → AJAX.
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('[data-cart-item-remove]');
+    if (!link) return;
+    if (!link.closest('.woocommerce-cart-form')) return;
+    e.preventDefault();
 
-      var row = link.closest('[data-cart-item-key]');
-      if (row) row.classList.add('is-removing');
+    var key = link.getAttribute('data-cart-item-remove');
+    if (!key) return;
 
-      postCart({ op: 'remove_item', key: key })
-        .then(function (res) {
-          if (res && res.success) {
-            applyFragments(res.data);
-          } else {
-            if (row) row.classList.remove('is-removing');
-            showMessage((res && res.data && res.data.message) || cfg.i18n.error, 'error');
-          }
-        })
-        .catch(function () {
+    var row = link.closest('[data-cart-item-key]');
+    if (row) row.classList.add('is-removing');
+
+    postCart({ op: 'remove_item', key: key })
+      .then(function (res) {
+        if (res && res.success) {
+          applyFragments(res.data);
+        } else {
           if (row) row.classList.remove('is-removing');
-          showMessage(cfg.i18n.error, 'error');
-        });
-    });
-  }
+          showMessage((res && res.data && res.data.message) || cfg.i18n.error, 'error');
+        }
+      })
+      .catch(function () {
+        if (row) row.classList.remove('is-removing');
+        showMessage(cfg.i18n.error, 'error');
+      });
+  });
 
   /* ---------------- WC added_to_cart (upsell) → reload ---------------- */
   // When an upsell product is added via WC's AJAX add-to-cart, reload the

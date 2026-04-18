@@ -24,6 +24,18 @@
       </tr>
     @endforeach
 
+    @if (WC()->cart->needs_shipping())
+      <tr class="shipping">
+        <th>{{ __('Livrare', 'sage') }}</th>
+        <td data-title="{{ esc_attr__('Livrare', 'sage') }}">
+          @php
+            $shipping_total = WC()->cart->get_cart_shipping_total();
+          @endphp
+          {!! $shipping_total ?: __('Se calculează la checkout', 'sage') !!}
+        </td>
+      </tr>
+    @endif
+
     @foreach (WC()->cart->get_fees() as $fee)
       <tr class="fee">
         <th>{{ esc_html($fee->name) }}</th>
