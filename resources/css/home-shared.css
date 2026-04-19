@@ -109,8 +109,31 @@
   pointer-events: none;
 }
 
+/* Swiper's `watchOverflow` adds these classes when all slides fit without
+ * scrolling — nav buttons and pagination should disappear. We re-declare
+ * the rule here because our `.home-slider__btn { display: inline-flex }`
+ * comes after Swiper's own `.swiper-button-lock { display: none }` in the
+ * cascade and would otherwise cancel it out. */
+.home-slider__btn.swiper-button-lock,
+.home-slider__btn.swiper-button-hidden {
+  display: none;
+}
+
+.home-slider__pagination.swiper-pagination-lock,
+.home-slider__pagination.swiper-pagination-hidden {
+  display: none;
+}
+
 .home-slider__btn--prev { left: -23px; }
 .home-slider__btn--next { right: -23px; }
+
+/* Positioning context for sections that have a pagination below the slider
+ * (e.g. categories). Wraps the swiper + nav buttons only, so `top: 50%` on
+ * the buttons centers on the slide row instead of the (swiper + pagination)
+ * combined height of .home-slider. */
+.home-slider__viewport {
+  position: relative;
+}
 
 /* Hide the prev/next nav below container breakpoint — the container caps
  * around 1400px, so the buttons positioned at -23px fall off-screen.

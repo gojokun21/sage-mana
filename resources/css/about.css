@@ -74,14 +74,6 @@
   overflow: hidden;
 }
 
-.about_description p{
-  margin-bottom: 20px !important;
-}
-
-.about_description p:last-child{
-  margin-bottom: 0;
-}
-
 .about_description::after {
   content: '';
   position: absolute;

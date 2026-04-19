@@ -125,6 +125,9 @@ function initHomeSlider(el) {
       {
         modules: [Navigation, Pagination],
         speed: 500,
+        // Hide nav + pagination automatically when all slides already fit
+        // (e.g. testimonials section with only 3 videos on a 4-per-view breakpoint).
+        watchOverflow: true,
         navigation: {
           prevEl: container.querySelector('[data-home-slider-prev="' + name + '"]'),
           nextEl: container.querySelector('[data-home-slider-next="' + name + '"]'),
