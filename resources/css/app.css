@@ -2504,6 +2504,80 @@ body.menu-open {
 .comment-form-rating .stars.selected a { color: #f5b400; }
 .comment-form-rating .stars.selected a.active ~ a { color: #d7dbdf; }
 
+/* Text inputs (name, email, url) — share styling with the textarea below
+ * so the whole review/comment form looks consistent. Two-column on desktop,
+ * single column on mobile via the responsive block. */
+.comment-form-author,
+.comment-form-email,
+.comment-form-url {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-form-author input[type="text"],
+.comment-form-email input[type="email"],
+.comment-form-url input[type="url"] {
+  width: 100%;
+  height: 46px;
+  padding: 0 16px;
+  border: 1px solid #d7dbdf;
+  border-radius: 12px;
+  font: inherit;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-form-author input[type="text"]:focus,
+.comment-form-email input[type="email"]:focus,
+.comment-form-url input[type="url"]:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(56, 99, 86, 0.12);
+}
+
+/* Cookies consent — checkbox inline with its label (overrides the block
+ * label default set earlier for the form). */
+.comment-form-cookies-consent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-form-cookies-consent input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--green);
+}
+
+.comment-form-cookies-consent label {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: #55606b;
+  line-height: 1.4;
+}
+
+/* Name + Email side-by-side on wider screens (they're short fields). */
+@media (min-width: 640px) {
+  .comment-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .comment-form-rating,
+  .comment-form-comment,
+  .comment-form-cookies-consent,
+  .comment-form .form-submit {
+    grid-column: 1 / -1;
+  }
+}
+
 /* Textarea */
 .comment-form-comment textarea {
   width: 100%;
