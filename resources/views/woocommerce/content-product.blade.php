@@ -35,6 +35,9 @@
 
   $info_generala = get_field('informatie_generala', $product_id);
   $protocol_zile = !empty($info_generala['protocol_zile']) ? $info_generala['protocol_zile'] : '';
+  $beneficii = !empty($info_generala['beneficii']) && is_array($info_generala['beneficii'])
+      ? array_slice($info_generala['beneficii'], 0, 3)
+      : [];
 @endphp
 
 <li class="product product-card {{ implode(' ', wc_get_product_class('', $product_id)) }}">
@@ -71,19 +74,12 @@
       <a href="{{ esc_url($link) }}">{{ esc_html($title) }}</a>
     </h3>
 
-    @if (have_rows('informatie_generala', $product_id))
-      @while (have_rows('informatie_generala', $product_id)) @php the_row() @endphp
-        @if (have_rows('beneficii'))
-          <ul class="benefits_product benefits_wrap">
-            @php $count = 0; @endphp
-            @while (have_rows('beneficii')) @php the_row() @endphp
-              @if ($count >= 3) @break @endif
-              <li>{{ esc_html(get_sub_field('denumire_beneficiu')) }}</li>
-              @php $count++ @endphp
-            @endwhile
-          </ul>
-        @endif
-      @endwhile
+    @if (!empty($beneficii))
+      <ul class="benefits_product benefits_wrap">
+        @foreach ($beneficii as $beneficiu)
+          <li>{{ esc_html($beneficiu['denumire_beneficiu'] ?? '') }}</li>
+        @endforeach
+      </ul>
     @endif
 
     @php
