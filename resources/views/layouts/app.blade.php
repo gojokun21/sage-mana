@@ -34,6 +34,11 @@
       @include('sections.footer')
     </div>
 
+    {{-- Mini Cart Drawer rendered at body root so it escapes the sticky
+         navbar's stacking context (z-index: 999) and can layer above the
+         single-product sticky price bar (z-index: 1000). --}}
+    @include('partials.mini-cart')
+
     @php(do_action('get_footer'))
     @php(wp_footer())
   </body>

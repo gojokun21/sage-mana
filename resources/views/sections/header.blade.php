@@ -293,8 +293,10 @@
     </div>
   </div>
 
-  {{-- Mini Cart Drawer --}}
-  @include('partials.mini-cart')
+  {{-- Mini Cart Drawer moved to layouts/app.blade.php @ body root —
+       `.navbar__menu` is `position: sticky; z-index: 999` which creates a
+       stacking context that would cap the drawer at 999 vs sticky_price_container's
+       1000, hiding the drawer's checkout button behind it on product pages. --}}
 
   {{-- Mobile Search Popup --}}
   <div class="mobile-search-popup" id="mobileSearchPopup">
