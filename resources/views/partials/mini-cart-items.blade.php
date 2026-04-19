@@ -8,6 +8,8 @@
     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M2 3L2.265 3.088C3.585 3.528 4.245 3.748 4.622 4.272C4.999 4.796 5 5.492 5 6.883V9.5C5 12.328 5 13.743 5.879 14.621C6.757 15.5 8.172 15.5 11 15.5H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
       <path d="M5 6H16.45C18.505 6 19.533 6 19.978 6.674C20.422 7.349 20.018 8.293 19.208 10.182L18.779 11.182C18.401 12.064 18.212 12.504 17.837 12.752C17.461 13 16.981 13 16.022 13H5" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="9" cy="19" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="17" cy="19" r="1.5" stroke="currentColor" stroke-width="1.5"/>
     </svg>
     <p>{{ __('Coșul tău este gol.', 'sage') }}</p>
     <a href="{{ function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/') }}" class="mini-cart-empty__cta">
