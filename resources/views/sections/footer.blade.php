@@ -12,7 +12,8 @@
 @php
   $tpl_uri = get_stylesheet_directory_uri();
   $anpc_img_1 = $tpl_uri . '/resources/images/litigilor_02.avif';
-  $anpc_img_2 = $tpl_uri . '/resources/images/anpc-sol.webp';
+  $anpc_img_2 = $tpl_uri . '/resources/images/insolventa-persoane.avif';
+  $anpc_img_3 = $tpl_uri . '/resources/images/anpc-sol.webp';
 
   $company_details = apply_filters('natura_footer_company_details', [
     'DIGITAL INTERSTAR S.R.L.',
@@ -88,8 +89,11 @@
                   <a target="_blank" rel="noopener" href="https://anpc.ro/ce-este-sal/" aria-label="{{ __('ANPC — Soluționarea Alternativă a Litigiilor', 'sage') }}">
                     <img src="{{ esc_url($anpc_img_1) }}" width="200" height="50" alt="ANPC SAL">
                   </a>
-                  <a target="_blank" rel="noopener" href="https://consumer-redress.ec.europa.eu/site-relocation_en?event=main.home2.show&lng=RO" aria-label="{{ __('Soluționarea online a litigiilor (SOL)', 'sage') }}">
+                  <a target="_blank" rel="noopener" href="https://ec.europa.eu/consumers/odr/" aria-label="{{ __('Soluționarea online a litigiilor (SOL)', 'sage') }}">
                     <img src="{{ esc_url($anpc_img_2) }}" width="200" height="50" alt="SOL">
+                  </a>
+                  <a target="_blank" rel="noopener" href="https://consumer-redress.ec.europa.eu/site-relocation_en?event=main.home2.show&lng=RO" aria-label="{{ __('Soluționarea online a litigiilor (SOL)', 'sage') }}">
+                    <img src="{{ esc_url($anpc_img_3) }}" width="200" height="50" alt="SOL">
                   </a>
                 </div>
               </div>
