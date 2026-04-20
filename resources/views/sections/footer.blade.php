@@ -141,6 +141,9 @@
           @endif
 
           {{-- Column 4: Contactează-ne (bespoke layout) --}}
+          @php
+            $link_fb = $link_ig = $link_tt = null;
+          @endphp
           @if (have_rows('contacte'))
             @while (have_rows('contacte'))
               @php
