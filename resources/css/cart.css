@@ -8,6 +8,52 @@
   padding: 30px 0 60px;
 }
 
+.woocommerce-cart .page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.woocommerce-cart .page-header h1 {
+  margin: 30px 0;
+}
+
+.page-header-checkout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green);
+  color: #fff !important;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.page-header-checkout-btn:hover {
+  background: var(--dark-green);
+}
+
+@media (max-width: 600px) {
+  .woocommerce-cart .page-header {
+    gap: 12px;
+  }
+  .woocommerce-cart .page-header h1 {
+    margin: 20px 0;
+    flex: 1;
+    min-width: 0;
+  }
+  .page-header-checkout-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+}
+
 /* ============================
    Cart form / table
    ============================ */
