@@ -2880,6 +2880,11 @@ p.demo_store {
   padding: 0;
 }
 
+.wpc-filter-header .wpc-filter-title{
+  font-size: 20px;
+  font-weight: 500;
+}
+
 /* Universal bundle — loaded on every page.
  * Per-page CSS is split into *-bundle.css files and enqueued conditionally
  * from `App\page_bundles()` (see app/setup.php). Keep this list small —

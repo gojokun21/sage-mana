@@ -343,6 +343,15 @@
     gap: 10px;
   }
 
+  .anpc img{
+    max-width: 114px;
+  }
+
+  .footer_others{
+    flex-direction: column;
+    gap: 20px;
+  }
+
   /* Hide text labels only — keep icon wrappers + count badges visible. */
   .menu__left .auth_item > span,
   .menu__left .favorite_item > span:not(.fav_icon_wrapper),

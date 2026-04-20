@@ -85,17 +85,6 @@
                     <a href="#" class="open-consent">{{ __('Administrează consimțămintele', 'sage') }}</a>
                   </li>
                 </ul>
-                <div class="anpc anpc_desktop">
-                  <a target="_blank" rel="noopener" href="https://anpc.ro/ce-este-sal/" aria-label="{{ __('ANPC — Soluționarea Alternativă a Litigiilor', 'sage') }}">
-                    <img src="{{ esc_url($anpc_img_1) }}" width="200" height="50" alt="ANPC SAL">
-                  </a>
-                  <a target="_blank" rel="noopener" href="https://ec.europa.eu/consumers/odr/" aria-label="{{ __('Soluționarea online a litigiilor (SOL)', 'sage') }}">
-                    <img src="{{ esc_url($anpc_img_2) }}" width="200" height="50" alt="SOL">
-                  </a>
-                  <a target="_blank" rel="noopener" href="https://consumer-redress.ec.europa.eu/site-relocation_en?event=main.home2.show&lng=RO" aria-label="{{ __('Soluționarea online a litigiilor (SOL)', 'sage') }}">
-                    <img src="{{ esc_url($anpc_img_3) }}" width="200" height="50" alt="SOL">
-                  </a>
-                </div>
               </div>
             @endwhile
           @endif
@@ -224,36 +213,40 @@
                     <li>{{ esc_html($line) }}</li>
                   @endforeach
                 </ul>
-
-                <div class="footer_social">
-                  @if ($link_fb)
-                    <a aria-label="{{ __('Deschide pagina noastră de Facebook', 'sage') }}" href="{{ esc_url($link_fb) }}" target="_blank" rel="noopener">
-                      <img src="{{ esc_url($tpl_uri . '/resources/images/icons/facebook.svg') }}" alt="">
-                    </a>
-                  @endif
-                  @if ($link_ig)
-                    <a aria-label="{{ __('Deschide profilul nostru de Instagram', 'sage') }}" href="{{ esc_url($link_ig) }}" target="_blank" rel="noopener">
-                      <img src="{{ esc_url($tpl_uri . '/resources/images/icons/instagram.svg') }}" alt="">
-                    </a>
-                  @endif
-                  @if ($link_tt)
-                    <a aria-label="{{ __('Deschide profilul nostru de TikTok', 'sage') }}" href="{{ esc_url($link_tt) }}" target="_blank" rel="noopener">
-                      <img src="{{ esc_url($tpl_uri . '/resources/images/icons/tiktok.svg') }}" alt="">
-                    </a>
-                  @endif
-                </div>
               </div>
             @endwhile
           @endif
         </div>
 
-        <div class="anpc anpc_mobile">
-          <a target="_blank" rel="noopener" href="https://anpc.ro/ce-este-sal/" aria-label="ANPC SAL">
-            <img src="{{ esc_url($anpc_img_1) }}" width="200" height="50" alt="ANPC SAL">
-          </a>
-          <a target="_blank" rel="noopener" href="https://ec.europa.eu/consumers/odr/" aria-label="SOL">
-            <img src="{{ esc_url($anpc_img_2) }}" width="200" height="50" alt="SOL">
-          </a>
+        <div class="footer_others">
+          <div class="anpc">
+            <a target="_blank" rel="noopener" href="https://anpc.ro/ce-este-sal/" aria-label="{{ __('ANPC — Soluționarea Alternativă a Litigiilor', 'sage') }}">
+              <img src="{{ esc_url($anpc_img_1) }}" width="200" height="50" alt="ANPC SAL">
+            </a>
+            <a target="_blank" rel="noopener" href="https://ec.europa.eu/consumers/odr/" aria-label="{{ __('Soluționarea online a litigiilor (SOL)', 'sage') }}">
+              <img src="{{ esc_url($anpc_img_2) }}" width="200" height="50" alt="SOL">
+            </a>
+            <a target="_blank" rel="noopener" href="https://consumer-redress.ec.europa.eu/site-relocation_en?event=main.home2.show&lng=RO" aria-label="{{ __('Soluționarea online a litigiilor (SOL)', 'sage') }}">
+              <img src="{{ esc_url($anpc_img_3) }}" width="200" height="50" alt="SOL">
+            </a>
+          </div>
+          <div class="footer_social">
+            @if ($link_fb)
+              <a aria-label="{{ __('Deschide pagina noastră de Facebook', 'sage') }}" href="{{ esc_url($link_fb) }}" target="_blank" rel="noopener">
+                <img src="{{ esc_url($tpl_uri . '/resources/images/icons/facebook.svg') }}" alt="">
+              </a>
+            @endif
+            @if ($link_ig)
+              <a aria-label="{{ __('Deschide profilul nostru de Instagram', 'sage') }}" href="{{ esc_url($link_ig) }}" target="_blank" rel="noopener">
+                <img src="{{ esc_url($tpl_uri . '/resources/images/icons/instagram.svg') }}" alt="">
+              </a>
+            @endif
+            @if ($link_tt)
+              <a aria-label="{{ __('Deschide profilul nostru de TikTok', 'sage') }}" href="{{ esc_url($link_tt) }}" target="_blank" rel="noopener">
+                <img src="{{ esc_url($tpl_uri . '/resources/images/icons/tiktok.svg') }}" alt="">
+              </a>
+            @endif
+          </div>
         </div>
       </div>
     @endwhile
