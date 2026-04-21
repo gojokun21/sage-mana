@@ -112,6 +112,28 @@
         @php do_action('woocommerce_thankyou', $order->get_id()) @endphp
       </section>
 
+      {{-- ============================ Google Customer Reviews — Survey Opt-in ============================ --}}
+      @php
+        $gcr_order_id           = $order->get_id();
+        $gcr_email              = $order->get_billing_email();
+        $gcr_country            = $order->get_shipping_country() ?: $order->get_billing_country();
+        $gcr_estimated_delivery = wp_date('Y-m-d', strtotime('+3 days'));
+      @endphp
+      <script src="https://apis.google.com/js/platform.js?onload=renderOptIn" async defer></script>
+      <script>
+        window.renderOptIn = function() {
+          window.gapi.load('surveyoptin', function() {
+            window.gapi.surveyoptin.render({
+              "merchant_id": 5714770438,
+              "order_id": "{{ esc_js($gcr_order_id) }}",
+              "email": "{{ esc_js($gcr_email) }}",
+              "delivery_country": "{{ esc_js($gcr_country) }}",
+              "estimated_delivery_date": "{{ esc_js($gcr_estimated_delivery) }}"
+            });
+          });
+        }
+      </script>
+
       {{-- ============================ CTAs ============================ --}}
       <section class="or-actions">
         @if (is_user_logged_in())
