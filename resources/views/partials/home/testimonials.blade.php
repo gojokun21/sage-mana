@@ -75,7 +75,7 @@
                        @if ($product_name) data-caption="{{ esc_attr($product_name) }}" @endif
                        href="{{ esc_url($video_url) }}"
                        aria-label="{{ esc_attr__('Vezi recenzia clienților noștri', 'sage') }}">
-                      <img src="https://mananaturii.ro/wp-content/themes/mana-naturii/assets/images/icons/play-solid.svg" alt="{{ esc_attr__('Vezi recenzia clienților noștri', 'sage') }}">
+                      <img src="{{ get_stylesheet_directory_uri() }}/assets/images/icons/play-solid.svg" alt="{{ esc_attr__('Vezi recenzia clienților noștri', 'sage') }}">
                     </a>
                   @endif
 
