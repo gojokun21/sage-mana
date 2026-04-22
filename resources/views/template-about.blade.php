@@ -11,5 +11,6 @@
     @include('partials.about.statistics')
     @include('partials.about.why')
     @include('partials.about.reviews')
+    @include('partials.about.vivens-standards')
   </main>
 @endsection
