@@ -9,12 +9,12 @@
 --}}
 
 @php
-  if (! function_exists('have_rows') || ! have_rows('vivens_standards_section')) {
+  if (! function_exists('have_rows') || ! have_rows('standards_section')) {
     return;
   }
 @endphp
 
-@while (have_rows('vivens_standards_section'))
+@while (have_rows('standards_section'))
   @php
     the_row();
     $subtitle = get_sub_field('subtitle');
