@@ -298,6 +298,18 @@ add_filter('comments_array', function ($comments, $post_id) {
 add_filter('loop_shop_per_page', fn () => 15, 20);
 
 /**
+ * WooCommerce marks verified buyers on product reviews with "verified owner"
+ * ("proprietar verificat" in the RO translation). "Client verificat" reads
+ * more naturally for a storefront — override the translation at render time.
+ */
+add_filter('gettext', function ($translated, $text, $domain) {
+    if ($domain === 'woocommerce' && $text === 'verified owner') {
+        return 'client verificat';
+    }
+    return $translated;
+}, 20, 3);
+
+/**
  * On the shop and category archives, list simple/variable products first and
  * bundle products at the end, while preserving the active sort within each
  * group. Bundles are detected via the WooCommerce `product_type` taxonomy.
