@@ -79,6 +79,64 @@ a {
 }
 
 /* ============================================
+   Topbar (marquee)
+   ============================================ */
+.topbar {
+  width: 100%;
+  background: #2d5a3d;
+  color: #fff;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  padding: 10px 0;
+}
+
+.topbar__track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  will-change: transform;
+  animation: topbar-scroll 40s linear infinite;
+}
+
+.topbar__item,
+.topbar__sep {
+  display: inline-block;
+  padding: 0 14px;
+}
+
+.topbar__sep {
+  opacity: 0.6;
+}
+
+.topbar:hover .topbar__track {
+  animation-play-state: paused;
+}
+
+@keyframes topbar-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar__track { animation: none; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================
    Header
    ============================================ */
 .navbar__menu {
