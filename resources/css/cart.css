@@ -394,7 +394,7 @@ dl.variation dd.variation-Reducere p { margin: 0; }
 }
 
 .shipping_box {
-  display: none;
+  display: flex;
   background: #fff;
   border-radius: 10px;
   padding: 15px 20px;
