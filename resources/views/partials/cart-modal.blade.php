@@ -33,7 +33,7 @@
       <div class="modal-footer">
         <div class="modal-buttons">
           <button type="button" class="btn-white-border popup_close" aria-label="Close">Continuǎ cumpǎrǎturile</button>
-          <a href="{{ esc_url(function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cos/')) }}" class="btn-green">Du-te la coș</a>
+          <a href="{{ esc_url(function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cos/')) }}" class="btn-green">Mergi la coș</a>
         </div>
       </div>
 

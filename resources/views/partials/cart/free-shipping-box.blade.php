@@ -13,10 +13,11 @@
 
     <div class="tillfree-shipping-text">
       @if ($missing > 0)
-        {{ __('Doriți livrare gratuită? Vă lipsesc:', 'sage') }}
+        {{ __('Adaugă produse de încă', 'sage') }}
         <span>{!! wc_price($missing) !!}</span>
+        {{ __('și beneficiezi de livrare gratuită!', 'sage') }}
       @else
-        <strong>{{ __('Felicitări!', 'sage') }}</strong> {{ __('Aveți livrare gratuită!', 'sage') }}
+        {{ __('Gata, livrarea e din partea noastră!', 'sage') }}
       @endif
     </div>
   </div>
