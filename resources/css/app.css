@@ -91,24 +91,34 @@ a {
   letter-spacing: 0.02em;
   line-height: 1;
   padding: 10px 0;
+  contain: content;
 }
 
 .topbar__track {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: nowrap;
   align-items: center;
-  white-space: nowrap;
+  width: max-content;
   will-change: transform;
-  animation: topbar-scroll 40s linear infinite;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: topbar-scroll 50s linear infinite;
 }
 
-.topbar__item,
-.topbar__sep {
-  display: inline-block;
-  padding: 0 14px;
+.topbar__item {
+  flex: 0 0 auto;
+  padding: 0 28px;
+  position: relative;
 }
 
-.topbar__sep {
-  opacity: 0.6;
+.topbar__item::after {
+  content: "•";
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 .topbar:hover .topbar__track {
@@ -116,12 +126,15 @@ a {
 }
 
 @keyframes topbar-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .topbar__track { animation: none; }
+  .topbar__track {
+    animation: none;
+    transform: none;
+  }
 }
 
 .sr-only {

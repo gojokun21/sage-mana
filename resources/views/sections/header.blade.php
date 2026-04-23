@@ -6,11 +6,9 @@
   <div class="topbar__track" aria-hidden="true">
     @for ($i = 0; $i < $topbar_repeat; $i++)
       <span class="topbar__item">{{ $topbar_text }}</span>
-      <span class="topbar__sep">•</span>
     @endfor
     @for ($i = 0; $i < $topbar_repeat; $i++)
       <span class="topbar__item">{{ $topbar_text }}</span>
-      <span class="topbar__sep">•</span>
     @endfor
   </div>
   <span class="sr-only">{{ $topbar_text }}</span>
