@@ -250,7 +250,7 @@ body.mini-cart-open {
 }
 
 .mini-cart-item__sales {
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 4px;
   padding: 2px 8px;
