@@ -102,7 +102,7 @@ a {
   will-change: transform;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  animation: topbar-scroll 50s linear infinite;
+  animation: topbar-scroll 90s linear infinite;
 }
 
 .topbar__item {
