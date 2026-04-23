@@ -19,7 +19,7 @@ namespace App;
 
 use Illuminate\Support\Facades\View;
 
-const FREE_SHIPPING_MIN = 400;
+const FREE_SHIPPING_MIN = 300;
 const UPSELL_NONCE = 'mn_upsell_discount';
 const UPSELL_DEFAULT_PERCENT = 10;
 
