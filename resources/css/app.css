@@ -2956,6 +2956,10 @@ p.demo_store {
   font-weight: 500;
 }
 
+.omnisend_newsletter_checkbox_field{
+  margin-top: 15px;
+}
+
 /* Universal bundle — loaded on every page.
  * Per-page CSS is split into *-bundle.css files and enqueued conditionally
  * from `App\page_bundles()` (see app/setup.php). Keep this list small —
