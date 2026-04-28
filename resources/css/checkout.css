@@ -303,8 +303,16 @@ body:not(.natura-state-b) #billing_sector_field {
 }
 
 .select2-container--default .select2-results__option[aria-selected="true"] {
-  background: #eef8e7 !important;
-  color: #222;
+  background: var(--green) !important;
+  color: #fff !important;
+}
+
+/* Active box (open/focused) — match the native <select>:focus styling so the
+   field gives visible feedback the moment the user opens it. */
+.select2-container--default.select2-container--open .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--single {
+  border-color: var(--green) !important;
+  box-shadow: 0 0 0 3px rgba(56, 99, 86, 0.12) !important;
 }
 
 /* ============================
