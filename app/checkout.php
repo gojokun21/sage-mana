@@ -170,6 +170,32 @@ add_filter('body_class', function ($classes) {
 });
 
 /* ---------------------------------------------------------------------------
+ * Shipping methods: above the free-shipping threshold, hide paid options.
+ *
+ * When the cart subtotal reaches FREE_SHIPPING_MIN (300 lei), only
+ * `free_shipping` rates are offered — flat-rate / local-pickup / etc. are
+ * stripped so the customer can't accidentally pick a paid method.
+ * ------------------------------------------------------------------------- */
+
+add_filter('woocommerce_package_rates', function ($rates, $package) {
+    if (! function_exists('WC') || ! WC()->cart) {
+        return $rates;
+    }
+
+    if ((float) WC()->cart->get_subtotal() < FREE_SHIPPING_MIN) {
+        return $rates;
+    }
+
+    $free = array_filter($rates, fn ($rate) => $rate->method_id === 'free_shipping');
+
+    return ! empty($free) ? $free : $rates;
+}, 100, 2);
+
+// Hide the "Livrare" / "Shipping" package label above the rates list — our
+// own <h3>Metodă de livrare</h3> already labels the section.
+add_filter('woocommerce_shipping_package_name', '__return_empty_string');
+
+/* ---------------------------------------------------------------------------
  * No-cache on checkout / order-received (nonces + session-bound)
  * ------------------------------------------------------------------------- */
 
