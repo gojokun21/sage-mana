@@ -196,19 +196,34 @@
     }
   }
 
-  document.addEventListener('change', function (e) {
-    if (e.target.matches && e.target.matches('select[name="billing_state"], input[name="billing_state"]')) {
-      syncSectorVisibility();
-    }
-  });
-
+  // Initial sync — body class is set server-side when billing_state is
+  // already 'B' (logged-in customer with a saved Bucharest address); for
+  // guests this is a no-op since the state value is empty.
   syncSectorVisibility();
 
-  if (window.jQuery) {
-    // WC swaps the state field (input ↔ select) when the country changes;
-    // `country_to_state_changed` fires after the new field is in the DOM.
-    window.jQuery(document.body)
-      .on('updated_checkout country_to_state_changed', syncSectorVisibility);
+  // SelectWoo (WC's Select2 fork) updates billing_state via jQuery's
+  // `.trigger('change')`, which does NOT fire native addEventListener
+  // listeners. Bind via jQuery so we catch state changes regardless of
+  // whether they originate from SelectWoo or from a direct DOM input.
+  // `country_to_state_changed` covers the case where WC rebuilds the state
+  // field after a country switch; `updated_checkout` covers the AJAX update
+  // round-trip and is the safety net.
+  function bindSectorListeners() {
+    if (!window.jQuery) return false;
+
+    var $ = window.jQuery;
+    $(document).on('change', 'select[name="billing_state"], input[name="billing_state"]', syncSectorVisibility);
+    $(document.body).on('updated_checkout country_to_state_changed', syncSectorVisibility);
+
+    return true;
+  }
+
+  if (!bindSectorListeners()) {
+    var sectorTries = 0;
+    var sectorPoll = setInterval(function () {
+      sectorTries++;
+      if (bindSectorListeners() || sectorTries > 40) clearInterval(sectorPoll); // ~4s
+    }, 100);
   }
 
   /* ---------------- Double-submit prevention ---------------- */
