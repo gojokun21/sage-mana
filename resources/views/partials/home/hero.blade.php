@@ -50,6 +50,7 @@
 
   @if (have_rows('sliders'))
     <section class="hero-section" aria-label="{{ esc_attr__('Prezentare', 'sage') }}">
+      <h1 class="sr-only">{{ __('Suplimente Naturale Premium Vivens Genetica', 'sage') }}</h1>
       <div class="hero-swiper swiper" data-hero-swiper>
         <div class="swiper-wrapper">
           @php $i = 0; @endphp

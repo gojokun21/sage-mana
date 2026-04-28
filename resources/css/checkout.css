@@ -26,6 +26,23 @@ body.natura-tip-pf #billing_company_field {
   display: none !important;
 }
 
+/* Sector (București) — visible only when billing_state === 'B'. The body
+   class `.natura-state-b` is set server-side (see app/checkout.php) and
+   kept in sync client-side by checkout.js on state change. */
+body:not(.natura-state-b) .natura-sector-row,
+body:not(.natura-state-b) #billing_sector_field {
+  display: none !important;
+}
+
+/* Suppress WC's "(optional)" label suffix on the sector row. WC hard-codes
+   it whenever `required => false` (see wc-template-functions.php) regardless
+   of any field-arg flag, so CSS is the only escape valve. The asterisk for
+   the required state is added by checkout.js when state === 'B'. */
+.natura-sector-row .optional,
+#billing_sector_field .optional {
+  display: none !important;
+}
+
 /* ============================
    Progress steps (Coș → Casă → Finalizare)
    ============================ */

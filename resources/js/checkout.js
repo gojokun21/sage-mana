@@ -162,6 +162,55 @@
     window.jQuery(document.body).on('updated_checkout', syncCuiVisibility);
   }
 
+  /* ---------------- Sector (București) ----------------
+   * Visible only when billing_state === 'B'. CSS hides .natura-sector-row
+   * unless body has `.natura-state-b` — set server-side initially, kept in
+   * sync here. We also flip aria-required and clear the value when the
+   * customer leaves Bucharest, so a stale sector never gets submitted. */
+
+  function syncSectorVisibility() {
+    var stateField = document.querySelector('select[name="billing_state"], input[name="billing_state"]');
+    var sectorField = document.querySelector('select[name="billing_sector"]');
+    var sectorRow = sectorField ? sectorField.closest('.form-row') : null;
+    var sectorLabel = sectorRow ? sectorRow.querySelector('label') : null;
+
+    if (!stateField || !sectorField || !sectorRow) return;
+
+    var isBucuresti = stateField.value === 'B';
+    document.body.classList.toggle('natura-state-b', isBucuresti);
+
+    if (isBucuresti) {
+      sectorField.setAttribute('required', 'required');
+      sectorField.setAttribute('aria-required', 'true');
+      sectorRow.classList.add('validate-required');
+      if (sectorLabel && !sectorLabel.querySelector('.required')) {
+        sectorLabel.insertAdjacentHTML('beforeend', ' <abbr class="required" title="obligatoriu">*</abbr>');
+      }
+    } else {
+      sectorField.removeAttribute('required');
+      sectorField.removeAttribute('aria-required');
+      sectorRow.classList.remove('validate-required', 'woocommerce-invalid', 'woocommerce-invalid-required-field');
+      sectorField.value = '';
+      var existingAbbr = sectorLabel ? sectorLabel.querySelector('.required') : null;
+      if (existingAbbr) existingAbbr.remove();
+    }
+  }
+
+  document.addEventListener('change', function (e) {
+    if (e.target.matches && e.target.matches('select[name="billing_state"], input[name="billing_state"]')) {
+      syncSectorVisibility();
+    }
+  });
+
+  syncSectorVisibility();
+
+  if (window.jQuery) {
+    // WC swaps the state field (input ↔ select) when the country changes;
+    // `country_to_state_changed` fires after the new field is in the DOM.
+    window.jQuery(document.body)
+      .on('updated_checkout country_to_state_changed', syncSectorVisibility);
+  }
+
   /* ---------------- Double-submit prevention ---------------- */
   // jQuery is loaded by WC but may arrive AFTER this lazy-imported module.
   // Same retry pattern as mini-cart: poll for a few seconds.

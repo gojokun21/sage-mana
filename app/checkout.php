@@ -79,6 +79,29 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         $fields['billing'][$field_key]['class'] = $existing;
     }
 
+    // Sector — only relevant when billing_state === 'B' (București).
+    // Same pattern as PJ rows: tagged with `.natura-sector-row` so CSS can
+    // hide it pre-hydration based on the body class set below.
+    // `required => false` at schema level; we enforce server-side in
+    // woocommerce_after_checkout_validation so JS can flip the attribute
+    // without WC re-rendering the field.
+    $fields['billing']['billing_sector'] = [
+        'type' => 'select',
+        'label' => __('Sector', 'sage'),
+        'required' => false,
+        'class' => ['form-row-wide', 'natura-sector-row'],
+        'priority' => 85, // right after billing_state (80), before postcode (90)
+        'options' => [
+            '' => __('Selectează sectorul', 'sage'),
+            '1' => __('Sectorul 1', 'sage'),
+            '2' => __('Sectorul 2', 'sage'),
+            '3' => __('Sectorul 3', 'sage'),
+            '4' => __('Sectorul 4', 'sage'),
+            '5' => __('Sectorul 5', 'sage'),
+            '6' => __('Sectorul 6', 'sage'),
+        ],
+    ];
+
     return $fields;
 }, 40);
 
@@ -117,10 +140,10 @@ add_filter('gettext', function ($translated, $text, $domain) {
 
 add_filter('woocommerce_get_terms_and_conditions_checkbox_text', function ($text) {
     return 'Am citit și sunt de acord cu '
-        . '<a href="/termeni-si-conditii/" target="_blank">Termenii și Condițiile</a>, '
-        . '<a href="/politica-de-confidentialitate/" target="_blank">Politica de Confidențialitate</a> și '
-        . '<a href="/politica-de-returnare/" target="_blank">Politica de Returnare</a> '
-        . 'ale mananaturii.ro.';
+        .'<a href="/termeni-si-conditii/" target="_blank">Termenii și Condițiile</a>, '
+        .'<a href="/politica-de-confidentialitate/" target="_blank">Politica de Confidențialitate</a> și '
+        .'<a href="/politica-de-returnare/" target="_blank">Politica de Returnare</a> '
+        .'ale mananaturii.ro.';
 });
 
 /* ---------------------------------------------------------------------------
@@ -158,13 +181,22 @@ add_filter('body_class', function ($classes) {
     }
 
     $tip = '';
+    $state = '';
     if (function_exists('WC') && WC()->checkout()) {
         $tip = (string) WC()->checkout()->get_value('billing_tip_facturare');
+        $state = (string) WC()->checkout()->get_value('billing_state');
     }
 
     // FGO defaults to '2' (Persoană Fizică) when unset. Anything other than
     // '1' (Persoană Juridică) is treated as PF so the CUI row stays hidden.
     $classes[] = $tip === '1' ? 'natura-tip-pj' : 'natura-tip-pf';
+
+    // București = state code 'B' (see WC i18n/states.php). The sector row
+    // is hidden by CSS unless this class is present, mirroring the PJ/PF
+    // approach to avoid a flash before checkout.js hydrates.
+    if ($state === 'B') {
+        $classes[] = 'natura-state-b';
+    }
 
     return $classes;
 });
@@ -215,7 +247,7 @@ add_action('wp_enqueue_scripts', function () {
             return;
         }
 
-        echo '<script>var natura_checkout = ' . wp_json_encode([
+        echo '<script>var natura_checkout = '.wp_json_encode([
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('natura_checkout_login'),
             'i18n' => [
@@ -225,11 +257,11 @@ add_action('wp_enqueue_scripts', function () {
                 'success' => __('Autentificare reușită! Se reîncarcă pagina...', 'sage'),
                 'error' => __('A apărut o eroare. Încearcă din nou.', 'sage'),
             ],
-        ]) . ';</script>';
+        ]).';</script>';
     }, 5);
 });
 
-add_action('wp_ajax_nopriv_natura_checkout_login', __NAMESPACE__ . '\\checkout_login_handler');
+add_action('wp_ajax_nopriv_natura_checkout_login', __NAMESPACE__.'\\checkout_login_handler');
 
 function checkout_login_handler(): void
 {
@@ -312,6 +344,60 @@ function render_checkout_steps(): string
     <?php
     return (string) ob_get_clean();
 }
+
+/* ---------------------------------------------------------------------------
+ * Sector (București) — server-side validation, persistence, and address
+ * formatting. Field schema lives in the woocommerce_checkout_fields filter
+ * above; visibility/required-toggling is handled in checkout.js.
+ * ------------------------------------------------------------------------- */
+
+// Required only when state = 'B' (București). Schema-level `required` stays
+// false so WC doesn't render the asterisk for non-Bucharest customers; the
+// JS flips aria-required for screen readers when applicable.
+add_action('woocommerce_after_checkout_validation', function ($data, $errors) {
+    if (($data['billing_state'] ?? '') !== 'B') {
+        return;
+    }
+
+    if (empty($data['billing_sector'])) {
+        $errors->add('billing_sector_required', __('Te rugăm să selectezi sectorul.', 'sage'));
+    }
+}, 10, 2);
+
+add_action('woocommerce_checkout_create_order', function ($order, $data) {
+    if (! isset($data['billing_sector']) || $data['billing_sector'] === '') {
+        return;
+    }
+
+    // Only persist when state = 'B' so a stale value from a previously
+    // selected Bucharest doesn't leak onto a non-Bucharest order.
+    if (($data['billing_state'] ?? '') !== 'B') {
+        return;
+    }
+
+    $order->update_meta_data('_billing_sector', sanitize_text_field((string) $data['billing_sector']));
+}, 10, 2);
+
+// Show the sector in the formatted billing address (admin order screen,
+// emails, invoices, PDFs that read from formatted address).
+add_filter('woocommerce_order_formatted_billing_address', function ($address, $order) {
+    $sector = $order->get_meta('_billing_sector');
+    if ($sector !== '' && $address['state'] === 'B') {
+        $address['city'] = trim(($address['city'] ?? '').', Sectorul '.$sector, ', ');
+    }
+
+    return $address;
+}, 10, 2);
+
+// Optional: surface the sector on the admin "Edit Order" billing block.
+add_filter('woocommerce_admin_billing_fields', function ($fields) {
+    $fields['sector'] = [
+        'label' => __('Sector', 'sage'),
+        'show' => true,
+    ];
+
+    return $fields;
+});
 
 /* ---------------------------------------------------------------------------
  * Safety net: force-empty the cart after the order is created (belt-and-
