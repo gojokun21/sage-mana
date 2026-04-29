@@ -1,0 +1,91 @@
+.natura-whatsapp {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35), 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  z-index: 9998;
+  text-decoration: none;
+}
+
+.natura-whatsapp:hover,
+.natura-whatsapp:focus-visible {
+  background: #1ebe5d;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(37, 211, 102, 0.45), 0 3px 8px rgba(0, 0, 0, 0.18);
+  color: #fff;
+}
+
+.natura-whatsapp:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+.natura-whatsapp::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55);
+  animation: natura-whatsapp-pulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+
+.natura-whatsapp__icon {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+.natura-whatsapp__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes natura-whatsapp-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55); }
+  70%  { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .natura-whatsapp::before { animation: none; }
+  .natura-whatsapp { transition: none; }
+}
+
+/* Lift the button above the mobile mini-cart bar / sticky elements when needed.
+   The mini-cart drawer (z-index 9999) still covers the button when open — that's intentional. */
+@media (max-width: 640px) {
+  .natura-whatsapp {
+    right: 16px;
+    bottom: 16px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .natura-whatsapp__icon {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* When the single-product sticky price bar is visible (z-index 1000), nudge the
+   button up so it doesn't overlap the bar's primary CTA. */
+body.has-sticky-price-bar .natura-whatsapp {
+  bottom: 90px;
+}

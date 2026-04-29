@@ -2972,6 +2972,7 @@ p.demo_store {
 @import "./auth.css";           /* login modal triggered from header — any page */
 @import "./footer.css";         /* footer everywhere */
 @import "./page.css";           /* generic page wrapper */
+@import "./whatsapp-button.css"; /* floating WhatsApp CTA — every page */
 
 /* responsive.css moved to its own entry — App\page_bundles() appends it
  * LAST so its @media overrides win over the per-page bundle styles

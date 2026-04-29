@@ -39,6 +39,8 @@
          single-product sticky price bar (z-index: 1000). --}}
     @include('partials.mini-cart')
 
+    @include('partials.whatsapp-button')
+
     @php(do_action('get_footer'))
     @php(wp_footer())
   </body>
