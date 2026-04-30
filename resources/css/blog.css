@@ -261,7 +261,7 @@
 .description_block a { color: var(--green); text-decoration: underline; }
 .description_block ul,
 .description_block ol { margin: 0 0 1em 1.4em; }
-.description_block img { border-radius: 12px; margin: 1.2em auto; height: auto; }
+.description_block img { border-radius: 12px; margin: 1.2em auto; width: auto; height: auto; }
 
 /* ============================
    Related posts slider ("Citiți și alte articole")
