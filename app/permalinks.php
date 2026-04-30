@@ -63,6 +63,7 @@ add_action('parse_request', function ($wp) {
         'feed', 'embed', 'cart', 'checkout', 'my-account',
         'cos', 'contul-meu', 'finalizare-comanda',
         'shop', 'magazin', 'blog', 'contact', 'despre-noi', 'about',
+        'studii', 'categorie-studiu', 'eticheta-studiu',
     ];
     if (in_array($slug, $reserved, true)) {
         return;

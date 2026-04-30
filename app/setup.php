@@ -249,7 +249,10 @@ function page_bundles(): array
     }
 
     // Blog: any post type = 'post' view, archives, categories, tags, blog template.
-    if (is_singular('post') || is_home() || is_archive() || is_category() || is_tag()
+    // Include si CPT-ul `studiu` (single + arhiva) — reutilizeaza .blog-page CSS.
+    if (is_singular('post') || is_singular('studiu')
+        || is_home() || is_archive() || is_category() || is_tag()
+        || is_post_type_archive('studiu')
         || $template_has('template-blog')) {
         $bundles[] = 'resources/css/blog-bundle.css';
     }

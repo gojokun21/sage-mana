@@ -3,7 +3,9 @@
     "allow": [
       "Bash(grep -i \"\\\\.css$\")",
       "Read(//c/Users/Sorin-kun/Local Sites/sage10-natura/app/public/wp-content/themes/mana-naturii/**)",
-      "WebFetch(domain:api-docs.omnisend.com)"
+      "WebFetch(domain:api-docs.omnisend.com)",
+      "Read(//c/Users/Sorin-kun/Local Sites/sage10-natura/app/public/**)",
+      "Bash(wp term *)"
     ]
   }
 }

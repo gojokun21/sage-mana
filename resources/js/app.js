@@ -455,6 +455,11 @@ if (document.querySelector('.blog_slider')) {
   import('./blog.js');
 }
 
+/* ==================== LAZY: BLOG ARCHIVE (filters + search) ==================== */
+if (document.querySelector('.blog-page')) {
+  import('./blog-archive.js');
+}
+
 /* ==================== LAZY: FOOTER ACCORDION ==================== */
 if (document.querySelector('[data-footer-accordion]')) {
   import('./footer.js');
