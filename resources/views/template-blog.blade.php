@@ -530,14 +530,7 @@
             <p class="blog-newsletter__sub">{{ __('Conținut educațional bazat pe studii, fără spam, dezabonare oricând. Ne citesc deja peste 12.000 de oameni interesați de sănătate naturală.', 'sage') }}</p>
           </div>
           <div class="blog-newsletter__card">
-            <form class="blog-newsletter__form" data-blog-newsletter>
-              <label for="blog-newsletter-email">{{ __('Adresa ta de email', 'sage') }}</label>
-              <input id="blog-newsletter-email" type="email" placeholder="adresa@email.ro" required>
-              <button class="blog-btn-lime" type="submit">
-                {{ __('Abonează-mă', 'sage') }}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12 H19"/><path d="M13 6 L19 12 L13 18"/></svg>
-              </button>
-            </form>
+            <div id="omnisend-embedded-v2-69f381ac6a1280abd3800e1e"></div>
             <ul class="blog-newsletter__perks">
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12 L10 17 L20 6"/></svg> {{ __('Un email pe lună, fără spam', 'sage') }}</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12 L10 17 L20 6"/></svg> {{ __('Articole noi + un studiu interesant', 'sage') }}</li>
