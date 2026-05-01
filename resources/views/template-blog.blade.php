@@ -125,6 +125,12 @@
       return ['', __('Articol', 'sage')];
     };
 
+    // Pillar section apare doar daca exista studii in CPT-ul `studiu`. Lede-ul
+    // face referire la "ghiduri bazate pe studii clinice", deci e inselator
+    // daca nu exista nici un studiu indexat. Override prin filter.
+    $studii_count = post_type_exists('studiu') ? (int) wp_count_posts('studiu')->publish : 0;
+    $show_pillar = (bool) apply_filters('sage_blog_show_pillar', $studii_count > 0, $studii_count);
+
     // Hero / featured = cel mai nou articol.
     $featured_query = new \WP_Query([
       'post_type'      => 'post',
@@ -133,29 +139,40 @@
       'order'          => 'DESC',
       'no_found_rows'  => true,
     ]);
-    $featured_id = $featured_query->have_posts() ? $featured_query->posts[0]->ID : 0;
+    $featured_id  = $featured_query->have_posts() ? $featured_query->posts[0]->ID : 0;
+    $excluded_ids = $featured_id ? [$featured_id] : [];
 
-    // Pillar = urmatoarele 5 articole (excludem featured).
-    $pillar_query = new \WP_Query([
-      'post_type'      => 'post',
-      'posts_per_page' => 5,
-      'orderby'        => 'date',
-      'order'          => 'DESC',
-      'post__not_in'   => $featured_id ? [$featured_id] : [],
-      'no_found_rows'  => true,
-    ]);
+    // Pillar = urmatoarele 5 articole (excludem featured). Interogam doar
+    // daca sectiunea pillar va fi afisata — altfel e o interogare inutila.
+    $pillar_query = null;
+    if ($show_pillar) {
+      $pillar_query = new \WP_Query([
+        'post_type'      => 'post',
+        'posts_per_page' => 5,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'post__not_in'   => $excluded_ids,
+        'no_found_rows'  => true,
+      ]);
+      // Adaugam ID-urile pillar la lista de excluse pentru recent.
+      foreach ($pillar_query->posts as $p) {
+        $excluded_ids[] = $p->ID;
+      }
+    }
 
-    // Recent = paginat. Sarim peste primele 6 (featured + pillar).
+    // Recent = paginat, fara offset manual. Folosim `post__not_in` cu ID-urile
+    // deja afisate (featured + eventual pillar) — asa pagination-ul WP
+    // calculeaza max_num_pages corect, iar daca pillar e ascuns, posturile
+    // care altfel ar fi sarit pe offset apar in recent.
     $paged          = get_query_var('paged') ? (int) get_query_var('paged') : 1;
     $posts_per_page = 9;
-    $offset         = 6 + (($paged - 1) * $posts_per_page);
 
     $recent_query = new \WP_Query([
       'post_type'      => 'post',
       'posts_per_page' => $posts_per_page,
       'orderby'        => 'date',
       'order'          => 'DESC',
-      'offset'         => $offset,
+      'post__not_in'   => $excluded_ids,
       'paged'          => $paged,
     ]);
 
@@ -171,12 +188,6 @@
 
     // Total posts publicate (pentru hero stat).
     $total_posts = (int) wp_count_posts('post')->publish;
-
-    // Pillar section apare doar daca exista studii in CPT-ul `studiu`. Lede-ul
-    // sectiunii face referire la "ghiduri bazate pe studii clinice", deci e
-    // inselator daca nu exista nici un studiu indexat. Override prin filter.
-    $studii_count = post_type_exists('studiu') ? (int) wp_count_posts('studiu')->publish : 0;
-    $show_pillar = (bool) apply_filters('sage_blog_show_pillar', $studii_count > 0, $studii_count);
   @endphp
 
   <div class="blog-page">
