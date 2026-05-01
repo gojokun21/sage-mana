@@ -531,14 +531,6 @@
           </div>
           <div class="blog-newsletter__card">
             <div id="omnisend-embedded-v2-69f381ac6a1280abd3800e1e"></div>
-            <ul class="blog-newsletter__perks">
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12 L10 17 L20 6"/></svg> {{ __('Un email pe lună, fără spam', 'sage') }}</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12 L10 17 L20 6"/></svg> {{ __('Articole noi + un studiu interesant', 'sage') }}</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12 L10 17 L20 6"/></svg> {{ __('Dezabonare cu un click', 'sage') }}</li>
-            </ul>
-            <p class="blog-newsletter__disclaimer">
-              {!! sprintf(__('Prin abonare, accepți %s.', 'sage'), '<a href="' . esc_url(home_url('/confidentialitate/')) . '">' . __('politica noastră de confidențialitate', 'sage') . '</a>') !!}
-            </p>
           </div>
         </div>
       </div>
