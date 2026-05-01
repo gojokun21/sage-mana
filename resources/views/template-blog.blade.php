@@ -139,13 +139,21 @@
       'order'          => 'DESC',
       'no_found_rows'  => true,
     ]);
-    $featured_id  = $featured_query->have_posts() ? $featured_query->posts[0]->ID : 0;
-    $excluded_ids = $featured_id ? [$featured_id] : [];
+    $featured_id = $featured_query->have_posts() ? $featured_query->posts[0]->ID : 0;
 
-    // Pillar = urmatoarele 5 articole (excludem featured). Interogam doar
-    // daca sectiunea pillar va fi afisata — altfel e o interogare inutila.
+    // Excludem din recent doar ID-urile care SUNT efectiv afisate in alta
+    // sectiune. Daca pillar (care contine featured) e ascuns, niciun ID
+    // nu trebuie exclus — toate articolele apar in recent.
+    $excluded_ids = [];
     $pillar_query = null;
+
     if ($show_pillar) {
+      // Featured se afiseaza in interiorul sectiunii pillar — il excludem.
+      if ($featured_id) {
+        $excluded_ids[] = $featured_id;
+      }
+
+      // Pillar = urmatoarele 5 articole (fara featured).
       $pillar_query = new \WP_Query([
         'post_type'      => 'post',
         'posts_per_page' => 5,
@@ -154,7 +162,6 @@
         'post__not_in'   => $excluded_ids,
         'no_found_rows'  => true,
       ]);
-      // Adaugam ID-urile pillar la lista de excluse pentru recent.
       foreach ($pillar_query->posts as $p) {
         $excluded_ids[] = $p->ID;
       }
