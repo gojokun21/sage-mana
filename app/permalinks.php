@@ -70,16 +70,32 @@ add_action('parse_request', function ($wp) {
 
     /**
      * /blog/{X}/ disambiguation — both category archives and single posts
-     * sit at this URL pattern, but WP's rewrite engine matches the category
-     * rule first and hard-404s when the slug isn't a category. Resolve
-     * explicitly: category → post → 404 fallthrough.
+     * sit at this URL pattern. We can't trust WP's rewrite match here:
+     * if the saved `rewrite_rules` option was generated under the old
+     * permalink structure (before this theme was activated, or before a
+     * flush on production), `/blog/X/` falls through to a generic post
+     * rule and query_vars is set to `name=X`. Resolve explicitly and
+     * always overwrite query_vars: category → post → 404.
      */
     if ($slug === 'blog' && ! empty($parts[1]) && $parts[1] !== 'page' && $parts[1] !== 'feed') {
         $second = $parts[1];
 
-        // Category exists — WP rewrite already routes correctly, leave it.
+        // Optional pagination: /blog/{slug}/page/N/
+        $blog_paged = 0;
+        if (count($parts) >= 4 && $parts[2] === 'page' && is_numeric($parts[3])) {
+            $blog_paged = (int) $parts[3];
+        }
+
+        // Category — force category_name; don't trust whatever the rewrite
+        // engine set, it may have matched the post rule on a stale ruleset.
         $cat_term = get_term_by('slug', $second, 'category');
         if ($cat_term && ! is_wp_error($cat_term)) {
+            $wp->query_vars = ['category_name' => $second];
+            if ($blog_paged > 0) {
+                $wp->query_vars['paged'] = $blog_paged;
+            }
+            $wp->matched_rule = 'mn_blog_cat';
+
             return;
         }
 
