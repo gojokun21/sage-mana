@@ -40,6 +40,17 @@ add_filter('term_link', function ($url, $term, $taxonomy) {
 }, 10, 3);
 
 /**
+ * 2b. Prefix posts and post categories with /blog/ so they don't collide
+ *     with product/product-category URLs (which now live at /{slug}/).
+ *     Both single posts and category archives sit under /blog/{slug}/.
+ *     WordPress's rewrite engine matches categories first, then falls
+ *     through to posts; wp_unique_post_slug() prevents slug collisions
+ *     between a post and a category that share the same name.
+ */
+add_filter('pre_option_category_base', fn () => 'blog');
+add_filter('pre_option_permalink_structure', fn () => '/blog/%postname%/');
+
+/**
  * 3. Parse request early to handle products and categories.
  */
 add_action('parse_request', function ($wp) {
@@ -56,6 +67,45 @@ add_action('parse_request', function ($wp) {
 
     $parts = explode('/', $request);
     $slug = $parts[0];
+
+    /**
+     * /blog/{X}/ disambiguation — both category archives and single posts
+     * sit at this URL pattern, but WP's rewrite engine matches the category
+     * rule first and hard-404s when the slug isn't a category. Resolve
+     * explicitly: category → post → 404 fallthrough.
+     */
+    if ($slug === 'blog' && ! empty($parts[1]) && $parts[1] !== 'page' && $parts[1] !== 'feed') {
+        $second = $parts[1];
+
+        // Category exists — WP rewrite already routes correctly, leave it.
+        $cat_term = get_term_by('slug', $second, 'category');
+        if ($cat_term && ! is_wp_error($cat_term)) {
+            return;
+        }
+
+        // Otherwise try a published post with this slug.
+        global $wpdb;
+        $post_id = $wpdb->get_var($wpdb->prepare(
+            "SELECT ID FROM {$wpdb->posts} WHERE post_name = %s AND post_type = 'post' AND post_status = 'publish' LIMIT 1",
+            $second
+        ));
+
+        if ($post_id) {
+            $wp->query_vars = [
+                'name'      => $second,
+                'post_type' => 'post',
+            ];
+            $wp->matched_rule = 'mn_blog_post';
+
+            return;
+        }
+
+        // Neither category nor post — clear the rewrite-set category_name so
+        // WP_Query doesn't run a futile term lookup; let the 404 happen cleanly.
+        $wp->query_vars = ['error' => '404'];
+
+        return;
+    }
 
     // Skip WordPress / WooCommerce / theme reserved slugs.
     $reserved = [

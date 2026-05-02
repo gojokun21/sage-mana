@@ -167,6 +167,26 @@
   margin-bottom: 4px;
 }
 
+/* Iconita categoriei in hero (category.blade.php) — folosita doar pe pagina
+   /blog/{categorie}/, alimentata din ACF field "icon" pe term. */
+.blog-hero__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(56, 99, 86, 0.08);
+  color: var(--green);
+  margin-bottom: 24px;
+}
+
+.blog-hero__icon img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
 /* ============================================
    Trust strip
    ============================================ */
@@ -783,6 +803,8 @@
 }
 
 .blog-filter {
+  display: inline-flex;
+  align-items: center;
   background: transparent;
   border: 1px solid var(--blog-rule-strong);
   color: var(--dark-green);
@@ -791,6 +813,7 @@
   padding: 9px 18px;
   border-radius: 999px;
   cursor: pointer;
+  text-decoration: none;
   transition: all 0.18s ease;
 }
 
