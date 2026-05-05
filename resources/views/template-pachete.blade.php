@@ -92,7 +92,7 @@
             {{ __('SĂNĂTATE • ENERGIE • ECHILIBRU', 'sage') }}
           </div>
 
-          <h1 class="pachete-hero__title">{{ $hero_title }}</h1>
+          <h2 class="pachete-hero__title">{{ $hero_title }}</h2>
 
           <p class="pachete-hero__desc">{{ $hero_subtitle }}</p>
 
@@ -188,6 +188,10 @@
       </div>
     </div>
     {{-- /HERO --}}
+
+    <header class="pachete-section-header">
+      <h1 class="pachete-section-title">{{ __('Pachete complete pentru un corp în echilibru', 'sage') }}</h1>
+    </header>
 
     <ul id="pachete-products" class="products pachete-products">
       @if ($bundles_query->have_posts())

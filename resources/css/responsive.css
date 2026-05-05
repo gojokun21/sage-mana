@@ -408,6 +408,17 @@
     font-size: 12px;
     line-height: 1.3;
   }
+  .pachete-section-header {
+    margin: 36px auto 20px;
+  }
+  .pachete-section-title {
+    font-size: 24px;
+  }
+  .pachete-section-title::after {
+    width: 44px;
+    height: 2px;
+    margin-top: 12px;
+  }
   .modal-buttons{
     flex-direction: column;
   }
