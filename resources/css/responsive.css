@@ -100,32 +100,78 @@
 }
 
 @media (max-width: 900px) {
+  /* Break out of the desktop image-overlay layout — stack vertically */
   .pachete-hero__wrap {
-    min-height: 400px;
-  }
-  .pachete-hero__left {
-    max-width: 100%;
-    padding: 36px 32px;
-    gap: 16px;
-  }
-  .pachete-hero__benefits {
+    min-height: 0;
+    padding-bottom: 0;
+    display: flex;
     flex-direction: column;
   }
+
+  /* Image becomes a banner on top */
+  .pachete-hero__right {
+    position: relative;
+    inset: auto;
+    order: -1;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+  }
+  .pachete-hero__picture,
+  .pachete-hero__picture img {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Text content flows naturally under the image */
+  .pachete-hero__left {
+    max-width: 100%;
+    padding: 28px 28px 4px;
+    gap: 18px;
+  }
   .pachete-hero__title {
-    font-size: 34px;
+    font-size: 32px;
   }
+
+  /* Benefits — full-width row cards (icon left, text right) */
+  .pachete-hero__benefits {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pachete-hero__benefit {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 14px;
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(56, 99, 86, 0.15);
+    border-radius: 14px;
+  }
+
+  /* Features bar — static card with 2x2 grid, in flow */
   .pachete-hero__features {
+    position: static;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 16px;
     grid-template-columns: repeat(2, 1fr);
+    border-radius: 16px;
+    overflow: hidden;
   }
-  .pachete-hero__feature:nth-child(2) {
-    border-right: none;
+  .pachete-hero__feature {
+    padding: 14px 12px;
+    gap: 10px;
+  }
+  .pachete-hero__feature:nth-child(odd) {
+    border-right: 1px solid rgba(56, 99, 86, 0.18);
   }
   .pachete-hero__feature:nth-child(3),
   .pachete-hero__feature:nth-child(4) {
-    border-top: 1px solid #ddd8cc;
-  }
-  .pachete-hero__feature:nth-child(4) {
-    border-right: none;
+    border-top: 1px solid rgba(56, 99, 86, 0.18);
   }
 }
 
@@ -304,22 +350,33 @@
 
 @media (max-width: 640px) {
   .pachete-hero {
-    border-radius: 12px;
+    border-radius: 14px;
     margin-top: 20px;
   }
+  .pachete-hero__right {
+    aspect-ratio: 4 / 3;
+  }
   .pachete-hero__left {
-    padding: 24px 20px;
+    padding: 22px 18px 4px;
     gap: 14px;
   }
   .pachete-hero__title {
     font-size: 26px;
+    line-height: 1.15;
   }
   .pachete-hero__desc {
     font-size: 14px;
   }
+  .pachete-hero__benefit {
+    padding: 10px 12px;
+    gap: 12px;
+  }
   .pachete-hero__benefit-icon {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
+  }
+  .pachete-hero__benefit-text {
+    font-size: 13.5px;
   }
   .pachete-hero__ctas {
     flex-direction: column;
@@ -331,10 +388,25 @@
     padding: 13px 20px;
   }
   .pachete-hero__wrap {
-    min-height: 340px;
+    min-height: 0;
   }
   .pachete-hero__features {
     grid-template-columns: repeat(2, 1fr);
+    margin: 12px;
+  }
+  .pachete-hero__feature {
+    flex-direction: column;
+    text-align: center;
+    padding: 14px 8px;
+    gap: 8px;
+  }
+  .pachete-hero__feature-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .pachete-hero__feature-label {
+    font-size: 12px;
+    line-height: 1.3;
   }
   .modal-buttons{
     flex-direction: column;
