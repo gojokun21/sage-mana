@@ -506,6 +506,61 @@ a {
   color: var(--green) !important;
 }
 
+.mega-menu-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 10px 20px;
+  background: var(--green);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.mega-menu-cta:hover {
+  background: var(--dark-green, #2a4a40);
+  color: #fff;
+  transform: translateX(2px);
+}
+.mega-menu-cta svg {
+  flex-shrink: 0;
+}
+
+.mobile-sub-list li.mobile-mega-cta-item {
+  border-bottom: none;
+  padding: 16px 20px 8px;
+  text-align: center;
+}
+
+.mobile-sub-list li.mobile-mega-cta-item a.mobile-mega-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 22px;
+  background: var(--green);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.mobile-sub-list li.mobile-mega-cta-item a.mobile-mega-cta:hover {
+  background: var(--dark-green, #2a4a40);
+  color: #fff;
+  padding-left: 22px;
+}
+
+.mobile-sub-list li.mobile-mega-cta-item a.mobile-mega-cta svg {
+  flex-shrink: 0;
+}
+
 .mega-menu-image {
   flex: 0 0 min(400px, 30%);
   height: 400px;
@@ -1239,6 +1294,51 @@ body.menu-open {
   list-style: none;
   padding-left: 0;
   margin: 0;
+}
+
+.pachete-archive .pachete-products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  list-style: none;
+  padding-left: 0;
+  margin: 30px 0 50px;
+}
+.pachete-archive .pachete-empty {
+  grid-column: 1 / -1;
+  padding: 40px 0;
+  text-align: center;
+  color: #555;
+}
+.pachete-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 0 50px;
+}
+.pachete-pagination a,
+.pachete-pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  padding: 8px 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #2a2a2a;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+.pachete-pagination a:hover {
+  background: #f5f5f5;
+  border-color: #d5d5d5;
+}
+.pachete-pagination .current {
+  background: var(--green);
+  color: white;
+  border-color: transparent;
 }
 
 .shop_filter {
