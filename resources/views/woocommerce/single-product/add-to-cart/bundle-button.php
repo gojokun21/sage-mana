@@ -28,12 +28,18 @@ $short_desc = wp_strip_all_tags( $product->get_short_description() );
 $short_desc = mb_substr( $short_desc, 0, 100 );
 
 $mn_purchasable = $product->is_purchasable() && $product->is_in_stock();
+$mn_brand       = \App\resolve_product_brand( $product );
+$mn_category    = \App\resolve_product_category( $product );
 
 ?>
 <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>"
 		class="<?php echo isset( $button_class ) ? esc_attr( $button_class ) : 'single_add_to_cart_button bundle_add_to_cart_button button alt'; ?> mn-atc-btn <?php echo ! $mn_purchasable ? 'mn-hidden' : ''; ?>"
 		data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"
+		data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>"
 		data-product_name="<?php echo esc_attr( $product->get_name() ); ?>"
+		data-product_price="<?php echo esc_attr( (string) wc_format_decimal( $product->get_price(), wc_get_price_decimals() ) ); ?>"
+		data-product_brand="<?php echo esc_attr( $mn_brand ); ?>"
+		<?php if ( $mn_category ) : ?>data-product_category="<?php echo esc_attr( $mn_category ); ?>"<?php endif; ?>
 		data-product_url="<?php echo esc_url( get_permalink( $product->get_id() ) ); ?>"
 		data-product_img="<?php echo esc_url( $product_image ); ?>"
 		data-product_packaging="<?php echo esc_attr( $short_desc ); ?>">

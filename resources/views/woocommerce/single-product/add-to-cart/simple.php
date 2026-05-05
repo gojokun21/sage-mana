@@ -46,11 +46,18 @@ echo wc_get_stock_html( $product );
     <?php do_action( 'woocommerce_after_add_to_cart_quantity' ); ?>
 
     <?php if ( $can_buy ) : ?>
+        <?php
+        $mn_brand    = \App\resolve_product_brand( $product );
+        $mn_category = \App\resolve_product_category( $product );
+        ?>
         <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>"
            data-quantity="1"
            data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"
            data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>"
            data-product_name="<?php echo esc_attr( $product->get_name() ); ?>"
+           data-product_price="<?php echo esc_attr( (string) wc_format_decimal( $product->get_price(), wc_get_price_decimals() ) ); ?>"
+           data-product_brand="<?php echo esc_attr( $mn_brand ); ?>"
+           <?php if ( $mn_category ) : ?>data-product_category="<?php echo esc_attr( $mn_category ); ?>"<?php endif; ?>
            data-product_img="<?php echo esc_url( wp_get_attachment_image_url( $product->get_image_id(), 'medium' ) ); ?>"
            data-product_url="<?php echo esc_url( get_permalink( $product->get_id() ) ); ?>"
            data-product_packaging="<?php echo esc_attr( wp_strip_all_tags( $product->get_short_description() ) ); ?>"

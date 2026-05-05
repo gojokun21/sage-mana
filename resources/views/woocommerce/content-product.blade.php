@@ -89,6 +89,11 @@
       $can_ajax = $can_buy && $product->is_type('simple');
     @endphp
 
+    @php
+      $mn_brand = \App\resolve_product_brand($product);
+      $mn_category = \App\resolve_product_category($product);
+    @endphp
+
     @if ($can_buy)
       <a href="{{ esc_url($product->add_to_cart_url()) }}"
          class="btn-primary mn-atc-btn product_type_{{ esc_attr($product->get_type()) }}{{ $can_ajax ? ' add_to_cart_button ajax_add_to_cart' : '' }}"
@@ -96,6 +101,9 @@
          data-product_sku="{{ esc_attr($product->get_sku()) }}"
          data-quantity="1"
          data-product_name="{{ esc_attr($title) }}"
+         data-product_price="{{ esc_attr((string) wc_format_decimal($product->get_price(), wc_get_price_decimals())) }}"
+         data-product_brand="{{ esc_attr($mn_brand) }}"
+         @if ($mn_category) data-product_category="{{ esc_attr($mn_category) }}" @endif
          data-product_img="{{ esc_url(wp_get_attachment_image_url($product->get_image_id(), 'medium')) }}"
          data-product_url="{{ esc_url($link) }}"
          data-product_packaging="{{ wp_strip_all_tags($product->get_short_description()) }}"

@@ -38,6 +38,44 @@ function is_ajax_add_to_cart(): bool
 }
 
 /**
+ * Resolve a product's brand. Tries WC Brands taxonomy first (`product_brand`),
+ * then the custom attribute `pa_brand`, then falls back to the site name.
+ * Result is filterable via `mn_ga4_item_brand` at the call sites below.
+ */
+function resolve_product_brand(WC_Product $product): string
+{
+    if (taxonomy_exists('product_brand')) {
+        $terms = wp_get_post_terms($product->get_id(), 'product_brand', ['fields' => 'names']);
+        if (! is_wp_error($terms) && ! empty($terms)) {
+            return (string) $terms[0];
+        }
+    }
+
+    $brand_attr = (string) $product->get_attribute('pa_brand');
+    if ($brand_attr !== '') {
+        $first = trim((string) explode(',', $brand_attr)[0]);
+        if ($first !== '') {
+            return $first;
+        }
+    }
+
+    return (string) get_bloginfo('name');
+}
+
+/**
+ * Resolve a product's primary category name. Returns null when none is set.
+ */
+function resolve_product_category(WC_Product $product): ?string
+{
+    $terms = wp_get_post_terms($product->get_id(), 'product_cat', ['fields' => 'names']);
+    if (is_wp_error($terms) || empty($terms)) {
+        return null;
+    }
+
+    return (string) $terms[0];
+}
+
+/**
  * Build the GA4 `add_to_cart` payload for a single product line.
  */
 function ga4_atc_payload(WC_Product $product, int $qty, ?int $variation_id = null, array $variation = []): array
@@ -48,10 +86,15 @@ function ga4_atc_payload(WC_Product $product, int $qty, ?int $variation_id = nul
     $item = [
         'item_id' => $sku !== '' ? $sku : (string) $product->get_id(),
         'item_name' => $product->get_name(),
-        'item_brand' => apply_filters('mn_ga4_item_brand', get_bloginfo('name'), $product),
+        'item_brand' => apply_filters('mn_ga4_item_brand', resolve_product_brand($product), $product),
         'price' => round($price, 2),
         'quantity' => max(1, $qty),
     ];
+
+    $category = apply_filters('mn_ga4_item_category', resolve_product_category($product), $product);
+    if (! empty($category)) {
+        $item['item_category'] = (string) $category;
+    }
 
     if ($variation_id && ! empty($variation)) {
         $bits = array_filter(array_map(static fn ($v) => trim((string) $v), $variation));
@@ -69,6 +112,36 @@ function ga4_atc_payload(WC_Product $product, int $qty, ?int $variation_id = nul
         ],
     ];
 }
+
+/**
+ * Decorate every WC loop add-to-cart button with the data attrs we need on
+ * the JS side — price/brand/category — so bundle and variable buttons (which
+ * default to no price attr) carry the same payload as our overridden cards.
+ * Acts as a catch-all; templates we control set the same attrs inline.
+ */
+add_filter('woocommerce_loop_add_to_cart_args', function ($args, $product) {
+    if (! $product instanceof WC_Product) {
+        return $args;
+    }
+
+    $args['attributes'] = isset($args['attributes']) && is_array($args['attributes']) ? $args['attributes'] : [];
+
+    $defaults = [
+        'data-product_price' => (string) wc_format_decimal($product->get_price(), wc_get_price_decimals()),
+        'data-product_name' => $product->get_name(),
+        'data-product_brand' => apply_filters('mn_ga4_item_brand', resolve_product_brand($product), $product),
+    ];
+
+    $category = apply_filters('mn_ga4_item_category', resolve_product_category($product), $product);
+    if (! empty($category)) {
+        $defaults['data-product_category'] = (string) $category;
+    }
+
+    // Don't clobber attrs WC core or other filters already set.
+    $args['attributes'] += $defaults;
+
+    return $args;
+}, 10, 2);
 
 /**
  * Expose the configured brand to datalayer-atc.js so the AJAX fallback path

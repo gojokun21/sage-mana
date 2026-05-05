@@ -67,27 +67,56 @@
       }
     }
 
-    var price = scrapePrice(btn);
+    var price = readPrice(btn);
     var name = btn.getAttribute('data-product_name') || (btn.textContent || '').trim();
 
     var cfg = window.mn_ga4 || {};
+    var brand = btn.getAttribute('data-product_brand') || cfg.brand || 'Natura';
+    var category = btn.getAttribute('data-product_category') || '';
+
+    var item = {
+      item_id: String(id),
+      item_name: String(name),
+      item_brand: brand,
+      price: price,
+      quantity: qty,
+    };
+    if (category) item.item_category = category;
 
     return {
       event: 'add_to_cart',
       ecommerce: {
         currency: cfg.currency || 'RON',
         value: parseFloat((price * qty).toFixed(2)),
-        items: [
-          {
-            item_id: String(id),
-            item_name: String(name),
-            item_brand: cfg.brand || 'Natura',
-            price: price,
-            quantity: qty,
-          },
-        ],
+        items: [item],
       },
     };
+  }
+
+  // Price resolution chain: button data-attr (set server-side by datalayer.php
+  // for loop/bundle/simple buttons) → DOM scrape from the nearest product card
+  // / single-product price block → schema.org meta tag emitted on PDPs. The
+  // attr should win whenever present so bundle adds (no visible price near
+  // the submit button) get the right value.
+  function readPrice(btn) {
+    if (btn && btn.getAttribute) {
+      var attr = btn.getAttribute('data-product_price');
+      if (attr) {
+        var direct = parseFloat(attr);
+        if (isFinite(direct) && direct > 0) return direct;
+      }
+    }
+
+    var scraped = scrapePrice(btn);
+    if (scraped > 0) return scraped;
+
+    var meta = document.querySelector('meta[itemprop="price"]');
+    if (meta) {
+      var metaVal = parseFloat(meta.getAttribute('content'));
+      if (isFinite(metaVal) && metaVal > 0) return metaVal;
+    }
+
+    return 0;
   }
 
   // Romanian/RON formatting: "1.234,56 lei" → 1234.56. Looks at the closest
