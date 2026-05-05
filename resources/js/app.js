@@ -415,6 +415,9 @@ document.addEventListener('DOMContentLoaded', function () {
 /* ==================== EAGER: TOAST (global) ==================== */
 import('./toast.js');
 
+/* ==================== EAGER: GA4 ADD-TO-CART DATALAYER ==================== */
+import('./datalayer-atc.js');
+
 /* ==================== LAZY: MINI CART ==================== */
 if (document.getElementById('miniCartDrawer')) {
   import('./mini-cart.js');
