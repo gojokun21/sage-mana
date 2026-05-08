@@ -96,9 +96,17 @@
     applyCoupon(form);
   });
 
+  // Both triggers route through the same custom AJAX flow:
+  //   - `.remove-coupon-btn` — the X on the custom badge (.coupon-shell)
+  //   - `a.woocommerce-remove-coupon` — the [Înlătură] link in the totals row,
+  //     rendered by `wc_cart_totals_coupon_html()`. WC's own AJAX would update
+  //     only the native totals fragment, leaving .coupon-shell stale until
+  //     refresh — bug surfaced on the cart page.
   document.addEventListener('click', function (e) {
-    var rm = e.target.closest && e.target.closest('.remove-coupon-btn');
+    if (!e.target.closest) return;
+    var rm = e.target.closest('.remove-coupon-btn') || e.target.closest('.woocommerce-remove-coupon');
     if (!rm) return;
+    if (!rm.closest('.woocommerce-cart')) return;
     e.preventDefault();
     removeCoupon(rm);
   });

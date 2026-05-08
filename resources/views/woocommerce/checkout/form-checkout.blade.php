@@ -71,6 +71,41 @@
         @php woocommerce_order_review() @endphp
       </div>
 
+      @if (wc_coupons_enabled())
+        <div class="checkout-coupon" data-checkout-coupon>
+          <button type="button"
+                  class="checkout-coupon__toggle"
+                  aria-expanded="false"
+                  aria-controls="checkout-coupon-panel">
+            <span class="checkout-coupon__toggle-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18">
+                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+                <path d="M9 9v.01"/><path d="M15 15v.01"/><path d="m15 9-6 6"/>
+              </svg>
+              <span>{{ __('Ai un cod de reducere?', 'sage') }}</span>
+            </span>
+            <svg class="checkout-coupon__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+
+          <div class="checkout-coupon__panel" id="checkout-coupon-panel" hidden>
+            <label for="checkout_coupon_code" class="sr-only">{{ __('Cod de reducere', 'sage') }}</label>
+            <div class="checkout-coupon__row">
+              <input type="text"
+                     id="checkout_coupon_code"
+                     class="checkout-coupon__input"
+                     placeholder="{{ esc_attr__('Introdu codul de reducere', 'sage') }}"
+                     autocomplete="off"
+                     spellcheck="false"
+                     enterkeyhint="done">
+              <button type="button" class="checkout-coupon__apply">{{ __('Aplică', 'sage') }}</button>
+            </div>
+            <div class="checkout-coupon__message" role="alert" aria-live="polite"></div>
+          </div>
+        </div>
+      @endif
+
       @php do_action('woocommerce_checkout_after_order_review') @endphp
 
       <div class="checkout-place-order-wrapper">

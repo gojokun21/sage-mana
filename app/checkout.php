@@ -158,8 +158,11 @@ add_action('wp', function () {
     // pull the default login block out entirely.
     remove_action('woocommerce_before_checkout_form', 'woocommerce_checkout_login_form', 10);
 
-    // Default WC "Have a coupon? Click here to enter your code" — we handle
-    // coupons on the cart page, not on checkout.
+    // Default WC "Have a coupon? Click here to enter your code" renders at the
+    // very top via `woocommerce_before_checkout_form` — outside our 2-column
+    // layout. We render our own coupon block inline in the right column
+    // (form-checkout.blade.php → .checkout-coupon, JS in checkout.js), so
+    // strip the default to avoid a duplicate UI.
     remove_action('woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10);
 });
 

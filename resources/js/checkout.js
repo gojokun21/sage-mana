@@ -253,4 +253,96 @@
       if (bindDoubleSubmitGuard() || tries > 40) clearInterval(poll); // ~4s
     }, 100);
   }
+
+  /* ---------------- Coupon (apply on checkout via WC wc-ajax) ---------------- */
+
+  (function bindCheckoutCoupon() {
+    var wrap = document.querySelector('[data-checkout-coupon]');
+    if (!wrap) return;
+
+    var toggleBtn = wrap.querySelector('.checkout-coupon__toggle');
+    var panel = wrap.querySelector('.checkout-coupon__panel');
+    var input = wrap.querySelector('#checkout_coupon_code');
+    var applyBtn = wrap.querySelector('.checkout-coupon__apply');
+    var msgEl = wrap.querySelector('.checkout-coupon__message');
+
+    if (toggleBtn && panel) {
+      toggleBtn.addEventListener('click', function () {
+        var open = toggleBtn.getAttribute('aria-expanded') === 'true';
+        toggleBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        panel.hidden = open;
+        wrap.classList.toggle('is-open', !open);
+        if (!open && input) {
+          setTimeout(function () { input.focus(); }, 60);
+        }
+      });
+    }
+
+    if (!applyBtn || !input) return;
+
+    function setMessage(html, tone) {
+      if (!msgEl) return;
+      msgEl.className = 'checkout-coupon__message' + (tone ? ' is-' + tone : '');
+      msgEl.innerHTML = html || '';
+    }
+
+    function apply() {
+      var code = (input.value || '').trim();
+      if (!code) {
+        setMessage('Introdu un cod valid.', 'error');
+        input.focus();
+        return;
+      }
+
+      var params = window.wc_checkout_params;
+      if (!params || !params.wc_ajax_url) {
+        setMessage('Eroare de configurare. Reîncarcă pagina.', 'error');
+        return;
+      }
+
+      var url = params.wc_ajax_url.toString().replace('%%endpoint%%', 'apply_coupon');
+
+      applyBtn.disabled = true;
+      applyBtn.classList.add('is-loading');
+      input.disabled = true;
+      setMessage('');
+
+      var body = new URLSearchParams();
+      body.append('security', params.apply_coupon_nonce || '');
+      body.append('coupon_code', code);
+
+      fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: body.toString(),
+      })
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          // WC returns a notice fragment (success/error). Display as-is.
+          setMessage(html, /woocommerce-error/.test(html) ? 'error' : 'success');
+          input.value = '';
+          input.disabled = false;
+          applyBtn.disabled = false;
+          applyBtn.classList.remove('is-loading');
+          if (window.jQuery) {
+            window.jQuery(document.body).trigger('update_checkout');
+          }
+        })
+        .catch(function () {
+          setMessage('Nu s-a putut aplica codul. Încearcă din nou.', 'error');
+          input.disabled = false;
+          applyBtn.disabled = false;
+          applyBtn.classList.remove('is-loading');
+        });
+    }
+
+    applyBtn.addEventListener('click', apply);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        apply();
+      }
+    });
+  })();
 })();
