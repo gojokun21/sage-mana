@@ -30,5 +30,6 @@
       'cta_text' => __('Vezi produsele VivensGenetica', 'sage'),
     ])
     @include('partials.home.reviews')
+    @include('partials.home.trust-badges')
   </div>
 @endsection

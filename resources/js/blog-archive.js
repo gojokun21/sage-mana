@@ -5,9 +5,39 @@
  * FAQ-ul foloseste <details> nativ, nu necesita JS.
  */
 
+import Swiper from 'swiper';
+import { Pagination } from 'swiper/modules';
+// Swiper CSS is shipped eagerly from app.js — see that file's header.
+
 (function () {
   const root = document.querySelector('.blog-page');
   if (!root) return;
+
+  // Cluster slider
+  const clusterSliderEl = root.querySelector('[data-blog-cluster-slider] .blog-cluster-swiper');
+  if (clusterSliderEl) {
+    const slides = clusterSliderEl.querySelectorAll('.swiper-slide');
+    const sliderRoot = clusterSliderEl.closest('[data-blog-cluster-slider]');
+
+    new Swiper(clusterSliderEl, {
+      modules: [Pagination],
+      slidesPerView: 1,
+      spaceBetween: 18,
+      grabCursor: true,
+      watchOverflow: true,
+      loop: slides.length > 3,
+      pagination: {
+        el: sliderRoot ? sliderRoot.querySelector('.blog-cluster-slider__pagination') : null,
+        clickable: true,
+      },
+      breakpoints: {
+        576: { slidesPerView: 1.4, spaceBetween: 18 },
+        768: { slidesPerView: 2, spaceBetween: 20 },
+        992: { slidesPerView: 2.4, spaceBetween: 22 },
+        1200: { slidesPerView: 3, spaceBetween: 24 },
+      },
+    });
+  }
 
   const filtersWrap = root.querySelector('[data-blog-filters]');
   const grid = root.querySelector('[data-blog-grid]');

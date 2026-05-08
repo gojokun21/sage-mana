@@ -1,17 +1,16 @@
 @php
-  $topbar_text = 'Transport gratuit la comenzile de peste 300 lei';
-  $topbar_repeat = 8;
+  $topbar_items = [
+    __('Transport gratuit la comenzi peste 300 lei', 'sage'),
+    __('Plata ramburs disponibilă', 'sage'),
+    __('Livrare 24-48h', 'sage'),
+  ];
 @endphp
-<div class="topbar" aria-label="Anunț magazin">
-  <div class="topbar__track" aria-hidden="true">
-    @for ($i = 0; $i < $topbar_repeat; $i++)
-      <span class="topbar__item">{{ $topbar_text }}</span>
-    @endfor
-    @for ($i = 0; $i < $topbar_repeat; $i++)
-      <span class="topbar__item">{{ $topbar_text }}</span>
-    @endfor
-  </div>
-  <span class="sr-only">{{ $topbar_text }}</span>
+<div class="topbar" aria-label="{{ esc_attr__('Anunț magazin', 'sage') }}">
+  <ul class="topbar__list" role="list">
+    @foreach ($topbar_items as $item)
+      <li class="topbar__item">{{ $item }}</li>
+    @endforeach
+  </ul>
 </div>
 
 <header class="navbar__menu">

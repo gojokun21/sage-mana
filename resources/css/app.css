@@ -79,61 +79,56 @@ a {
 }
 
 /* ============================================
-   Topbar (marquee)
+   Topbar (static announcement strip)
    ============================================ */
 .topbar {
   width: 100%;
   background: #2d5a3d;
   color: #fff;
-  overflow: hidden;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.02em;
-  line-height: 1;
-  padding: 10px 0;
-  contain: content;
+  line-height: 1.3;
+  padding: 10px 16px;
 }
 
-.topbar__track {
+.topbar__list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  width: max-content;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  animation: topbar-scroll 90s linear infinite;
+  gap: 6px 24px;
+  max-width: 1200px;
 }
 
 .topbar__item {
-  flex: 0 0 auto;
-  padding: 0 28px;
   position: relative;
+  white-space: nowrap;
 }
 
-.topbar__item::after {
+.topbar__item + .topbar__item::before {
   content: "•";
   position: absolute;
-  right: -4px;
+  left: -15px;
   top: 50%;
   transform: translateY(-50%);
   opacity: 0.55;
   pointer-events: none;
 }
 
-.topbar:hover .topbar__track {
-  animation-play-state: paused;
-}
-
-@keyframes topbar-scroll {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .topbar__track {
-    animation: none;
-    transform: none;
+@media (max-width: 640px) {
+  .topbar {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+  .topbar__list {
+    gap: 4px 16px;
+  }
+  .topbar__item + .topbar__item::before {
+    left: -10px;
   }
 }
 
@@ -1721,6 +1716,212 @@ body.menu-open {
   border-radius: 100px;
 }
 
+/* ------------------------------------------------------------------ */
+/* Pachete — 4 pași simpli către echilibru                             */
+/* ------------------------------------------------------------------ */
+.pachete-pasi {
+  --pasi-green: var(--green, #386356);
+  --pasi-card-bg: #f7f4ec;
+  --pasi-trust-bg: #eef1e6;
+  --pasi-text: #2a2a2a;
+  --pasi-muted: #5a5a5a;
+
+  max-width: 1320px;
+  margin: 64px auto 24px;
+  padding: 0 20px;
+  position: relative;
+}
+
+.pachete-pasi__head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 36px;
+}
+.pachete-pasi__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pasi-green);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.pachete-pasi__title {
+  font-size: clamp(28px, 3.4vw, 42px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #1a1a1a;
+  margin: 0 0 14px;
+}
+.pachete-pasi__lead {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--pasi-muted);
+  margin: 0;
+}
+
+/* grid de 4 carduri */
+.pachete-pasi__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 50px;
+}
+
+.pachete-pasi__card {
+  position: relative;
+  background: var(--pasi-card-bg);
+  border-radius: 18px;
+  padding: 40px 22px 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* numărul mare de sus, peste imagine */
+.pachete-pasi__num {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f0f1e9;
+  border: 1px solid #ffffff;
+  color: var(--pasi-green);
+  font-weight: 700;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* media (poza) cu colțuri rotunjite */
+.pachete-pasi__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #e8e2d2;
+  margin-top: 0;
+}
+.pachete-pasi__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* iconul rotund care "atârnă" peste imagine */
+.pachete-pasi__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #e8ecde;
+  border: 2px solid white;
+  color: var(--pasi-green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  margin-top: -28px;
+  position: relative;
+  z-index: 2;
+}
+
+.pachete-pasi__step-title {
+  margin: 18px 0 8px;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--pasi-text);
+  line-height: 1.3;
+}
+.pachete-pasi__step-desc {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--pasi-muted);
+}
+.pachete-pasi__step-desc strong {
+  color: var(--pasi-text);
+  font-weight: 700;
+}
+
+/* săgeata între carduri */
+.pachete-pasi__arrow {
+  position: absolute;
+  top: 35%;
+  right: -38px;
+  z-index: 4;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--pasi-green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(56, 99, 86, 0.35);
+}
+
+/* bara de încredere */
+.pachete-pasi__trust {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 18px 26px;
+  background: var(--pasi-trust-bg);
+  border-radius: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.pachete-pasi__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--pasi-text);
+  line-height: 1.4;
+}
+.pachete-pasi__trust-icon {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--pasi-green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .pachete-pasi__grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .pachete-pasi__card:nth-child(2) .pachete-pasi__arrow,
+  .pachete-pasi__card:nth-child(4) .pachete-pasi__arrow { display: none; }
+  .pachete-pasi__trust { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .pachete-pasi { margin: 40px auto 16px; }
+  .pachete-pasi__grid { grid-template-columns: 1fr; gap: 18px; }
+  .pachete-pasi__arrow { display: none; }
+  .pachete-pasi__trust { grid-template-columns: 1fr; padding: 16px 18px; }
+}
+
 .woocommerce-products-header p { display: none !important; }
 .hero_archive a {
   background: white;
@@ -1895,8 +2096,58 @@ body.menu-open {
   width: 30%;
 }
 
+/* Trust strip — discrete, just above price on single product/bundle pages */
+.product-trust-strip {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+}
+.product-trust-strip li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  line-height: 1.3;
+  color: #6b6f6d;
+  letter-spacing: 0.005em;
+}
+.product-trust-strip li + li {
+  position: relative;
+  padding-left: 18px;
+}
+.product-trust-strip li + li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 12px;
+  background: #d8dcdb;
+  transform: translateY(-50%);
+}
+.product-trust-strip svg {
+  width: 16px;
+  height: 16px;
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .product-trust-strip {
+    gap: 8px 14px;
+    font-size: 12px;
+  }
+  .product-trust-strip li + li {
+    padding-left: 14px;
+  }
+}
+
 .price_custom {
-  margin-top: 20px;
+  margin-top: 12px;
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;

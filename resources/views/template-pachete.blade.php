@@ -189,6 +189,166 @@
     </div>
     {{-- /HERO --}}
 
+    {{-- ============================================================ --}}
+    {{-- 4 PAȘI — Cum funcționează                                     --}}
+    {{-- ============================================================ --}}
+    @php
+      // Pași — text hardcodat, imaginile pot veni din ACF repeater `pasi_steps`
+      // (sub-field: `image`) pe pagină. Daca lipsesc, cardurile arată ok fără imagine.
+      $pasi_acf = function_exists('get_field') ? get_field('pasi_steps', $page_id) : null;
+      $pasi_imgs = [];
+      if (is_array($pasi_acf)) {
+          foreach ($pasi_acf as $row) {
+              $img = $row['image'] ?? null;
+              $pasi_imgs[] = is_array($img) ? ($img['url'] ?? '') : (is_string($img) ? $img : '');
+          }
+      }
+
+      $pasi_steps = [
+          [
+              'title' => __('Alegi pachetul', 'sage'),
+              'desc'  => __('Alege pachetul potrivit pentru tine: Detox, Imunitate sau Energie.', 'sage'),
+              'icon'  => 'bag',
+          ],
+          [
+              'title' => __('Urmezi cura zilnic', 'sage'),
+              'desc'  => __('Urmezi rutina zilnică recomandată, simplu de integrat în stilul tău de viață. Capsule și/sau shots — ușor de luat, ușor de menținut.', 'sage'),
+              'icon'  => 'calendar',
+          ],
+          [
+              'title' => __('Corpul se reglează', 'sage'),
+              'desc'  => __('Ingredientele naturale lucrează în sinergie pentru a susține digestia, imunitatea, energia și claritatea mintală.', 'sage'),
+              'icon'  => 'leaf',
+          ],
+          [
+              'title' => __('Vezi rezultatele', 'sage'),
+              'desc_html' => sprintf(
+                  /* translators: %s: interval în zile (ex. "7–30 de zile") */
+                  __('Rezultatele apar treptat și natural, în %s, cu consecvență și grijă pentru tine.', 'sage'),
+                  '<strong>' . esc_html__('7–30 de zile', 'sage') . '</strong>'
+              ),
+              'icon'  => 'chart',
+          ],
+      ];
+
+      $pasi_trust = [
+          ['icon' => 'shield', 'label' => __('Ingrediente premium, formule clinic dovedite', 'sage')],
+          ['icon' => 'bolt',   'label' => __('100% ingrediente naturale, fără aditivi inutili', 'sage')],
+          ['icon' => 'check',  'label' => __('Suplimente sigure, testate în laborator', 'sage')],
+          ['icon' => 'heart',  'label' => __('Peste 5.000 de clienți mulțumiți', 'sage')],
+      ];
+    @endphp
+
+    <section class="pachete-pasi" aria-labelledby="pachete-pasi-title">
+      <div class="pachete-pasi__head">
+        <span class="pachete-pasi__eyebrow">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+          {{ __('CUM FUNCȚIONEAZĂ', 'sage') }}
+        </span>
+        <h2 id="pachete-pasi-title" class="pachete-pasi__title">{{ __('4 pași simpli către echilibru', 'sage') }}</h2>
+        <p class="pachete-pasi__lead">{{ __('Rutina noastră este gândită să fie ușor de urmat și să aducă rezultate reale, în mod natural.', 'sage') }}</p>
+      </div>
+
+      <ol class="pachete-pasi__grid">
+        @foreach ($pasi_steps as $i => $step)
+          @php $img_url = $pasi_imgs[$i] ?? ''; @endphp
+          <li class="pachete-pasi__card">
+            <span class="pachete-pasi__num" aria-hidden="true">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+            <div class="pachete-pasi__media">
+              @if ($img_url)
+                <img src="{{ esc_url($img_url) }}" alt="" loading="lazy">
+              @endif
+            </div>
+
+            <span class="pachete-pasi__icon" aria-hidden="true">
+              @switch($step['icon'])
+                @case('bag')
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                    <path d="M3 6h18"/>
+                    <path d="M16 10a4 4 0 0 1-8 0"/>
+                  </svg>
+                  @break
+                @case('calendar')
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  @break
+                @case('leaf')
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                  </svg>
+                  @break
+                @case('chart')
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3v18h18"/>
+                    <path d="m7 14 4-4 4 4 5-6"/>
+                  </svg>
+                  @break
+              @endswitch
+            </span>
+
+            <h3 class="pachete-pasi__step-title">{{ $step['title'] }}</h3>
+            <p class="pachete-pasi__step-desc">
+              @if (!empty($step['desc_html']))
+                {!! $step['desc_html'] !!}
+              @else
+                {{ $step['desc'] }}
+              @endif
+            </p>
+
+            @if ($i < count($pasi_steps) - 1)
+              <span class="pachete-pasi__arrow" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </span>
+            @endif
+          </li>
+        @endforeach
+      </ol>
+
+      <ul class="pachete-pasi__trust">
+        @foreach ($pasi_trust as $t)
+          <li class="pachete-pasi__trust-item">
+            <span class="pachete-pasi__trust-icon" aria-hidden="true">
+              @switch($t['icon'])
+                @case('shield')
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                  </svg>
+                  @break
+                @case('bolt')
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>
+                  </svg>
+                  @break
+                @case('check')
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  @break
+                @case('heart')
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+                  </svg>
+                  @break
+              @endswitch
+            </span>
+            <span class="pachete-pasi__trust-label">{{ $t['label'] }}</span>
+          </li>
+        @endforeach
+      </ul>
+    </section>
+    {{-- /4 PAȘI --}}
+
     <header class="pachete-section-header">
       <h1 class="pachete-section-title">{{ __('Pachete complete pentru un corp în echilibru', 'sage') }}</h1>
     </header>

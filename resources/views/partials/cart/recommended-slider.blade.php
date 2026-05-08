@@ -10,7 +10,10 @@
 
 <section class="cart-recommended">
   <div class="cart-recommended__header">
-    <h3 class="cart-recommended__title">{{ __('Recomandate împreună cu produsele din coș', 'sage') }}</h3>
+    <div class="cart-recommended__heading">
+      <h3 class="cart-recommended__title">{{ __('Cei mai mulți clienți le combină cu...', 'sage') }}</h3>
+      <p class="cart-recommended__subtitle">{{ __('Selectate pe baza alegerilor clienților care au cumpărat aceleași produse', 'sage') }}</p>
+    </div>
 
     <div class="cart-recommended__nav" role="group" aria-label="{{ esc_attr__('Navigare recomandări', 'sage') }}">
       <button type="button" class="cart-recommended__arrow" data-dir="prev" aria-label="{{ esc_attr__('Anterior', 'sage') }}">

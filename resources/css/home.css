@@ -414,6 +414,95 @@
   font-size: 15px;
 }
 
+/* ============================
+   Trust badges (final reassurance row)
+   ============================ */
+.home-trust {
+  padding: 24px 0 8px;
+}
+
+.home-trust__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 18px;
+}
+
+.home-trust__item {
+  display: flex;
+}
+
+.home-trust__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 24px 22px;
+  background: #fff;
+  border: 1px solid #e8eae9;
+  border-radius: 18px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+a.home-trust__card:hover,
+a.home-trust__card:focus-visible {
+  border-color: var(--green);
+  box-shadow: 0 12px 28px rgba(56, 99, 86, 0.1);
+  transform: translateY(-2px);
+}
+
+.home-trust__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(56, 99, 86, 0.08);
+  color: var(--green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.home-trust__icon svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+a.home-trust__card:hover .home-trust__icon,
+a.home-trust__card:focus-visible .home-trust__icon {
+  background: var(--green);
+  color: #fff;
+}
+
+.home-trust__label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #1a1a1a;
+  letter-spacing: -0.005em;
+}
+
+.home-trust__hint {
+  display: block;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #6b6f6d;
+}
+
+@media (max-width: 1100px) {
+  .home-trust__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .home-section { margin-bottom: 30px; }
   .home-section__title { font-size: 24px; }
@@ -430,4 +519,22 @@
   .home-benefit__description { font-size: 13px; }
   .home-promo-badges { top: 22px; left: 22px; }
   .home-promo-badge { font-size: 10px; padding: 3px 7px; }
+
+  .home-trust__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .home-trust__card {
+    padding: 18px 16px;
+    gap: 10px;
+    border-radius: 14px;
+  }
+  .home-trust__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+  .home-trust__icon svg { width: 22px; height: 22px; }
+  .home-trust__label { font-size: 14px; }
+  .home-trust__hint { font-size: 12px; }
 }

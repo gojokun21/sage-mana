@@ -291,34 +291,42 @@
           <p class="blog-sec-head__lede">{{ sprintf(_n('Un domeniu esențial al stării de bine, cu articole verificate și grupate după nevoia ta concretă.', '%d domenii esențiale ale stării de bine, fiecare cu articole verificate și grupate după nevoia ta concretă.', count($clusters), 'sage'), count($clusters)) }}</p>
         </header>
 
-        <div class="blog-cluster-grid">
-          @foreach ($clusters as $c)
-            <a href="{{ esc_url(is_string($c['url']) ? $c['url'] : '') }}" class="blog-cluster-card" data-cat="{{ esc_attr($c['key']) }}">
-              <div class="blog-cluster-card__head">
-                <span class="blog-cluster-card__icon" aria-hidden="true">
-                  @if (! empty($c['icon_url']))
-                    <img src="{{ esc_url($c['icon_url']) }}" alt="{{ esc_attr($c['icon_alt']) }}" loading="lazy" decoding="async">
-                  @else
-                    <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      {!! $c['icon_svg'] !!}
-                    </svg>
-                  @endif
-                </span>
-                <span class="blog-cluster-card__num">/ {{ $c['num'] }}</span>
-              </div>
-              <h3>{{ $c['title'] }}</h3>
-              <p>{{ $c['desc'] }}</p>
-              <div class="blog-cluster-card__foot">
-                <span class="blog-cluster-card__cta">
-                  {{ __('Vezi articolele', 'sage') }}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12 H19"/><path d="M13 6 L19 12 L13 18"/></svg>
-                </span>
-                @if ($c['count'] > 0)
-                  <span class="blog-cluster-card__count">{{ sprintf(_n('%d articol', '%d articole', $c['count'], 'sage'), $c['count']) }}</span>
-                @endif
-              </div>
-            </a>
-          @endforeach
+        <div class="blog-cluster-slider" data-blog-cluster-slider>
+          <div class="swiper blog-cluster-swiper">
+            <div class="swiper-wrapper">
+              @foreach ($clusters as $c)
+                <div class="swiper-slide">
+                  <a href="{{ esc_url(is_string($c['url']) ? $c['url'] : '') }}" class="blog-cluster-card" data-cat="{{ esc_attr($c['key']) }}">
+                    <div class="blog-cluster-card__head">
+                      <span class="blog-cluster-card__icon" aria-hidden="true">
+                        @if (! empty($c['icon_url']))
+                          <img src="{{ esc_url($c['icon_url']) }}" alt="{{ esc_attr($c['icon_alt']) }}" loading="lazy" decoding="async">
+                        @else
+                          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            {!! $c['icon_svg'] !!}
+                          </svg>
+                        @endif
+                      </span>
+                      <span class="blog-cluster-card__num">/ {{ $c['num'] }}</span>
+                    </div>
+                    <h3>{{ $c['title'] }}</h3>
+                    <p>{{ $c['desc'] }}</p>
+                    <div class="blog-cluster-card__foot">
+                      <span class="blog-cluster-card__cta">
+                        {{ __('Vezi articolele', 'sage') }}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12 H19"/><path d="M13 6 L19 12 L13 18"/></svg>
+                      </span>
+                      @if ($c['count'] > 0)
+                        <span class="blog-cluster-card__count">{{ sprintf(_n('%d articol', '%d articole', $c['count'], 'sage'), $c['count']) }}</span>
+                      @endif
+                    </div>
+                  </a>
+                </div>
+              @endforeach
+            </div>
+          </div>
+
+          <div class="blog-cluster-slider__pagination" aria-hidden="true"></div>
         </div>
       </div>
     </section>

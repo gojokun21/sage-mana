@@ -437,11 +437,25 @@ dl.variation dd.variation-Reducere p { margin: 0; }
   margin-bottom: 24px;
 }
 
+.cart-recommended__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
 .cart-recommended__title {
   margin: 0;
   font-size: 22px;
   font-weight: 600;
   color: #1a1a1a;
+}
+
+.cart-recommended__subtitle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--blog-muted, #6b6b6b);
 }
 
 .cart-recommended__nav {
