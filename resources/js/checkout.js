@@ -345,4 +345,388 @@
       }
     });
   })();
+
+  /* ---------------- Address cascade (judet → localitate → stradă → cod poștal)
+   * Pure client-side: static JSON files served from public/data/postcodes/.
+   * Bound to window.natura_address_data (set by app/checkout.php). Datasetul
+   * este sharded — vezi app/Console/Commands/AddressImport.php. */
+
+  (function bindAddressCascade() {
+    var baseUrl = window.natura_address_data;
+    if (!baseUrl) return;
+
+    var stateEl = document.querySelector('select[name="billing_state"], input[name="billing_state"]');
+    var cityEl = document.getElementById('billing_city');
+    var addrEl = document.getElementById('billing_address_1');
+    var zipEl = document.getElementById('billing_postcode');
+    var dl = document.getElementById('natura-localitati');
+
+    if (!cityEl || !addrEl || !zipEl) return;
+
+    var manifest = null;
+    var currentState = '';
+    var currentCity = '';
+    var streetIndex = []; // [{ display, lower, code }] sorted by lower
+    var suggestionsBox = null;
+    var visibleSuggestions = [];
+    var activeIndex = -1;
+
+    function fold(s) {
+      return (s || '')
+        .toString()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '')
+        .replace(/ş/g, 's')
+        .replace(/ţ/g, 't');
+    }
+
+    function slugify(s) {
+      return fold(s).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    }
+
+    // Romanian street-type words that are noise for autocomplete: "Str. Lipscani",
+    // "Strada Lipscani", "Lipscani strada" should all match the same entry.
+    // Tokens are compared after fold(), so they're already diacritic-free.
+    var STREET_TYPE_TOKENS = {
+      'strada': 1, 'str': 1, 'stradela': 1, 'bulevardul': 1, 'bulevard': 1,
+      'bd': 1, 'bdul': 1, 'b-dul': 1, 'calea': 1, 'piata': 1, 'splaiul': 1,
+      'soseaua': 1, 'sos': 1, 'aleea': 1, 'intrarea': 1, 'fundatura': 1,
+      'fund': 1, 'drumul': 1, 'drum': 1, 'cartier': 1, 'cart': 1, 'nr': 1
+    };
+
+    function tokenize(s) {
+      var folded = fold(s);
+      // Strip punctuation but keep hyphens so "b-dul" stays one token.
+      var cleaned = folded.replace(/[.,;:!?()\/\\]+/g, ' ');
+      var tokens = cleaned.split(/[\s ]+/).filter(Boolean);
+      return tokens.filter(function (t) { return !STREET_TYPE_TOKENS[t]; });
+    }
+
+    function debounce(fn, ms) {
+      var t;
+      return function () {
+        var args = arguments, ctx = this;
+        clearTimeout(t);
+        t = setTimeout(function () { fn.apply(ctx, args); }, ms);
+      };
+    }
+
+    function fetchJson(url) {
+      return fetch(url, { credentials: 'omit', cache: 'force-cache' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        });
+    }
+
+    function loadManifest() {
+      if (manifest) return Promise.resolve(manifest);
+      return fetchJson(baseUrl + 'index.json').then(function (m) { manifest = m; return m; });
+    }
+
+    function loadLocalities(stateCode) {
+      return fetchJson(baseUrl + 'localities/' + encodeURIComponent(stateCode) + '.json');
+    }
+
+    function loadStreetsFor(stateCode, locality) {
+      return loadManifest().then(function (m) {
+        var entry = m && m[stateCode];
+        if (!entry || !entry.localities) return null;
+
+        var foldedQ = fold(locality);
+        var matchedKey = null;
+        Object.keys(entry.localities).some(function (k) {
+          if (fold(k) === foldedQ) { matchedKey = k; return true; }
+          return false;
+        });
+        if (!matchedKey) return null;
+
+        var shards = entry.localities[matchedKey] || [];
+
+        // Locality known but has no street data in the dataset (e.g. Ilfov
+        // communes). Resolve to empty so the cascade shows the "no streets"
+        // hint instead of issuing 404 fetches.
+        if (shards.length === 0) return {};
+
+        var slug = slugify(matchedKey);
+        var urls = shards.map(function (s) {
+          var name = s ? slug + '-' + s : slug;
+          return baseUrl + 'streets/' + encodeURIComponent(stateCode) + '/' + name + '.json';
+        });
+
+        return Promise.all(urls.map(function (u) {
+          return fetchJson(u).catch(function () { return {}; });
+        })).then(function (parts) {
+          var combined = {};
+          parts.forEach(function (p) { Object.assign(combined, p || {}); });
+          return combined;
+        });
+      });
+    }
+
+    function populateLocalities(list) {
+      if (!dl) return;
+      dl.innerHTML = '';
+      var frag = document.createDocumentFragment();
+      (list || []).forEach(function (loc) {
+        var opt = document.createElement('option');
+        opt.value = loc;
+        frag.appendChild(opt);
+      });
+      dl.appendChild(frag);
+    }
+
+    function resetCity() { cityEl.value = ''; if (dl) dl.innerHTML = ''; }
+    function resetStreet() { addrEl.value = ''; closeSuggestions(); streetIndex = []; }
+    function resetZip() { zipEl.value = ''; }
+
+    function ensureSuggestionsBox() {
+      if (suggestionsBox) return suggestionsBox;
+      suggestionsBox = document.createElement('ul');
+      suggestionsBox.className = 'natura-street-suggestions';
+      suggestionsBox.setAttribute('role', 'listbox');
+      suggestionsBox.hidden = true;
+      var row = addrEl.closest('.form-row') || addrEl.parentElement;
+      if (row) {
+        var pos = window.getComputedStyle(row).position;
+        if (pos === 'static') row.style.position = 'relative';
+        row.appendChild(suggestionsBox);
+      }
+      return suggestionsBox;
+    }
+
+    function renderSuggestions(items, emptyHint) {
+      var box = ensureSuggestionsBox();
+      box.innerHTML = '';
+      visibleSuggestions = items;
+      activeIndex = -1;
+
+      if (!items.length) {
+        if (emptyHint) {
+          var hint = document.createElement('li');
+          hint.className = 'natura-street-suggestion is-empty';
+          hint.setAttribute('aria-disabled', 'true');
+          hint.textContent = emptyHint;
+          box.appendChild(hint);
+          box.hidden = false;
+        } else {
+          box.hidden = true;
+        }
+        return;
+      }
+
+      var frag = document.createDocumentFragment();
+      items.forEach(function (item, idx) {
+        var li = document.createElement('li');
+        li.className = 'natura-street-suggestion';
+        li.setAttribute('role', 'option');
+        li.setAttribute('data-idx', String(idx));
+        li.textContent = item.display;
+        frag.appendChild(li);
+      });
+      box.appendChild(frag);
+      box.hidden = false;
+    }
+
+    function closeSuggestions() {
+      if (suggestionsBox) { suggestionsBox.hidden = true; suggestionsBox.innerHTML = ''; }
+      visibleSuggestions = []; activeIndex = -1;
+    }
+
+    function pickSuggestion(item) {
+      if (!item) return;
+      addrEl.value = item.display;
+      if (item.code) {
+        zipEl.value = item.code;
+        zipEl.dispatchEvent(new Event('input', { bubbles: true }));
+        zipEl.dispatchEvent(new Event('change', { bubbles: true }));
+        // Brief flash so the customer notices the auto-fill (CSS handles the fade).
+        zipEl.classList.add('natura-zip-just-filled');
+        setTimeout(function () { zipEl.classList.remove('natura-zip-just-filled'); }, 700);
+      }
+      closeSuggestions();
+    }
+
+    function highlightSuggestion(idx) {
+      if (!suggestionsBox) return;
+      Array.prototype.forEach.call(suggestionsBox.children, function (el, i) {
+        el.classList.toggle('is-active', i === idx);
+      });
+      if (idx >= 0 && suggestionsBox.children[idx]) {
+        suggestionsBox.children[idx].scrollIntoView({ block: 'nearest' });
+      }
+    }
+
+    function searchStreets(q) {
+      if (!q || q.length < 2) { closeSuggestions(); return; }
+
+      // No street data loaded for the current judet+localitate. Tell the
+      // customer instead of failing silently — they typed something so they
+      // expect feedback.
+      if (!streetIndex.length) {
+        var hint;
+        if (!currentState) {
+          hint = 'Selectează mai întâi județul.';
+        } else if (!currentCity) {
+          hint = 'Selectează mai întâi localitatea.';
+        } else {
+          hint = 'Nu avem străzi pentru ' + currentCity + ' în baza de date. Poți completa manual codul poștal.';
+        }
+        renderSuggestions([], hint);
+        return;
+      }
+
+      var queryTokens = tokenize(q);
+      var qf = fold(q.trim());
+
+      // Fallback when query is *only* a street-type word (e.g. "calea") — show
+      // all entries containing that word as plain substring search.
+      if (queryTokens.length === 0) {
+        var fallback = [];
+        for (var j = 0; j < streetIndex.length && fallback.length < 20; j++) {
+          if (streetIndex[j].lower.indexOf(qf) > -1) fallback.push(streetIndex[j]);
+        }
+        renderSuggestions(fallback);
+        return;
+      }
+
+      // Score each entry: every query token must appear (prefix or substring)
+      // in some entry token. Prefix matches at token start score higher.
+      var scored = [];
+      for (var i = 0; i < streetIndex.length; i++) {
+        var entry = streetIndex[i];
+        var score = 0;
+        var allMatched = true;
+
+        for (var k = 0; k < queryTokens.length; k++) {
+          var qt = queryTokens[k];
+          var matched = 0;
+
+          for (var m = 0; m < entry.tokens.length; m++) {
+            var et = entry.tokens[m];
+            if (et === qt) { matched = 3; break; }
+            if (et.indexOf(qt) === 0) { matched = Math.max(matched, 2); }
+            else if (et.indexOf(qt) > -1) { matched = Math.max(matched, 1); }
+          }
+
+          if (!matched) { allMatched = false; break; }
+          score += matched;
+        }
+
+        if (allMatched) scored.push({ entry: entry, score: score });
+      }
+
+      scored.sort(function (a, b) {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.entry.lower < b.entry.lower ? -1 : a.entry.lower > b.entry.lower ? 1 : 0;
+      });
+
+      var items = scored.slice(0, 20).map(function (s) { return s.entry; });
+      renderSuggestions(items, items.length === 0 ? 'Nicio stradă găsită — verifică ortografia sau completează manual codul poștal.' : null);
+    }
+
+    function onStateChange() {
+      var current = document.querySelector('select[name="billing_state"], input[name="billing_state"]');
+      if (current && current !== stateEl) stateEl = current;
+      var code = stateEl ? (stateEl.value || '').trim() : '';
+      if (code === currentState) return;
+      currentState = code;
+      currentCity = '';
+      resetCity();
+      resetStreet();
+      resetZip();
+      if (!code) return;
+      loadLocalities(code).then(populateLocalities).catch(function () {});
+    }
+
+    function onCityChange() {
+      var v = (cityEl.value || '').trim();
+      if (!v || v === currentCity) return;
+      if (!currentState) return;
+      currentCity = v;
+      resetStreet();
+      resetZip();
+      loadStreetsFor(currentState, v).then(function (map) {
+        if (!map) return;
+        var arr = [];
+        Object.keys(map).forEach(function (display) {
+          arr.push({
+            display: display,
+            lower: fold(display),
+            code: map[display],
+            tokens: tokenize(display),
+          });
+        });
+        arr.sort(function (a, b) { return a.lower < b.lower ? -1 : a.lower > b.lower ? 1 : 0; });
+        streetIndex = arr;
+      }).catch(function () {});
+    }
+
+    var onAddrInput = debounce(function () {
+      searchStreets((addrEl.value || '').trim());
+    }, 200);
+
+    function onAddrKeydown(e) {
+      if (!visibleSuggestions.length) return;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIndex = Math.min(activeIndex + 1, visibleSuggestions.length - 1);
+        highlightSuggestion(activeIndex);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIndex = Math.max(activeIndex - 1, 0);
+        highlightSuggestion(activeIndex);
+      } else if (e.key === 'Enter' && activeIndex >= 0) {
+        e.preventDefault();
+        pickSuggestion(visibleSuggestions[activeIndex]);
+      } else if (e.key === 'Escape') {
+        closeSuggestions();
+      }
+    }
+
+    document.addEventListener('click', function (e) {
+      if (!suggestionsBox) return;
+      var li = e.target.closest && e.target.closest('.natura-street-suggestion');
+      if (li && suggestionsBox.contains(li)) {
+        var idx = parseInt(li.getAttribute('data-idx'), 10);
+        if (!isNaN(idx)) pickSuggestion(visibleSuggestions[idx]);
+        return;
+      }
+      if (!suggestionsBox.contains(e.target) && e.target !== addrEl) closeSuggestions();
+    });
+
+    addrEl.addEventListener('input', onAddrInput);
+    addrEl.addEventListener('keydown', onAddrKeydown);
+    addrEl.addEventListener('focus', function () {
+      var v = (addrEl.value || '').trim();
+      if (v.length >= 2 && streetIndex.length) searchStreets(v);
+    });
+
+    cityEl.addEventListener('change', onCityChange);
+    cityEl.addEventListener('input', debounce(onCityChange, 250));
+
+    // SelectWoo dispatches change via jQuery only — same retry pattern as Sector.
+    function bindAddressStateListeners() {
+      if (stateEl) stateEl.addEventListener('change', onStateChange);
+      if (!window.jQuery) return false;
+      var $ = window.jQuery;
+      $(document).on('change', 'select[name="billing_state"], input[name="billing_state"]', onStateChange);
+      $(document.body).on('country_to_state_changed', onStateChange);
+      return true;
+    }
+
+    if (!bindAddressStateListeners()) {
+      var addrTries = 0;
+      var addrPoll = setInterval(function () {
+        addrTries++;
+        if (bindAddressStateListeners() || addrTries > 40) clearInterval(addrPoll);
+      }, 100);
+    }
+
+    // Initial sync — for logged-in customers with a saved address, kick the
+    // cascade so the datalist + street index are warm before they edit.
+    onStateChange();
+    if (cityEl.value) onCityChange();
+  })();
 })();

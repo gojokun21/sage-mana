@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Console\Commands\AddressImport;
 use Roots\Acorn\Sage\SageServiceProvider;
 
 class ThemeServiceProvider extends SageServiceProvider
@@ -14,6 +15,12 @@ class ThemeServiceProvider extends SageServiceProvider
     public function register()
     {
         parent::register();
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                AddressImport::class,
+            ]);
+        }
     }
 
     /**

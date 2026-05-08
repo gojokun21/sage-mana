@@ -28,8 +28,44 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
     unset($fields['billing']['billing_address_2']);
     unset($fields['shipping']['shipping_address_2']);
 
-    unset($fields['billing']['billing_postcode']);
+    // Shipping postcode stays removed (billing-only address cascade).
     unset($fields['shipping']['shipping_postcode']);
+
+    // Billing postcode is auto-filled by the address cascade JS once a street
+    // is picked from the autocomplete suggestions. The field stays editable
+    // so customers can correct it when the dataset is wrong/missing — the
+    // helper text below the input makes that affordance visible.
+    if (isset($fields['billing']['billing_postcode'])) {
+        $fields['billing']['billing_postcode']['label'] = __('Cod poștal', 'sage');
+        $fields['billing']['billing_postcode']['placeholder'] = __('Se completează automat', 'sage');
+        $fields['billing']['billing_postcode']['description'] = __('Completat automat după selectarea străzii. Poți modifica dacă e nevoie.', 'sage');
+        $fields['billing']['billing_postcode']['required'] = false;
+        $fields['billing']['billing_postcode']['priority'] = 90;
+        $existing = isset($fields['billing']['billing_postcode']['class'])
+            ? (array) $fields['billing']['billing_postcode']['class']
+            : [];
+        if (! in_array('natura-postcode-row', $existing, true)) {
+            $existing[] = 'natura-postcode-row';
+        }
+        $fields['billing']['billing_postcode']['class'] = $existing;
+        $fields['billing']['billing_postcode']['custom_attributes'] = [
+            'data-natura-zip' => '1',
+            'inputmode' => 'numeric',
+            'pattern' => '\\d{6}',
+            'maxlength' => '6',
+        ];
+    }
+
+    // Billing city wires up a native <datalist> populated by JS from
+    // localities/{judet_code}.json. Native datalist gives free keyboard
+    // navigation and graceful fallback when JS fails.
+    if (isset($fields['billing']['billing_city'])) {
+        $cityAttrs = $fields['billing']['billing_city']['custom_attributes'] ?? [];
+        $cityAttrs['list'] = 'natura-localitati';
+        $cityAttrs['data-natura-city'] = '1';
+        $cityAttrs['autocomplete'] = 'address-level2';
+        $fields['billing']['billing_city']['custom_attributes'] = $cityAttrs;
+    }
 
     // "Nr reg comertului" is not used on this store — remove entirely.
     // `billing_cui` stays in place (CUI for PJ, CNP for PF — FGO re-labels it).
@@ -54,6 +90,11 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
 
     if (isset($fields['billing']['billing_address_1'])) {
         $fields['billing']['billing_address_1']['label'] = __('Strada și Numărul', 'sage');
+        $addrAttrs = $fields['billing']['billing_address_1']['custom_attributes'] ?? [];
+        $addrAttrs['data-natura-street'] = '1';
+        // Disable browser autofill so it doesn't fight our custom suggestions.
+        $addrAttrs['autocomplete'] = 'off';
+        $fields['billing']['billing_address_1']['custom_attributes'] = $addrAttrs;
     }
 
     // Tag PJ-only rows with known classes so our CSS can hide them for
@@ -261,6 +302,26 @@ add_action('wp_enqueue_scripts', function () {
                 'error' => __('A apărut o eroare. Încearcă din nou.', 'sage'),
             ],
         ]).';</script>';
+    }, 5);
+});
+
+/* ---------------------------------------------------------------------------
+ * Address cascade — base URL for static JSON dataset (judet → localitate →
+ * stradă → cod poștal). Files live under public/data/postcodes/ and are
+ * served directly by Apache/Nginx (no AJAX endpoint, no nonce). The JSON is
+ * sharded — see app/Console/Commands/AddressImport.php.
+ * ------------------------------------------------------------------------- */
+
+add_action('wp_enqueue_scripts', function () {
+    add_action('wp_footer', function () {
+        if (! function_exists('is_checkout') || ! is_checkout() || is_order_received_page()) {
+            return;
+        }
+
+        printf(
+            '<script>var natura_address_data=%s;</script>',
+            wp_json_encode(get_theme_file_uri('public/data/postcodes/'))
+        );
     }, 5);
 });
 

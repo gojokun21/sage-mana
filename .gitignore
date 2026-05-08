@@ -2,5 +2,19 @@
 /vendor
 /public/*
 !/public/.gitkeep
+!/public/data
 .env
 npm-debug.log
+
+# Acorn storage — keep folder structure, ignore generated content
+/storage/framework/cache/*
+!/storage/framework/cache/.gitkeep
+/storage/framework/views/*
+!/storage/framework/views/.gitkeep
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
+
+# Source CSV used by tests/run-import.php — large, regenerate from upstream
+/storage/posta-romana.csv

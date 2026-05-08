@@ -101,6 +101,9 @@
     @endforeach
   </div>
 
+  {{-- Populated by checkout.js on judet change; bound to billing_city via list= --}}
+  <datalist id="natura-localitati"></datalist>
+
   @php do_action('woocommerce_after_checkout_billing_form', $checkout) @endphp
 </div>
 
