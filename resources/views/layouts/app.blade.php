@@ -31,6 +31,8 @@
         </aside>
       @endif
 
+      @include('partials.newsletter')
+
       @include('sections.footer')
     </div>
 

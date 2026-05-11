@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Newsletter strip — Omnisend embed rendered above the footer on every page
+   (resources/views/partials/newsletter.blade.php, included from
+   layouts/app.blade.php).
+
+   Visual treatment: full-width band with a soft green gradient so it reads
+   as a distinct section separating page content from the dark-green footer.
+   ========================================================================== */
+
+.newsletter-strip {
+  background: linear-gradient(135deg, #e9f1e3 0%, #d5e6cf 100%);
+  border-top: 1px solid rgba(31, 61, 51, 0.08);
+}
+
+.newsletter-strip .container {
+  padding: 56px 15px;
+}
+
+.newsletter-strip__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.newsletter-strip__title {
+  margin: 0 0 10px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1F3D33;
+  line-height: 1.25;
+}
+
+.newsletter-strip__text {
+  margin: 0;
+  color: rgba(31, 61, 51, 0.78);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.newsletter-strip__form {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Omnisend wraps the form in its own container with inline styles. Strip
+   the chrome so it sits flush in our layout. */
+.newsletter-strip__form > div {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Normalize the injected input + button. Omnisend's class names vary by
+   template version, so we target by element to be robust. */
+.newsletter-strip__form input[type="email"],
+.newsletter-strip__form input[type="text"] {
+  background: #fff !important;
+  border: 1px solid rgba(31, 61, 51, 0.15) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-size: 15px !important;
+  color: #1F3D33 !important;
+  min-height: 48px;
+  box-shadow: 0 1px 2px rgba(31, 61, 51, 0.04);
+}
+
+.newsletter-strip__form input[type="email"]:focus,
+.newsletter-strip__form input[type="text"]:focus {
+  outline: 2px solid rgba(31, 61, 51, 0.25) !important;
+  outline-offset: 2px;
+  border-color: var(--green) !important;
+}
+
+.newsletter-strip__form button {
+  background: var(--green, #1F3D33) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 12px 28px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  min-height: 48px;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.newsletter-strip__form button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* Tablet — stack so the form gets its full width */
+@media (max-width: 1023px) {
+  .newsletter-strip__inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+  .newsletter-strip .container {
+    padding: 44px 15px;
+  }
+  .newsletter-strip__title { font-size: 24px; }
+}
+
+/* Mobile — tighten padding/typography */
+@media (max-width: 640px) {
+  .newsletter-strip .container {
+    padding: 32px 15px;
+  }
+  .newsletter-strip__inner { gap: 18px; }
+  .newsletter-strip__title { font-size: 21px; }
+  .newsletter-strip__text { font-size: 14px; }
+}

@@ -50,18 +50,6 @@
           @endif
         </div>
 
-        <div class="footer-newsletter">
-          <div class="footer-newsletter__intro">
-            <h3 class="footer-newsletter__title">{{ __('Abonează-te la newsletter', 'sage') }}</h3>
-            <p class="footer-newsletter__text">
-              {{ __('Primește reduceri exclusive, sfaturi de la specialiști și noutăți despre produse naturale, direct pe e-mail.', 'sage') }}
-            </p>
-          </div>
-          <div class="footer-newsletter__form">
-            <div id="omnisend-embedded-v2-69f381ac6a1280abd3800e1e"></div>
-          </div>
-        </div>
-
         <div class="footer-columns">
           {{-- Column 1: Linkuri utile (+ ANPC images on desktop, consent link) --}}
           @if (have_rows('linkuri_utile'))

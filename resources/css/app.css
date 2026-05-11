@@ -3620,6 +3620,7 @@ p.demo_store {
 @import "./qty-stepper.css";    /* used inside mini-cart + cart + product */
 @import "./favorites.css";      /* heart buttons on product cards */
 @import "./auth.css";           /* login modal triggered from header — any page */
+@import "./newsletter.css";     /* Omnisend newsletter strip above footer */
 @import "./footer.css";         /* footer everywhere */
 @import "./page.css";           /* generic page wrapper */
 @import "./whatsapp-button.css"; /* floating WhatsApp CTA — every page */
