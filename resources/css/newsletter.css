@@ -14,6 +14,14 @@
   border-top: 1px solid rgba(31, 61, 51, 0.08);
 }
 
+/* Consent gating: any element marked with `data-cmplz-gate="<category>"`
+   stays hidden until partials/newsletter.blade.php's inline script removes
+   the attribute on Complianz consent. Used by .newsletter-strip and
+   .blog-newsletter (the two Omnisend embed hosts). */
+[data-cmplz-gate] {
+  display: none;
+}
+
 .newsletter-strip::after {
   content: "";
   opacity: 0.2;

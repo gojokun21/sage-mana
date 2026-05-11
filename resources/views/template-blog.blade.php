@@ -545,7 +545,7 @@
     </section>
 
     {{-- =================== NEWSLETTER =================== --}}
-    <section class="blog-newsletter" aria-labelledby="blog-newsletter-title">
+    <section class="blog-newsletter" aria-labelledby="blog-newsletter-title" data-cmplz-gate="statistics">
       <div class="container">
         <div class="blog-newsletter__grid">
           <div class="blog-newsletter__lead">
