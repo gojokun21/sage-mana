@@ -3,7 +3,6 @@
   ACF page-level group `hero_section` with:
     - description (WYSIWYG)
     - image (URL or array)
-    - happy_customers (int — used for animated counter)
 --}}
 
 @php
@@ -19,7 +18,6 @@
     $image = get_sub_field('image');
     $image_url = is_array($image) ? ($image['url'] ?? '') : $image;
     $image_alt = is_array($image) ? ($image['alt'] ?? '') : '';
-    $happy_customers = (int) get_sub_field('happy_customers');
   @endphp
 
   <section class="about_section">
@@ -52,12 +50,6 @@
                      alt="{{ esc_attr($image_alt ?: get_the_title()) }}"
                      loading="eager"
                      decoding="async">
-              @endif
-              @if ($happy_customers > 0)
-                <div class="about_span">
-                  <h2 class="counter" data-target="{{ $happy_customers }}">0</h2>
-                  <p>{{ __('clienți fericiți', 'sage') }}</p>
-                </div>
               @endif
             </div>
           </div>

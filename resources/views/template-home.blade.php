@@ -8,7 +8,7 @@
   <div class="home-template">
     @include('partials.home.hero')
     @include('partials.home.categories')
-    @include('partials.home.benefits')
+    @include('partials.home.trust-badges')
     @include('partials.home.products-slider', [
       'id' => 'popular-packages',
       'title' => __('Pachete populare', 'sage'),
@@ -30,6 +30,6 @@
       'cta_text' => __('Vezi produsele VivensGenetica', 'sage'),
     ])
     @include('partials.home.reviews')
-    @include('partials.home.trust-badges')
+    @include('partials.home.benefits')
   </div>
 @endsection

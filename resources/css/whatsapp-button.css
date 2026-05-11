@@ -63,8 +63,46 @@
   100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
+.natura-whatsapp__bubble {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  background: #fff;
+  color: #1f2937;
+  padding: 8px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transform: translateY(-50%) translateX(8px) scale(0.9);
+  transform-origin: right center;
+  pointer-events: none;
+  animation: natura-whatsapp-bubble 15s ease-in-out 4s infinite;
+}
+
+.natura-whatsapp__bubble::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -4px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  transform: translateY(-50%) rotate(45deg);
+  border-radius: 2px;
+}
+
+@keyframes natura-whatsapp-bubble {
+  0%, 35%, 100% { opacity: 0; transform: translateY(-50%) translateX(8px) scale(0.9); }
+  3%, 30%       { opacity: 1; transform: translateY(-50%) translateX(0) scale(1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .natura-whatsapp::before { animation: none; }
+  .natura-whatsapp::before,
+  .natura-whatsapp__bubble { animation: none; }
   .natura-whatsapp { transition: none; }
 }
 
@@ -81,6 +119,12 @@
   .natura-whatsapp__icon {
     width: 28px;
     height: 28px;
+  }
+
+  .natura-whatsapp__bubble {
+    font-size: 12px;
+    padding: 7px 12px;
+    right: calc(100% + 10px);
   }
 }
 

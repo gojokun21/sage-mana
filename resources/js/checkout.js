@@ -107,6 +107,20 @@
     });
   });
 
+  /* ---------------- Payment method change → refresh totals ----------------
+   * WC core doesn't auto-trigger `update_checkout` when the payment radio
+   * changes, so fees keyed off `chosen_payment_method` (e.g. Taxă ramburs
+   * for COD) stay stale until something else refreshes the review. Bridging
+   * through jQuery is required because WC's checkout handler listens on the
+   * jQuery event bus. Delegated because the .wc_payment_methods list is
+   * re-rendered on every `updated_checkout`. */
+
+  document.addEventListener('change', function (e) {
+    var t = e.target;
+    if (!t || t.name !== 'payment_method') return;
+    if (window.jQuery) window.jQuery(document.body).trigger('update_checkout');
+  });
+
   /* ---------------- FGO fields (Tip Facturare / CUI / CNP) ----------------
    * FGO keeps a single `billing_cui` input that it relabels dynamically
    * ("Cod Unic" for PJ / "CNP" for PF). On this store we only collect a

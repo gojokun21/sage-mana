@@ -20,6 +20,8 @@
 
 namespace App;
 
+const COD_FEE = 10.0;
+
 /* ---------------------------------------------------------------------------
  * Field customizations
  * ------------------------------------------------------------------------- */
@@ -76,11 +78,8 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         $fields['billing']['billing_phone']['required'] = true;
     }
 
-    // Email is optional — customers can check out with phone only.
-    // WC still validates format when the field is filled in (the 'email'
-    // validate rule stays), but won't block submission on empty input.
     if (isset($fields['billing']['billing_email'])) {
-        $fields['billing']['billing_email']['required'] = false;
+        $fields['billing']['billing_email']['required'] = true;
     }
 
     if (isset($fields['billing']['billing_company'])) {
@@ -461,6 +460,32 @@ add_filter('woocommerce_admin_billing_fields', function ($fields) {
     ];
 
     return $fields;
+});
+
+/* ---------------------------------------------------------------------------
+ * COD (Ramburs) fee — flat surcharge when the customer picks Cash on Delivery.
+ *
+ * WC's checkout JS fires `update_checkout` on payment-method change, which
+ * re-triggers `woocommerce_cart_calculate_fees` — so the line appears/disappears
+ * in the order review automatically. The chosen method is stored in the WC
+ * session, hence the session lookup (POSTed value during AJAX update is also
+ * propagated into the session by WC before fees run).
+ * ------------------------------------------------------------------------- */
+
+add_action('woocommerce_cart_calculate_fees', function ($cart) {
+    if (is_admin() && ! defined('DOING_AJAX')) {
+        return;
+    }
+
+    if (! function_exists('WC') || ! WC()->session) {
+        return;
+    }
+
+    if (WC()->session->get('chosen_payment_method') !== 'cod') {
+        return;
+    }
+
+    $cart->add_fee(__('Taxă ramburs', 'sage'), COD_FEE, true);
 });
 
 /* ---------------------------------------------------------------------------
