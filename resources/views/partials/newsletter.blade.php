@@ -16,7 +16,7 @@
         </p>
       </div>
       <div class="newsletter-strip__form">
-        <div id="omnisend-embedded-v2-69f381ac6a1280abd3800e1e"></div>
+        <div id="omnisend-embedded-v2-6a01d923ab28a246322eea14"></div>
       </div>
     </div>
   </div>
