@@ -8,8 +8,24 @@
    ========================================================================== */
 
 .newsletter-strip {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, #e9f1e3 0%, #d5e6cf 100%);
   border-top: 1px solid rgba(31, 61, 51, 0.08);
+}
+
+.newsletter-strip::after {
+  content: "";
+  opacity: 0.2;
+  pointer-events: none;
+  background-image: url(/wp-content/uploads/2026/01/Vector.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 239px;
+  height: 229px;
+  position: absolute;
+  bottom: -23px;
+  right: -51px;
 }
 
 .newsletter-strip .container {
