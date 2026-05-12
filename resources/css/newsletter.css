@@ -10,7 +10,7 @@
 .newsletter-strip {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #e9f1e3 0%, #d5e6cf 100%);
+  background: linear-gradient(135deg, #46534e 0%, #255746 100%);
   border-top: 1px solid rgba(31, 61, 51, 0.08);
 }
 
@@ -53,13 +53,13 @@
   margin: 0 0 10px;
   font-size: 28px;
   font-weight: 600;
-  color: #1F3D33;
+  color: #ffffff;
   line-height: 1.25;
 }
 
 .newsletter-strip__text {
   margin: 0;
-  color: rgba(31, 61, 51, 0.78);
+  color: #ffffffc7;
   font-size: 16px;
   line-height: 1.6;
 }

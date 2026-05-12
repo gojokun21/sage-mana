@@ -15,6 +15,7 @@
       'products' => $popular_packages,
     ])
     @include('partials.home.testimonials')
+    @include('partials.home.quote-banner')
     @include('partials.home.products-slider', [
       'id' => 'new-products',
       'title' => __('Produse Noi', 'sage'),
