@@ -71,7 +71,7 @@
         <div class="upgrade_pack_info">
           <span class="upgrade_pack_badge">Recomandat</span>
           <a href="{{ esc_url(get_permalink($upgrade_product_id)) }}" class="upgrade_pack_title">
-            {{ esc_html($upgrade_product->get_name()) }}
+            {{ $upgrade_product->get_name() }}
           </a>
           @if ($upgrade_short_desc)
             <div class="upgrade_pack_desc">{!! wp_kses_post($upgrade_short_desc) !!}</div>
@@ -146,7 +146,7 @@
         <img class="sticky-product-img" src="{{ esc_url($product_image[0]) }}" alt="{{ esc_attr($product->get_name()) }}">
       @endif
       <div class="sticky_product_name_wrapper">
-        <div class="sticky_product_name">{{ esc_html($product->get_name()) }}</div>
+        <div class="sticky_product_name">{{ $product->get_name() }}</div>
       </div>
     </div>
     <div class="sticky-price-wrapper">
@@ -198,7 +198,7 @@
           </button>
         @else
           <span class="sticky-add-to-cart btn-green d-none d-md-flex btn-unavailable" data-product_id="{{ esc_attr($product->get_id()) }}">
-            {{ esc_html($sticky_unavailable_text) }}
+            {{ $sticky_unavailable_text }}
           </span>
           <span class="sticky-add-to-cart-mobile d-md-none btn-unavailable" data-product_id="{{ esc_attr($product->get_id()) }}">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
