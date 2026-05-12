@@ -59,7 +59,7 @@
 <section class="home-section home-trust" aria-labelledby="home-trust-title">
   <div class="home-section__header">
     <h2 id="home-trust-title" class="home-section__title">{{ __('Alături de tine în grijă pentru sănătatea ta', 'sage') }}</h2>
-    <p class="home-section__subtitle">{{ __('Calitate certificată, livrare rapidă și suport rapid pentru fiecare comandă.', 'sage') }}</p>
+    <p class="home-section__subtitle">{{ __('Calitate certificată, livrare și suport rapid pentru fiecare comandă.', 'sage') }}</p>
   </div>
 
   <ul class="home-trust__grid" role="list">
