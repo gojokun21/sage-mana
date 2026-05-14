@@ -1,0 +1,688 @@
+{
+    "key": "group_categorie_continut_pagina",
+    "title": "Categorie — Conținut pagină",
+    "fields": [
+        {
+            "key": "field_cat_tab_hero",
+            "label": "Hero",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_cat_hero_pill_tag",
+            "label": "Pill tag (eyebrow)",
+            "name": "hero_pill_tag",
+            "type": "text",
+            "instructions": "Eticheta uppercase peste titlu. Ex: PILON • DETOXIFIERE & CURATARE",
+            "wrapper": {"width": "50"},
+            "maxlength": 80,
+            "placeholder": "PILON • DETOXIFIERE & CURATARE"
+        },
+        {
+            "key": "field_cat_hero_title_line_1",
+            "label": "Titlu — linia 1",
+            "name": "hero_title_line_1",
+            "type": "text",
+            "instructions": "Prima linie a titlului. Daca e gol, foloseste numele categoriei.",
+            "wrapper": {"width": "50"},
+            "maxlength": 80,
+            "placeholder": "Curata, sustine,"
+        },
+        {
+            "key": "field_cat_hero_title_line_2",
+            "label": "Titlu — linia 2 (subliniată)",
+            "name": "hero_title_line_2_underlined",
+            "type": "text",
+            "instructions": "A doua linie, primeste underline decorativ. Optional.",
+            "wrapper": {"width": "50"},
+            "maxlength": 80,
+            "placeholder": "regenereaza ficatul."
+        },
+        {
+            "key": "field_cat_hero_lead",
+            "label": "Lead / paragraf scurt",
+            "name": "hero_lead",
+            "type": "textarea",
+            "instructions": "Paragraful sub titlu. Accepta <strong> si <em>.",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_cat_hero_chips",
+            "label": "Chips (USP highlights)",
+            "name": "hero_chips",
+            "type": "repeater",
+            "instructions": "Etichete mici peste imaginea hero. Recomandat 3 items.",
+            "min": 0,
+            "max": 4,
+            "layout": "table",
+            "button_label": "Adaugă chip",
+            "sub_fields": [
+                {
+                    "key": "field_cat_hero_chip_icon",
+                    "label": "Icon (emoji)",
+                    "name": "icon",
+                    "type": "text",
+                    "wrapper": {"width": "20"},
+                    "maxlength": 6,
+                    "placeholder": "🌿",
+                    "parent_repeater": "field_cat_hero_chips"
+                },
+                {
+                    "key": "field_cat_hero_chip_label",
+                    "label": "Text",
+                    "name": "label",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {"width": "80"},
+                    "maxlength": 80,
+                    "placeholder": "Silimarina standardizata 80%",
+                    "parent_repeater": "field_cat_hero_chips"
+                }
+            ]
+        },
+        {
+            "key": "field_cat_hero_callout_label",
+            "label": "Callout — label",
+            "name": "hero_callout_label",
+            "type": "text",
+            "instructions": "Eticheta callout-ului luminos din hero. Optional — daca e gol, callout-ul nu apare.",
+            "wrapper": {"width": "30"},
+            "maxlength": 60,
+            "placeholder": "PENTRU CINE ESTE RECOMANDAT?"
+        },
+        {
+            "key": "field_cat_hero_callout_text",
+            "label": "Callout — text",
+            "name": "hero_callout_text",
+            "type": "textarea",
+            "instructions": "Continutul callout-ului. Apare doar daca label-ul e completat.",
+            "wrapper": {"width": "70"},
+            "rows": 3,
+            "new_lines": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_cat_hero_callout_label",
+                        "operator": "!=empty"
+                    }
+                ]
+            ]
+        },
+
+        {
+            "key": "field_cat_tab_feature_product",
+            "label": "Feature Product",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_feature_product_select",
+            "label": "Produs prezentat",
+            "name": "feature_product",
+            "type": "post_object",
+            "instructions": "Selectează produsul WooCommerce care apare în blocul „Feature Product” sub hero. Lasă gol ca să ascunzi blocul.",
+            "required": 0,
+            "post_type": ["product"],
+            "taxonomy": "",
+            "allow_null": 1,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_feature_ribbon_text",
+            "label": "Text panglică (ribbon)",
+            "name": "feature_ribbon_text",
+            "type": "text",
+            "instructions": "Eticheta diagonală în colţul cardului. Ex: CURA 30 ZILE. Opţional.",
+            "wrapper": {"width": "33"},
+            "maxlength": 30,
+            "placeholder": "CURA 30 ZILE",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_feature_product_select",
+                        "operator": "!=empty"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_feature_kicker_text",
+            "label": "Eyebrow / kicker",
+            "name": "feature_kicker_text",
+            "type": "text",
+            "instructions": "Textul mic uppercase deasupra titlului. Ex: FORMULA DEDICATA • SUPORT HEPATIC. Opţional.",
+            "wrapper": {"width": "67"},
+            "maxlength": 80,
+            "placeholder": "FORMULA DEDICATA • SUPORT HEPATIC",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_feature_product_select",
+                        "operator": "!=empty"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_feature_description_override",
+            "label": "Descriere (override)",
+            "name": "feature_description_override",
+            "type": "textarea",
+            "instructions": "Dacă e completat, suprascrie descrierea scurtă a produsului. Acceptă <strong>, <em>, <br>.",
+            "rows": 4,
+            "new_lines": "wpautop",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_feature_product_select",
+                        "operator": "!=empty"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_feature_features_list",
+            "label": "Bullet points",
+            "name": "feature_features_list",
+            "type": "repeater",
+            "instructions": "Lista de avantaje afișată sub descriere. Maxim 6.",
+            "min": 0,
+            "max": 6,
+            "layout": "table",
+            "button_label": "Adaugă punct",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_feature_product_select",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "sub_fields": [
+                {
+                    "key": "field_feature_feature_item",
+                    "label": "Punct",
+                    "name": "feature_item",
+                    "type": "text",
+                    "required": 1,
+                    "maxlength": 80,
+                    "placeholder": "Silimarina 80% standardizata",
+                    "parent_repeater": "field_feature_features_list"
+                }
+            ]
+        },
+        {
+            "key": "field_feature_price_meta",
+            "label": "Detaliu sub preț",
+            "name": "feature_price_meta",
+            "type": "text",
+            "instructions": "Linia mică sub preț. Ex: 4,63 lei / doza zilnica • cura 30 zile. Opțional.",
+            "wrapper": {"width": "60"},
+            "maxlength": 100,
+            "placeholder": "4,63 lei / doza zilnica • cura 30 zile",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_feature_product_select",
+                        "operator": "!=empty"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_feature_cta_label",
+            "label": "Text buton CTA",
+            "name": "feature_cta_label",
+            "type": "text",
+            "instructions": "Săgeata „→” se adaugă automat.",
+            "wrapper": {"width": "40"},
+            "default_value": "ADAUGA IN COS",
+            "maxlength": 30,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_feature_product_select",
+                        "operator": "!=empty"
+                    }
+                ]
+            ]
+        },
+
+        {
+            "key": "field_cat_tab_stats",
+            "label": "Stats",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_cat_stats_items",
+            "label": "Statistici (trust strip)",
+            "name": "stats_items",
+            "type": "repeater",
+            "instructions": "Banda de incredere sub grila de produse. Recomandat 4 items pentru layout optim. Lasa gol pentru a ascunde sectiunea.",
+            "min": 0,
+            "max": 6,
+            "layout": "table",
+            "button_label": "Adaugă stat",
+            "sub_fields": [
+                {
+                    "key": "field_cat_stats_num",
+                    "label": "Cifră",
+                    "name": "num",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {"width": "30"},
+                    "maxlength": 20,
+                    "placeholder": "400+",
+                    "parent_repeater": "field_cat_stats_items"
+                },
+                {
+                    "key": "field_cat_stats_lbl",
+                    "label": "Etichetă (max 2 linii — folosește <br>)",
+                    "name": "lbl",
+                    "type": "textarea",
+                    "required": 1,
+                    "wrapper": {"width": "70"},
+                    "rows": 2,
+                    "new_lines": "br",
+                    "placeholder": "Clienti din toata tara\ncare au facut cura",
+                    "parent_repeater": "field_cat_stats_items"
+                }
+            ]
+        },
+
+        {
+            "key": "field_cat_tab_phases",
+            "label": "Phases",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_cat_phases_heading",
+            "label": "Titlu sectiune",
+            "name": "phases_heading",
+            "type": "text",
+            "wrapper": {"width": "50"},
+            "placeholder": "Cele 3 faze ale detoxifierii hepatice"
+        },
+        {
+            "key": "field_cat_phases_intro",
+            "label": "Intro",
+            "name": "phases_intro",
+            "type": "textarea",
+            "wrapper": {"width": "50"},
+            "rows": 2,
+            "new_lines": "",
+            "placeholder": "Text scurt de prezentare"
+        },
+        {
+            "key": "field_cat_phases_items",
+            "label": "Faze",
+            "name": "phases_items",
+            "type": "repeater",
+            "instructions": "Cardurile cu fazele procesului. Recomandat 3 items.",
+            "min": 0,
+            "max": 6,
+            "layout": "block",
+            "button_label": "Adaugă fază",
+            "sub_fields": [
+                {
+                    "key": "field_cat_phase_num",
+                    "label": "Număr (badge)",
+                    "name": "num",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {"width": "15"},
+                    "maxlength": 3,
+                    "placeholder": "1",
+                    "parent_repeater": "field_cat_phases_items"
+                },
+                {
+                    "key": "field_cat_phase_title",
+                    "label": "Titlu",
+                    "name": "title",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {"width": "45"},
+                    "maxlength": 80,
+                    "placeholder": "Faza I — Activare",
+                    "parent_repeater": "field_cat_phases_items"
+                },
+                {
+                    "key": "field_cat_phase_tag",
+                    "label": "Tag (sub card)",
+                    "name": "tag",
+                    "type": "text",
+                    "instructions": "Ex: „Sustinuta de: D-Tox Ficat”. Optional.",
+                    "wrapper": {"width": "40"},
+                    "maxlength": 80,
+                    "parent_repeater": "field_cat_phases_items"
+                },
+                {
+                    "key": "field_cat_phase_description",
+                    "label": "Descriere",
+                    "name": "description",
+                    "type": "textarea",
+                    "required": 1,
+                    "wrapper": {"width": "100"},
+                    "rows": 4,
+                    "new_lines": "",
+                    "parent_repeater": "field_cat_phases_items"
+                }
+            ]
+        },
+
+        {
+            "key": "field_cat_tab_zilnic",
+            "label": "Zilnic",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_cat_zilnic_heading",
+            "label": "Titlu checklist",
+            "name": "zilnic_heading",
+            "type": "text",
+            "placeholder": "✓ Cum sustii ficatul zilnic — fara supliment"
+        },
+        {
+            "key": "field_cat_zilnic_items",
+            "label": "Puncte checklist",
+            "name": "zilnic_items",
+            "type": "repeater",
+            "instructions": "Sfaturi practice — fiecare linie are o parte bold și restul ca explicație după separator.",
+            "min": 0,
+            "max": 12,
+            "layout": "table",
+            "button_label": "Adaugă punct",
+            "sub_fields": [
+                {
+                    "key": "field_cat_zilnic_bold",
+                    "label": "Text bold",
+                    "name": "bold",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {"width": "40"},
+                    "maxlength": 120,
+                    "placeholder": "2-2.5 litri apa / zi",
+                    "parent_repeater": "field_cat_zilnic_items"
+                },
+                {
+                    "key": "field_cat_zilnic_description",
+                    "label": "Explicație (după —)",
+                    "name": "description",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {"width": "60"},
+                    "maxlength": 200,
+                    "placeholder": "ficatul are nevoie de hidratare pentru a procesa toxinele",
+                    "parent_repeater": "field_cat_zilnic_items"
+                }
+            ]
+        },
+
+        {
+            "key": "field_cat_tab_testimonials",
+            "label": "Testimoniale",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_cat_testi_heading",
+            "label": "Titlu sectiune",
+            "name": "testimonials_heading",
+            "type": "text",
+            "wrapper": {"width": "50"},
+            "placeholder": "Marturii de la cei care au facut cura"
+        },
+        {
+            "key": "field_cat_testi_intro",
+            "label": "Intro",
+            "name": "testimonials_intro",
+            "type": "textarea",
+            "wrapper": {"width": "50"},
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_cat_testi_items",
+            "label": "Marturii",
+            "name": "testimonials_items",
+            "type": "repeater",
+            "instructions": "Doar recenzii verificate (Directiva Omnibus). Recomandat 2-4 items.",
+            "min": 0,
+            "max": 6,
+            "layout": "block",
+            "button_label": "Adaugă mărturie",
+            "sub_fields": [
+                {
+                    "key": "field_cat_testi_verified",
+                    "label": "Bifează verificată",
+                    "name": "verified",
+                    "type": "true_false",
+                    "wrapper": {"width": "20"},
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "Verificată",
+                    "ui_off_text": "Nu",
+                    "parent_repeater": "field_cat_testi_items"
+                },
+                {
+                    "key": "field_cat_testi_avatar_initials",
+                    "label": "Inițiale avatar",
+                    "name": "avatar_initials",
+                    "type": "text",
+                    "instructions": "Max 2-3 litere — ex: CT. Daca lasi gol, se deriva din nume.",
+                    "wrapper": {"width": "20"},
+                    "maxlength": 3,
+                    "parent_repeater": "field_cat_testi_items"
+                },
+                {
+                    "key": "field_cat_testi_name",
+                    "label": "Nume + vârstă",
+                    "name": "name",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {"width": "30"},
+                    "maxlength": 60,
+                    "placeholder": "Carmen T., 44 ani",
+                    "parent_repeater": "field_cat_testi_items"
+                },
+                {
+                    "key": "field_cat_testi_sub",
+                    "label": "Sub-text (locatie / context)",
+                    "name": "sub",
+                    "type": "text",
+                    "wrapper": {"width": "30"},
+                    "maxlength": 80,
+                    "placeholder": "Timisoara • cura ianuarie 2025",
+                    "parent_repeater": "field_cat_testi_items"
+                },
+                {
+                    "key": "field_cat_testi_quote",
+                    "label": "Mărturie",
+                    "name": "quote",
+                    "type": "textarea",
+                    "required": 1,
+                    "wrapper": {"width": "100"},
+                    "rows": 4,
+                    "new_lines": "",
+                    "parent_repeater": "field_cat_testi_items"
+                }
+            ]
+        },
+
+        {
+            "key": "field_cat_tab_faq",
+            "label": "FAQ",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_cat_faq_heading",
+            "label": "Titlu sectiune",
+            "name": "faq_heading",
+            "type": "text",
+            "wrapper": {"width": "50"},
+            "placeholder": "Intrebari frecvente"
+        },
+        {
+            "key": "field_cat_faq_intro",
+            "label": "Intro",
+            "name": "faq_intro",
+            "type": "textarea",
+            "wrapper": {"width": "50"},
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_cat_faq_items",
+            "label": "Întrebări",
+            "name": "faq_items",
+            "type": "repeater",
+            "min": 0,
+            "max": 30,
+            "layout": "block",
+            "button_label": "Adaugă întrebare",
+            "sub_fields": [
+                {
+                    "key": "field_cat_faq_question",
+                    "label": "Întrebare",
+                    "name": "question",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {"width": "75"},
+                    "maxlength": 200,
+                    "parent_repeater": "field_cat_faq_items"
+                },
+                {
+                    "key": "field_cat_faq_open_default",
+                    "label": "Deschis implicit",
+                    "name": "open_by_default",
+                    "type": "true_false",
+                    "instructions": "Marchează doar 1 item.",
+                    "wrapper": {"width": "25"},
+                    "default_value": 0,
+                    "ui": 1,
+                    "parent_repeater": "field_cat_faq_items"
+                },
+                {
+                    "key": "field_cat_faq_answer",
+                    "label": "Răspuns",
+                    "name": "answer",
+                    "type": "wysiwyg",
+                    "required": 1,
+                    "wrapper": {"width": "100"},
+                    "tabs": "visual",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 1,
+                    "parent_repeater": "field_cat_faq_items"
+                }
+            ]
+        },
+
+        {
+            "key": "field_cat_tab_blog",
+            "label": "Blog",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_cat_blog_heading",
+            "label": "Titlu sectiune",
+            "name": "blog_heading",
+            "type": "text",
+            "wrapper": {"width": "50"},
+            "placeholder": "Citeste si pe blog"
+        },
+        {
+            "key": "field_cat_blog_intro",
+            "label": "Intro",
+            "name": "blog_intro",
+            "type": "textarea",
+            "wrapper": {"width": "50"},
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_cat_blog_related",
+            "label": "Articole selectate manual",
+            "name": "related_articles",
+            "type": "relationship",
+            "instructions": "Daca selectezi articole, suprascriu „ultimele 3 publicate”. Maxim 3.",
+            "post_type": ["post"],
+            "filters": ["search", "post_type", "taxonomy"],
+            "min": 0,
+            "max": 3,
+            "return_format": "object"
+        },
+
+        {
+            "key": "field_cat_tab_legal",
+            "label": "Legal",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_cat_legal_label",
+            "label": "Etichetă disclaimer",
+            "name": "legal_label",
+            "type": "text",
+            "instructions": "Pill-ul colorat din colțul cardului. Optional.",
+            "maxlength": 60,
+            "placeholder": "⚠ INFORMATII LEGALE • IMPORTANT"
+        },
+        {
+            "key": "field_cat_legal_body",
+            "label": "Conținut",
+            "name": "legal_body",
+            "type": "wysiwyg",
+            "instructions": "Disclaimer-ul legal. Daca e gol, sectiunea nu se afișează.",
+            "tabs": "visual",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "product_cat"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Tot conținutul editorial al paginii de categorie, organizat pe tabs în ordinea în care apare blocurile pe pagină. Lasă goale câmpurile blocurilor pe care nu vrei să le afișezi pentru această categorie.",
+    "show_in_rest": 0,
+    "modified": 1778803400
+}
