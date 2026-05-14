@@ -348,9 +348,10 @@
       </div>
     @endif
 
-    {{-- FAQ — ACF `faq_items` repeater. `open_by_default` boolean controleaza
-         atributul [open] pe <details>. Toggle-ul +/− din span e ignorat de CSS
-         (chevron rotativ vine prin pseudo-element, JS-ul gestioneaza animatia). --}}
+    {{-- FAQ — ACF `faq_items` repeater. Primul item se deschide automat
+         (folosim get_row_index() == 1, ACF foloseste indexing 1-based).
+         Toggle-ul +/− din span e ignorat de CSS (chevron rotativ vine din
+         pseudo-element, JS-ul gestioneaza animatia smooth). --}}
     @if (function_exists('have_rows') && have_rows('faq_items', $term))
       @php
         $faq_heading = get_field('faq_heading', $term);
@@ -365,7 +366,7 @@
             @php
               $q = get_sub_field('question');
               $a = get_sub_field('answer');
-              $is_open = (bool) get_sub_field('open_by_default');
+              $is_open = get_row_index() === 1;
             @endphp
             @if ($q && $a)
               <details class="faq-item" @if ($is_open) open @endif>

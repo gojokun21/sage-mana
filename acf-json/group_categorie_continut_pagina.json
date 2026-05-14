@@ -287,7 +287,7 @@
                 },
                 {
                     "key": "field_cat_stats_lbl",
-                    "label": "Etichetă (max 2 linii — folosește <br>)",
+                    "label": "Etichetă",
                     "name": "lbl",
                     "type": "textarea",
                     "required": 1,
@@ -471,15 +471,13 @@
             "button_label": "Adaugă mărturie",
             "sub_fields": [
                 {
-                    "key": "field_cat_testi_verified",
-                    "label": "Bifează verificată",
-                    "name": "verified",
-                    "type": "true_false",
-                    "wrapper": {"width": "20"},
-                    "default_value": 1,
-                    "ui": 1,
-                    "ui_on_text": "Verificată",
-                    "ui_off_text": "Nu",
+                    "key": "field_cat_testi_name",
+                    "label": "Nume + vârstă",
+                    "name": "name",
+                    "type": "text",
+                    "required": 1,
+                    "maxlength": 60,
+                    "placeholder": "Carmen T., 44 ani",
                     "parent_repeater": "field_cat_testi_items"
                 },
                 {
@@ -488,19 +486,7 @@
                     "name": "avatar_initials",
                     "type": "text",
                     "instructions": "Max 2-3 litere — ex: CT. Daca lasi gol, se deriva din nume.",
-                    "wrapper": {"width": "20"},
                     "maxlength": 3,
-                    "parent_repeater": "field_cat_testi_items"
-                },
-                {
-                    "key": "field_cat_testi_name",
-                    "label": "Nume + vârstă",
-                    "name": "name",
-                    "type": "text",
-                    "required": 1,
-                    "wrapper": {"width": "30"},
-                    "maxlength": 60,
-                    "placeholder": "Carmen T., 44 ani",
                     "parent_repeater": "field_cat_testi_items"
                 },
                 {
@@ -508,9 +494,19 @@
                     "label": "Sub-text (locatie / context)",
                     "name": "sub",
                     "type": "text",
-                    "wrapper": {"width": "30"},
                     "maxlength": 80,
                     "placeholder": "Timisoara • cura ianuarie 2025",
+                    "parent_repeater": "field_cat_testi_items"
+                },
+                {
+                    "key": "field_cat_testi_verified",
+                    "label": "Bifează verificată",
+                    "name": "verified",
+                    "type": "true_false",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "Verificată",
+                    "ui_off_text": "Nu",
                     "parent_repeater": "field_cat_testi_items"
                 },
                 {
@@ -519,7 +515,6 @@
                     "name": "quote",
                     "type": "textarea",
                     "required": 1,
-                    "wrapper": {"width": "100"},
                     "rows": 4,
                     "new_lines": "",
                     "parent_repeater": "field_cat_testi_items"
@@ -568,19 +563,7 @@
                     "name": "question",
                     "type": "text",
                     "required": 1,
-                    "wrapper": {"width": "75"},
                     "maxlength": 200,
-                    "parent_repeater": "field_cat_faq_items"
-                },
-                {
-                    "key": "field_cat_faq_open_default",
-                    "label": "Deschis implicit",
-                    "name": "open_by_default",
-                    "type": "true_false",
-                    "instructions": "Marchează doar 1 item.",
-                    "wrapper": {"width": "25"},
-                    "default_value": 0,
-                    "ui": 1,
                     "parent_repeater": "field_cat_faq_items"
                 },
                 {
@@ -589,7 +572,6 @@
                     "name": "answer",
                     "type": "wysiwyg",
                     "required": 1,
-                    "wrapper": {"width": "100"},
                     "tabs": "visual",
                     "toolbar": "basic",
                     "media_upload": 0,
@@ -684,5 +666,5 @@
     "active": true,
     "description": "Tot conținutul editorial al paginii de categorie, organizat pe tabs în ordinea în care apare blocurile pe pagină. Lasă goale câmpurile blocurilor pe care nu vrei să le afișezi pentru această categorie.",
     "show_in_rest": 0,
-    "modified": 1778803400
+    "modified": 1778803900
 }

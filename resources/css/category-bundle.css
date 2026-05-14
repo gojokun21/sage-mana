@@ -130,20 +130,24 @@
 }
 
 .feature-product .features li {
-  position: relative;
-  padding-left: 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   font-size: 14px;
   color: #2f4233;
   line-height: 1.4;
 }
 
+/* Iconul aliniat optic cu centrul primei linii de text. Math: line-height 1.4 ×
+ * 14px = 19.6px line box; centru text ≈ 9.8px; icon 14px → margin-top 3px ca
+ * sa coincida centrele. Pe items cu wrap, ramane langa prima linie (convenția
+ * de bullet list), nu sare la mijlocul intregii înălțimi. */
 .feature-product .features li::before {
   content: "";
-  position: absolute;
-  left: 0;
-  top: 6px;
+  flex-shrink: 0;
   width: 14px;
   height: 14px;
+  margin-top: 3px;
   background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232f6b3a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") no-repeat center / contain;
 }
 
