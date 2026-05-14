@@ -234,6 +234,13 @@ function page_bundles(): array
         $bundles[] = 'resources/css/product-bundle.css';
     }
 
+    // Product category (taxonomy product_cat): feature-product block + alte
+    // sectiuni editoriale specifice paginilor de categorie. Shop-ul (archive
+    // generic) NU primeste acest bundle.
+    if (function_exists('is_product_category') && is_product_category()) {
+        $bundles[] = 'resources/css/category-bundle.css';
+    }
+
     // My Account (all sub-pages: dashboard, orders, addresses, login/register
     // shown to logged-out users, lost-password flow, etc.).
     if (function_exists('is_account_page') && is_account_page()) {

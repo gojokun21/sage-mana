@@ -468,6 +468,11 @@ if (document.querySelector('[data-footer-accordion]')) {
   import('./footer.js');
 }
 
+/* ==================== LAZY: FAQ ACCORDION ==================== */
+if (document.querySelector('.faq .faq-item')) {
+  import('./faq-accordion.js');
+}
+
 /* ==================== LAZY: LOGIN MODAL ==================== */
 if (document.querySelector('.open-login-modal')) {
   import('./auth.js');

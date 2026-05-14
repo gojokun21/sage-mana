@@ -46,6 +46,32 @@ add_filter('tiny_replace_with_picture', '__return_false');
  */
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 
+/**
+ * Route product category pages to a dedicated blade template.
+ *
+ * WC's plugin does NOT ship a `taxonomy-product_cat.php` in its templates/
+ * folder, so `sage-woocommerce` (which only intercepts files that originate
+ * from WC's templates path) never picks up our category template — every
+ * product_cat request falls through to `archive-product.blade.php`.
+ *
+ * We hook `template_include` at priority 99 (after WC's `template_loader`
+ * at 10) and substitute our blade template when `is_product_category()`.
+ * Uses Acorn's view factory + makeLoader() — same mechanism sage-woocommerce
+ * uses internally — so blade caching/compilation behaves identically.
+ */
+add_filter('template_include', function ($template) {
+    if (! function_exists('is_product_category') || ! is_product_category()) {
+        return $template;
+    }
+
+    $factory = \Roots\view();
+    if (! $factory->exists('woocommerce.taxonomy-product_cat')) {
+        return $template;
+    }
+
+    return \Roots\view('woocommerce.taxonomy-product_cat')->makeLoader();
+}, 99);
+
 add_action('wp_enqueue_scripts', function () {
     wp_dequeue_style('wc-blocks-style');
     wp_dequeue_style('wc-blocks-vendors-style');
