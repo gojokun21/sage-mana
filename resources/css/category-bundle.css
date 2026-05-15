@@ -2,6 +2,111 @@
  * (taxonomy-product_cat). Incarcat doar cand is_product_category() prin
  * App\page_bundles() (vezi app/setup.php). */
 
+/* ============ Tokens (paleta per categorie) ============
+ * --cat-accent vine din ACF (`category_theme_color` pe term product_cat),
+ * injectat de wp_head (vezi app/category-theme.php) pe body.has-cat-theme.
+ * Declaram fallback-ul pe body ca sa fie disponibil si header-ului, topbar-ului
+ * si footer-ului (in afara wrapper-ului). Daca admin-ul nu seteaza nimic, ramane
+ * verdele default — paleta in-page functioneaza, dar topbar/footer/body bg NU
+ * sunt overridden (vezi `body.has-cat-theme` mai jos).
+ *
+ * Restul nuantelor sunt derivate prin color-mix() ca admin-ul sa configureze
+ * o singura culoare. */
+body {
+  --cat-accent: #2F6B3A;
+  --cat-accent-dark: color-mix(in oklab, var(--cat-accent), #000 22%);
+  --cat-accent-soft: color-mix(in oklab, var(--cat-accent) 12%, #fff);
+  --cat-accent-softer: color-mix(in oklab, var(--cat-accent) 6%, #fff);
+  --cat-accent-border: color-mix(in oklab, var(--cat-accent) 22%, #fff);
+  --cat-accent-border-strong: color-mix(in oklab, var(--cat-accent) 32%, #fff);
+  --cat-text-strong: color-mix(in oklab, var(--cat-accent), #000 55%);
+  --cat-shadow: color-mix(in oklab, var(--cat-accent) 30%, transparent);
+}
+
+/* ============ Theme overrides (body bg + topbar + footer) ============
+ * Activate doar daca ACF a setat o culoare pentru categoria curenta (body
+ * primeste clasa `has-cat-theme` din PHP). Categoriile fara accent setat isi
+ * pastreaza paleta brand standard — verde + #1F3D33 footer + #2d5a3d topbar.
+ *
+ * Specificitate: `body.has-cat-theme .X` (0,0,2,0) bate `.X { background: #... }`
+ * din footer.css / app.css (0,0,1,0), deci override-ul tine fara !important. */
+
+body.has-cat-theme {
+  background: color-mix(in oklab, var(--cat-accent) 5%, #F5F5F5);
+
+  /* Master remap: --green / --dark-green sunt definiti in app.css ca paleta
+   * brand globala si folositi prin var(...) in 19 CSS-uri (btn-primary,
+   * filter-toggle-btn, pachete-pagination, mini-cart, footer social, etc.).
+   * Re-mapand cele 2 tokens, toate consumerile auto-mostenesc accentul
+   * categoriei — fara sa atingem alte fisiere. */
+  --green: var(--cat-accent);
+  --dark-green: var(--cat-accent-dark);
+}
+
+body.has-cat-theme .topbar {
+  background: color-mix(in oklab, var(--cat-accent), #000 30%);
+}
+
+body.has-cat-theme .footer {
+  background: color-mix(in oklab, var(--cat-accent), #000 50%);
+}
+
+body.has-cat-theme .footer .footer_social a:hover,
+body.has-cat-theme .footer .footer-accordion.is-open .footer-accordion-icon {
+  background: var(--cat-accent);
+  border-color: var(--cat-accent);
+}
+
+body.has-cat-theme .footer .footer_social a {
+  color: color-mix(in oklab, var(--cat-accent), #000 50%);
+}
+
+/* Teal hardcoded (#00a697, #006c66) din app.css — folosit pentru protocol
+ * badge si bullet-urile de beneficii pe cardul de produs. Suprascris doar
+ * pe categorie, restul siteului ramane teal. */
+body.has-cat-theme .protocol_badge {
+  background: var(--cat-accent);
+}
+
+body.has-cat-theme .benefits_product li::before,
+body.has-cat-theme .benefits_product h2::before,
+body.has-cat-theme .benefits_wrap li::before,
+body.has-cat-theme .benefits_wrap h2::before {
+  background-color: var(--cat-accent);
+}
+
+/* WPC Filters plugin — selectori plugin-specifici. accent-color tematizeaza
+ * checkbox-urile native, iar butonul "Show" + chips-urile selectate primesc
+ * accent direct. */
+body.has-cat-theme .shop_filter,
+body.has-cat-theme .wpc-filters-main-wrap {
+  accent-color: var(--cat-accent);
+}
+
+body.has-cat-theme .wpc-filters-apply-button {
+  background: var(--cat-accent);
+}
+
+body.has-cat-theme .wpc-filters-apply-button:hover {
+  background: var(--cat-accent-dark);
+}
+
+/* Favorite heart activ — pe categorie e in cardurile de produse */
+body.has-cat-theme .natura-fav-btn.is-active {
+  color: var(--cat-accent);
+}
+
+/* Newsletter strip — gradient hardcodat in newsletter.css. Trecere intre
+ * page content si footer; il aliniem cu tonurile noi (medium-dark → dark)
+ * derivate din accent, ca sa nu mai existe verde stalking pe pink theme. */
+body.has-cat-theme .newsletter-strip {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--cat-accent), #000 30%) 0%,
+    color-mix(in oklab, var(--cat-accent), #000 50%) 100%
+  );
+}
+
 /* ============ Feature product (bloc editorial sub hero) ============ */
 
 .feature-product {
@@ -29,14 +134,14 @@
   display: inline-flex;
   align-items: center;
   padding: 7px 14px;
-  background: #2f6b3a;
+  background: var(--cat-accent);
   color: #fff;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border-radius: 999px;
-  box-shadow: 0 4px 12px rgba(47, 107, 58, 0.22);
+  box-shadow: 0 4px 12px color-mix(in oklab, var(--cat-accent) 22%, transparent);
   white-space: nowrap;
   z-index: 2;
 }
@@ -49,7 +154,7 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   font-size: 96px;
-  background: linear-gradient(135deg, #f3f7ef 0%, #e6efe0 100%);
+  background: linear-gradient(135deg, var(--cat-accent-softer) 0%, var(--cat-accent-soft) 100%);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -94,7 +199,7 @@
   margin: 0;
   font-size: 32px;
   line-height: 1.1;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 700;
 }
 
@@ -105,7 +210,7 @@
 }
 
 .feature-product h2 a:hover {
-  color: #2f6b3a;
+  color: var(--cat-accent);
 }
 
 .feature-product .desc {
@@ -116,7 +221,7 @@
 }
 
 .feature-product .desc strong {
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 600;
 }
 
@@ -148,7 +253,9 @@
   width: 14px;
   height: 14px;
   margin-top: 3px;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232f6b3a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") no-repeat center / contain;
+  background-color: var(--cat-accent);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") no-repeat center / contain;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") no-repeat center / contain;
 }
 
 .feature-product .price-row {
@@ -158,13 +265,13 @@
   gap: 16px;
   margin-top: 12px;
   padding-top: 16px;
-  border-top: 1px dashed #d4ddc8;
+  border-top: 1px dashed var(--cat-accent-border);
 }
 
 .feature-product .price-big {
   font-size: 30px;
   font-weight: 700;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   line-height: 1;
 }
 
@@ -184,7 +291,7 @@
   align-items: center;
   gap: 8px;
   padding: 14px 26px;
-  background: #2f6b3a;
+  background: var(--cat-accent);
   color: #fff;
   font-size: 13px;
   font-weight: 700;
@@ -197,7 +304,7 @@
 }
 
 .feature-product .btn-primary:hover {
-  background: #245029;
+  background: var(--cat-accent-dark);
   transform: translateY(-1px);
 }
 
@@ -253,7 +360,7 @@
   gap: 0;
   margin: 48px auto;
   padding: 32px 24px;
-  background: linear-gradient(135deg, #f3f7ef 0%, #e6efe0 100%);
+  background: linear-gradient(135deg, var(--cat-accent-softer) 0%, var(--cat-accent-soft) 100%);
   border-radius: 16px;
 }
 
@@ -270,14 +377,14 @@
   bottom: 14%;
   left: 0;
   width: 1px;
-  background: #c9d6bd;
+  background: var(--cat-accent-border-strong);
 }
 
 .stats .num {
   font-size: 32px;
   font-weight: 700;
   line-height: 1;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   letter-spacing: -0.01em;
 }
 
@@ -314,7 +421,7 @@
     bottom: 14%;
     left: 0;
     width: 1px;
-    background: #c9d6bd;
+    background: var(--cat-accent-border-strong);
   }
 
   .stats .item:nth-child(n + 3)::after {
@@ -324,7 +431,7 @@
     left: 12%;
     right: 12%;
     height: 1px;
-    background: #c9d6bd;
+    background: var(--cat-accent-border-strong);
   }
 
   .stats .num {
@@ -347,7 +454,7 @@
   margin: 0 0 12px;
   font-size: 30px;
   line-height: 1.2;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 700;
 }
 
@@ -393,19 +500,19 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  background: #2f6b3a;
+  background: var(--cat-accent);
   color: #fff;
   font-size: 20px;
   font-weight: 700;
   border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(47, 107, 58, 0.3);
+  box-shadow: 0 4px 10px color-mix(in oklab, var(--cat-accent) 30%, transparent);
 }
 
 .phases .phase-card h3 {
   margin: 4px 0 0;
   font-size: 19px;
   line-height: 1.3;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 700;
 }
 
@@ -417,7 +524,7 @@
 }
 
 .phases .phase-card p strong {
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 600;
 }
 
@@ -426,13 +533,13 @@
   align-self: flex-start;
   margin-top: 4px;
   padding: 6px 12px;
-  background: #f3f7ef;
-  color: #2f6b3a;
+  background: var(--cat-accent-softer);
+  color: var(--cat-accent);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;
   border-radius: 999px;
-  border: 1px solid #d4ddc8;
+  border: 1px solid var(--cat-accent-border);
 }
 
 @media (max-width: 900px) {
@@ -455,8 +562,8 @@
 .zilnic {
   margin: 48px auto;
   padding: 36px 40px;
-  background: #f3f7ef;
-  border: 1px solid #d4ddc8;
+  background: var(--cat-accent-softer);
+  border: 1px solid var(--cat-accent-border);
   border-radius: 12px;
 }
 
@@ -464,7 +571,7 @@
   margin: 0 0 20px;
   font-size: 20px;
   line-height: 1.3;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 700;
 }
 
@@ -494,7 +601,7 @@
   width: 22px;
   height: 22px;
   margin-top: 1px;
-  background: #2f6b3a;
+  background: var(--cat-accent);
   color: #fff;
   font-size: 12px;
   font-weight: 700;
@@ -503,7 +610,7 @@
 }
 
 .zilnic li strong {
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 600;
 }
 
@@ -541,7 +648,7 @@
   margin: 0 0 12px;
   font-size: 30px;
   line-height: 1.2;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 700;
 }
 
@@ -575,13 +682,13 @@
 .testi-card .verified {
   align-self: flex-start;
   padding: 5px 12px;
-  background: #e6efe0;
-  color: #2f6b3a;
+  background: var(--cat-accent-soft);
+  color: var(--cat-accent);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
   border-radius: 999px;
-  border: 1px solid #c9d6bd;
+  border: 1px solid var(--cat-accent-border-strong);
 }
 
 .testi-card .quote {
@@ -592,7 +699,7 @@
   line-height: 1.65;
   color: #2f4233;
   font-style: italic;
-  border-left: 3px solid #c9d6bd;
+  border-left: 3px solid var(--cat-accent-border-strong);
 }
 
 .testi-card .author {
@@ -601,7 +708,7 @@
   gap: 14px;
   margin-top: 4px;
   padding-top: 16px;
-  border-top: 1px dashed #d4ddc8;
+  border-top: 1px dashed var(--cat-accent-border);
 }
 
 .testi-card .avatar {
@@ -610,7 +717,7 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, #2f6b3a 0%, #245029 100%);
+  background: linear-gradient(135deg, var(--cat-accent) 0%, var(--cat-accent-dark) 100%);
   color: #fff;
   font-size: 14px;
   font-weight: 700;
@@ -622,7 +729,7 @@
 .testi-card .meta .name {
   font-size: 14px;
   font-weight: 700;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   line-height: 1.3;
 }
 
@@ -661,7 +768,7 @@
   margin: 0 0 12px;
   font-size: 30px;
   line-height: 1.2;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 700;
   text-align: center;
 }
@@ -685,13 +792,13 @@
 }
 
 .faq-item:hover:not([open]) {
-  border-color: #d4ddc8;
+  border-color: var(--cat-accent-border);
   transform: translateY(-1px);
   box-shadow: 0 2px 10px rgba(20, 40, 25, 0.04);
 }
 
 .faq-item[open] {
-  border-color: #c9d6bd;
+  border-color: var(--cat-accent-border-strong);
   box-shadow: 0 6px 20px rgba(20, 40, 25, 0.06);
 }
 
@@ -703,7 +810,7 @@
   padding: 20px 24px;
   font-size: 16px;
   font-weight: 600;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   cursor: pointer;
   list-style: none;
   user-select: none;
@@ -711,7 +818,7 @@
 }
 
 .faq-q:hover {
-  color: #2f6b3a;
+  color: var(--cat-accent);
 }
 
 /* Hide native disclosure triangle (Webkit + Firefox) */
@@ -735,7 +842,7 @@
   height: 34px;
   font-size: 0;
   line-height: 1;
-  background: #f3f7ef;
+  background: var(--cat-accent-softer);
   border-radius: 50%;
   transition: background 0.25s ease, transform 0.25s ease;
 }
@@ -745,14 +852,14 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #2f6b3a;
+  background-color: var(--cat-accent);
   -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat center / contain;
           mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat center / contain;
   transition: background-color 0.25s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .faq-item[open] .faq-toggle {
-  background: #2f6b3a;
+  background: var(--cat-accent);
 }
 
 .faq-item[open] .faq-toggle::before {
@@ -761,12 +868,12 @@
 }
 
 .faq-q:hover .faq-toggle {
-  background: #e6efe0;
+  background: var(--cat-accent-soft);
   transform: scale(1.05);
 }
 
 .faq-item[open] .faq-q:hover .faq-toggle {
-  background: #245029;
+  background: var(--cat-accent-dark);
 }
 
 /* The answer is height-animated by JS via Web Animations API.
@@ -782,7 +889,7 @@
 }
 
 .faq-a strong {
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 600;
 }
 
@@ -817,7 +924,7 @@
   margin: 0 0 12px;
   font-size: 30px;
   line-height: 1.2;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 700;
 }
 
@@ -851,7 +958,7 @@
 
 .blog-card:hover {
   transform: translateY(-4px);
-  border-color: #c9d6bd;
+  border-color: var(--cat-accent-border-strong);
   box-shadow: 0 12px 28px rgba(20, 40, 25, 0.08);
 }
 
@@ -859,7 +966,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  background: linear-gradient(135deg, #f3f7ef 0%, #e6efe0 100%);
+  background: linear-gradient(135deg, var(--cat-accent-softer) 0%, var(--cat-accent-soft) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -896,9 +1003,9 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #2f6b3a;
-  background: #f3f7ef;
-  border: 1px solid #d4ddc8;
+  color: var(--cat-accent);
+  background: var(--cat-accent-softer);
+  border: 1px solid var(--cat-accent-border);
   border-radius: 999px;
   text-transform: uppercase;
 }
@@ -907,7 +1014,7 @@
   margin: 0;
   font-size: 17px;
   line-height: 1.35;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   font-weight: 700;
   transition: color 0.2s ease;
   /* Clamp to 3 lines so card heights stay aligned in the grid */
@@ -918,7 +1025,7 @@
 }
 
 .blog-card:hover h3 {
-  color: #2f6b3a;
+  color: var(--cat-accent);
 }
 
 .blog-card .meta {
@@ -1075,9 +1182,9 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #d8efc8;
+  color: color-mix(in oklab, var(--cat-accent) 25%, #fff);
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(216, 239, 200, 0.35);
+  border: 1px solid color-mix(in oklab, var(--cat-accent) 25%, transparent);
   border-radius: 999px;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -1103,7 +1210,7 @@
 /* "Highlighter" underline — background-image trick gives a thick custom
  * underline without text-decoration-thickness quirks across browsers. */
 .is-category .hero h1 .underlined {
-  background-image: linear-gradient(180deg, transparent 62%, rgba(160, 220, 130, 0.5) 62%, rgba(160, 220, 130, 0.5) 96%, transparent 96%);
+  background-image: linear-gradient(180deg, transparent 62%, color-mix(in oklab, var(--cat-accent) 35%, transparent) 62%, color-mix(in oklab, var(--cat-accent) 35%, transparent) 96%, transparent 96%);
   padding: 0 4px;
 }
 
@@ -1157,7 +1264,7 @@
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 10px;
-  color: #1f3a26;
+  color: var(--cat-text-strong);
   max-width: 640px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   backdrop-filter: blur(4px);
@@ -1168,7 +1275,7 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #2f6b3a;
+  color: var(--cat-accent);
   text-transform: uppercase;
   margin-bottom: 6px;
 }
