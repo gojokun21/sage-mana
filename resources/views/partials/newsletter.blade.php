@@ -12,7 +12,7 @@
   gating the section renders with an empty form and looks broken.
 --}}
 
-<section class="newsletter-strip" aria-labelledby="newsletter-title" data-cmplz-gate="statistics">
+<section class="newsletter-strip" aria-labelledby="newsletter-title" data-cmplz-gate="statistics" style="display:none;">
   <div class="container">
     <div class="newsletter-strip__inner">
       <div class="newsletter-strip__intro">
@@ -24,7 +24,6 @@
         </p>
       </div>
       <div class="newsletter-strip__form">
-        <div id="omnisend-embedded-v2-6a01d923ab28a246322eea14"></div>
       </div>
     </div>
   </div>
