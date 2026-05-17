@@ -98,6 +98,45 @@
   <div class="woocommerce-billing-fields__field-wrapper">
     @foreach ($checkout->get_checkout_fields('billing') as $key => $field)
       @php woocommerce_form_field($key, $field, $checkout->get_value($key)) @endphp
+
+      {{--
+        Visible split for street name + number. billing_address_1 above is
+        rendered hidden via CSS; checkout.js combines these two values into
+        it on every input, and parses the existing combined value back into
+        the two fields on load (logged-in customer with a saved address).
+        Names natura_street_name / natura_street_number are NOT WC fields —
+        the persisted source of truth stays billing_address_1.
+      --}}
+      @if ($key === 'billing_address_1')
+        <p class="form-row form-row-first natura-street-name-row validate-required" id="natura_street_name_field">
+          <label for="natura_street_name">{{ __('Strada', 'sage') }}&nbsp;<abbr class="required" title="{{ esc_attr__('obligatoriu', 'sage') }}">*</abbr></label>
+          <span class="woocommerce-input-wrapper">
+            <input type="text"
+                   id="natura_street_name"
+                   name="natura_street_name"
+                   class="input-text"
+                   autocomplete="off"
+                   data-natura-street-name="1"
+                   placeholder="{{ esc_attr__('ex: Lipscani', 'sage') }}"
+                   required
+                   aria-required="true">
+          </span>
+        </p>
+        <p class="form-row form-row-last natura-street-number-row validate-required" id="natura_street_number_field">
+          <label for="natura_street_number">{{ __('Număr', 'sage') }}&nbsp;<abbr class="required" title="{{ esc_attr__('obligatoriu', 'sage') }}">*</abbr></label>
+          <span class="woocommerce-input-wrapper">
+            <input type="text"
+                   id="natura_street_number"
+                   name="natura_street_number"
+                   class="input-text"
+                   autocomplete="off"
+                   data-natura-street-number="1"
+                   placeholder="{{ esc_attr__('ex: 5', 'sage') }}"
+                   required
+                   aria-required="true">
+          </span>
+        </p>
+      @endif
     @endforeach
   </div>
 

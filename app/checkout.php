@@ -112,13 +112,23 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         $fields['billing']['billing_company']['placeholder'] = __('Introdu numele firmei', 'sage');
     }
 
+    // Address line 1 is split client-side into two visible inputs
+    // (Strada + Număr) rendered in form-billing.blade.php. The native WC
+    // input stays in the DOM as a hidden combined-value holder so WC's
+    // server-side validation, persistence, FGO invoices, and admin order
+    // screens keep seeing a single "Strada Lipscani 5" string with no
+    // schema change. CSS hides the row via `.natura-address-1-hidden`.
     if (isset($fields['billing']['billing_address_1'])) {
-        $fields['billing']['billing_address_1']['label'] = __('Strada și Numărul', 'sage');
-        $addrAttrs = $fields['billing']['billing_address_1']['custom_attributes'] ?? [];
-        $addrAttrs['data-natura-street'] = '1';
-        // Disable browser autofill so it doesn't fight our custom suggestions.
-        $addrAttrs['autocomplete'] = 'off';
-        $fields['billing']['billing_address_1']['custom_attributes'] = $addrAttrs;
+        $existing = isset($fields['billing']['billing_address_1']['class'])
+            ? (array) $fields['billing']['billing_address_1']['class']
+            : [];
+        if (! in_array('natura-address-1-hidden', $existing, true)) {
+            $existing[] = 'natura-address-1-hidden';
+        }
+        $fields['billing']['billing_address_1']['class'] = $existing;
+        // The visible street input (#natura_street_name) is the autocomplete
+        // target now; nothing useful to wire here on the hidden combined field.
+        unset($fields['billing']['billing_address_1']['custom_attributes']);
     }
 
     // Tag PJ-only rows with known classes so our CSS can hide them for

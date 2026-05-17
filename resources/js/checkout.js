@@ -371,11 +371,71 @@
 
     var stateEl = document.querySelector('select[name="billing_state"], input[name="billing_state"]');
     var cityEl = document.getElementById('billing_city');
-    var addrEl = document.getElementById('billing_address_1');
+    // Split UI: visible inputs the customer types into. The hidden combined
+    // value lives in #billing_address_1 (WC's real field). `addrEl` below
+    // remains the autocomplete target (= street name), so the cascade and
+    // suggestions box continue to anchor on the same DOM node they did
+    // before the split.
+    var streetNameEl = document.getElementById('natura_street_name');
+    var streetNumberEl = document.getElementById('natura_street_number');
+    var combinedAddrEl = document.getElementById('billing_address_1');
+    var addrEl = streetNameEl || combinedAddrEl;
     var zipEl = document.getElementById('billing_postcode');
     var dl = document.getElementById('natura-localitati');
 
     if (!cityEl || !addrEl || !zipEl) return;
+
+    // Sync visible inputs → hidden combined billing_address_1. Trim so a
+    // lone trailing space (number missing) doesn't satisfy WC's `required`
+    // check server-side; HTML5 `required` on the visible inputs blocks
+    // submit first in the normal case.
+    function syncCombinedAddress() {
+      if (!combinedAddrEl) return;
+      var street = streetNameEl ? (streetNameEl.value || '').trim() : '';
+      var number = streetNumberEl ? (streetNumberEl.value || '').trim() : '';
+      var combined = (street + ' ' + number).trim();
+      if (combinedAddrEl.value !== combined) {
+        combinedAddrEl.value = combined;
+        // Some WC integrations (and the i18n re-sort) listen for input/change
+        // on billing_address_1. Forward the event so they see the new value.
+        combinedAddrEl.dispatchEvent(new Event('input', { bubbles: true }));
+        combinedAddrEl.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+
+    // Reverse: parse a pre-filled billing_address_1 (logged-in customer with
+    // a saved address, or a checkout reload after validation error) back
+    // into the visible inputs. Heuristic: last whitespace-separated token
+    // that contains a digit is the number; everything before it is the
+    // street. Falls back to "all street, no number" when no digit token is
+    // present.
+    function splitCombinedIntoVisible() {
+      if (!combinedAddrEl || !streetNameEl || !streetNumberEl) return;
+      var raw = (combinedAddrEl.value || '').trim();
+      if (!raw) return;
+      // If the visible inputs already have user-typed values, don't clobber.
+      if (streetNameEl.value || streetNumberEl.value) return;
+
+      var tokens = raw.split(/\s+/);
+      var numberIdx = -1;
+      for (var i = tokens.length - 1; i >= 0; i--) {
+        if (/\d/.test(tokens[i])) { numberIdx = i; break; }
+      }
+
+      if (numberIdx === -1) {
+        streetNameEl.value = raw;
+        streetNumberEl.value = '';
+      } else {
+        streetNumberEl.value = tokens.slice(numberIdx).join(' ');
+        streetNameEl.value = tokens.slice(0, numberIdx).join(' ');
+      }
+    }
+
+    splitCombinedIntoVisible();
+    if (streetNameEl) streetNameEl.addEventListener('input', syncCombinedAddress);
+    if (streetNumberEl) streetNumberEl.addEventListener('input', syncCombinedAddress);
+    // Initial sync in case parsing populated values (so combined is canonicalised).
+    syncCombinedAddress();
 
     var manifest = null;
     var currentState = '';
@@ -551,6 +611,9 @@
     function pickSuggestion(item) {
       if (!item) return;
       addrEl.value = item.display;
+      // Mirror the picked street name into the hidden combined billing_address_1.
+      // The number input keeps whatever the customer already typed (if any).
+      syncCombinedAddress();
       if (item.code) {
         zipEl.value = item.code;
         zipEl.dispatchEvent(new Event('input', { bubbles: true }));
@@ -560,6 +623,9 @@
         setTimeout(function () { zipEl.classList.remove('natura-zip-just-filled'); }, 700);
       }
       closeSuggestions();
+      // Send the customer straight to the number input — the most natural
+      // next action after picking a street is to type the house number.
+      if (streetNumberEl && !streetNumberEl.value) streetNumberEl.focus();
     }
 
     function highlightSuggestion(idx) {

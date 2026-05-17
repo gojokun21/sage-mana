@@ -1577,3 +1577,16 @@ body:not(.natura-state-b) #billing_sector_field {
   background-color: #eaf5ee;
   transition: background-color 0.6s ease;
 }
+
+/* ----------------------------------------------------------------------------
+ * Strada + Număr split. The original billing_address_1 row is kept in the DOM
+ * as the hidden combined-value source of truth; the customer types into
+ * #natura_street_name and #natura_street_number which checkout.js merges back
+ * into billing_address_1. !important is required because WC's address-i18n.js
+ * calls .show() on every country_to_state_changing event (page load + state
+ * change), which would re-display the row otherwise.
+ * -------------------------------------------------------------------------- */
+.natura-address-1-hidden {
+  display: none !important;
+}
+
