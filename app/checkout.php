@@ -33,15 +33,40 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
     // Shipping postcode stays removed (billing-only address cascade).
     unset($fields['shipping']['shipping_postcode']);
 
+    // Reorder the address block so it reads top-to-bottom in the same order
+    // the cascade JS resolves data: Județ → Localitate → (Sector) → Strada.
+    // Default WC priorities are address_1=50, city=70, state=80, which puts
+    // the most specific field first — backwards for a country where the
+    // street depends on the locality which depends on the județ.
+    $address_priorities = [
+        'billing' => [
+            'billing_state' => 50,
+            'billing_city' => 60,
+            'billing_address_1' => 70,
+        ],
+        'shipping' => [
+            'shipping_state' => 50,
+            'shipping_city' => 60,
+            'shipping_address_1' => 70,
+        ],
+    ];
+    foreach ($address_priorities as $group => $map) {
+        foreach ($map as $field_key => $priority) {
+            if (isset($fields[$group][$field_key])) {
+                $fields[$group][$field_key]['priority'] = $priority;
+            }
+        }
+    }
+
     // Billing postcode is auto-filled by the address cascade JS once a street
     // is picked from the autocomplete suggestions. The field stays editable
     // so customers can correct it when the dataset is wrong/missing — the
-    // helper text below the input makes that affordance visible.
+    // helper text below the input makes that affordance visible. It remains
+    // `required` (WC default) so we don't ship orders with empty postcodes.
     if (isset($fields['billing']['billing_postcode'])) {
         $fields['billing']['billing_postcode']['label'] = __('Cod poștal', 'sage');
         $fields['billing']['billing_postcode']['placeholder'] = __('Se completează automat', 'sage');
         $fields['billing']['billing_postcode']['description'] = __('Completat automat după selectarea străzii. Poți modifica dacă e nevoie.', 'sage');
-        $fields['billing']['billing_postcode']['required'] = false;
         $fields['billing']['billing_postcode']['priority'] = 90;
         $existing = isset($fields['billing']['billing_postcode']['class'])
             ? (array) $fields['billing']['billing_postcode']['class']
@@ -130,7 +155,7 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         'label' => __('Sector', 'sage'),
         'required' => false,
         'class' => ['form-row-wide', 'natura-sector-row'],
-        'priority' => 85, // right after billing_state (80), before postcode (90)
+        'priority' => 65, // between billing_city (60) and billing_address_1 (70)
         'options' => [
             '' => __('Selectează sectorul', 'sage'),
             '1' => __('Sectorul 1', 'sage'),
@@ -144,6 +169,33 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
 
     return $fields;
 }, 40);
+
+/**
+ * Mirror the address-field priorities at the locale level.
+ *
+ * WC's `address-i18n.js` reads priorities from the JSON config
+ * (`wc_address_i18n_params.locale_fields`) and re-sorts the rows on the
+ * client after every `country_to_state_changing` event — which fires on
+ * page load too. Without this filter the server renders the fields in our
+ * intended order, then JS instantly rearranges them back to the WC default
+ * (state=80, city=70, address_1=50) — visible as a flicker.
+ *
+ * Keys here are short (`state`, `city`, `address_1`), not `billing_*` —
+ * `woocommerce_default_address_fields` shapes BOTH billing and shipping.
+ */
+add_filter('woocommerce_default_address_fields', function ($fields) {
+    if (isset($fields['state'])) {
+        $fields['state']['priority'] = 50;
+    }
+    if (isset($fields['city'])) {
+        $fields['city']['priority'] = 60;
+    }
+    if (isset($fields['address_1'])) {
+        $fields['address_1']['priority'] = 70;
+    }
+
+    return $fields;
+});
 
 /**
  * Force translation of "Street address" → "Strada și Numărul" regardless of
