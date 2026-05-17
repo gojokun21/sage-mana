@@ -207,6 +207,17 @@
         updateBadge(cfg.ids.length);
         if (data.nonce) cfg.nonce = data.nonce;
 
+        // theMarketer integration — its tracker listens for these exact
+        // jQuery events on document.body and only then calls LoadEventsFunc
+        // to flush the queued wishlist event (queued server-side by
+        // App\notify_wishlist_change → Observer::addToWishlist).
+        if (window.jQuery) {
+          window.jQuery(document.body).trigger(
+            data.in ? 'added_to_wishlist' : 'removed_from_wishlist',
+            [data.product_id]
+          );
+        }
+
         if (!data.in) {
           removeCardFromList(data.product_id);
         }

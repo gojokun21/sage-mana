@@ -228,9 +228,11 @@ function favorites_handler(): void
             if ($desired && ! $is_in) {
                 $ids[] = $product_id;
                 save_favorites($ids);
+                notify_wishlist_change($product_id, true);
             } elseif (! $desired && $is_in) {
                 $ids = array_values(array_diff($ids, [$product_id]));
                 save_favorites($ids);
+                notify_wishlist_change($product_id, false);
             }
 
             wp_send_json_success([
@@ -252,6 +254,7 @@ function favorites_handler(): void
             }
 
             $result = toggle_favorite($product_id);
+            notify_wishlist_change($product_id, (bool) $result['in']);
 
             wp_send_json_success([
                 'in' => $result['in'],
@@ -265,6 +268,36 @@ function favorites_handler(): void
         wp_send_json_error(['message' => __('Operație invalidă', 'sage')]);
     } catch (\Throwable $e) {
         wp_send_json_error(['message' => $e->getMessage()]);
+    }
+}
+
+/* ---------------------------------------------------------------------------
+ * Wishlist analytics bridge — theMarketer integration.
+ *
+ * theMarketer ships out-of-the-box hooks for known wishlist providers (YITH,
+ * WLFMC, Basel/Woodmart). Our favorites are custom, so the plugin never sees
+ * the toggle. We bridge by:
+ *   1. Emitting `natura_favorite_added` / `natura_favorite_removed` actions
+ *      (extension point for any future analytics integration).
+ *   2. Calling `Observer::addToWishlist` / `removeFromWishlist` directly when
+ *      the plugin class is loaded — this queues the event in the plugin's
+ *      session, which is later flushed by `loadEvents` after the client
+ *      triggers the `added_to_wishlist` / `removed_from_wishlist` jQuery
+ *      event (see resources/js/favorites.js).
+ * ------------------------------------------------------------------------- */
+
+function notify_wishlist_change(int $product_id, bool $added): void
+{
+    do_action($added ? 'natura_favorite_added' : 'natura_favorite_removed', $product_id);
+
+    if (! class_exists('\Mktr\Tracker\Observer')) {
+        return;
+    }
+
+    if ($added) {
+        \Mktr\Tracker\Observer::addToWishlist($product_id, 0);
+    } else {
+        \Mktr\Tracker\Observer::removeFromWishlist($product_id, 0);
     }
 }
 
