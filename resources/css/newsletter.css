@@ -197,6 +197,7 @@
   font-family: inherit !important;
   font-size: 13px !important;
   line-height: 1.4 !important;
+  text-align: left !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b input[type='checkbox'] {
   accent-color: var(--green, #386356) !important;
