@@ -284,6 +284,9 @@
 }
 
 @media (max-width: 640px) {
+  .newsletter-strip__form {
+    padding: 0 15px !important;
+  }
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b h3.mkt-embedded-form-headline,
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b h3.mkt-embedded-form-headline * {
     font-size: 20px !important;
@@ -291,5 +294,8 @@
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-description,
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-description * {
     font-size: 13px !important;
+  }
+  .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b button.mkt-embedded-form-subscribe-button {
+    width: 100% !important;
   }
 }
