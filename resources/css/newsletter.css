@@ -299,4 +299,7 @@
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b button.mkt-embedded-form-subscribe-button {
     width: 100% !important;
   }
+  .newsletter-strip .mkt-embedded-form-single-bar-content{
+    gap: 0 !important;
+  }
 }
