@@ -6,9 +6,11 @@
    Visual treatment: full-width band with a soft green gradient so it reads
    as a distinct section separating page content from the dark-green footer.
 
-   The form chrome (inputs, button, privacy, success) is owned entirely by
-   the themarketer embed's own scoped CSS. Don't add input/button overrides
-   here — they would compete with the embed and create specificity wars.
+   The themarketer embed ships its own scoped <style> (injected by the SDK
+   at runtime), so all form-chrome overrides below use !important to win
+   regardless of injection order. Selectors are still ancestor-scoped to
+   `.newsletter-strip` so they don't leak to the Omnisend embeds on
+   category.blade.php / template-blog.blade.php.
    ========================================================================== */
 
 .newsletter-strip {
@@ -112,181 +114,181 @@
    ========================================================================== */
 
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b.mkt-embedded-form-layout-container {
-  background: transparent;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  max-width: 100%;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 /* Horizontal bar at desktop: headline | inputs | button */
 .newsletter-strip .mkt-embedded-form-single-bar-content {
-  display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(0, 1.4fr) auto;
-  gap: 24px 32px;
-  align-items: start;
+  display: grid !important;
+  grid-template-columns: minmax(220px, 1fr) minmax(0, 1.4fr) auto !important;
+  gap: 24px 32px !important;
+  align-items: start !important;
 }
 
 /* Headline + description (mktr renders both — we restyle, not duplicate) */
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b h3.mkt-embedded-form-headline,
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b h3.mkt-embedded-form-headline * {
-  color: #ffffff;
-  font-family: inherit;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 1.25;
+  color: #ffffff !important;
+  font-family: inherit !important;
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b h3.mkt-embedded-form-headline {
-  margin: 0 0 6px;
+  margin: 0 0 6px !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-description,
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-description * {
-  color: rgba(255, 255, 255, 0.78);
-  font-family: inherit;
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 0;
+  color: rgba(255, 255, 255, 0.78) !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
 }
 
 /* Inputs column: email + privacy stacked */
 .newsletter-strip .mkt-embedded-form-single-bar-inputs-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-width: 0;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  min-width: 0 !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b label.mkt-embedded-form-input-label {
-  width: 100%;
-  margin: 0;
+  width: 100% !important;
+  margin: 0 !important;
 }
 
 /* Email input — white pill on green band */
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b input:not([type='checkbox']) {
-  background: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 8px;
-  padding: 12px 16px;
-  width: 100%;
-  height: 48px;
-  margin: 0;
-  font-family: inherit;
-  font-size: 15px;
-  color: #1F3D33;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  background: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  width: 100% !important;
+  height: 48px !important;
+  margin: 0 !important;
+  font-family: inherit !important;
+  font-size: 15px !important;
+  color: #1F3D33 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b input:not([type='checkbox'])::placeholder {
-  color: #667085;
+  color: #667085 !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b input:not([type='checkbox']):focus {
-  outline: 2px solid rgba(255, 255, 255, 0.4);
-  outline-offset: 2px;
-  border-color: var(--green, #386356);
+  outline: 2px solid rgba(255, 255, 255, 0.4) !important;
+  outline-offset: 2px !important;
+  border-color: var(--green, #386356) !important;
 }
 
 /* Privacy policy — light text on dark band, theme-accent checkbox */
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-privacy-policy {
-  margin: 0;
-  width: 100%;
+  margin: 0 !important;
+  width: 100% !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-privacy-policy-input-wrap,
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-privacy-policy-input-wrap > span {
-  color: rgba(255, 255, 255, 0.78);
-  font-family: inherit;
-  font-size: 13px;
-  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.78) !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b input[type='checkbox'] {
-  accent-color: var(--green, #386356);
-  cursor: pointer;
+  accent-color: var(--green, #386356) !important;
+  cursor: pointer !important;
 }
 
 /* Error messages — readable on dark band */
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-error-input-message {
-  color: #ffd6d6;
-  font-family: inherit;
-  font-size: 12px;
-  margin-top: 4px;
+  color: #ffd6d6 !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  margin-top: 4px !important;
 }
 
 /* Action column: button on top, badge below */
 .newsletter-strip .mkt-embedded-form-single-bar-action-container {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 8px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 8px !important;
 }
 
 /* Subscribe button — white with green text, max contrast on band */
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b button.mkt-embedded-form-subscribe-button {
-  background: #ffffff;
-  border: 2px solid #ffffff;
-  color: var(--green, #386356);
-  border-radius: 8px;
-  padding: 12px 28px;
-  height: 48px;
-  min-height: 48px;
-  max-height: 48px;
-  margin: 0;
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  color: var(--green, #386356) !important;
+  border-radius: 8px !important;
+  padding: 12px 28px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  margin: 0 !important;
+  font-family: inherit !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b button.mkt-embedded-form-subscribe-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18) !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b button.mkt-embedded-form-subscribe-button.loading {
-  opacity: 0.7;
+  opacity: 0.7 !important;
 }
 /* Spinner colors — keep visible on white button */
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b button.mkt-embedded-form-subscribe-button > span.mkt-embedded-form-subscribe-button-spinner {
-  border-color: rgba(56, 99, 86, 0.25);
-  border-top-color: var(--green, #386356);
+  border-color: rgba(56, 99, 86, 0.25) !important;
+  border-top-color: var(--green, #386356) !important;
 }
 
 /* Powered-by badge — small, white, faded */
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b img.mkt-embedded-form-powered-by {
-  max-height: 14px;
-  width: auto;
-  opacity: 0.55;
-  margin: 0 0 0 auto;
-  filter: brightness(0) invert(1);
+  max-height: 14px !important;
+  width: auto !important;
+  opacity: 0.55 !important;
+  margin: 0 0 0 auto !important;
+  filter: brightness(0) invert(1) !important;
 }
 
 /* Success message — lift over dark band */
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-success-message {
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin: 12px 0 0;
-  width: 100%;
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  margin: 12px 0 0 !important;
+  width: 100% !important;
 }
 
 /* Tablet — stack to single column */
 @media (max-width: 1023px) {
   .newsletter-strip .mkt-embedded-form-single-bar-content {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    text-align: center;
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+    text-align: center !important;
   }
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-privacy-policy-input-wrap {
-    justify-content: center;
+    justify-content: center !important;
   }
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b img.mkt-embedded-form-powered-by {
-    margin: 0 auto;
+    margin: 0 auto !important;
   }
 }
 
 @media (max-width: 640px) {
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b h3.mkt-embedded-form-headline,
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b h3.mkt-embedded-form-headline * {
-    font-size: 20px;
+    font-size: 20px !important;
   }
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-description,
   .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b .mkt-embedded-form-description * {
-    font-size: 13px;
+    font-size: 13px !important;
   }
 }
