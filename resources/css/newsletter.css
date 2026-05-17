@@ -42,7 +42,7 @@
 
 .newsletter-strip__inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
   gap: 48px;
   max-width: 1100px;

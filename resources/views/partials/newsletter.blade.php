@@ -15,14 +15,6 @@
 <section class="newsletter-strip" aria-labelledby="newsletter-title" data-cmplz-gate="statistics">
   <div class="container">
     <div class="newsletter-strip__inner">
-      <div class="newsletter-strip__intro">
-        <h2 id="newsletter-title" class="newsletter-strip__title">
-          {{ __('Abonează-te la newsletter', 'sage') }}
-        </h2>
-        <p class="newsletter-strip__text">
-          {{ __('Primește reduceri exclusive, sfaturi de la specialiști și noutăți despre produse naturale, direct pe e-mail.', 'sage') }}
-        </p>
-      </div>
       <div class="newsletter-strip__form">
         <div id="mktr-embedded-form-container-69d6271f63f0ebe7de0b825b" class="mktr-embedded-form-container"  style="display: none"></div>
       </div>
