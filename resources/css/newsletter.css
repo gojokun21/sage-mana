@@ -156,6 +156,7 @@
   flex-direction: column !important;
   gap: 10px !important;
   min-width: 0 !important;
+  padding: 0 !important;
 }
 .newsletter-strip div#mkt-embedded-form-layout-container-69d6271f63f0ebe7de0b825b label.mkt-embedded-form-input-label {
   width: 100% !important;
