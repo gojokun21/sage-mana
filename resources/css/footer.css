@@ -49,6 +49,7 @@
   .footer_others .footer_social {
     grid-column: 1;
     margin: 0 auto;
+    flex-wrap: wrap;
   }
 }
 
