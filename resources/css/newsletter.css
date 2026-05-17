@@ -98,24 +98,6 @@
   border-color: var(--green) !important;
 }
 
-.newsletter-strip__form button {
-  background: var(--green, #1F3D33) !important;
-  color: #fff !important;
-  border: none !important;
-  border-radius: 8px !important;
-  padding: 12px 28px !important;
-  font-size: 15px !important;
-  font-weight: 600 !important;
-  min-height: 48px;
-  cursor: pointer;
-  transition: filter 0.2s ease, transform 0.2s ease;
-}
-
-.newsletter-strip__form button:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
-}
-
 /* Tablet — stack so the form gets its full width */
 @media (max-width: 1023px) {
   .newsletter-strip__inner {
