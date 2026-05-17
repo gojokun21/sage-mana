@@ -12,7 +12,7 @@
   gating the section renders with an empty form and looks broken.
 --}}
 
-<section class="newsletter-strip" aria-labelledby="newsletter-title" data-cmplz-gate="statistics" style="display:none;">
+<section class="newsletter-strip" aria-labelledby="newsletter-title" data-cmplz-gate="statistics">
   <div class="container">
     <div class="newsletter-strip__inner">
       <div class="newsletter-strip__intro">
