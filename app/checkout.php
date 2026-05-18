@@ -559,7 +559,14 @@ add_action('woocommerce_cart_calculate_fees', function ($cart) {
         return;
     }
 
-    if (WC()->session->get('chosen_payment_method') !== 'cod') {
+    $is_cod = WC()->session->get('chosen_payment_method') === 'cod';
+
+    // No-email mode forces COD as the only available gateway. The session's
+    // chosen_payment_method can lag (still holds the card gateway from the
+    // prior selection until WC auto-reselects on the next AJAX round), so
+    // apply the COD fee on the no-email toggle too — otherwise the customer
+    // briefly sees a COD-only payment list without the ramburs surcharge.
+    if (! $is_cod && ! checkout_is_no_email_request()) {
         return;
     }
 
