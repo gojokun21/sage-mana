@@ -587,6 +587,14 @@ add_action('woocommerce_cart_calculate_fees', function ($cart) {
         return;
     }
 
+    // No-email mode forces COD, so the card gateway is unavailable even if
+    // the session still holds it from a prior selection. Skip the discount
+    // — otherwise the user gets a -10 lei phantom on a COD order during the
+    // brief window before WC auto-reselects COD on the next AJAX round.
+    if (checkout_is_no_email_request()) {
+        return;
+    }
+
     $subtotal = (float) $cart->get_subtotal();
     if ($subtotal <= 0) {
         return;
@@ -645,6 +653,24 @@ add_action('woocommerce_after_checkout_validation', function ($data, $errors) {
     }
 }, 5, 2);
 
+/**
+ * Read the `billing_no_email` flag from the current request — works both at
+ * the AJAX `update_order_review` step (post_data is a urlencoded blob WC
+ * hasn't merged into $_POST yet when our filters run) and at the final
+ * checkout submit (where the field is a plain $_POST entry).
+ */
+function checkout_is_no_email_request(): bool
+{
+    if (isset($_POST['post_data'])) {
+        parse_str(wp_unslash($_POST['post_data']), $parsed);
+        if (! empty($parsed['billing_no_email'])) {
+            return true;
+        }
+    }
+
+    return ! empty($_POST['billing_no_email']);
+}
+
 // Restrict available gateways to COD when the checkbox is in the request.
 // The filter fires during `wc-ajax=update_order_review` (after WC parses
 // post_data into $_POST) and at order submit time, so toggling the checkbox
@@ -654,16 +680,7 @@ add_filter('woocommerce_available_payment_gateways', function ($gateways) {
         return $gateways;
     }
 
-    $no_email = false;
-
-    if (isset($_POST['post_data'])) {
-        parse_str(wp_unslash($_POST['post_data']), $parsed);
-        $no_email = ! empty($parsed['billing_no_email']);
-    } elseif (isset($_POST['billing_no_email'])) {
-        $no_email = ! empty($_POST['billing_no_email']);
-    }
-
-    if (! $no_email) {
+    if (! checkout_is_no_email_request()) {
         return $gateways;
     }
 
