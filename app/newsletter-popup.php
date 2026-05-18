@@ -170,9 +170,14 @@ function newsletter_popup_create_coupon(string $email): ?string
         $coupon->set_discount_type('percent');
         $coupon->set_amount(NEWSLETTER_POPUP_COUPON_PERCENT);
         $coupon->set_individual_use(true);
+        // Single redemption is the real anti-abuse mechanism: the code is
+        // random (`BUNVENIT-XXXXXX`) so it can't be guessed, and once it's
+        // used the coupon becomes inert. We intentionally do NOT set an
+        // email restriction — it caused WC to refuse the code on the cart
+        // page (where billing_email isn't filled yet) and required an exact
+        // case-sensitive match at checkout. Friction without security gain.
         $coupon->set_usage_limit(1);
         $coupon->set_usage_limit_per_user(1);
-        $coupon->set_email_restrictions([$email]);
         $coupon->set_date_expires(time() + (NEWSLETTER_POPUP_COUPON_DAYS * DAY_IN_SECONDS));
         $coupon->set_description(sprintf(
             /* translators: %s = subscriber email */
@@ -181,7 +186,8 @@ function newsletter_popup_create_coupon(string $email): ?string
         ));
         $coupon->save();
 
-        // Tag the coupon with the lowercased email for fast dedupe lookups.
+        // Tag the coupon with the lowercased email for fast dedupe lookups
+        // (one coupon per subscriber email — see newsletter_popup_email_already_used).
         update_post_meta($coupon->get_id(), '_natura_popup_email', strtolower($email));
     } catch (\Throwable $e) {
         return null;
