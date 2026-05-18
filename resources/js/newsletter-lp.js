@@ -162,3 +162,34 @@
       });
   });
 })();
+
+/**
+ * Final-CTA inline email form — bridges to the main signup form.
+ * Pre-fills the email field, scrolls into view and focuses the name input.
+ */
+(function () {
+  var ctaForm = document.getElementById('lpCtaForm');
+  if (!ctaForm) return;
+
+  ctaForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var emailInput = ctaForm.querySelector('input[type="email"]');
+    var email = emailInput ? emailInput.value.trim() : '';
+
+    var targetSel = ctaForm.getAttribute('data-signup') || '#lp-signup';
+    var target = document.querySelector(targetSel);
+    var mainEmail = document.getElementById('lpEmail');
+    var mainName = document.getElementById('lpName');
+
+    if (mainEmail && email) mainEmail.value = email;
+
+    if (target && target.scrollIntoView) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    window.setTimeout(function () {
+      if (mainName) mainName.focus();
+      else if (mainEmail) mainEmail.focus();
+    }, 500);
+  });
+})();

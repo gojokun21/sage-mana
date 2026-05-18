@@ -360,9 +360,10 @@
         <h2>{{ __('Începe cu un email.', 'sage') }}<br><span class="lp-serif">{{ __('Restul vine natural.', 'sage') }}</span></h2>
         <p>{{ __('Te alături celor 12.847 de oameni care au ales să primească săptămânal sfaturi mici, dar puternice, plus codul tău de bun venit.', 'sage') }}</p>
 
-        <a href="#{{ $lp_signup_id }}" class="lp-btn lp-btn--paper lp-btn--lg">
-          {{ __('Primesc ghidul + −10% →', 'sage') }}
-        </a>
+        <form class="lp-cta-form" id="lpCtaForm" data-signup="#{{ $lp_signup_id }}" novalidate>
+          <input type="email" name="email" placeholder="maria@email.ro" autocomplete="email" aria-label="{{ __('Adresă de email', 'sage') }}" required>
+          <button type="submit">{{ __('Primesc ghidul + −10% →', 'sage') }}</button>
+        </form>
         <div class="lp-cta-band__note">{{ __('Fără spam, te poți dezabona oricând, GDPR conform', 'sage') }}</div>
       </div>
     </div>

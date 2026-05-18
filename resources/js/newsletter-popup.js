@@ -131,6 +131,10 @@
     if (rightCol) rightCol.classList.add('is-success');
     var successEl = document.getElementById('mnPopSuccess');
     if (successEl) successEl.setAttribute('aria-hidden', 'false');
+    // Auto-dismiss after the user has had time to read the thank-you message.
+    // Reason 'success' skips the dismissed-flag write in close() so the
+    // 'subscribed' state set just before showSuccess() stays intact.
+    setTimeout(function () { close('success'); }, 2000);
   }
 
   /* ---------------- Event bindings ---------------- */
