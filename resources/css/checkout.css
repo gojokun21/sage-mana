@@ -43,6 +43,55 @@ body:not(.natura-state-b) #billing_sector_field {
   display: none !important;
 }
 
+/* "Fără email" checkbox — sits right under billing_email. When checked, the
+   email row above is greyed out so the customer sees clearly that they're
+   opting out. Class toggled by checkout.js. */
+.natura-no-email-row {
+  margin-top: -6px;
+}
+.natura-no-email-row .optional {
+  display: none !important;
+}
+#billing_email_field.natura-email-skipped {
+  opacity: 0.55;
+}
+#billing_email_field.natura-email-skipped .required {
+  display: none;
+}
+
+/* No-email mode hides the entire "Create an account?" block — registration
+   requires an email, so the option doesn't apply. Body class toggled by
+   checkout.js. */
+body.natura-no-email-active .woocommerce-account-fields {
+  display: none !important;
+}
+
+/* Card payment discount badge — visible "-10 lei reducere" pill next to the
+   Stripe payment method label. Pill style with green accent to read as a
+   benefit/savings cue. See app/checkout.php (CARD_DISCOUNT fee) and
+   resources/views/woocommerce/checkout/payment-method.blade.php. */
+.natura-card-discount-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #0a6b35;
+  background: #d8f3e3;
+  border: 1px solid #a3dcbb;
+  border-radius: 999px;
+  vertical-align: middle;
+  letter-spacing: 0.01em;
+}
+
+.wc_payment_method.payment_method_mn_stripe_checkout > label {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
 /* ============================
    Progress steps (Coș → Casă → Finalizare)
    ============================ */

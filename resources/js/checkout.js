@@ -121,6 +121,57 @@
     if (window.jQuery) window.jQuery(document.body).trigger('update_checkout');
   });
 
+  /* ---------------- "Fără email" checkbox ----------------
+   * When checked: clear billing_email value, drop its `required` attribute,
+   * and trigger update_checkout so WC re-renders the payment block with the
+   * server-side filter applied (only Ramburs remains). When unchecked: put
+   * the required attribute back so the browser blocks submit on empty email.
+   *
+   * The state is also persisted server-side via the AJAX `post_data` round
+   * trip — see woocommerce_available_payment_gateways in app/checkout.php. */
+
+  function syncNoEmailState() {
+    var box = document.getElementById('billing_no_email');
+    var emailInput = document.getElementById('billing_email');
+    var emailRow = document.getElementById('billing_email_field');
+    if (!box || !emailInput || !emailRow) return;
+
+    var createAccountBox = document.getElementById('createaccount');
+
+    if (box.checked) {
+      emailInput.value = '';
+      emailInput.removeAttribute('required');
+      emailInput.removeAttribute('aria-required');
+      emailRow.classList.add('natura-email-skipped');
+      emailRow.classList.remove('validate-required', 'woocommerce-invalid', 'woocommerce-invalid-required-field');
+      document.body.classList.add('natura-no-email-active');
+      // Untick "Creezi un cont?" — registration needs an email, doesn't make
+      // sense in no-email mode (the server enforces this too, but unchecking
+      // here keeps the form state honest if the user toggles back).
+      if (createAccountBox && createAccountBox.checked) {
+        createAccountBox.checked = false;
+        createAccountBox.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    } else {
+      emailInput.setAttribute('required', 'required');
+      emailInput.setAttribute('aria-required', 'true');
+      emailRow.classList.remove('natura-email-skipped');
+      emailRow.classList.add('validate-required');
+      document.body.classList.remove('natura-no-email-active');
+    }
+  }
+
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'billing_no_email') {
+      syncNoEmailState();
+      if (window.jQuery) window.jQuery(document.body).trigger('update_checkout');
+    }
+  });
+
+  // Initial sync covers the reload-after-validation-error case where the
+  // checkbox comes back checked from the server.
+  syncNoEmailState();
+
   /* ---------------- FGO fields (Tip Facturare / CUI / CNP) ----------------
    * FGO keeps a single `billing_cui` input that it relabels dynamically
    * ("Cod Unic" for PJ / "CNP" for PF). On this store we only collect a

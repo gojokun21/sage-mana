@@ -21,6 +21,8 @@
 namespace App;
 
 const COD_FEE = 10.0;
+const CARD_DISCOUNT = 10.0;
+const CARD_GATEWAY_ID = 'mn_stripe_checkout';
 
 /* ---------------------------------------------------------------------------
  * Field customizations
@@ -105,6 +107,20 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
 
     if (isset($fields['billing']['billing_email'])) {
         $fields['billing']['billing_email']['required'] = true;
+    }
+
+    // "Fără email" — schema `required => false`; the actual required-ness is
+    // enforced conditionally in woocommerce_after_checkout_validation below,
+    // because checked → email becomes optional + payment forced to ramburs.
+    // Guests only: logged-in users already have a verified email on file.
+    if (! is_user_logged_in()) {
+        $fields['billing']['billing_no_email'] = [
+            'type' => 'checkbox',
+            'label' => __('Plătesc cu ramburs, fără email', 'sage'),
+            'required' => false,
+            'class' => ['form-row-wide', 'natura-no-email-row'],
+            'priority' => 111, // billing_email is 110
+        ];
     }
 
     if (isset($fields['billing']['billing_company'])) {
@@ -549,6 +565,126 @@ add_action('woocommerce_cart_calculate_fees', function ($cart) {
 
     $cart->add_fee(__('Taxă ramburs', 'sage'), COD_FEE, true);
 });
+
+/* ---------------------------------------------------------------------------
+ * Card payment discount — flat -10 lei when the customer picks Stripe.
+ *
+ * Mirrors the COD-fee hook above (same session-driven mechanism: WC fires
+ * `update_checkout` on payment-method change, which re-runs fees). Capped at
+ * the cart subtotal so a tiny order can't go negative.
+ * ------------------------------------------------------------------------- */
+
+add_action('woocommerce_cart_calculate_fees', function ($cart) {
+    if (is_admin() && ! defined('DOING_AJAX')) {
+        return;
+    }
+
+    if (! function_exists('WC') || ! WC()->session) {
+        return;
+    }
+
+    if (WC()->session->get('chosen_payment_method') !== CARD_GATEWAY_ID) {
+        return;
+    }
+
+    $subtotal = (float) $cart->get_subtotal();
+    if ($subtotal <= 0) {
+        return;
+    }
+
+    $discount = min(CARD_DISCOUNT, $subtotal);
+    $cart->add_fee(__('Reducere plată card', 'sage'), -$discount, true);
+});
+
+/* ---------------------------------------------------------------------------
+ * "Fără email" mode — checkbox `billing_no_email`.
+ *
+ * When the guest checks the box on the checkout form:
+ *   - billing_email is allowed to be empty (we clear any value the user
+ *     might have typed before checking the box).
+ *   - The only available payment gateway is Ramburs (COD).
+ *   - An order meta flag `_billing_no_email` is stored so the admin can
+ *     identify these orders.
+ *
+ * Field registration lives in the woocommerce_checkout_fields filter above
+ * (priority 111, guests only). Client-side toggle behaviour is in
+ * resources/js/checkout.js — it clears the email value, flips required, and
+ * triggers `update_checkout` so this filter rebuilds the gateways list.
+ * ------------------------------------------------------------------------- */
+
+// Force-empty billing_email when the no-email checkbox is checked, regardless
+// of what the user typed before toggling it. Runs before validation, so the
+// email format check never sees a stale value.
+add_filter('woocommerce_checkout_posted_data', function ($data) {
+    if (! empty($data['billing_no_email'])) {
+        $data['billing_email'] = '';
+        // Account registration requires an email, so it can't coexist with
+        // no-email mode. Force-off in case JS didn't run or the user toggled
+        // "no email" after ticking "create account".
+        $data['createaccount'] = 0;
+    }
+
+    return $data;
+});
+
+// Skip WC's "email is required" / "email is invalid" errors when the user
+// opted out, and force the payment method to ramburs server-side.
+add_action('woocommerce_after_checkout_validation', function ($data, $errors) {
+    if (empty($data['billing_no_email'])) {
+        return;
+    }
+
+    $errors->remove('billing_email_required');
+    $errors->remove('billing_email_validation');
+
+    if (($data['payment_method'] ?? '') !== 'cod') {
+        $errors->add(
+            'payment_method_no_email',
+            __('Comenzile fără email se pot plăti doar prin ramburs.', 'sage')
+        );
+    }
+}, 5, 2);
+
+// Restrict available gateways to COD when the checkbox is in the request.
+// The filter fires during `wc-ajax=update_order_review` (after WC parses
+// post_data into $_POST) and at order submit time, so toggling the checkbox
+// client-side + triggering `update_checkout` is enough to refresh the list.
+add_filter('woocommerce_available_payment_gateways', function ($gateways) {
+    if (is_admin() && ! wp_doing_ajax()) {
+        return $gateways;
+    }
+
+    $no_email = false;
+
+    if (isset($_POST['post_data'])) {
+        parse_str(wp_unslash($_POST['post_data']), $parsed);
+        $no_email = ! empty($parsed['billing_no_email']);
+    } elseif (isset($_POST['billing_no_email'])) {
+        $no_email = ! empty($_POST['billing_no_email']);
+    }
+
+    if (! $no_email) {
+        return $gateways;
+    }
+
+    $cod = array_filter($gateways, fn ($gw) => $gw->id === 'cod');
+
+    // Never return an empty list — if COD is disabled in WC settings, let
+    // the original list through so the customer at least sees something
+    // (validation will still block the order, surfacing the misconfiguration).
+    return ! empty($cod) ? $cod : $gateways;
+}, 100);
+
+// Persist the choice as order meta + ensure the saved email is empty
+// (defence-in-depth — the posted_data filter above already cleared it).
+add_action('woocommerce_checkout_create_order', function ($order, $data) {
+    if (empty($data['billing_no_email'])) {
+        return;
+    }
+
+    $order->update_meta_data('_billing_no_email', '1');
+    $order->set_billing_email('');
+}, 10, 2);
 
 /* ---------------------------------------------------------------------------
  * Safety net: force-empty the cart after the order is created (belt-and-

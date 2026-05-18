@@ -17,6 +17,9 @@
 
   <label for="payment_method_{{ esc_attr($gateway->id) }}">
     {!! $gateway->get_title() !!} {!! $gateway->get_icon() !!}
+    @if ($gateway->id === \App\CARD_GATEWAY_ID)
+      <span class="natura-card-discount-badge">{{ __('-10 lei reducere', 'sage') }}</span>
+    @endif
   </label>
 
   @if ($gateway->has_fields() || $gateway->get_description())
