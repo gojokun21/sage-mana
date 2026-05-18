@@ -428,6 +428,11 @@ if (document.getElementById('mnOverlay')) {
   import('./newsletter-popup.js');
 }
 
+/* ==================== LAZY: NEWSLETTER LANDING PAGE ==================== */
+if (document.getElementById('lpForm')) {
+  import('./newsletter-lp.js');
+}
+
 /* ==================== LAZY: ADD-TO-CART MODAL ==================== */
 if (document.getElementById('ml-cart-modal')) {
   import('./cart-modal.js');

@@ -75,12 +75,11 @@
         </svg>
       </button>
 
-      <div class="mn-pop-r-inner">
-        <div class="mn-pop-eyebrow">{{ __('Bun venit la', 'sage') }} {{ get_bloginfo('name') }}</div>
-        <h2 id="mnPopTitle">
-          {{ __('Energie reală.', 'sage') }}<br>
-          <span class="accent">{{ __('Cadou de la noi.', 'sage') }}</span>
-        </h2>
+      <div class="mn-pop-eyebrow">{{ __('Bun venit la', 'sage') }} {{ get_bloginfo('name') }}</div>
+      <h2 id="mnPopTitle">
+        {{ __('Energie reală.', 'sage') }}<br>
+        <span class="serif accent">{{ __('Cadou de la noi.', 'sage') }}</span>
+      </h2>
 
         <p class="lede">
           {{ __('Lasă-ne emailul tău și îți trimitem ghidul + codul −10% în mai puțin de un minut. Maxim 1–2 emailuri pe săptămână, fără spam.', 'sage') }}
@@ -139,7 +138,7 @@
 
           <div class="mn-pop-msg" id="mnPopMsg" role="alert" aria-live="polite"></div>
 
-          <button class="mn-pop-submit btn-primary" type="submit">
+          <button class="mn-pop-submit" type="submit">
             <span class="mn-pop-submit-label">{{ __('Vreau ghidul + −10%', 'sage') }}</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6"></path>
@@ -168,7 +167,6 @@
           </span>
           <span class="it">{{ __('Fără spam', 'sage') }}</span>
         </div>
-      </div>
 
       <div class="mn-pop-success" id="mnPopSuccess" aria-hidden="true">
         <div class="check-circle" aria-hidden="true">
@@ -178,15 +176,9 @@
         </div>
         <h2>
           {{ __('Bun venit', 'sage') }}<br>
-          <span class="accent">{{ __('în familie!', 'sage') }}</span>
+          <span class="serif accent">{{ __('în familie!', 'sage') }}</span>
         </h2>
-        <p>{{ __('Ghidul tău a plecat pe email. Folosește codul de mai jos la prima comandă.', 'sage') }}</p>
-        <div class="code">
-          <button type="button" class="code-value" id="mnPopCodeBtn" aria-label="{{ esc_attr__('Copiază codul', 'sage') }}">
-            <span id="mnPopCode"></span>
-          </button>
-          <span class="copy" id="mnPopCopied">{{ __('copiat ✓', 'sage') }}</span>
-        </div>
+        <p>{{ __('Ghidul și codul tău de reducere ajung pe email în câteva minute.', 'sage') }}</p>
       </div>
     </section>
   </article>

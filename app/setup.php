@@ -255,6 +255,10 @@ function page_bundles(): array
         $bundles[] = 'resources/css/contact-bundle.css';
     }
 
+    if ($template_has('template-newsletter-lp')) {
+        $bundles[] = 'resources/css/newsletter-lp-bundle.css';
+    }
+
     // Blog: any post type = 'post' view, archives, categories, tags, blog template.
     // Include si CPT-ul `studiu` (single + arhiva) — reutilizeaza .blog-page CSS.
     if (is_singular('post') || is_singular('studiu')

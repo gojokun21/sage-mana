@@ -6,9 +6,9 @@
  *      considering whether to show. Bail out early if the user has dismissed
  *      or subscribed within the last 30 days (localStorage flag).
  *   2. Submit handler POSTs name + email to natura_popup_subscribe.
- *   3. On success, flip the right column to the success state and render
- *      the WC coupon code returned by the server. Clicking the code copies
- *      it to clipboard.
+ *   3. On success, flip the right column to the success state. The discount
+ *      code is delivered to the subscriber by email (TheMarketer), not shown
+ *      in the popup.
  *
  * Markup: resources/views/partials/newsletter-popup.blade.php
  * Server: app/newsletter-popup.php
@@ -59,9 +59,6 @@
   var closeBtn = document.getElementById('mnCloseBtn');
   var declineBtn = document.getElementById('mnDeclineBtn');
   var rightCol = document.getElementById('mnPopR');
-  var codeEl = document.getElementById('mnPopCode');
-  var codeBtn = document.getElementById('mnPopCodeBtn');
-  var copiedTag = document.getElementById('mnPopCopied');
 
   var shown = false;
   var lastFocus = null;
@@ -130,43 +127,10 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
 
-  function showSuccess(code) {
+  function showSuccess() {
     if (rightCol) rightCol.classList.add('is-success');
     var successEl = document.getElementById('mnPopSuccess');
     if (successEl) successEl.setAttribute('aria-hidden', 'false');
-    if (codeEl) codeEl.textContent = code;
-  }
-
-  function copyCode() {
-    if (!codeEl || !codeEl.textContent) return;
-    var code = codeEl.textContent;
-    var done = function () {
-      if (!copiedTag) return;
-      copiedTag.classList.add('show');
-      setTimeout(function () { copiedTag.classList.remove('show'); }, 1500);
-    };
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(code).then(done).catch(function () {
-        legacyCopy(code, done);
-      });
-    } else {
-      legacyCopy(code, done);
-    }
-  }
-
-  function legacyCopy(text, done) {
-    try {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      done();
-    } catch (e) { /* clipboard unavailable */ }
   }
 
   /* ---------------- Event bindings ---------------- */
@@ -178,8 +142,6 @@
   overlay.addEventListener('click', function (e) {
     if (e.target === overlay) close('dismiss');
   });
-
-  if (codeBtn) codeBtn.addEventListener('click', copyCode);
 
   if (form) {
     form.addEventListener('submit', function (e) {
@@ -213,18 +175,13 @@
         .then(function (r) { return r.json(); })
         .then(function (res) {
           setLoading(false);
-          if (res && res.success && res.data && res.data.code) {
-            writeStoredState('subscribed', { code: res.data.code });
-            showSuccess(res.data.code);
+          if (res && res.success) {
+            writeStoredState('subscribed');
+            showSuccess();
             return;
           }
           var message = (res && res.data && res.data.message) || cfg.i18n.error;
           setMessage(message);
-          // If the email was already used, persist as dismissed so we don't
-          // re-show the popup to the same person on next visit.
-          if (res && res.data && res.data.already) {
-            writeStoredState('dismissed');
-          }
         })
         .catch(function () {
           setLoading(false);
