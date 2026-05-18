@@ -423,6 +423,11 @@ if (document.getElementById('miniCartDrawer')) {
   import('./mini-cart.js');
 }
 
+/* ==================== LAZY: NEWSLETTER WELCOME POPUP ==================== */
+if (document.getElementById('mnOverlay')) {
+  import('./newsletter-popup.js');
+}
+
 /* ==================== LAZY: ADD-TO-CART MODAL ==================== */
 if (document.getElementById('ml-cart-modal')) {
   import('./cart-modal.js');

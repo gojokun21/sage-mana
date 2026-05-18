@@ -3624,6 +3624,7 @@ p.demo_store {
 @import "./footer.css";         /* footer everywhere */
 @import "./page.css";           /* generic page wrapper */
 @import "./whatsapp-button.css"; /* floating WhatsApp CTA — every page */
+@import "./newsletter-popup.css"; /* welcome popup — first-visit lead capture */
 
 /* responsive.css moved to its own entry — App\page_bundles() appends it
  * LAST so its @media overrides win over the per-page bundle styles

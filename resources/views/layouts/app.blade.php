@@ -43,6 +43,8 @@
 
     @include('partials.whatsapp-button')
 
+    @include('partials.newsletter-popup')
+
     @php(do_action('get_footer'))
     @php(wp_footer())
   </body>

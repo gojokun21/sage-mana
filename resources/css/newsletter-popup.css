@@ -1,0 +1,630 @@
+/* ==========================================================================
+   Newsletter welcome popup — first-visit lead capture with -10% coupon.
+
+   Visual language mirrors `.newsletter-strip` (resources/css/newsletter.css):
+   dark-green gradient band on the left, white surface on the right. Reuses
+   `--green` / `--dark-green` brand tokens, Rubik font (inherited), pill CTA
+   shape (`border-radius: 58px`) consistent with `.btn-primary`.
+
+   Markup: resources/views/partials/newsletter-popup.blade.php
+   Behavior: resources/js/newsletter-popup.js
+   ========================================================================== */
+
+.mn-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(24, 38, 33, 0.55);
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.mn-overlay.on {
+  display: flex;
+  opacity: 1;
+}
+
+.mn-popup {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  width: 100%;
+  max-width: 900px;
+  max-height: 94vh;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(20, 30, 25, 0.28);
+  transform: translateY(10px);
+  opacity: 0;
+  transition: transform 320ms cubic-bezier(.2,.7,.2,1), opacity 280ms ease;
+}
+
+.mn-overlay.on .mn-popup {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ============================
+   Left column — branded green band (mirrors .newsletter-strip)
+   ============================ */
+.mn-pop-l {
+  position: relative;
+  padding: 30px 30px 28px;
+  background: linear-gradient(135deg, #46534e 0%, #255746 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+
+/* Decorative leaf vector — same asset used on the newsletter strip so the
+   popup reads as part of the same brand band. */
+.mn-pop-l::after {
+  content: "";
+  position: absolute;
+  right: -50px;
+  bottom: -40px;
+  width: 220px;
+  height: 220px;
+  background-image: url(/wp-content/uploads/2026/01/Vector.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.mn-pop-l > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mn-pop-brand img {
+  display: block;
+  max-height: 34px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.mn-pop-tag {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+}
+
+.mn-pop-tag .pip {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  color: var(--dark-green, #2c5047);
+  background: #fff;
+  border-radius: 999px;
+}
+
+.mn-pop-deal {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1;
+}
+
+.mn-pop-deal .pct {
+  font-size: 62px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.mn-pop-deal .lbl {
+  margin-top: 4px;
+  font-size: 17px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.mn-pop-deal .micro {
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+
+.mn-pop-deal .micro b {
+  font-weight: 600;
+  color: #fff;
+}
+
+.mn-pop-gift {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+}
+
+.mn-pop-gift .gift-ico {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+
+.mn-pop-gift .info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.mn-pop-gift .info b {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.mn-pop-gift .info .desc {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.mn-pop-gift .info .meta {
+  margin-top: 3px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.01em;
+}
+
+.mn-pop-trust {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.mn-pop-trust .stack {
+  display: inline-flex;
+}
+
+.mn-pop-trust .av {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 999px;
+  border: 2px solid #2e5c4d;
+  letter-spacing: 0.02em;
+}
+
+.mn-pop-trust .av + .av {
+  margin-left: -9px;
+}
+
+.mn-pop-trust .a1 { background: #5b7a6e; }
+.mn-pop-trust .a2 { background: #6e8f7e; }
+.mn-pop-trust .a3 { background: var(--green, #386356); }
+
+.mn-pop-trust b {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ============================
+   Right column — white form surface
+   ============================ */
+.mn-pop-r {
+  position: relative;
+  padding: 32px 32px 22px;
+  background: #fff;
+}
+
+.mn-pop-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  color: #6b7a6e;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+  z-index: 2;
+}
+
+.mn-pop-close:hover {
+  background: #f3f3f0;
+  color: #1a1a1a;
+}
+
+.mn-pop-r-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mn-pop-eyebrow {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green, #386356);
+}
+
+#mnPopTitle {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #1a1a1a;
+  letter-spacing: -0.005em;
+}
+
+#mnPopTitle .accent {
+  font-weight: 500;
+  font-style: italic;
+  color: var(--green, #386356);
+}
+
+.mn-pop-r .lede {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #6b7a6e;
+}
+
+.mn-pop-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 12px 14px;
+  background: #f6f8f4;
+  border: 1px solid #e3ead9;
+  border-radius: 10px;
+}
+
+.mn-pop-perks .p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #2f4233;
+}
+
+.mn-pop-perks .p svg {
+  flex-shrink: 0;
+  color: var(--green, #386356);
+}
+
+.mn-pop-perks .p b {
+  font-weight: 600;
+  color: var(--dark-green, #2c5047);
+}
+
+/* ----- form fields ----- */
+#mnPopForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 2px 0 0;
+}
+
+.mn-pop-fields {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 10px;
+}
+
+.mn-pop-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mn-pop-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.mn-pop-input {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #d8ddd1;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.mn-pop-input:focus-within {
+  border-color: var(--green, #386356);
+  box-shadow: 0 0 0 3px rgba(56, 99, 86, 0.18);
+}
+
+.mn-pop-input svg {
+  flex-shrink: 0;
+  margin-left: 12px;
+  color: #98a39c;
+}
+
+.mn-pop-input input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  padding: 8px 12px 8px 8px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #1F3D33;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.mn-pop-input input::placeholder {
+  color: #a4ada6;
+}
+
+.mn-pop-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.mn-pop-msg {
+  min-height: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #b03a2e;
+}
+
+.mn-pop-msg.is-info {
+  color: #6b7a6e;
+}
+
+/* CTA inherits `.btn-primary` from app.css (pill, --green bg, white text).
+   Extended below for popup context — still the same shape and palette. */
+.mn-pop-submit {
+  margin-top: 4px;
+  width: 100%;
+  height: 48px;
+  padding: 0 24px;
+  font-size: 14.5px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  gap: 8px;
+}
+
+.mn-pop-submit:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.mn-pop-decline {
+  align-self: center;
+  margin-top: 6px;
+  padding: 4px 8px;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: #98a39c;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.mn-pop-decline:hover {
+  color: #1a1a1a;
+}
+
+.mn-pop-foot {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid #eef0ea;
+  font-size: 11px;
+  color: #98a39c;
+}
+
+.mn-pop-foot .it {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mn-pop-foot .it svg {
+  color: #b4bdb6;
+}
+
+/* ============================
+   Success state
+   ============================ */
+.mn-pop-success {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 12px 4px 8px;
+}
+
+.mn-pop-r.is-success .mn-pop-r-inner {
+  display: none;
+}
+
+.mn-pop-r.is-success .mn-pop-success {
+  display: flex;
+}
+
+.mn-pop-success .check-circle {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  color: #fff;
+  background: var(--green, #386356);
+  border-radius: 999px;
+}
+
+.mn-pop-success h2 {
+  margin: 4px 0 0;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #1a1a1a;
+}
+
+.mn-pop-success h2 .accent {
+  font-weight: 500;
+  font-style: italic;
+  color: var(--green, #386356);
+}
+
+.mn-pop-success p {
+  margin: 0;
+  max-width: 320px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #6b7a6e;
+}
+
+.mn-pop-success .code {
+  position: relative;
+  margin-top: 6px;
+}
+
+.mn-pop-success .code-value {
+  display: inline-block;
+  padding: 12px 26px;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--dark-green, #2c5047);
+  background: #f3f7f1;
+  border: 1px dashed var(--green, #386356);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 150ms ease, transform 120ms ease;
+}
+
+.mn-pop-success .code-value:hover {
+  background: #e8efe2;
+  transform: translateY(-1px);
+}
+
+.mn-pop-success .copy {
+  position: absolute;
+  top: -22px;
+  right: 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--green, #386356);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.mn-pop-success .copy.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================
+   Responsive
+   ============================ */
+@media (max-width: 720px) {
+  .mn-popup {
+    grid-template-columns: 1fr;
+    max-width: 460px;
+    max-height: 96vh;
+  }
+
+  .mn-pop-l {
+    padding: 22px 22px 20px;
+    gap: 12px;
+  }
+
+  .mn-pop-l::after {
+    width: 150px;
+    height: 150px;
+    right: -36px;
+    bottom: -28px;
+  }
+
+  .mn-pop-deal .pct {
+    font-size: 50px;
+  }
+
+  .mn-pop-r {
+    padding: 26px 22px 20px;
+  }
+
+  #mnPopTitle {
+    font-size: 22px;
+  }
+
+  .mn-pop-trust {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 420px) {
+  .mn-overlay {
+    padding: 10px;
+  }
+
+  .mn-pop-deal .pct {
+    font-size: 44px;
+  }
+
+  .mn-pop-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .mn-pop-gift {
+    grid-template-columns: 36px 1fr;
+  }
+
+  .mn-pop-gift .gift-ico {
+    width: 36px;
+    height: 36px;
+  }
+}
