@@ -934,13 +934,16 @@
   background: var(--paper-2);
   border-radius: 14px;
 }
-.newsletter-lp .lp-ty-steps__n {
+.newsletter-lp .lp-ty-num {
   width: 32px; height: 32px; border-radius: 50%;
-  background: var(--primary); color: var(--paper);
+  background: var(--primary);
+  color: #fff !important;
   display: grid; place-items: center;
   font-family: var(--mono); font-weight: 600; font-size: 13px;
   margin-top: 2px;
 }
+.newsletter-lp .lp-ty-num,
+.newsletter-lp .lp-ty-steps .lp-ty-num { color: #fff; }
 .newsletter-lp .lp-ty-steps li > div { display: grid; gap: 4px; }
 .newsletter-lp .lp-ty-steps b {
   font-size: 15px; font-weight: 600; color: var(--ink);

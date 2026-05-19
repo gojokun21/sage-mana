@@ -16,7 +16,25 @@
   $ty_shop_url    = function_exists('wc_get_page_id') && wc_get_page_id('shop') > 0
       ? get_permalink(wc_get_page_id('shop'))
       : home_url('/magazin/');
-  $ty_blog_url    = get_permalink(get_option('page_for_posts')) ?: home_url('/blog/');
+  // Find the page using the "Blog Template" (template-blog.blade.php) — that's
+  // the actual blog index on this site, not the default post archive.
+  $ty_blog_query = new \WP_Query([
+      'post_type'              => 'page',
+      'post_status'            => 'publish',
+      'posts_per_page'         => 1,
+      'no_found_rows'          => true,
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false,
+      'fields'                 => 'ids',
+      'meta_query'             => [[
+          'key'     => '_wp_page_template',
+          'value'   => 'template-blog',
+          'compare' => 'LIKE',
+      ]],
+  ]);
+  $ty_blog_url = ! empty($ty_blog_query->posts)
+      ? get_permalink($ty_blog_query->posts[0])
+      : (get_post_type_archive_link('post') ?: home_url('/blog/'));
   $ty_privacy_url = get_privacy_policy_url() ?: '#';
   $ty_terms_url   = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('terms') : '#';
   $ty_logo_id     = get_theme_mod('custom_logo');
@@ -67,28 +85,28 @@
         <p class="lp-hero__lede lp-ty-lede">
           {{ __('Ți-am trimis pe email ghidul', 'sage') }}
           <b>„10 obiceiuri pentru o energie care durează”</b>
-          {{ __('și codul tău personal de', 'sage') }} <b>−10%</b>
+          {{ __('și codul tău personal de', 'sage') }} <b>10% REDUCERE</b>
           {{ __('la prima comandă. Verifică inboxul în următoarele minute.', 'sage') }}
         </p>
 
         {{-- Steps --}}
         <ol class="lp-ty-steps">
           <li>
-            <span class="lp-ty-steps__n">1</span>
+            <span class="lp-ty-num">1</span>
             <div>
               <b>{{ __('Verifică emailul', 'sage') }}</b>
               <span>{{ __('Caută mesajul nostru în Inbox. Dacă nu apare în 5 minute, verifică folderul „Promoții” sau „Spam”.', 'sage') }}</span>
             </div>
           </li>
           <li>
-            <span class="lp-ty-steps__n">2</span>
+            <span class="lp-ty-num">2</span>
             <div>
               <b>{{ __('Descarcă ghidul', 'sage') }}</b>
               <span>{{ __('PDF de 20 de pagini, format mobile-friendly. Începe cu obiceiul nr. 1, e cel mai simplu de aplicat.', 'sage') }}</span>
             </div>
           </li>
           <li>
-            <span class="lp-ty-steps__n">3</span>
+            <span class="lp-ty-num">3</span>
             <div>
               <b>{{ __('Folosește codul −10%', 'sage') }}</b>
               <span>{{ __('Codul tău personal e valabil 30 de zile la prima comandă, fără valoare minimă.', 'sage') }}</span>

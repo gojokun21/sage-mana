@@ -1,6 +1,6 @@
 @php
   $topbar_items = [
-    __('Transport gratuit la comenzi peste 300 lei', 'sage'),
+    __('Transport gratuit la comenzi peste 299 lei', 'sage'),
     __('Plata ramburs disponibilă', 'sage'),
     __('Livrare 24-48h', 'sage'),
   ];
