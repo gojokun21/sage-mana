@@ -63,7 +63,14 @@
   }
 
   function showSuccess() {
-    // Hide the form, reveal the success block.
+    // Prefer redirecting to a dedicated thank-you page so analytics / pixel
+    // platforms can fire a conversion event against a clean URL. We still
+    // keep the inline success block as a graceful fallback for the case
+    // when the admin hasn't published the thank-you page yet.
+    if (cfg.thankyou_url) {
+      window.location.href = cfg.thankyou_url;
+      return;
+    }
     form.style.display = 'none';
     if (successEl) successEl.hidden = false;
     showToast(cfg.i18n.toast_success);

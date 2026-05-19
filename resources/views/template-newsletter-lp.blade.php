@@ -19,6 +19,29 @@
   $lp_terms_url   = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('terms') : '#';
   $lp_logo_id     = get_theme_mod('custom_logo');
   $lp_signup_id   = 'lp-signup';
+
+  // Discover the thank-you page by its assigned page template. WP stores the
+  // template path in `_wp_page_template` (e.g.
+  // `views/template-newsletter-lp-thankyou.blade.php`). We match by LIKE so
+  // we don't depend on the exact prefix Sage uses across versions.
+  $lp_thankyou_url = '';
+  $lp_ty_query = new \WP_Query([
+      'post_type'              => 'page',
+      'post_status'            => 'publish',
+      'posts_per_page'         => 1,
+      'no_found_rows'          => true,
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false,
+      'fields'                 => 'ids',
+      'meta_query'             => [[
+          'key'     => '_wp_page_template',
+          'value'   => 'template-newsletter-lp-thankyou',
+          'compare' => 'LIKE',
+      ]],
+  ]);
+  if (! empty($lp_ty_query->posts)) {
+      $lp_thankyou_url = get_permalink($lp_ty_query->posts[0]);
+  }
 @endphp
 
 @section('content')
@@ -393,9 +416,10 @@
      hardened separately later without touching the welcome popup. --}}
 <script>
 window.natura_newsletter_lp = {
-  ajax_url: {!! wp_json_encode(admin_url('admin-ajax.php')) !!},
-  nonce:    {!! wp_json_encode(wp_create_nonce('natura_popup_subscribe')) !!},
-  action:   'natura_popup_subscribe',
+  ajax_url:     {!! wp_json_encode(admin_url('admin-ajax.php')) !!},
+  nonce:        {!! wp_json_encode(wp_create_nonce('natura_popup_subscribe')) !!},
+  action:       'natura_popup_subscribe',
+  thankyou_url: {!! wp_json_encode($lp_thankyou_url) !!},
   i18n: {
     missing:        {!! wp_json_encode(__('Te rugăm să completezi prenumele și emailul.', 'sage')) !!},
     invalid_email:  {!! wp_json_encode(__('Adresa de email nu pare validă.', 'sage')) !!},

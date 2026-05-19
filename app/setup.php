@@ -255,7 +255,7 @@ function page_bundles(): array
         $bundles[] = 'resources/css/contact-bundle.css';
     }
 
-    if ($template_has('template-newsletter-lp')) {
+    if ($template_has('template-newsletter-lp') || $template_has('template-newsletter-lp-thankyou')) {
         $bundles[] = 'resources/css/newsletter-lp-bundle.css';
     }
 
