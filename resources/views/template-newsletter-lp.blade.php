@@ -155,18 +155,15 @@
             <div class="lp-form__msg" id="lpFormMsg" role="status" aria-live="polite"></div>
           </form>
 
-          {{-- Success state, swapped in by JS on subscribe --}}
+          {{-- Success state, swapped in by JS on subscribe.
+               Codul -10% e livrat prin emailul de welcome trimis de TheMarketer,
+               nu il afisam inline ca sa pastram o singura sursa de adevar. --}}
           <div class="lp-form-card__success" id="lpSuccess" hidden>
             <div class="lp-success__check" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 7L9 18l-5-5"/></svg>
             </div>
             <h3>{{ __('Verifică-ți emailul!', 'sage') }}</h3>
-            <p>{{ __('Ți-am trimis ghidul pe adresa indicată. Folosește codul de mai jos la prima comandă.', 'sage') }}</p>
-            <button type="button" class="lp-coupon" id="lpCouponBtn">
-              <span class="lp-coupon__label">{{ __('Codul tău', 'sage') }}</span>
-              <span class="lp-coupon__code" id="lpCouponCode">—</span>
-              <span class="lp-coupon__copy" id="lpCouponCopied">{{ __('Copiat!', 'sage') }}</span>
-            </button>
+            <p>{{ __('Ți-am trimis ghidul și codul tău personal de −10% pe adresa indicată. Verifică și folderul „Promoții” sau „Spam” dacă nu îl vezi imediat.', 'sage') }}</p>
             <a href="{{ $lp_shop_url }}" class="lp-btn lp-btn--ghost">{{ __('Mergi în magazin →', 'sage') }}</a>
           </div>
 
@@ -406,7 +403,6 @@ window.natura_newsletter_lp = {
     working:        {!! wp_json_encode(__('Se trimite...', 'sage')) !!},
     error:          {!! wp_json_encode(__('A apărut o eroare. Încearcă din nou într-un minut.', 'sage')) !!},
     toast_success:  {!! wp_json_encode(__('Înscriere reușită! Verifică email-ul pentru ghid.', 'sage')) !!},
-    toast_already:  {!! wp_json_encode(__('Acest email a primit deja un cod. Verifică-ți inbox-ul.', 'sage')) !!},
   }
 };
 </script>

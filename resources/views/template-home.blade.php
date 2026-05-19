@@ -32,5 +32,6 @@
     ])
     @include('partials.home.reviews')
     @include('partials.home.benefits')
+    @include('partials.home.faq')
   </div>
 @endsection

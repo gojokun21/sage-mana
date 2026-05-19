@@ -640,3 +640,137 @@ a.home-trust__card:focus-visible .home-trust__icon {
   .home-trust__label { font-size: 14px; }
   .home-trust__hint { font-size: 12px; }
 }
+
+/* ============================
+   FAQ — întrebări frecvente (native <details> accordion).
+   Animația smooth a răspunsului e gestionată de faq-accordion.js
+   (lazy import din app.js când există `.faq .faq-item` in DOM).
+   ============================ */
+.home-faq {
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.home-faq .faq-item {
+  background: #fff;
+  border: 1px solid #e8ebe6;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.home-faq .faq-item:hover:not([open]) {
+  border-color: color-mix(in oklab, var(--green) 22%, #fff);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(20, 40, 25, 0.04);
+}
+
+.home-faq .faq-item[open] {
+  border-color: color-mix(in oklab, var(--green) 32%, #fff);
+  box-shadow: 0 6px 20px rgba(20, 40, 25, 0.06);
+}
+
+.home-faq .faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: color-mix(in oklab, var(--green), #000 35%);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.home-faq .faq-q__text {
+  flex: 1 1 auto;
+}
+
+.home-faq .faq-q:hover {
+  color: var(--green);
+}
+
+.home-faq .faq-q::-webkit-details-marker { display: none; }
+.home-faq .faq-q::marker { content: ""; }
+
+.home-faq .faq-toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  font-size: 0;
+  line-height: 1;
+  background: color-mix(in oklab, var(--green) 6%, #fff);
+  border-radius: 50%;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.home-faq .faq-toggle::before {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: var(--green);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat center / contain;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat center / contain;
+  transition: background-color 0.25s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-faq .faq-item[open] .faq-toggle {
+  background: var(--green);
+}
+
+.home-faq .faq-item[open] .faq-toggle::before {
+  background-color: #fff;
+  transform: rotate(180deg);
+}
+
+.home-faq .faq-q:hover .faq-toggle {
+  background: color-mix(in oklab, var(--green) 12%, #fff);
+  transform: scale(1.05);
+}
+
+.home-faq .faq-item[open] .faq-q:hover .faq-toggle {
+  background: var(--dark-green);
+}
+
+.home-faq .faq-a {
+  padding: 4px 24px 22px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #3a4a3e;
+  overflow: hidden;
+  will-change: height;
+}
+
+.home-faq .faq-a strong {
+  color: color-mix(in oklab, var(--green), #000 35%);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .home-faq .faq-q {
+    padding: 16px 18px;
+    font-size: 15px;
+  }
+  .home-faq .faq-a {
+    padding: 0 18px 18px;
+    font-size: 14px;
+  }
+  .home-faq .faq-toggle {
+    width: 30px;
+    height: 30px;
+  }
+}
