@@ -140,7 +140,7 @@
             </div>
 
             <div class="lp-check">
-              <input type="checkbox" id="lpAgree" checked required>
+              <input type="checkbox" id="lpAgree" required>
               <label for="lpAgree">
                 {{ __('Sunt de acord cu', 'sage') }} <a href="{{ $lp_privacy_url }}">{{ __('politica de confidențialitate', 'sage') }}</a>
                 {{ __('și să primesc newsletter-ul', 'sage') }} {{ get_bloginfo('name') }}. {{ __('Mă pot dezabona oricând.', 'sage') }}
