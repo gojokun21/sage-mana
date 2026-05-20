@@ -31,6 +31,7 @@ add_action('wp_enqueue_scripts', function () {
             'i18n' => [
                 'missing' => __('Te rugăm să completezi prenumele și emailul.', 'sage'),
                 'invalid_email' => __('Adresa de email nu pare validă.', 'sage'),
+                'consent' => __('Te rugăm să accepți politica de confidențialitate.', 'sage'),
                 'working' => __('Se trimite...', 'sage'),
                 'error' => __('A apărut o eroare. Încearcă din nou într-un minut.', 'sage'),
             ],

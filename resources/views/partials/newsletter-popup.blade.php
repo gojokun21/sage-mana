@@ -11,6 +11,7 @@
   if (! \App\newsletter_popup_should_render()) {
       return;
   }
+  $privacy_url = get_privacy_policy_url() ?: '#';
   $logo_src = null;
   if (has_custom_logo()) {
       $logo_id = get_theme_mod('custom_logo');
@@ -134,6 +135,14 @@
           <div class="mn-pop-hp" aria-hidden="true">
             <label for="mnPopWebsite">{{ __('Lasă acest câmp gol', 'sage') }}</label>
             <input id="mnPopWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="mn-pop-check">
+            <input id="mnPopAgree" name="consent" type="checkbox" required>
+            <label for="mnPopAgree">
+              {{ __('Sunt de acord cu', 'sage') }} <a href="{{ esc_url($privacy_url) }}" target="_blank" rel="noopener">{{ __('politica de confidențialitate', 'sage') }}</a>
+              {{ __('și să primesc newsletter-ul', 'sage') }} {{ get_bloginfo('name') }}. {{ __('Mă pot dezabona oricând.', 'sage') }}
+            </label>
           </div>
 
           <div class="mn-pop-msg" id="mnPopMsg" role="alert" aria-live="polite"></div>

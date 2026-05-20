@@ -467,6 +467,35 @@
   overflow: hidden;
 }
 
+/* ─── Consent checkbox ─── */
+.mn-pop-check {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 10px;
+  align-items: start;
+  margin-top: 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--mn-ink-mute);
+}
+
+.mn-pop-check input {
+  accent-color: var(--mn-primary);
+  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  cursor: pointer;
+}
+
+.mn-pop-check label { cursor: pointer; }
+
+.mn-pop-check a {
+  color: var(--mn-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .mn-pop-msg {
   min-height: 0;
   margin-top: 10px;

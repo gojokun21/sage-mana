@@ -53,6 +53,7 @@
   var nameEl = document.getElementById('mnPopName');
   var emailEl = document.getElementById('mnPopEmail');
   var hpEl = document.getElementById('mnPopWebsite');
+  var agreeEl = document.getElementById('mnPopAgree');
   var msgEl = document.getElementById('mnPopMsg');
   var submitBtn = form ? form.querySelector('.mn-pop-submit') : null;
   var submitLabel = submitBtn ? submitBtn.querySelector('.mn-pop-submit-label') : null;
@@ -163,6 +164,12 @@
       if (!isValidEmail(email)) {
         setMessage(cfg.i18n.invalid_email);
         if (emailEl) emailEl.focus();
+        return;
+      }
+
+      if (agreeEl && !agreeEl.checked) {
+        setMessage(cfg.i18n.consent);
+        if (agreeEl) agreeEl.focus();
         return;
       }
 

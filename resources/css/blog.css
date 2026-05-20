@@ -142,7 +142,8 @@
 
 .blog-stat__num {
   flex-shrink: 0;
-  width: 100px;
+  min-width: 100px;
+  white-space: nowrap;
   font-size: 56px;
   line-height: 1;
   font-style: italic;
@@ -1335,7 +1336,7 @@
 
   .blog-stat__num {
     font-size: 40px;
-    width: 80px;
+    min-width: 80px;
   }
 
   .blog-trust-strip__list {
