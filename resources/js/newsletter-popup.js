@@ -63,17 +63,43 @@
 
   var shown = false;
   var lastFocus = null;
+  var lockedScrollY = 0;
+
+  // ── Body scroll lock ──────────────────────────────────────────────────
+  // Without this the page behind the fixed overlay stays scrollable on mobile:
+  // touch-scroll chains through to the body and, worse, focusing a text field
+  // opens the on-screen keyboard, which scrolls the layout viewport to reveal
+  // the input and never restores it. The result is that closing the popup
+  // leaves the page at a different scroll position ("ecranul umblă"). Freeze
+  // the body at its current scroll position and restore it on close. This is
+  // the keyboard-safe variant of body.mini-cart-open: plain overflow:hidden is
+  // enough for the cart drawer (no inputs) but not for a form on iOS Safari.
+  function lockScroll() {
+    lockedScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.top = -lockedScrollY + 'px';
+    document.body.classList.add('newsletter-popup-open');
+  }
+
+  function unlockScroll() {
+    document.body.classList.remove('newsletter-popup-open');
+    document.body.style.top = '';
+    window.scrollTo(0, lockedScrollY);
+  }
 
   function show() {
     if (shown) return;
     shown = true;
     lastFocus = document.activeElement;
+    lockScroll();
     overlay.classList.add('on');
     overlay.setAttribute('aria-hidden', 'false');
     // Defer focus until the open transition is past its first frame so screen
-    // readers announce the dialog title, not the underlying page.
+    // readers announce the dialog title, not the underlying page. Skip the
+    // autofocus on touch devices: forcing the keyboard open the instant the
+    // popup appears yanks the viewport around. Desktop keeps the convenience.
+    var isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
     requestAnimationFrame(function () {
-      if (nameEl) nameEl.focus();
+      if (nameEl && !isTouch) nameEl.focus();
     });
     document.addEventListener('keydown', onKeyDown);
   }
@@ -82,6 +108,7 @@
     if (!shown) return;
     overlay.classList.remove('on');
     overlay.setAttribute('aria-hidden', 'true');
+    unlockScroll();
     document.removeEventListener('keydown', onKeyDown);
     if (lastFocus && typeof lastFocus.focus === 'function') {
       try { lastFocus.focus(); } catch (e) { /* element gone */ }

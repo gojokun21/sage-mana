@@ -66,6 +66,38 @@ body {
   color: #1a1a1a;
 }
 
+/* ============================================
+   iOS Safari focus-zoom guard
+   --------------------------------------------
+   Safari on iPhone/iPad auto-zooms the page when a focused form control has
+   a font-size below 16px, then doesn't fully zoom back out — which is the
+   "screen wanders while typing" the customers reported. The component styles
+   set inputs at 14–15px (checkout, auth, contact, my-account…), all under the
+   threshold. Force every typeable control to 16px on touch pointers so focus
+   never triggers the zoom. Scoped to `pointer: coarse` (not a width query) so
+   it covers phones in any orientation and never touches the desktop design.
+   `!important` is required to beat the per-component font sizes.
+   ============================================ */
+@media (pointer: coarse) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="url"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input:not([type]),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
 .container {
   width: 100%;
   max-width: 1470px;

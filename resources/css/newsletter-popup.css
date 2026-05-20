@@ -43,6 +43,17 @@
 .mn-overlay *::before,
 .mn-overlay *::after { box-sizing: border-box; }
 
+/* Scroll lock while the popup is open. JS pins body.top to the saved scroll
+   offset; position:fixed freezes the page so the background can't scroll
+   behind the overlay and the mobile keyboard can't drag the viewport away. */
+body.newsletter-popup-open {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
 /* ─── Overlay & popup shell ─── */
 .mn-overlay {
   position: fixed;
