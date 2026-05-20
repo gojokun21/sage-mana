@@ -8,7 +8,7 @@
   <main class="contact-template" id="contact-template">
     <section class="contact_sec">
       <div class="container">
-        <h1 class="contact_title">{{ get_the_title() }}</h1>
+        <h1 class="contact_title">{{ html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8') }}</h1>
 
         <div class="contact_row">
           {{-- ============ Left column ============ --}}

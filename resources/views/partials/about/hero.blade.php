@@ -25,7 +25,7 @@
       <div class="about_row">
         <div class="about_right">
           <div class="bg_green">
-            <h1 class="about_title">{{ get_the_title() }}</h1>
+            <h1 class="about_title">{{ html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8') }}</h1>
 
             <div class="about_description" data-readmore>
               <div class="about_description__inner">

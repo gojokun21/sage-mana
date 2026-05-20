@@ -166,10 +166,10 @@
                   @endif
                 </div>
 
-                <h4 class="blog-card__title blog-studiu-card__title">{{ get_the_title() }}</h4>
+                <h4 class="blog-card__title blog-studiu-card__title">{{ html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8') }}</h4>
 
                 @if (get_the_excerpt())
-                  <p class="blog-card__excerpt">{{ wp_trim_words(get_the_excerpt(), 28, '...') }}</p>
+                  <p class="blog-card__excerpt">{{ html_entity_decode(wp_trim_words(get_the_excerpt(), 28, '...'), ENT_QUOTES, 'UTF-8') }}</p>
                 @endif
 
                 <dl class="blog-studiu-card__meta">

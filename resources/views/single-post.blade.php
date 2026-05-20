@@ -10,7 +10,7 @@
 
     <section class="single_blog">
       <div class="container">
-        <h1>{{ get_the_title() }}</h1>
+        <h1>{{ html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8') }}</h1>
 
         @php $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'full'); @endphp
         @if ($thumbnail_url)
@@ -67,7 +67,7 @@
                   @if ($img)
                     <img src="{{ esc_url($img) }}" alt="{{ esc_attr(get_the_title()) }}">
                   @endif
-                  <h3>{{ get_the_title() }}</h3>
+                  <h3>{{ html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8') }}</h3>
                 </a>
               </div>
             @endwhile

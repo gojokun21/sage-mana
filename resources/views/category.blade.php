@@ -179,9 +179,9 @@
                     <span class="blog-cat-pill">{{ $cat_name }}</span>
                   @endif
                   <h4 class="blog-card__title">
-                    <a href="{{ esc_url(get_permalink()) }}">{{ get_the_title() }}</a>
+                    <a href="{{ esc_url(get_permalink()) }}">{{ html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8') }}</a>
                   </h4>
-                  <p class="blog-card__excerpt">{{ wp_trim_words(get_the_excerpt(), 22, '...') }}</p>
+                  <p class="blog-card__excerpt">{{ html_entity_decode(wp_trim_words(get_the_excerpt(), 22, '...'), ENT_QUOTES, 'UTF-8') }}</p>
                   <div class="blog-card__meta">
                     <time datetime="{{ get_the_date('c') }}">{{ get_the_date() }}</time>
                     <span class="blog-meta-dot" aria-hidden="true">·</span>

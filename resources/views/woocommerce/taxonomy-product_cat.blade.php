@@ -437,7 +437,7 @@
                   @if ($primary_tag)
                     <div class="tag">{{ $primary_tag }}</div>
                   @endif
-                  <h3>{{ get_the_title() }}</h3>
+                  <h3>{{ html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8') }}</h3>
                   <div class="meta">{{ $date_formatted }}</div>
                 </div>
               </a>

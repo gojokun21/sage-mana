@@ -48,7 +48,7 @@
             @endif
           </div>
 
-          <h1 id="studiu-title" class="blog-studiu-hero__title">{{ get_the_title() }}</h1>
+          <h1 id="studiu-title" class="blog-studiu-hero__title">{{ html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8') }}</h1>
 
           @if (get_the_excerpt())
             <p class="blog-studiu-hero__lede">{{ get_the_excerpt() }}</p>
@@ -184,9 +184,9 @@
                       <span class="blog-cat-pill">{{ $rel_cat_name }}</span>
                     @endif
                     <h4 class="blog-card__title">
-                      <a href="{{ esc_url(get_permalink($rel_id)) }}">{{ get_the_title($rel_id) }}</a>
+                      <a href="{{ esc_url(get_permalink($rel_id)) }}">{{ html_entity_decode(get_the_title($rel_id), ENT_QUOTES, 'UTF-8') }}</a>
                     </h4>
-                    <p class="blog-card__excerpt">{{ wp_trim_words(get_the_excerpt($rel_id), 22, '...') }}</p>
+                    <p class="blog-card__excerpt">{{ html_entity_decode(wp_trim_words(get_the_excerpt($rel_id), 22, '...'), ENT_QUOTES, 'UTF-8') }}</p>
                     <div class="blog-card__meta">
                       <time datetime="{{ get_the_date('c', $rel_id) }}">{{ get_the_date('', $rel_id) }}</time>
                       <span class="blog-meta-dot" aria-hidden="true">·</span>
