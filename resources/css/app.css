@@ -3177,6 +3177,18 @@ body.menu-open {
   color: #1a1a1a;
 }
 
+/* Threaded replies (WC wraps them in <ul class="children">) — kill the default
+   list bullet that showed up next to a reply, keep a small nesting indent. */
+#reviews .commentlist ul.children {
+  list-style: none;
+  margin: 16px 0 0;
+  padding-left: 24px;
+}
+
+#reviews .commentlist ul.children > li::marker {
+  content: "";
+}
+
 /* ---------- Comment form ---------- */
 #respond.comment-respond {
   margin-top: 32px;
