@@ -3177,16 +3177,17 @@ body.menu-open {
   color: #1a1a1a;
 }
 
-/* Threaded replies (WC wraps them in <ul class="children">) — kill the default
-   list bullet that showed up next to a reply, keep a small nesting indent. */
-#reviews .commentlist ul.children {
-  list-style: none;
-  margin: 16px 0 0;
-  padding-left: 24px;
+/* Reviews render inside a .custom-tab-panel, whose decorative green bullet
+   (.custom-tab-panel ul li::before) otherwise leaks onto every review/reply. */
+#reviews .commentlist li::before {
+  content: none;
 }
 
-#reviews .commentlist ul.children > li::marker {
-  content: "";
+/* Threaded replies are wrapped in <ul class="children"> — small nesting indent
+   so a reply reads as nested under its review. */
+#reviews .commentlist ul.children {
+  margin: 16px 0 0;
+  padding-left: 24px;
 }
 
 /* ---------- Comment form ---------- */
