@@ -3181,6 +3181,7 @@ body.menu-open {
    (.custom-tab-panel ul li::before) otherwise leaks onto every review/reply. */
 #reviews .commentlist li::before {
   content: none;
+  display: none;
 }
 
 /* Threaded replies are wrapped in <ul class="children"> — small nesting indent
