@@ -2192,6 +2192,60 @@ body.menu-open {
   margin-right: 10px;
 }
 
+/* Reducere (sale / Black Friday) la single product */
+.price_custom .screen-reader-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.price_custom.is-onsale {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.price_custom.is-onsale ins {
+  order: 1;
+  background: none;
+  text-decoration: none;
+}
+.price_custom.is-onsale ins .woocommerce-Price-amount {
+  color: #09706B;
+  margin-right: 0;
+}
+.price_custom.is-onsale del {
+  order: 2;
+  margin: 0;
+  text-decoration: none;
+}
+.price_custom.is-onsale del .woocommerce-Price-amount {
+  color: #9a9a9a;
+  font-size: 18px;
+  font-weight: 400;
+  margin-right: 0;
+  text-decoration: line-through;
+}
+.price_custom__badge {
+  order: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 9px;
+  background: #ed4908;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 8px;
+}
+
 /* Gallery */
 .gallery-layout {
   display: flex;

@@ -48,4 +48,21 @@ global $product;
 		<span><?php esc_html_e( 'Plată 100% sigură', 'sage' ); ?></span>
 	</li>
 </ul>
-<p class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price price_custom' ) ); ?>"><?php echo $product->get_price_html(); ?></p>
+<?php
+// Date pentru afișarea reducerii (Black Friday / sale): preț întreg vs. preț activ.
+$mn_regular = (float) $product->get_regular_price();
+$mn_active  = (float) $product->get_price();
+$mn_on_sale = $product->is_on_sale() && $mn_regular > 0 && $mn_active > 0 && $mn_active < $mn_regular;
+$mn_pct     = $mn_on_sale ? (int) round( ( ( $mn_regular - $mn_active ) / $mn_regular ) * 100 ) : 0;
+
+$mn_price_class = apply_filters( 'woocommerce_product_price_class', 'price price_custom' );
+if ( $mn_on_sale ) {
+	$mn_price_class .= ' is-onsale';
+}
+?>
+<p class="<?php echo esc_attr( $mn_price_class ); ?>">
+	<?php echo $product->get_price_html(); ?>
+	<?php if ( $mn_on_sale && $mn_pct > 0 ) : ?>
+		<span class="price_custom__badge">-<?php echo esc_html( $mn_pct ); ?>%</span>
+	<?php endif; ?>
+</p>
