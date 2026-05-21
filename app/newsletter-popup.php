@@ -46,6 +46,11 @@ add_action('wp_enqueue_scripts', function () {
  */
 function newsletter_popup_should_render(): bool
 {
+    // Kill switch temporar — popup-ul de newsletter e dezactivat pe tot site-ul.
+    // Șterge acest return ca să-l reactivezi (gating-ul pe contexte de mai jos
+    // rămâne valabil când revii).
+    return false;
+
     if (is_user_logged_in()) {
         return false;
     }
