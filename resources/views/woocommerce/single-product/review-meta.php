@@ -38,7 +38,14 @@ if ( '0' === $comment->comment_approved ) { ?>
 		}
 
 		?>
-		<span class="woocommerce-review__dash">&ndash;</span> <time class="woocommerce-review__published-date" datetime="<?php echo esc_attr( get_comment_date( 'c' ) ); ?>"><?php echo esc_html( get_comment_date( wc_date_format() ) ); ?></time>
+		<?php
+		/*
+		 * Ascuns momentan — liniuța (–) și data publicării review-ului.
+		 * Pentru reactivare, decomentează linia de mai jos:
+		 *
+		 * <span class="woocommerce-review__dash">&ndash;</span> <time class="woocommerce-review__published-date" datetime="<?php echo esc_attr( get_comment_date( 'c' ) ); ?>"><?php echo esc_html( get_comment_date( wc_date_format() ) ); ?></time>
+		 */
+		?>
 	</p>
 
 	<?php

@@ -40,10 +40,17 @@
   position: absolute;
   bottom: -23px;
   right: -51px;
+  /* Behind the content. As an ::after the leaf paints above the form, so on
+     mobile (form stacked full-width) it lands over the email input. Sending it
+     under the lifted .container keeps the decoration but lets the white inputs
+     cover it — it only peeks through transparent gaps. */
+  z-index: 0;
 }
 
 .newsletter-strip .container {
   padding: 20px 0;
+  position: relative;
+  z-index: 1;
 }
 
 .newsletter-strip__inner {
