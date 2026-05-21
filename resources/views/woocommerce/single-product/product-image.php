@@ -67,9 +67,20 @@ $wrapper_classes   = apply_filters(
                     <div class="swiper-wrapper">
                         <?php foreach ( $attachment_ids as $attachment_id ) :
                             $image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+                            $image_alt = trim( wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
+                            if ( '' === $image_alt ) {
+                                $image_alt = $product->get_name();
+                            }
                             ?>
                             <div class="swiper-slide">
-                                <img src="<?php echo esc_url( $image_url ); ?>" alt="" />
+                                <a
+                                    href="<?php echo esc_url( $image_url ); ?>"
+                                    class="product-gallery__zoom"
+                                    data-fancybox="product-gallery"
+                                    aria-label="<?php esc_attr_e( 'Mărește imaginea', 'sage' ); ?>"
+                                >
+                                    <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
+                                </a>
                             </div>
                         <?php endforeach; ?>
                     </div>

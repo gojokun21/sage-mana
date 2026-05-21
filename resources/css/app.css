@@ -2247,6 +2247,13 @@ body.menu-open {
   object-fit: cover;
   border-radius: 10px;
 }
+/* Tap the main image to open the Fancybox lightbox (see single-product.js).
+   The anchor must fill the slide so the image keeps its full-width sizing. */
+.product-main-swiper .swiper-slide .product-gallery__zoom {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
 .border_image {
   border-bottom: 1px solid #E0E0E0;
   margin-top: 8px;

@@ -37,6 +37,29 @@ import { Thumbs, Navigation, Pagination, Autoplay } from 'swiper/modules';
     spaceBetween: 10,
     thumbs: thumbs ? { swiper: thumbs } : undefined,
   });
+
+  // Click the active image to open a fullscreen, zoomable lightbox of the whole
+  // gallery (pinch/scroll zoom, swipe between images, thumbnail strip). Reuses
+  // Fancybox — already the project's lightbox for home/about video testimonials —
+  // for visual + dependency consistency. Loaded on demand so a product without a
+  // gallery never pulls in the lib. A drag-to-swipe never opens it: Swiper's
+  // preventClicks suppresses the click that ends a gesture, so only real taps fire.
+  if (mainEl.querySelector('[data-fancybox="product-gallery"]')) {
+    Promise.all([
+      import('@fancyapps/ui'),
+      import('@fancyapps/ui/dist/fancybox/fancybox.css'),
+    ]).then(([{ Fancybox }]) => {
+      Fancybox.bind('[data-fancybox="product-gallery"]', {
+        Toolbar: {
+          display: {
+            left: ['infobar'],
+            middle: ['zoomIn', 'zoomOut', 'toggle1to1'],
+            right: ['thumbs', 'close'],
+          },
+        },
+      });
+    });
+  }
 })();
 
 /* ==================== RELATED PRODUCTS (SWIPER) ==================== */
