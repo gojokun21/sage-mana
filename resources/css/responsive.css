@@ -567,7 +567,6 @@
     font-size: 10px;
   }
   .protocol_badge svg { width: 10px; height: 12px; }
-  .protocol_badge_product { width: 100%; }
   .home-category__link{padding: 10px;justify-content: flex-start;}
 
   .summary_white { padding: 16px; }
@@ -580,7 +579,6 @@
     gap: 10px;
   }
   .single_product_title { width: 100%; }
-  .protocol_badge_product { width: 100%; }
   .sticky-price { width: 100%; }
 
   .custom-product-tabs { padding-top: 20px; margin-bottom: 20px; }

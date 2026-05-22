@@ -1321,18 +1321,6 @@ body.menu-open {
   border-radius: 8px;
   margin-top: 12px;
 }
-.protocol_badge_product {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 5px 10px;
-  background: #00a697;
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 8px;
-}
 
 .benefits_product {
   margin-top: 20px;
@@ -2213,20 +2201,7 @@ body.menu-open {
 }
 .single_product_title {
   font-size: 30px;
-  width: 70%;
-}
-.protocol_badge_product {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 5px 10px;
-  background: #00a697;
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 8px;
-  width: 30%;
+  width: 100%;
 }
 
 /* Trust strip — discrete, just above price on single product/bundle pages */
