@@ -431,6 +431,24 @@ a {
   display: none;
 }
 
+/* Badge „-10%" lângă un item din meniu (ex. „Pachete"), cât timp campania e activă.
+   Stă inline în link, lângă titlu (gap-ul de pe .has-mega-menu > a îl distanțează). */
+.menu-promo-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  background: #ed4908;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.35;
+  border-radius: 6px;
+}
+/* Pe CTA-ul verde „Vezi toate pachetele" — badge auriu (cerut). */
+.mega-menu-cta .menu-promo-badge {
+  background: #caa44a;
+}
+
 /* Varianta mobil a promo-ului: bandă full-width între header și hero.
    Pe desktop promo-ul e în nav; banda apare DOAR unde nav-ul e ascuns (≤1345px),
    ca să nu fie două vizibile simultan. Refolosește clasele interne .nav-promo__*. */
