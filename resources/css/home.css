@@ -646,11 +646,6 @@ a.home-trust__card:focus-visible .home-trust__icon {
    Animația smooth a răspunsului e gestionată de faq-accordion.js
    (lazy import din app.js când există `.faq .faq-item` in DOM).
    ============================ */
-.home-faq {
-  max-width: 880px;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 .home-faq__list {
   display: flex;

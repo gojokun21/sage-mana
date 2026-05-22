@@ -10,9 +10,9 @@
  *
  * 100% dinamic, prin filtre WooCommerce, fără nicio modificare în baza de date:
  *   - se aprinde singur peste tot: card listare, pagină produs, coș, checkout;
- *   - se OPREȘTE complet fie punând BF_ENABLED pe `false`, fie ștergând acest
- *     fișier ȘI scoțând 'black-friday' din lista din functions.php. Prețurile
- *     revin instant la normal.
+ *   - se OPREȘTE singur la data din BF_DEADLINE (vezi mai jos), sau manual
+ *     punând BF_ENABLED pe `false`, ori ștergând acest fișier ȘI scoțând
+ *     'black-friday' din lista din functions.php. Prețurile revin la normal.
  *
  * Comenzile deja plasate NU sunt afectate (au totalurile lor deja salvate).
  *
@@ -21,11 +21,60 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\View;
+
 /** Pune pe `false` ca să oprești reducerea fără a șterge fișierul. */
 const BF_ENABLED = true;
 
 /** Procentul de reducere de Black Friday. */
 const BF_PERCENT = 10;
+
+/**
+ * Data + ora la care expiră promoția, în fusul orar al site-ului
+ * (format `Y-m-d H:i:s`). După acest moment reducerea se oprește singură
+ * (`bf_is_live()` devine `false`) și prețurile revin la normal — exact ca
+ * atunci când countdown-ul de pe pagina de produs ajunge la 0. Lasă string
+ * gol pentru a dezactiva limita de timp (atunci contează doar BF_ENABLED).
+ */
+const BF_DEADLINE = '2026-05-24 23:59:59';
+
+/**
+ * Timestamp-ul UTC (secunde) al deadline-ului, calculat în fusul site-ului.
+ * Întoarce 0 dacă nu e setat un deadline valid. Memoizat — se calculează o
+ * singură dată per request.
+ */
+function bf_deadline_timestamp(): int
+{
+    static $ts = null;
+
+    if ($ts !== null) {
+        return $ts;
+    }
+
+    if (BF_DEADLINE === '') {
+        return $ts = 0;
+    }
+
+    $dt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', BF_DEADLINE, wp_timezone());
+
+    return $ts = $dt instanceof \DateTimeImmutable ? $dt->getTimestamp() : 0;
+}
+
+/**
+ * Reducerea e activă chiar acum? Adevărat doar dacă e pornită ȘI nu a trecut
+ * deadline-ul. Sursa unică de adevăr pentru preț (filtrele de mai jos) ȘI
+ * pentru afișarea countdown-ului — nu pot ajunge niciodată în dezacord.
+ */
+function bf_is_live(): bool
+{
+    if (! BF_ENABLED) {
+        return false;
+    }
+
+    $deadline = bf_deadline_timestamp();
+
+    return $deadline === 0 || time() <= $deadline;
+}
 
 /**
  * Prețul redus de Black Friday pentru un pachet, sau `null` dacă nu se aplică.
@@ -38,7 +87,7 @@ const BF_PERCENT = 10;
  */
 function bf_bundle_sale_price($product): ?float
 {
-    if (! BF_ENABLED) {
+    if (! bf_is_live()) {
         return null;
     }
 
@@ -92,3 +141,30 @@ add_filter('woocommerce_product_get_price', function ($price, $product) {
 
     return $bf === null ? $price : $bf;
 }, 99, 2);
+
+/**
+ * Countdown pe pagina de produs: „Reducerea de 10% expiră în …”.
+ *
+ * Apare DOAR pe pachetele care chiar au reducerea BF activă acum (reutilizează
+ * `bf_bundle_sale_price()`, deci aceeași logică ca prețul). Se plasează între
+ * preț (prio 25) și butonul add-to-cart (prio 30). Trece spre frontend doar un
+ * timestamp absolut (UTC, ms) — countdown-ul din JS e corect indiferent de
+ * fusul orar al vizitatorului.
+ */
+add_action('woocommerce_single_product_summary', function () {
+    global $product;
+
+    if (bf_bundle_sale_price($product) === null) {
+        return;
+    }
+
+    $deadline_ms = bf_deadline_timestamp() * 1000;
+    if ($deadline_ms <= 0) {
+        return;
+    }
+
+    echo View::make('partials.bf-countdown', [
+        'deadlineMs' => $deadline_ms,
+        'percent' => BF_PERCENT,
+    ])->render();
+}, 26);

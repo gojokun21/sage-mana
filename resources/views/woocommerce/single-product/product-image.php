@@ -37,6 +37,13 @@ $wrapper_classes   = apply_filters(
 		'images',
 	)
 );
+
+// Reducere (sale / Black Friday): același calcul ca în single-product/price.php,
+// ca să afișăm același badge „-X%" și peste imaginea principală din galerie.
+$mn_regular = (float) $product->get_regular_price();
+$mn_active  = (float) $product->get_price();
+$mn_on_sale = $product->is_on_sale() && $mn_regular > 0 && $mn_active > 0 && $mn_active < $mn_regular;
+$mn_pct     = $mn_on_sale ? (int) round( ( ( $mn_regular - $mn_active ) / $mn_regular ) * 100 ) : 0;
 ?>
 <div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>">
     <div class="woocommerce-product-gallery__wrapper gallery-layout">
@@ -63,6 +70,9 @@ $wrapper_classes   = apply_filters(
 
             <div class="product-main-swiper-container">
                 <div class="swiper_bg">
+                <?php if ( $mn_on_sale && $mn_pct > 0 ) : ?>
+                    <span class="product-gallery__badge">-<?php echo esc_html( $mn_pct ); ?>%</span>
+                <?php endif; ?>
                 <div class="swiper product-main-swiper">
                     <div class="swiper-wrapper">
                         <?php foreach ( $attachment_ids as $attachment_id ) :

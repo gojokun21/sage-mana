@@ -500,6 +500,12 @@ if (document.querySelector('.mn-atc-btn, form.cart')) {
   import('./product-atc.js');
 }
 
+/* ==================== LAZY: BLACK FRIDAY COUNTDOWN ==================== */
+// Pagina de produs (varianta mare) SAU cardurile din slider-ele home (compact).
+if (document.querySelector('.bf-countdown')) {
+  import('./bf-countdown.js');
+}
+
 /* ==================== LAZY: SINGLE PRODUCT PAGE ==================== */
 if (
   document.querySelector('.product-main-swiper') ||

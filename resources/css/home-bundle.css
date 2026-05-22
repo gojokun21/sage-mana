@@ -2,3 +2,4 @@
  * testimonial styles that About and Single Product also need. */
 @import "./home-shared.css";
 @import "./home.css";
+@import "./bf-countdown.css"; /* countdown compact pe cardurile din slider-ele home */

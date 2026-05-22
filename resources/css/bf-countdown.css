@@ -1,0 +1,164 @@
+/* Countdown reducere — pagina de produs (varianta mare) + card (compact).
+ *
+ * Stil flat, integrat în temă: fără gradient, fără umbre pe cutii. Suprafață
+ * plată cu o singură linie subțire, un singur accent (portocaliu — doar pe icon
+ * și procent, legat de badge-ul „-X%"), restul în neutru cald. Cifre tabulare
+ * ca să nu „salte" la fiecare secundă; etichete mici uppercase cu tracking. */
+.bf-countdown {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 18px 0 6px;
+  padding: 14px 16px;
+  background: #fbf7f4;
+  border: 1px solid #efe3da;
+  border-radius: 12px;
+}
+
+.bf-countdown__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  line-height: 1.3;
+  color: #7a5c4e;
+}
+.bf-countdown__icon {
+  width: 17px;
+  height: 17px;
+  color: #ed4908;
+  flex-shrink: 0;
+}
+.bf-countdown__text strong {
+  color: #ed4908;
+  font-weight: 700;
+}
+
+.bf-countdown__clock {
+  display: flex;
+  gap: 8px;
+}
+.bf-countdown__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 56px;
+  padding: 9px 8px 8px;
+  background: #fff;
+  border: 1px solid #f1e4db;
+  border-radius: 9px;
+}
+.bf-countdown__num {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1;
+  color: #211d1a;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+}
+.bf-countdown__lbl {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #a89384;
+}
+
+.bf-countdown__expired {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #7a5c4e;
+}
+
+.bf-countdown.is-expired {
+  background: #f6f6f5;
+  border-color: #e6e6e4;
+}
+
+/* ---- Variantă compactă: cardul de produs din slider-ele home ----
+   O singură linie sub preț: „⏱ -10% expiră în 64:27:07". Reutilizează aceeași
+   logică JS, doar layout-ul diferă. */
+.bf-countdown--card {
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  margin: 10px 0 0;
+  padding: 7px 11px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #7a5c4e;
+}
+.bf-countdown--card .bf-countdown__icon {
+  width: 15px;
+  height: 15px;
+}
+.bf-countdown__compact {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1px 6px;
+  font-variant-numeric: tabular-nums;
+}
+.bf-countdown__cta {
+  font-weight: 600;
+}
+.bf-countdown__time {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 3px;
+  font-weight: 700;
+  color: #211d1a;
+}
+.bf-countdown__grp {
+  white-space: nowrap; /* numărul și unitatea rămân împreună la wrap */
+}
+.bf-countdown__tu {
+  margin-left: 2px;
+  font-size: 0.8em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #9a7f70;
+}
+.bf-countdown__tsep {
+  color: #c2a99b;
+  font-weight: 600;
+}
+.bf-countdown--card .bf-countdown__expired {
+  font-size: 13px;
+}
+
+/* Pe telefon cardul din slider e îngust. Scoatem icon-ul (spațiu prețios) și
+   folosim locul eliberat pentru unități: ceasul rămâne „64 h : 14 min : 34 sec".
+   Font ușor mai mic + gap-uri strânse ca să încapă pe o linie sub cta → 2 rânduri
+   total (cta deasupra, ceasul dedesubt). */
+@media (max-width: 640px) {
+  .bf-countdown--card .bf-countdown__icon {
+    display: none;
+  }
+  .bf-countdown--card {
+    font-size: 12px;
+  }
+  .bf-countdown--card .bf-countdown__time {
+    gap: 0 2px;
+  }
+  .bf-countdown--card .bf-countdown__tu {
+    margin-left: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bf-countdown__unit {
+    min-width: 48px;
+    padding: 8px 5px 7px;
+  }
+  .bf-countdown__num {
+    font-size: 20px;
+  }
+}

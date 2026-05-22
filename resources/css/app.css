@@ -2232,19 +2232,8 @@ body.menu-open {
   margin-right: 0;
   text-decoration: line-through;
 }
-.price_custom__badge {
-  order: 3;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 9px;
-  background: #ed4908;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1;
-  border-radius: 8px;
-}
+/* Badge-ul „-X%" de lângă preț a fost mutat peste imaginea principală din
+   galerie — vezi .product-gallery__badge. */
 
 /* Gallery */
 .gallery-layout {
@@ -2281,10 +2270,29 @@ body.menu-open {
 }
 .product-main-swiper-container { flex: 1; overflow: hidden; }
 .swiper_bg {
+  position: relative;
   padding: 12px 30px;
   border-radius: 10px;
   background: #FFF;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+/* Badge reducere „-X%" peste imaginea principală din galerie.
+   Același procent ca badge-ul de lângă preț (.price_custom__badge). */
+.product-gallery__badge {
+  position: absolute;
+  top: 20px;
+  left: 38px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  background: #ed4908;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 8px;
 }
 .product-main-swiper { width: 100%; }
 .product-main-swiper .swiper-slide {

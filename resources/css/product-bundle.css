@@ -3,3 +3,4 @@
  * `partials.home.reviews` — needs the shared section/slider/review styles. */
 @import "./home-shared.css";
 @import "./product-qty.css";
+@import "./bf-countdown.css"; /* countdown reducere — doar pe pachetele cu BF activ */

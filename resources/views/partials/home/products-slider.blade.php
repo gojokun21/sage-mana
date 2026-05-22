@@ -53,6 +53,9 @@
     <div class="home-slider">
       <div class="home-slider__swiper swiper" data-home-swiper="{{ $id }}">
         <div class="swiper-wrapper">
+          {{-- Activează countdown-ul compact pe cardurile din slider-ul home
+               (consumat în woocommerce/content-product.blade.php). --}}
+          @php $GLOBALS['mn_card_countdown'] = true; @endphp
           @while ($product_query->have_posts())
             @php
               $product_query->the_post();
@@ -83,6 +86,7 @@
           @endwhile
 
           @php wp_reset_postdata() @endphp
+          @php unset($GLOBALS['mn_card_countdown']); @endphp
         </div>
       </div>
 
