@@ -47,6 +47,16 @@ add_filter('tiny_replace_with_picture', '__return_false');
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 
 /**
+ * Scoate badge-ul WooCommerce „Reduceri!" (span.onsale) de pe pagina de produs.
+ * Reducerea e deja comunicată acolo prin badge-ul „-X%" de pe imaginea
+ * principală + countdown, așa că flash-ul implicit e redundant. Cardurile
+ * (listare/slider) folosesc badge propriu (.price_discount), NU acest hook,
+ * deci nu sunt afectate. WC are deja acțiunea înregistrată când rulează acest
+ * fișier (la încărcarea temei, după plugins_loaded), deci remove_action prinde.
+ */
+remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10);
+
+/**
  * Route product category pages to a dedicated blade template.
  *
  * WC's plugin does NOT ship a `taxonomy-product_cat.php` in its templates/
