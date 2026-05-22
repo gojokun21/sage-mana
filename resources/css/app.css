@@ -431,6 +431,41 @@ a {
   display: none;
 }
 
+/* Varianta mobil a promo-ului: bandă full-width între header și hero.
+   Pe desktop promo-ul e în nav; banda apare DOAR unde nav-ul e ascuns (≤1345px),
+   ca să nu fie două vizibile simultan. Refolosește clasele interne .nav-promo__*. */
+/* Specificitate 2 clase (.bf-countdown.promo-strip) ca să batem stilul de bază
+   .bf-countdown din bf-countdown.css (se încarcă pe home/produs DUPĂ app.css și
+   altfel ar forța display:flex pe desktop). Suprascriem și flex-direction/margin/
+   border/radius care altfel ar „scăpa" din bază. */
+.bf-countdown.promo-strip {
+  display: none;
+}
+@media (max-width: 1345px) {
+  .bf-countdown.promo-strip {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+    margin: 0;
+    padding: 12px 15px; /* top 12, lateral 15 (ca .container), bottom 0 */
+    background: #fff4ef;
+    border: 0;
+    border-bottom: 1px solid #f3d9cc;
+    border-radius: 0;
+    color: #7a2c08;
+    font-size: 13px;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+  }
+  .bf-countdown.promo-strip.is-expired {
+    display: none;
+  }
+}
+
 .navbar__menu__items ul {
   display: flex;
   align-items: center;

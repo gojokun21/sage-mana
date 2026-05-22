@@ -21,6 +21,20 @@
 
       @include('sections.header')
 
+      {{-- Promo reducere pachete pe mobil: bandă deasupra hero-ului.
+           Vizibilă doar ≤1345px (pe desktop apare în nav).
+           Folosim forma PHP inline cu paranteze — în acest fișier blocul
+           multi-linie ar intra în conflict cu directivele inline de mai sus. --}}
+      @php($promo_live = function_exists('App\\bf_is_live') && \App\bf_is_live())
+      @php($promo_deadline_ms = $promo_live ? \App\bf_deadline_timestamp() * 1000 : 0)
+      @if ($promo_live && $promo_deadline_ms > 0)
+        @include('partials.bf-countdown-nav', [
+          'deadlineMs' => $promo_deadline_ms,
+          'percent' => \App\BF_PERCENT,
+          'rootClass' => 'promo-strip',
+        ])
+      @endif
+
       <main id="main" class="main">
         @yield('content')
       </main>

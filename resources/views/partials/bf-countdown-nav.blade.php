@@ -8,10 +8,12 @@
   (.nav-promo, global), ca să meargă pe orice pagină — nu doar produs/home, unde
   se încarcă bf-countdown.css. La expirare: .is-expired → display:none.
 
-  Variabile: $deadlineMs (int), $percent (int).
+  Variabile: $deadlineMs (int), $percent (int), $rootClass (opțional: 'nav-promo' în
+  bară desktop / 'promo-strip' ca bandă pe mobil — vezi layouts/app.blade.php).
 --}}
+@php $rootClass = $rootClass ?? 'nav-promo'; @endphp
 <a href="{{ esc_url(home_url('/pachete/')) }}"
-   class="bf-countdown nav-promo"
+   class="bf-countdown {{ $rootClass }}"
    data-deadline="{{ $deadlineMs }}"
    aria-label="{{ esc_attr(sprintf(__('Reduceri la pachete -%d%%, vezi pachetele', 'sage'), $percent)) }}">
   <svg class="nav-promo__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
