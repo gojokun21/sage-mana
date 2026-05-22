@@ -358,11 +358,77 @@ a {
 .navbar__menu__items {
   overflow: visible;
   transition: max-height 0.35s ease-out;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px 36px;
 }
 
 .navbar__menu__items.is-hidden {
   max-height: 0;
   overflow: hidden;
+}
+
+/* Promo reducere pachete în bara de navigare (desktop, stânga). Self-contained:
+   NU depinde de bf-countdown.css (care se încarcă doar pe produs/home). Clasa
+   .bf-countdown de pe element e doar cârligul pentru bf-countdown.js (umple
+   ceasul); tot aspectul e definit aici, scoped sub .navbar__menu__items ca să
+   bată stilul de bază al countdown-ului pe orice pagină. */
+.navbar__menu__items .nav-promo {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: #fff4ef;
+  border: 1px solid #f3d9cc;
+  color: #7a2c08;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.navbar__menu__items .nav-promo:hover {
+  background: #ffe9e0;
+  border-color: #eccab9;
+  color: #7a2c08;
+}
+.nav-promo__icon {
+  width: 16px;
+  height: 16px;
+  color: #ed4908;
+  flex-shrink: 0;
+}
+.nav-promo__text {
+  font-weight: 600;
+}
+.nav-promo__text strong {
+  color: #ed4908;
+  font-weight: 800;
+}
+.nav-promo__time {
+  font-weight: 800;
+  color: #ed4908;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.nav-promo__u {
+  margin-left: 1px;
+  font-size: 0.82em;
+  font-weight: 700;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.nav-promo__sep {
+  margin: 0 2px;
+  opacity: 0.7;
+}
+.navbar__menu__items .nav-promo.is-expired {
+  display: none;
 }
 
 .navbar__menu__items ul {

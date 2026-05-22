@@ -322,6 +322,15 @@
           @endforeach
         @endif
       </ul>
+
+      {{-- Promo reducere pachete (dreapta) — doar cât timp campania e activă. --}}
+      @php
+        $bf_live = function_exists('App\\bf_is_live') && \App\bf_is_live();
+        $bf_deadline_ms = $bf_live ? \App\bf_deadline_timestamp() * 1000 : 0;
+      @endphp
+      @if ($bf_live && $bf_deadline_ms > 0)
+        @include('partials.bf-countdown-nav', ['deadlineMs' => $bf_deadline_ms, 'percent' => \App\BF_PERCENT])
+      @endif
     </div>
   </div>
 
