@@ -2891,7 +2891,6 @@ body.menu-open {
   border-radius: 10px;
 }
 .custom-tab-panel.active { display: block; }
-.custom-tab-panel > h2 { display: none !important; }
 
 .custom-tab-panel h1,
 .custom-tab-panel h3 {
