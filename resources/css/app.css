@@ -2272,6 +2272,26 @@ body.menu-open {
   }
 }
 
+/* Preț + preț pe zi, unul lângă altul (single product). Prețul în stânga,
+   pastila „X lei / pe zi" în dreapta. Vezi single-product/price.php. */
+.price-perday {
+  margin-top: 12px;
+}
+.summary_white .price-perday .price_custom {
+  margin: 0; /* marginea o ține wrapper-ul; batem și override-ul mobil din responsive.css */
+}
+/* Preț pe zi: text discret sub prețul principal — fără fundal/efecte. */
+.text-per-day {
+  margin: 6px 0 0;
+  font-size: 16px;
+  color: #000;
+}
+.text-per-day .woocommerce-Price-amount {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
 .price_custom {
   margin-top: 12px;
   display: flex;

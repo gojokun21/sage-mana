@@ -60,7 +60,21 @@ $mn_price_class = apply_filters( 'woocommerce_product_price_class', 'price price
 if ( $mn_on_sale ) {
 	$mn_price_class .= ' is-onsale';
 }
+
+// Preț pe zi = preț activ ÷ numărul de zile cât ține produsul. Numărul de zile
+// vine din ACF informatie_generala.protocol_zile, care e text liber (ex.
+// „Ajunge 120 de zile") — extragem primul număr din el.
+$mn_info     = function_exists( 'get_field' ) ? get_field( 'informatie_generala', $product->get_id() ) : null;
+$mn_zile_raw = ( is_array( $mn_info ) && ! empty( $mn_info['protocol_zile'] ) ) ? (string) $mn_info['protocol_zile'] : '';
+$mn_days     = ( '' !== $mn_zile_raw && preg_match( '/\d+/', $mn_zile_raw, $mn_m ) ) ? (int) $mn_m[0] : 0;
+$mn_per_day  = ( $mn_days > 0 && $mn_active > 0 ) ? ( $mn_active / $mn_days ) : 0;
 ?>
-<p class="<?php echo esc_attr( $mn_price_class ); ?>">
-	<?php echo $product->get_price_html(); ?>
-</p>
+<div class="price-perday">
+	<p class="<?php echo esc_attr( $mn_price_class ); ?>">
+		<?php echo $product->get_price_html(); ?>
+	</p>
+
+	<?php if ( $mn_per_day > 0 ) : ?>
+		<div class="text-per-day"><?php echo wc_price( $mn_per_day ); ?>/<?php esc_html_e( 'zi', 'sage' ); ?></div>
+	<?php endif; ?>
+</div>
