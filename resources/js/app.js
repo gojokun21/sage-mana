@@ -506,6 +506,12 @@ if (document.querySelector('.bf-countdown')) {
   import('./bf-countdown.js');
 }
 
+/* ==================== LAZY: CUSTOMER REVIEWS SLIDER ==================== */
+// „Recenziile clienților noștri" — single product (după taburi) + home.
+if (document.querySelector('.product-reviews__swiper')) {
+  import('./product-reviews.js');
+}
+
 /* ==================== LAZY: SINGLE PRODUCT PAGE ==================== */
 if (
   document.querySelector('.product-main-swiper') ||

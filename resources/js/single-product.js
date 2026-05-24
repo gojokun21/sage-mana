@@ -113,32 +113,9 @@ import { Thumbs, Navigation, Pagination } from 'swiper/modules';
   });
 })();
 
-/* ==================== CUSTOMER REVIEWS (SWIPER) ==================== */
-(function () {
-  const el = document.querySelector('.product-reviews__swiper');
-  if (!el) return;
-
-  const slider = el.closest('.product-reviews__slider') || el.parentElement;
-
-  new Swiper(el, {
-    modules: [Navigation, Pagination],
-    slidesPerView: 1,
-    spaceBetween: 20,
-    grabCursor: true,
-    watchOverflow: true,
-    navigation: {
-      prevEl: slider.querySelector('.product-reviews__nav--prev'),
-      nextEl: slider.querySelector('.product-reviews__nav--next'),
-    },
-    pagination: {
-      el: slider.querySelector('.product-reviews__pagination'),
-      clickable: true,
-    },
-    breakpoints: {
-      768: { slidesPerView: 2, spaceBetween: 24 },
-    },
-  });
-})();
+/* Customer reviews slider („Recenziile clienților noștri") s-a mutat în modulul
+   dedicat resources/js/product-reviews.js (lazy din app.js), ca să meargă și pe
+   home, nu doar pe single product. */
 
 /* ==================== PRODUCT TABS (DESKTOP) + ACCORDION (MOBILE) ==================== */
 (function () {

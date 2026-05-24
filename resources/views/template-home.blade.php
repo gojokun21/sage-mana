@@ -30,7 +30,7 @@
       'cta_url' => function_exists('wc_get_page_id') ? get_permalink(wc_get_page_id('shop')) : home_url('/magazin/'),
       'cta_text' => __('Vezi produsele VivensGenetica', 'sage'),
     ])
-    @include('partials.home.reviews')
+    @include('partials.single-product.customer-reviews')
     @include('partials.home.benefits')
     @include('partials.home.faq')
   </div>

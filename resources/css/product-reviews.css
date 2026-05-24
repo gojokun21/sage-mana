@@ -4,6 +4,10 @@
 .product-reviews {
   margin: 48px 0 16px;
 }
+/* Pe home, aliniază spațierea de jos la ritmul secțiunilor (.home-section = 80px). */
+.home-template .product-reviews {
+  margin-bottom: 80px;
+}
 .product-reviews__title {
   margin: 0 0 24px;
   font-size: 28px;
@@ -88,28 +92,33 @@
 .product-reviews__nav.swiper-button-lock { display: none; }
 
 /* Paginație */
+/* Bullets identice cu restul slider-elor home (.home-slider__pagination): 10px,
+   activ 28px pastilă verde, margin 0 5px. */
 .product-reviews__pagination {
   display: flex;
   justify-content: center;
-  gap: 6px;
-  margin-top: 20px;
+  margin-top: 24px;
 }
 .product-reviews__pagination .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
-  margin: 0 !important;
-  background: #cdd3d1;
-  opacity: 1;
-  border-radius: 999px;
-  transition: width 0.2s ease, background 0.2s ease;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #c4c4c4;
+  opacity: 0.8;
+  margin: 0 5px !important;
+  transition: width 0.2s ease, background 0.2s ease, border-radius 0.2s ease;
 }
 .product-reviews__pagination .swiper-pagination-bullet-active {
-  width: 22px;
+  width: 28px;
+  border-radius: 30px;
   background: var(--green);
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
-  .product-reviews__title { font-size: 22px; }
+  .product-reviews { margin-top: 28px; }
+  .home-template .product-reviews { margin-bottom: 36px; } /* mai puțin spațiu pe mobil */
+  .product-reviews__title { font-size: 24px; margin-bottom: 16px; }
   .product-reviews__nav { display: none; } /* pe mobil doar swipe + bullets */
 }
 @media (max-width: 600px) {
