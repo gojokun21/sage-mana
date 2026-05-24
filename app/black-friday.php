@@ -24,7 +24,7 @@ namespace App;
 use Illuminate\Support\Facades\View;
 
 /** Pune pe `false` ca să oprești reducerea fără a șterge fișierul. */
-const BF_ENABLED = true;
+const BF_ENABLED = false;
 
 /** Procentul de reducere de Black Friday. */
 const BF_PERCENT = 10;
