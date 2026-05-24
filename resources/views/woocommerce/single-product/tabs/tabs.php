@@ -54,9 +54,9 @@ if (empty($product_tabs)) return;
 </div>
 
 <?php
-// Customer reviews slider (same ACF options source as home page).
+// „Recenziile clienților noștri" — carusel propriu (design nou) după taburi.
 if (function_exists('Roots\\view')) {
-    echo \Roots\view('partials.home.reviews')->render();
+    echo \Roots\view('partials.single-product.customer-reviews')->render();
 }
 ?>
 

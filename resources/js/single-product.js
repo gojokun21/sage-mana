@@ -7,7 +7,7 @@
  */
 
 import Swiper from 'swiper';
-import { Thumbs, Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Thumbs, Navigation, Pagination } from 'swiper/modules';
 // Swiper CSS is shipped eagerly from app.js — see that file's header.
 
 /* ==================== GALLERY (SWIPER) ==================== */
@@ -113,37 +113,31 @@ import { Thumbs, Navigation, Pagination, Autoplay } from 'swiper/modules';
   });
 })();
 
-/* ==================== REVIEWS SLIDER (shared with home) ==================== */
+/* ==================== CUSTOMER REVIEWS (SWIPER) ==================== */
 (function () {
-  const reviewsEl = document.querySelector('.home-reviews [data-home-swiper="reviews"]');
-  if (!reviewsEl) return;
+  const el = document.querySelector('.product-reviews__swiper');
+  if (!el) return;
 
-  const init = () => {
-    new Swiper(reviewsEl, {
-      modules: [Autoplay],
-      slidesPerView: 1,
-      spaceBetween: 24,
-      grabCursor: true,
-      watchOverflow: true,
-      observer: true,
-      observeParents: true,
-      observeSlideChildren: true,
-      loop: reviewsEl.querySelectorAll('.swiper-slide').length > 1,
-      autoplay: { delay: 5000, disableOnInteraction: false },
-      on: {
-        init() {
-          requestAnimationFrame(() => reviewsEl.classList.add('is-ready'));
-        },
-      },
-    });
-  };
+  const slider = el.closest('.product-reviews__slider') || el.parentElement;
 
-  // Wait for layout (ancestor grid/flex sometimes hasn't resolved yet)
-  if (document.readyState === 'complete') {
-    requestAnimationFrame(init);
-  } else {
-    window.addEventListener('load', () => requestAnimationFrame(init), { once: true });
-  }
+  new Swiper(el, {
+    modules: [Navigation, Pagination],
+    slidesPerView: 1,
+    spaceBetween: 20,
+    grabCursor: true,
+    watchOverflow: true,
+    navigation: {
+      prevEl: slider.querySelector('.product-reviews__nav--prev'),
+      nextEl: slider.querySelector('.product-reviews__nav--next'),
+    },
+    pagination: {
+      el: slider.querySelector('.product-reviews__pagination'),
+      clickable: true,
+    },
+    breakpoints: {
+      768: { slidesPerView: 2, spaceBetween: 24 },
+    },
+  });
 })();
 
 /* ==================== PRODUCT TABS (DESKTOP) + ACCORDION (MOBILE) ==================== */
