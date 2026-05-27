@@ -6,7 +6,7 @@
  */
 
 import Swiper from 'swiper';
-import { Pagination } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 // Swiper CSS is shipped eagerly from app.js — see that file's header.
 
 (function () {
@@ -20,12 +20,16 @@ import { Pagination } from 'swiper/modules';
     const sliderRoot = clusterSliderEl.closest('[data-blog-cluster-slider]');
 
     new Swiper(clusterSliderEl, {
-      modules: [Pagination],
+      modules: [Navigation, Pagination],
       slidesPerView: 1,
       spaceBetween: 18,
       grabCursor: true,
       watchOverflow: true,
       loop: slides.length > 3,
+      navigation: {
+        prevEl: sliderRoot ? sliderRoot.querySelector('[data-blog-cluster-prev]') : null,
+        nextEl: sliderRoot ? sliderRoot.querySelector('[data-blog-cluster-next]') : null,
+      },
       pagination: {
         el: sliderRoot ? sliderRoot.querySelector('.blog-cluster-slider__pagination') : null,
         clickable: true,

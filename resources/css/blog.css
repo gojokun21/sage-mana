@@ -293,9 +293,59 @@
   position: relative;
 }
 
+/* Wraps swiper + nav arrows so the buttons center on the slide row,
+   excluding the pagination below. */
+.blog-cluster-slider__viewport {
+  position: relative;
+}
+
 .blog-cluster-swiper {
   width: 100%;
   overflow: hidden;
+}
+
+.blog-cluster-slider__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--green);
+  background: var(--green);
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
+}
+
+.blog-cluster-slider__btn:hover {
+  background: var(--dark-green);
+  border-color: var(--dark-green);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.blog-cluster-slider__btn.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.blog-cluster-slider__btn.swiper-button-lock,
+.blog-cluster-slider__btn.swiper-button-hidden {
+  display: none;
+}
+
+.blog-cluster-slider__btn--prev { left: -23px; }
+.blog-cluster-slider__btn--next { right: -23px; }
+
+/* Container caps around 1470px — at narrower viewports the buttons fall
+   off-screen, so hide them and rely on swipe + pagination. */
+@media (max-width: 1545px) {
+  .blog-cluster-slider__btn { display: none; }
 }
 
 .blog-cluster-swiper .swiper-slide {

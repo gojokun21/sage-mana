@@ -265,10 +265,6 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4 H14 L18 8 V20 H6 Z"/><path d="M14 4 V8 H18"/><path d="M9 12 H15"/><path d="M9 15 H15"/></svg>
             <span>{{ __('Linkuri directe la fiecare studiu', 'sage') }}</span>
           </li>
-          <li>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21 C4 16 8 14 12 14 C16 14 20 16 20 21"/></svg>
-            <span>{{ __('Editat de nutriționiști licențiați', 'sage') }}</span>
-          </li>
         </ul>
       </div>
     </div>
@@ -292,38 +288,57 @@
         </header>
 
         <div class="blog-cluster-slider" data-blog-cluster-slider>
-          <div class="swiper blog-cluster-swiper">
-            <div class="swiper-wrapper">
-              @foreach ($clusters as $c)
-                <div class="swiper-slide">
-                  <a href="{{ esc_url(is_string($c['url']) ? $c['url'] : '') }}" class="blog-cluster-card" data-cat="{{ esc_attr($c['key']) }}">
-                    <div class="blog-cluster-card__head">
-                      <span class="blog-cluster-card__icon" aria-hidden="true">
-                        @if (! empty($c['icon_url']))
-                          <img src="{{ esc_url($c['icon_url']) }}" alt="{{ esc_attr($c['icon_alt']) }}" loading="lazy" decoding="async">
-                        @else
-                          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            {!! $c['icon_svg'] !!}
-                          </svg>
+          <div class="blog-cluster-slider__viewport">
+            <div class="swiper blog-cluster-swiper">
+              <div class="swiper-wrapper">
+                @foreach ($clusters as $c)
+                  <div class="swiper-slide">
+                    <a href="{{ esc_url(is_string($c['url']) ? $c['url'] : '') }}" class="blog-cluster-card" data-cat="{{ esc_attr($c['key']) }}">
+                      <div class="blog-cluster-card__head">
+                        <span class="blog-cluster-card__icon" aria-hidden="true">
+                          @if (! empty($c['icon_url']))
+                            <img src="{{ esc_url($c['icon_url']) }}" alt="{{ esc_attr($c['icon_alt']) }}" loading="lazy" decoding="async">
+                          @else
+                            <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              {!! $c['icon_svg'] !!}
+                            </svg>
+                          @endif
+                        </span>
+                        <span class="blog-cluster-card__num">/ {{ $c['num'] }}</span>
+                      </div>
+                      <h3>{{ $c['title'] }}</h3>
+                      <p>{{ $c['desc'] }}</p>
+                      <div class="blog-cluster-card__foot">
+                        <span class="blog-cluster-card__cta">
+                          {{ __('Vezi articolele', 'sage') }}
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12 H19"/><path d="M13 6 L19 12 L13 18"/></svg>
+                        </span>
+                        @if ($c['count'] > 0)
+                          <span class="blog-cluster-card__count">{{ sprintf(_n('%d articol', '%d articole', $c['count'], 'sage'), $c['count']) }}</span>
                         @endif
-                      </span>
-                      <span class="blog-cluster-card__num">/ {{ $c['num'] }}</span>
-                    </div>
-                    <h3>{{ $c['title'] }}</h3>
-                    <p>{{ $c['desc'] }}</p>
-                    <div class="blog-cluster-card__foot">
-                      <span class="blog-cluster-card__cta">
-                        {{ __('Vezi articolele', 'sage') }}
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12 H19"/><path d="M13 6 L19 12 L13 18"/></svg>
-                      </span>
-                      @if ($c['count'] > 0)
-                        <span class="blog-cluster-card__count">{{ sprintf(_n('%d articol', '%d articole', $c['count'], 'sage'), $c['count']) }}</span>
-                      @endif
-                    </div>
-                  </a>
-                </div>
-              @endforeach
+                      </div>
+                    </a>
+                  </div>
+                @endforeach
+              </div>
             </div>
+
+            <button type="button"
+                    class="blog-cluster-slider__btn blog-cluster-slider__btn--prev"
+                    aria-label="{{ esc_attr__('Anterior', 'sage') }}"
+                    data-blog-cluster-prev>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button type="button"
+                    class="blog-cluster-slider__btn blog-cluster-slider__btn--next"
+                    aria-label="{{ esc_attr__('Următorul', 'sage') }}"
+                    data-blog-cluster-next>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
 
           <div class="blog-cluster-slider__pagination" aria-hidden="true"></div>
@@ -594,7 +609,7 @@
             <div class="blog-trust__stat blog-trust__stat--wide">
               <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4 L26 8 V16 C26 22 21 27 16 28 C11 27 6 22 6 16 V8 Z"/><path d="M11 16 L15 20 L22 12"/></svg>
               <div class="blog-trust__num">{{ __('Verificabile public, ', 'sage') }}<em>100%</em></div>
-              <p>{{ __('Linkuri directe la fiecare studiu citat. Editat de nutriționiști licențiați și revizuit trimestrial.', 'sage') }}</p>
+              <p>{{ __('Linkuri directe la fiecare studiu citat.', 'sage') }}</p>
             </div>
           </div>
         </div>
@@ -631,10 +646,6 @@
             [
               'q' => __('Articolele înlocuiesc sfatul medical?', 'sage'),
               'a' => __('Nu. Conținutul are scop educațional. Consultă întotdeauna un medic înainte de a începe orice cură de suplimentare, mai ales dacă urmezi un tratament medicamentos sau ai o afecțiune cronică.', 'sage'),
-            ],
-            [
-              'q' => __('Cine scrie articolele și cum sunt verificate?', 'sage'),
-              'a' => __('Articolele sunt scrise de echipa editorială în colaborare cu nutriționiști licențiați și revizuite trimestrial.', 'sage'),
             ],
             [
               'q' => __('Cum decideți ce subiecte abordați?', 'sage'),
