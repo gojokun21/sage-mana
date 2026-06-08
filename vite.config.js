@@ -35,6 +35,7 @@ export default defineConfig({
         'resources/css/cele-mai-vandute-bundle.css',
         'resources/css/packsub-bundle.css',
         'resources/css/sub200-bundle.css',
+        'resources/css/noutati-bundle.css',
         'resources/css/symptom-bundle.css',
         'resources/css/simptom-bundle.css',
         'resources/css/obiectiv-bundle.css',

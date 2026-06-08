@@ -48,7 +48,15 @@ function sub200_kses(string $html): string
     ]);
 }
 
-add_action('acf/init', function () {
+add_action('acf/init', 'App\\register_sub200_acf');
+
+/**
+ * Înregistrează grupul ACF al paginii. Funcție numită (nu closure) ca să poată fi
+ * apelată explicit de scriptul de seed prin link (seed-sub200.php), când acf/init
+ * a fost deja declanșat și functions.php n-a apucat să încarce acest fișier.
+ */
+function register_sub200_acf(): void
+{
     if (! function_exists('acf_add_local_field_group')) {
         return;
     }
@@ -145,4 +153,4 @@ add_action('acf/init', function () {
             ['key' => 'field_sub200_cta_btn_u', 'name' => 'cta_btn_url', 'label' => 'URL buton (gol = /test/)', 'type' => 'text'],
         ],
     ]);
-});
+}

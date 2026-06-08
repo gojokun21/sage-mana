@@ -1,170 +1,97 @@
 {{--
   Template Name: Cele mai vândute
-  Pagina filtru „Cele mai vândute" — redesign 1:1 după mockup
-  `preferinte/Pagina filtru - Cele mai vandute.html`.
+  Pagina filtru „Cele mai vândute”.
 
-  Conținut editorial CURATAT manual (Top 5 după reorder rate intern, fără cifre
-  de vânzări fabricate). Lista celor 5 produse + copy-ul „de ce e best-seller"
-  trăiesc în array-ul $bestsellers de mai jos; tabelul rezumat refolosește
-  aceeași sursă. Link-urile produselor sunt placeholdere `#` — înlocuiește-le cu
-  permalink-urile reale WooCommerce (sau `get_permalink($id)`).
+  Tot conținutul editorial e EDITABIL din ACF (group_bestseller_filtru,
+  app/acf-bestseller.php). Cele din top sunt PRODUSE REALE alese în repeater-ul
+  ACF `bestsellers` (post_object) — numele, imaginea, prețul, beneficiile (ACF
+  informatie_generala) și durata/cost-zi vin LIVE din WooCommerce; doar textul
+  „de ce e best-seller” + rating-ul de tabel sunt editoriale.
 
-  Scope CSS: `.bestseller-page` (resources/css/cele-mai-vandute.css via
-  cele-mai-vandute-bundle.css, încărcat conditional din App\page_bundles()).
+  Seed: link/Unelte/CLI (vezi app/bestseller-seed.php, SEED-LINKS.md).
+  Scope CSS: `.bestseller-page` (resources/css/cele-mai-vandute.css).
 --}}
 
 @extends('layouts.app')
 
 @section('content')
   @php
-    // Top 5 curatat. `bottles` randează grafica de sticlă (CSS-only) din mockup:
-    // fiecare are `style` (matte/amber) și `label` (linii separate prin „|").
-    // `trio` => true pentru cardul cu 3 sticle (pachet).
-    $bestsellers = [
-        [
-            'rank' => '#1',
-            'theme' => 't-dig',
-            'cat' => __('Sănătate Intestinală', 'sage'),
-            'vegan' => true,
-            'trio' => false,
-            'bottles' => [
-                ['style' => 'matte', 'label' => 'Microflora+|Lemon'],
-            ],
-            'title' => __('Microflora+', 'sage'),
-            'title_em' => __('Lemon Shots', 'sage'),
-            'sub' => __('500 ml · 33 doze · 10 mld UFC · 4 tulpini', 'sage'),
-            'benefits' => [
-                __('Echilibrul florei intestinale și confort digestiv', 'sage'),
-                __('Sprijină sistemul imunitar', 'sage'),
-                __('Regenerarea mucoasei intestinale', 'sage'),
-            ],
-            'why' => __('Reorder rate cel mai mare din catalog. Clienții îl iau preventiv toamnă-iarnă și post-antibiotice. Gustul de lămâie face cura sustenabilă.', 'sage'),
-            'price' => __('159 lei', 'sage'),
-            'cpd_strong' => __('4,82 lei/zi', 'sage'),
-            'cpd_rest' => __('33 zile', 'sage'),
-            'link' => '#',
-            'cta_label' => __('Vezi produsul', 'sage'),
-            // tabel
-            't_cat' => __('Digestie', 'sage'),
-            't_meta' => __('500 ml · 33 doze · vegan', 'sage'),
-            'rating_stars' => 5,
-            'rating_lbl' => __('Foarte ridicat', 'sage'),
-        ],
-        [
-            'rank' => '#2',
-            'theme' => 't-detox',
-            'cat' => __('Detox · 3 produse', 'sage'),
-            'vegan' => true,
-            'trio' => true,
-            'bottles' => [
-                ['style' => 'amber', 'label' => 'D-Tox|Ficat'],
-                ['style' => 'matte', 'label' => 'Microflora+'],
-                ['style' => 'amber', 'label' => 'Black Seed'],
-            ],
-            'title' => __('Pachet', 'sage'),
-            'title_em' => __('Detox Plus', 'sage'),
-            'sub' => __('120 zile · 3 suplimente · curățare profundă', 'sage'),
-            'benefits' => [
-                __('Curățare profundă ficat și sistem digestiv', 'sage'),
-                __('Echilibru intestinal post-antibiotice', 'sage'),
-                __('Recuperare post-sărbători și exces alimentar', 'sage'),
-            ],
-            'why' => __('Pachetul cu cea mai mare cerere în ianuarie–februarie (post-sărbători) și septembrie. Clienții observă diferența clară după 30–40 zile pe digestie și energie matinală.', 'sage'),
-            'price' => __('457 lei', 'sage'),
-            'cpd_strong' => __('3,81 lei/zi', 'sage'),
-            'cpd_rest' => __('120 zile', 'sage'),
-            'link' => '#',
-            'cta_label' => __('Vezi pachetul', 'sage'),
-            't_cat' => __('Detox', 'sage'),
-            't_meta' => __('3 suplimente · 120 zile · vegan', 'sage'),
-            'rating_stars' => 5,
-            'rating_lbl' => __('Foarte ridicat', 'sage'),
-        ],
-        [
-            'rank' => '#3',
-            'theme' => 't-imun',
-            'cat' => __('Imunitate', 'sage'),
-            'vegan' => true,
-            'trio' => false,
-            'bottles' => [
-                ['style' => 'amber', 'label' => 'Black Seed|Elixir'],
-            ],
-            'title' => __('Black Seed', 'sage'),
-            'title_em' => __('Elixir', 'sage'),
-            'sub' => __('240 capsule · 120 zile · ulei chimen negru + Vit. E', 'sage'),
-            'benefits' => [
-                __('Protecție imunitară prin timoquinonă', 'sage'),
-                __('Echilibru metabolic natural', 'sage'),
-                __('Suport cardiovascular', 'sage'),
-            ],
-            'why' => __('Produs nișat dar cu fani loiali — clienții care îl încep continuă 2–3 cure consecutive. Cost/zi excelent (1,53 lei/zi pentru 4 luni de protecție). Recomandat de medici colaboratori.', 'sage'),
-            'price' => __('184 lei', 'sage'),
-            'cpd_strong' => __('1,53 lei/zi', 'sage'),
-            'cpd_rest' => __('120 zile', 'sage'),
-            'link' => '#',
-            'cta_label' => __('Vezi produsul', 'sage'),
-            't_cat' => __('Imunitate', 'sage'),
-            't_meta' => __('240 capsule · 120 zile · vegan', 'sage'),
-            'rating_stars' => 4,
-            'rating_lbl' => __('Ridicat · fani loiali', 'sage'),
-        ],
-        [
-            'rank' => '#4',
-            'theme' => 't-sport',
-            'cat' => __('Performanță Sportivă', 'sage'),
-            'vegan' => false,
-            'trio' => false,
-            'bottles' => [
-                ['style' => 'amber', 'label' => 'Choco|Protein'],
-            ],
-            'title' => __('ChocoProtein', 'sage'),
-            'title_em' => __('1000g', 'sage'),
-            'sub' => __('1000 g · 33 porții · proteină din zer · ciocolată', 'sage'),
-            'benefits' => [
-                __('Creșterea și menținerea masei musculare', 'sage'),
-                __('Refacere musculară după antrenamente', 'sage'),
-                __('Aport complet de aminoacizi esențiali', 'sage'),
-            ],
-            'why' => __('Best-seller în segmentul sportiv. Sportivi recreaționali și profesioniști revin pentru gust și solubilitate. Prețul corect pe porție (6,63 lei) îl face accesibil pentru cură continuă.', 'sage'),
-            'price' => __('219 lei', 'sage'),
-            'cpd_strong' => __('6,63 lei/porție', 'sage'),
-            'cpd_rest' => __('33 porții', 'sage'),
-            'link' => '#',
-            'cta_label' => __('Vezi produsul', 'sage'),
-            't_cat' => __('Sport', 'sage'),
-            't_meta' => __('1000 g · 33 porții · proteină din zer', 'sage'),
-            'rating_stars' => 4,
-            'rating_lbl' => __('Ridicat · segment sportiv', 'sage'),
-        ],
-        [
-            'rank' => '#5',
-            'theme' => 't-art',
-            'cat' => __('Articulații & Frumusețe', 'sage'),
-            'vegan' => false,
-            'trio' => false,
-            'bottles' => [
-                ['style' => 'matte', 'label' => 'Collagen|Joint+'],
-            ],
-            'title' => __('Collagen Joint+', 'sage'),
-            'title_em' => __('Berry', 'sage'),
-            'sub' => __('500 ml · 33 doze · 7,2 g peptide colagen tip 1+2+3', 'sage'),
-            'benefits' => [
-                __('Sprijină sănătatea articulațiilor și mobilitatea', 'sage'),
-                __('Menține elasticitatea pielii și țesuturilor', 'sage'),
-                __('Susține sinteza naturală de colagen', 'sage'),
-            ],
-            'why' => __('Cel mai cumpărat în segmentul beauty/articulații. Clienții peste 35 ani revin lunar. Forma lichidă cu gust de fructe de pădure face cura plăcută — retention rate mare.', 'sage'),
-            'price' => __('184 lei', 'sage'),
-            'cpd_strong' => __('5,58 lei/zi', 'sage'),
-            'cpd_rest' => __('33 zile', 'sage'),
-            'link' => '#',
-            'cta_label' => __('Vezi produsul', 'sage'),
-            't_cat' => __('Articulații', 'sage'),
-            't_meta' => __('500 ml · 33 doze · colagen lichid', 'sage'),
-            'rating_stars' => 4,
-            'rating_lbl' => __('Ridicat · 35+', 'sage'),
-        ],
-    ];
+    // „Vegan?” — tag de produs `vegan`, atribut pa_vegan, sau cuvântul în nume.
+    $bs_is_vegan = static function (\WC_Product $p): bool {
+        if (has_term('vegan', 'product_tag', $p->get_id())) {
+            return true;
+        }
+        $attr = strtolower((string) $p->get_attribute('pa_vegan'));
+        if ($attr !== '' && ! in_array($attr, ['nu', 'no', 'false', '0'], true)) {
+            return true;
+        }
+        return stripos($p->get_name(), 'vegan') !== false;
+    };
+    $bs_fmt_cpd = static fn (float $v): string => number_format($v, 2, ',', '.').' '.__('lei/zi', 'sage');
+
+    // Construiește lista din repeater-ul ACF, rezolvând fiecare produs din WooCommerce.
+    $rows = \App\bestseller_field('bestsellers', []);
+    $bestsellers = [];
+    foreach ($rows as $i => $row) {
+        $pid = (int) ($row['produs'] ?? 0);
+        $product = ($pid && function_exists('wc_get_product')) ? wc_get_product($pid) : null;
+        if (! $product || ! $product->is_visible()) {
+            continue;
+        }
+
+        $info = function_exists('get_field') ? get_field('informatie_generala', $pid) : [];
+        $info = is_array($info) ? $info : [];
+        $forma = ! empty($info['forma']) ? trim((string) $info['forma']) : '';
+        $days = ! empty($info['protocol_zile']) ? (int) $info['protocol_zile'] : 0;
+        $beneficii = (! empty($info['beneficii']) && is_array($info['beneficii']))
+            ? array_slice($info['beneficii'], 0, 3) : [];
+        $benefits = array_values(array_filter(array_map(
+            static fn ($b) => trim((string) ($b['denumire_beneficiu'] ?? '')),
+            $beneficii
+        )));
+
+        // Categorie primară (override din ACF dacă e setat).
+        $terms = get_the_terms($pid, 'product_cat');
+        $primary = (! is_wp_error($terms) && ! empty($terms)) ? $terms[0] : null;
+        $cat = ! empty($row['cat_label']) ? $row['cat_label'] : ($primary ? $primary->name : '');
+
+        // Sub-linie (override din ACF, altfel formă · durată).
+        $sub_parts = array_filter([$forma, $days > 0 ? sprintf(_n('%d zi', '%d zile', $days, 'sage'), $days) : '']);
+        $sub = ! empty($row['sub_override']) ? $row['sub_override'] : implode(' · ', $sub_parts);
+
+        $price = (float) $product->get_price();
+        $cpd = $days > 0 ? $price / $days : 0.0;
+
+        $img_id = $product->get_image_id();
+        $img_html = $img_id
+            ? wp_get_attachment_image($img_id, 'woocommerce_thumbnail', false, [
+                'class' => 'pcard-photo', 'alt' => esc_attr($product->get_name()),
+                'loading' => 'lazy', 'decoding' => 'async',
+            ])
+            : '<img class="pcard-photo" src="'.esc_url(wc_placeholder_img_src()).'" alt="'.esc_attr($product->get_name()).'" loading="lazy" decoding="async">';
+
+        $bestsellers[] = [
+            'rank' => '#'.($i + 1),
+            'name' => $product->get_name(),
+            'link' => get_permalink($pid),
+            'img_html' => $img_html,
+            'cat' => $cat,
+            'vegan' => $bs_is_vegan($product),
+            'sub' => $sub,
+            'benefits' => $benefits,
+            'why' => (string) ($row['why'] ?? ''),
+            'cta_label' => ! empty($row['cta_label']) ? $row['cta_label'] : __('Vezi produsul', 'sage'),
+            'price_html' => $product->is_on_sale() && $product->get_sale_price() !== ''
+                ? wc_price($product->get_sale_price()).' <del>'.wc_price($product->get_regular_price()).'</del>'
+                : wc_price($price),
+            'cpd_label' => $cpd > 0 ? $bs_fmt_cpd($cpd) : '',
+            'days_label' => $days > 0 ? sprintf(_n('%d zi', '%d zile', $days, 'sage'), $days) : '',
+            'rating' => (int) ($row['rating'] ?? 5),
+            'rating_label' => (string) ($row['rating_label'] ?? ''),
+        ];
+    }
+
+    $bs_count = count($bestsellers);
   @endphp
 
   <div class="bestseller-page">
@@ -178,10 +105,12 @@
       </div>
     </nav>
 
-    @include('partials.cele-mai-vandute.hero')
+    @include('partials.cele-mai-vandute.hero', ['bs_count' => $bs_count])
     @include('partials.cele-mai-vandute.explain')
-    @include('partials.cele-mai-vandute.products', ['bestsellers' => $bestsellers])
-    @include('partials.cele-mai-vandute.table', ['bestsellers' => $bestsellers])
+    @include('partials.cele-mai-vandute.products', ['bestsellers' => $bestsellers, 'bs_count' => $bs_count])
+    @if ($bs_count > 0)
+      @include('partials.cele-mai-vandute.table', ['bestsellers' => $bestsellers])
+    @endif
     @include('partials.cele-mai-vandute.quiz')
     @include('partials.cele-mai-vandute.faq')
     @include('partials.cele-mai-vandute.cta-final')

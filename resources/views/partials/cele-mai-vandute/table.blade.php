@@ -1,10 +1,16 @@
-{{-- Cele mai vândute — tabel rezumat (sursă: $bestsellers). --}}
+{{-- Cele mai vândute — tabel rezumat (produse reale: $bestsellers; titluri din ACF). --}}
+@php
+  $eyebrow = \App\bestseller_field('table_eyebrow', __('Top · cifre transparente', 'sage'));
+  $titlu = \App\bestseller_field('table_titlu', __('Reorder rate, <em>nu vânzări fabricate.</em>', 'sage'));
+  $intro = \App\bestseller_field('table_intro', __('Coloana „Reorder rate” folosește semne calitative, nu cifre exacte. Rating-ul intern e calculat pe re-cumpărări în 12 luni — nu îl publicăm pe cifre rotunde manipulative.', 'sage'));
+  $note = \App\bestseller_field('table_note', __('Aceste rate sunt calculate intern pe baza re-cumpărărilor în 12 luni. <strong>Nu sunt cifre publicabile exact</strong>, dar le folosim pentru a alege ce promovăm.', 'sage'));
+@endphp
 <section class="cpd-section">
   <div class="cpd-inner">
     <div class="cpd-head">
-      <div class="eyebrow">{{ __('Top 5 · cifre transparente', 'sage') }}</div>
-      <h2>{{ __('Reorder rate,', 'sage') }} <em>{{ __('nu vânzări fabricate.', 'sage') }}</em></h2>
-      <p>{{ __('Coloana „Reorder rate" folosește semne calitative, nu cifre exacte. Rating-ul intern e calculat pe re-cumpărări în 12 luni — nu îl publicăm pe cifre rotunde manipulative.', 'sage') }}</p>
+      <div class="eyebrow">{{ $eyebrow }}</div>
+      <h2>{!! \App\bestseller_kses($titlu) !!}</h2>
+      <p>{{ $intro }}</p>
     </div>
     <div class="cpd-table">
       <table>
@@ -20,16 +26,16 @@
         <tbody>
           @foreach ($bestsellers as $p)
             <tr>
-              <td class="name">{{ trim($p['title'].' '.$p['title_em']) }}<span class="meta">{{ $p['t_meta'] }}</span></td>
-              <td class="cat">{{ $p['t_cat'] }}</td>
-              <td>{{ $p['price'] }}</td>
-              <td class="cpd-val">{{ $p['cpd_strong'] }}</td>
-              <td class="rating">{{ str_repeat('★', (int) $p['rating_stars']) }}<span class="lbl">{{ $p['rating_lbl'] }}</span></td>
+              <td class="name">{{ $p['name'] }}@if ($p['sub'])<span class="meta">{{ $p['sub'] }}</span>@endif</td>
+              <td class="cat">{{ $p['cat'] }}</td>
+              <td>{!! $p['price_html'] !!}</td>
+              <td class="cpd-val">{{ $p['cpd_label'] ?: '—' }}</td>
+              <td class="rating">{{ str_repeat('★', max(0, min(5, (int) $p['rating']))) }}@if ($p['rating_label'])<span class="lbl">{{ $p['rating_label'] }}</span>@endif</td>
             </tr>
           @endforeach
         </tbody>
       </table>
     </div>
-    <p class="cpd-note">{{ __('Aceste rate sunt calculate intern pe baza re-cumpărărilor în 12 luni.', 'sage') }} <strong>{{ __('Nu sunt cifre publicabile exact', 'sage') }}</strong>, {{ __('dar le folosim pentru a alege ce promovăm.', 'sage') }}</p>
+    <p class="cpd-note">{!! \App\bestseller_kses($note) !!}</p>
   </div>
 </section>

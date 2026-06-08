@@ -272,6 +272,11 @@ function page_bundles(): array
         $bundles[] = 'resources/css/sub200-bundle.css';
     }
 
+    // Filtru „Noutăți · În curând" — pagina .noutati-page (tincturi viitoare, editorial ACF).
+    if ($template_has('template-noutati')) {
+        $bundles[] = 'resources/css/noutati-bundle.css';
+    }
+
     // Hub „După simptom" — pagina .symptom-page (index static de simptome).
     if ($template_has('template-dupa-simptom')) {
         $bundles[] = 'resources/css/symptom-bundle.css';

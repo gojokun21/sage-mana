@@ -1,0 +1,229 @@
+/* ============================================================================
+   Pagina filtru „Noutăți · În curând” — redesign după mockup
+   `preferinte/Pagina filtru - Noutati In curand.html`.
+   Scoped sub `.noutati-page`. Conținut editabil din ACF; cele 3 tincturi sunt
+   produse VIITOARE (în curs de aprobare) — date editoriale, nu produse WC.
+   ============================================================================ */
+
+.noutati-page {
+  --color-bg-page: #fafaf6;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1a1f1c;
+  --color-text-muted: #5b6960;
+  --color-text-faint: #8a978d;
+  --color-border: #e5ebe2;
+  --color-border-2: #d4ddcf;
+  --color-green-soft-card: #eaf2e4;
+  --color-green-pale: #f1f7ed;
+  --color-green-mute: #c9dbbe;
+  --color-green-medium: #73a06a;
+  --color-green-primary: #2d6b3a;
+  --color-green-deep: #0f3a1c;
+  --color-gold: #caa44a;
+  --color-gold-soft: #e2c787;
+  --color-cta-primary: #c4623f;
+  --color-cta-primary-hover: #ad5234;
+  --shadow-cta: 0 10px 22px -10px rgba(196, 98, 63, 0.5);
+
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+/* ---------- Breadcrumb ---------- */
+.noutati-page .breadcrumb { padding: 22px 0; font-size: 13px; color: var(--color-text-faint); background: var(--color-bg-page); border-bottom: 1px solid var(--color-border); }
+.noutati-page .breadcrumb .breadcrumb-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 10px; }
+.noutati-page .breadcrumb a { color: var(--color-text-faint); text-decoration: none; }
+.noutati-page .breadcrumb a:hover { color: var(--color-green-primary); }
+.noutati-page .breadcrumb .sep { opacity: 0.5; }
+.noutati-page .breadcrumb .here { color: var(--color-text-primary); font-weight: 600; }
+
+/* shared eyebrow */
+.noutati-page .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 18px; }
+.noutati-page .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-green-medium); }
+
+/* ---------- HERO ---------- */
+.noutati-page .filt-hero { padding: 64px 24px 56px; background: var(--color-bg-page); }
+.noutati-page .filt-hero .inner { max-width: 1180px; margin: 0 auto; }
+.noutati-page .filt-hero h1 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 54px; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 16px; color: var(--color-text-primary); max-width: 780px; }
+.noutati-page .filt-hero h1 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.noutati-page .filt-hero .brand-by { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 14.5px; color: var(--color-text-faint); margin: -8px 0 18px; display: block; }
+.noutati-page .filt-hero .lede { font-size: 16.5px; color: var(--color-text-muted); line-height: 1.7; max-width: 640px; margin: 0 0 24px; }
+.noutati-page .filt-hero .lede strong { color: var(--color-text-primary); font-weight: 600; }
+.noutati-page .big-disclaimer { max-width: 760px; background: var(--color-bg-card); border-left: 4px solid var(--color-gold); padding: 18px 22px 18px 56px; border-radius: 0 12px 12px 0; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 14px; color: var(--color-text-primary); line-height: 1.65; margin: 0 0 26px; position: relative; }
+.noutati-page .big-disclaimer::before { content: ""; position: absolute; left: 18px; top: 20px; width: 24px; height: 24px; border-radius: 50%; background: var(--color-gold); background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231F3D2E' stroke-width='2.4'><path d='M12 9v4M12 17h.01'/><circle cx='12' cy='12' r='10'/></svg>"); background-size: 14px; background-position: center; background-repeat: no-repeat; }
+.noutati-page .big-disclaimer strong { display: block; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 700; letter-spacing: 0.04em; font-size: 11px; color: var(--color-gold); text-transform: uppercase; margin-bottom: 4px; }
+.noutati-page .big-disclaimer .inline { display: inline; font-size: inherit; color: var(--color-text-primary); text-transform: none; letter-spacing: 0; margin: 0; }
+.noutati-page .hero-cta { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 26px; background: var(--color-cta-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; box-shadow: var(--shadow-cta); transition: background 0.15s; }
+.noutati-page .hero-cta:hover { background: var(--color-cta-primary-hover); }
+
+/* ---------- EXPLAIN ---------- */
+.noutati-page .explain { padding: 64px 24px; background: var(--color-bg-card); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.noutati-page .explain-inner { max-width: 1180px; margin: 0 auto; }
+.noutati-page .explain-head { margin-bottom: 32px; max-width: 680px; }
+.noutati-page .explain-head .eyebrow { margin-bottom: 12px; }
+.noutati-page .explain-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 30px; line-height: 1.15; letter-spacing: -0.015em; margin: 0; }
+.noutati-page .explain-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.noutati-page .explain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.noutati-page .ex-card { background: #fff; border: 1px solid var(--color-border); border-radius: 14px; padding: 24px 26px; display: flex; flex-direction: column; gap: 12px; }
+.noutati-page .ex-card .ico { width: 38px; height: 38px; border-radius: 50%; background: var(--color-green-soft-card); color: var(--color-green-primary); display: grid; place-items: center; flex-shrink: 0; }
+.noutati-page .ex-card h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 18px; font-weight: 500; line-height: 1.3; margin: 0; color: var(--color-text-primary); }
+.noutati-page .ex-card p { font-size: 14px; color: var(--color-text-muted); line-height: 1.65; margin: 0; }
+.noutati-page .ex-card p strong { color: var(--color-text-primary); font-weight: 600; }
+
+/* ---------- TINCTURE GRID ---------- */
+.noutati-page .tinctures { padding: 80px 24px 56px; background: var(--color-bg-page); }
+.noutati-page .tinctures-inner { max-width: 1180px; margin: 0 auto; }
+.noutati-page .tinctures-head { margin-bottom: 32px; }
+.noutati-page .tinctures-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 36px; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 8px; max-width: 640px; }
+.noutati-page .tinctures-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.noutati-page .tinctures-head p { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 14.5px; color: var(--color-text-faint); margin: 0; }
+.noutati-page .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+
+.noutati-page .tcard { background: #fff; border: 1.5px dashed var(--color-border-2); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+.noutati-page .tcard:hover { border-color: var(--color-gold); border-style: solid; }
+.noutati-page .tcard .pending-badge { position: absolute; top: 14px; left: 14px; right: 14px; display: inline-flex; align-items: center; gap: 8px; background: var(--color-gold); color: var(--color-text-primary); font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; padding: 7px 12px; border-radius: 6px; justify-content: center; z-index: 3; }
+.noutati-page .tcard .pending-badge svg { flex-shrink: 0; }
+.noutati-page .tcard .img { aspect-ratio: 1.05/1; display: grid; place-items: center; border-bottom: 1px solid var(--color-border); padding: 60px 32px 32px; position: relative; background: linear-gradient(160deg, #F0E5D0, var(--color-gold-soft)); }
+.noutati-page .tcard .img.t-immune { background: linear-gradient(160deg, #E5D6B8, #C9B68A); }
+.noutati-page .tcard .img.t-sleep { background: linear-gradient(160deg, #D8DBEC, #B8BED4); }
+.noutati-page .tcard .img.t-vas { background: linear-gradient(160deg, #D8C8E5, #A38AC2); }
+.noutati-page .tcard .img.t-colon { background: linear-gradient(160deg, #D9E5C5, #8CA86B); }
+.noutati-page .tcard .img.t-neuro { background: linear-gradient(160deg, #D8DBEC, #8b94c0); }
+.noutati-page .tcard .img .dropper { position: relative; width: 54px; display: flex; flex-direction: column; align-items: center; filter: drop-shadow(0 18px 18px rgba(7, 58, 31, 0.30)); }
+.noutati-page .tcard .img .dropper .cap { width: 30px; height: 18px; background: linear-gradient(180deg, #1a2818, #0d150c); border-radius: 3px 3px 1px 1px; position: relative; z-index: 2; }
+.noutati-page .tcard .img .dropper .cap::after { content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: -6px; width: 6px; height: 8px; background: #0d150c; border-radius: 50% 50% 30% 30%; }
+.noutati-page .tcard .img .dropper .bottle { width: 50px; height: 90px; background: linear-gradient(180deg, #2d1c10, #170a04); border-radius: 5px 5px 9px 9px; position: relative; margin-top: -3px; box-shadow: inset -3px -4px 8px rgba(0, 0, 0, 0.5), inset 3px 3px 6px rgba(255, 255, 255, 0.04); }
+.noutati-page .tcard .img.t-immune .dropper .bottle { background: linear-gradient(180deg, #3a2110, #1a0c04); }
+.noutati-page .tcard .img.t-sleep .dropper .bottle { background: linear-gradient(180deg, #1e2a4a, #0a1228); }
+.noutati-page .tcard .img.t-vas .dropper .bottle { background: linear-gradient(180deg, #2a1e3a, #150e20); }
+.noutati-page .tcard .img.t-colon .dropper .bottle { background: linear-gradient(180deg, #1e2818, #0d150c); }
+.noutati-page .tcard .img.t-neuro .dropper .bottle { background: linear-gradient(180deg, #1e2a4a, #0a1228); }
+.noutati-page .tcard .img .dropper .lbl { position: absolute; left: 14%; right: 14%; top: 35%; bottom: 15%; background: linear-gradient(180deg, #F5EAD0, #E5D4A8); border-radius: 2.5px; padding: 5px 3px; display: grid; place-items: center; font-family: var(--font-serif, 'Fraunces', serif); font-size: 8px; font-weight: 600; color: #3A2510; text-align: center; line-height: 1.05; letter-spacing: 0.04em; z-index: 1; }
+/* Imagine reală a produsului (dacă tinctura e legată de un produs WC cu imagine). */
+.noutati-page .tcard .img.has-img { background: #fff; overflow: hidden; }
+.noutati-page .tcard .img .tcard-photo { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+
+.noutati-page .tcard .body { padding: 22px 24px; display: flex; flex-direction: column; gap: 11px; flex: 1; }
+.noutati-page .tcard .cat-chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; background: var(--color-green-soft-card); padding: 5px 10px; border-radius: 999px; align-self: flex-start; border: 1px solid var(--color-green-mute); }
+.noutati-page .tcard h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 22px; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; margin: 0; color: var(--color-text-primary); }
+.noutati-page .tcard h3 em { font-style: italic; color: var(--color-green-primary); font-weight: 400; }
+.noutati-page .tcard .brand-line { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 11.5px; color: var(--color-text-faint); margin: -4px 0 0; letter-spacing: 0.02em; }
+.noutati-page .tcard .role { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13.5px; color: var(--color-text-primary); font-weight: 500; line-height: 1.45; margin: 0; }
+.noutati-page .tcard .specs { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: var(--color-text-muted); line-height: 1.5; margin: 0; }
+.noutati-page .tcard .usage { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 12.5px; color: var(--color-text-primary); background: var(--color-bg-page); padding: 9px 12px; border-radius: 8px; border: 1px solid var(--color-border); line-height: 1.45; display: flex; gap: 8px; align-items: flex-start; }
+.noutati-page .tcard .usage svg { flex-shrink: 0; color: var(--color-green-primary); margin-top: 1px; }
+.noutati-page .tcard details.ingredients { border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-bg-page); }
+.noutati-page .tcard details.ingredients summary { cursor: pointer; padding: 11px 14px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.noutati-page .tcard details.ingredients summary::-webkit-details-marker { display: none; }
+.noutati-page .tcard details.ingredients summary::after { content: "+"; color: var(--color-green-primary); font-size: 16px; font-weight: 300; }
+.noutati-page .tcard details.ingredients[open] summary::after { content: "−"; }
+.noutati-page .tcard details.ingredients .ing-list { list-style: none; padding: 0 14px 12px; margin: 0; display: flex; flex-direction: column; gap: 7px; }
+.noutati-page .tcard details.ingredients .ing-list li { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; font-size: 12px; line-height: 1.4; color: var(--color-text-primary); }
+.noutati-page .tcard details.ingredients .ing-list li .plant { font-weight: 500; }
+.noutati-page .tcard details.ingredients .ing-list li .latin { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 10.5px; color: var(--color-text-faint); font-weight: 400; display: block; margin-top: 1px; }
+.noutati-page .tcard details.ingredients .ing-list li .pct { font-family: var(--font-serif, 'Fraunces', serif); font-size: 13px; font-weight: 600; color: var(--color-green-primary); white-space: nowrap; flex-shrink: 0; }
+.noutati-page .tcard ul.bens { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.noutati-page .tcard ul.bens li { font-size: 12.5px; color: var(--color-text-primary); line-height: 1.5; display: flex; gap: 8px; align-items: flex-start; }
+.noutati-page .tcard ul.bens li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--color-green-medium); flex-shrink: 0; margin-top: 8px; }
+.noutati-page .tcard .contraindic { background: var(--color-bg-page); border-left: 3px solid var(--color-gold); padding: 10px 14px; border-radius: 0 8px 8px 0; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 11.5px; color: var(--color-text-muted); line-height: 1.5; }
+.noutati-page .tcard .contraindic strong { font-family: var(--font-sans, 'Inter', sans-serif); font-style: normal; font-weight: 700; letter-spacing: 0.06em; font-size: 9.5px; color: #7A5530; text-transform: uppercase; display: block; margin-bottom: 3px; }
+.noutati-page .tcard .contraindic.extra { border-left-color: var(--color-cta-primary); margin-top: 6px; }
+.noutati-page .tcard .contraindic.extra strong { color: var(--color-cta-primary); }
+.noutati-page .tcard .preliminary { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; background: var(--color-bg-page); border: 1px dashed var(--color-border-2); border-radius: 10px; margin-top: auto; }
+.noutati-page .tcard .preliminary .lbl { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; }
+.noutati-page .tcard .preliminary .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 13.5px; }
+.noutati-page .tcard .preliminary .row .k { color: var(--color-text-muted); font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; }
+.noutati-page .tcard .preliminary .row .v { color: var(--color-text-primary); font-weight: 600; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; }
+.noutati-page .tcard .preliminary .row .v.estimate { color: var(--color-green-primary); font-style: normal; font-weight: 600; }
+.noutati-page .tcard .preliminary .row .v.tba { color: var(--color-text-faint); font-style: italic; }
+.noutati-page .tcard .notify-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 18px; background: transparent; color: var(--color-green-primary); border: 1.5px solid var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 13.5px; text-decoration: none; margin-top: 10px; text-align: center; }
+.noutati-page .tcard .notify-btn:hover { background: var(--color-green-soft-card); }
+
+/* ---------- WHY TINCTURES ---------- */
+.noutati-page .why-tinc { padding: 72px 24px; background: var(--color-bg-card); }
+.noutati-page .why-tinc-inner { max-width: 1000px; margin: 0 auto; }
+.noutati-page .why-tinc-head { margin-bottom: 28px; max-width: 680px; }
+.noutati-page .why-tinc-head .eyebrow { margin-bottom: 12px; }
+.noutati-page .why-tinc-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 28px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 6px; }
+.noutati-page .why-tinc-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.noutati-page .why-tinc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.noutati-page .why-card { background: #fff; border: 1px solid var(--color-border); border-radius: 14px; padding: 24px 26px; display: flex; flex-direction: column; gap: 10px; }
+.noutati-page .why-card h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 19px; font-weight: 500; line-height: 1.3; margin: 0; color: var(--color-text-primary); }
+.noutati-page .why-card h3 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.noutati-page .why-card p { font-size: 14px; color: var(--color-text-muted); line-height: 1.7; margin: 0; }
+.noutati-page .why-card p strong { color: var(--color-text-primary); font-weight: 600; }
+
+/* ---------- NOTIFY FORM ---------- */
+.noutati-page .notify { padding: 80px 24px; background: var(--color-green-primary); color: #fff; position: relative; overflow: hidden; scroll-margin-top: 40px; }
+.noutati-page .notify::before { content: ""; position: absolute; right: -100px; top: -80px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(202, 164, 74, 0.10), transparent 70%); pointer-events: none; }
+.noutati-page .notify-inner { max-width: 680px; margin: 0 auto; position: relative; }
+.noutati-page .notify .eyebrow-gold { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-gold); font-weight: 700; display: inline-flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.noutati-page .notify .eyebrow-gold::before, .noutati-page .notify .eyebrow-gold::after { content: ""; width: 24px; height: 1px; background: var(--color-gold); }
+.noutati-page .notify h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 40px; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 14px; color: #fff; text-align: center; }
+.noutati-page .notify h2 em { font-style: italic; color: var(--color-gold-soft); font-weight: 300; }
+.noutati-page .notify .lede { color: #C2D9AC; font-size: 15.5px; line-height: 1.7; margin: 0 0 32px; text-align: center; }
+.noutati-page .notify-form { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 18px; padding: 28px 30px; }
+.noutati-page .notify-form label { display: block; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #C2D9AC; font-weight: 700; margin-bottom: 8px; }
+.noutati-page .notify-form input[type="email"] { width: 100%; height: 50px; background: #fff; border: 0; border-radius: 10px; padding: 0 18px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 15px; color: var(--color-text-primary); outline: none; box-sizing: border-box; }
+.noutati-page .notify-form input[type="email"]::placeholder { color: var(--color-text-faint); }
+.noutati-page .notify-form .which { margin-top: 22px; }
+.noutati-page .notify-form .which-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.noutati-page .notify-form .cb-row { display: flex; align-items: center; gap: 12px; padding: 13px 16px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.10); border-radius: 10px; cursor: pointer; }
+.noutati-page .notify-form .cb-row:hover { background: rgba(255, 255, 255, 0.08); }
+.noutati-page .notify-form .cb-row.checked { background: rgba(202, 164, 74, 0.10); border-color: rgba(202, 164, 74, 0.50); }
+.noutati-page .notify-form .cb { width: 20px; height: 20px; border-radius: 5px; background: transparent; border: 1.5px solid rgba(255, 255, 255, 0.40); display: grid; place-items: center; flex-shrink: 0; color: transparent; }
+.noutati-page .notify-form .cb-row.checked .cb { background: var(--color-gold); border-color: var(--color-gold); color: var(--color-text-primary); }
+.noutati-page .notify-form .cb-row .label-txt { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 14px; color: #fff; font-weight: 500; }
+.noutati-page .notify-form .cb-row .label-txt small { display: block; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-weight: 400; font-size: 12.5px; color: #9AC0A8; margin-top: 2px; }
+.noutati-page .notify-form .consent { margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.10); display: flex; gap: 12px; align-items: flex-start; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: #C2D9AC; line-height: 1.55; cursor: pointer; }
+.noutati-page .notify-form .consent .cb { margin-top: 2px; }
+.noutati-page .notify-form .consent.checked .cb { background: var(--color-gold); border-color: var(--color-gold); color: var(--color-text-primary); }
+.noutati-page .notify-form .submit-btn { width: 100%; height: 54px; background: var(--color-cta-primary); color: #fff; border: 0; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 15px; cursor: pointer; margin-top: 22px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--shadow-cta); }
+.noutati-page .notify-form .submit-btn:hover { background: var(--color-cta-primary-hover); }
+.noutati-page .notify .post-line { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: #9AC0A8; text-align: center; margin-top: 18px; line-height: 1.6; }
+
+/* ---------- FAQ ---------- */
+.noutati-page .faq { padding: 80px 24px; background: var(--color-bg-page); }
+.noutati-page .faq-inner { max-width: 780px; margin: 0 auto; }
+.noutati-page .faq h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 30px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 28px; text-align: center; }
+.noutati-page .faq h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.noutati-page .faq-list { display: flex; flex-direction: column; border-top: 1px solid var(--color-border); }
+.noutati-page .faq-item { border-bottom: 1px solid var(--color-border); }
+.noutati-page .faq-q { padding: 22px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-family: var(--font-serif, 'Fraunces', serif); font-weight: 500; font-size: 18px; color: var(--color-text-primary); line-height: 1.35; list-style: none; gap: 16px; }
+.noutati-page .faq-q::-webkit-details-marker { display: none; }
+.noutati-page .faq-q .toggle { width: 28px; height: 28px; border-radius: 50%; background: var(--color-green-soft-card); display: grid; place-items: center; color: var(--color-green-primary); flex-shrink: 0; font-size: 18px; line-height: 1; transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease; }
+.noutati-page .faq-item[open] .toggle { background: var(--color-green-primary); color: #fff; transform: rotate(45deg); }
+.noutati-page .faq-a { padding: 0 0 22px; color: var(--color-text-muted); font-size: 14.5px; line-height: 1.7; max-width: 680px; }
+.noutati-page .faq-a strong { color: var(--color-text-primary); font-weight: 600; }
+.noutati-page .faq-a p { margin: 0; }
+
+/* ---------- CTA FINAL ---------- */
+.noutati-page .cta-final { padding: 72px 24px; background: var(--color-bg-card); text-align: center; border-top: 1px solid var(--color-border); }
+.noutati-page .cta-final-inner { max-width: 680px; margin: 0 auto; }
+.noutati-page .cta-final h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 32px; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; color: var(--color-text-primary); }
+.noutati-page .cta-final h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.noutati-page .cta-final p { color: var(--color-text-muted); font-size: 15px; line-height: 1.7; margin: 0 0 26px; }
+.noutati-page .cta-final p strong { color: var(--color-text-primary); font-weight: 600; }
+.noutati-page .cta-buttons { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.noutati-page .cta-buttons a { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 26px; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 14.5px; text-decoration: none; }
+.noutati-page .cta-buttons a.primary { background: var(--color-cta-primary); color: #fff; box-shadow: var(--shadow-cta); }
+.noutati-page .cta-buttons a.primary:hover { background: var(--color-cta-primary-hover); }
+.noutati-page .cta-buttons a.outline { background: transparent; color: var(--color-green-primary); border: 1.5px solid var(--color-green-primary); }
+.noutati-page .cta-buttons a.outline:hover { background: var(--color-green-soft-card); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1023px) {
+  .noutati-page .explain-grid { grid-template-columns: 1fr; }
+  .noutati-page .tgrid { grid-template-columns: repeat(2, 1fr); }
+  .noutati-page .why-tinc-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .noutati-page .filt-hero { padding: 44px 18px 40px; }
+  .noutati-page .filt-hero h1 { font-size: 38px; }
+  .noutati-page .explain, .noutati-page .tinctures, .noutati-page .why-tinc, .noutati-page .notify, .noutati-page .faq, .noutati-page .cta-final { padding-left: 18px; padding-right: 18px; }
+  .noutati-page .tgrid { grid-template-columns: 1fr; }
+  .noutati-page .tinctures-head h2 { font-size: 30px; }
+  .noutati-page .notify h2 { font-size: 30px; }
+  .noutati-page .notify-form { padding: 22px 18px; }
+}

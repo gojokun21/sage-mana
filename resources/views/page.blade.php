@@ -20,6 +20,12 @@
            full-bleed, fix ca în mockup. Contul LOGAT păstrează wrapper-ul normal
            (dashboard-ul). --}}
       {!! do_shortcode('[woocommerce_my_account]') !!}
+    @elseif (has_shortcode((string) get_post()->post_content, 'mn_quiz'))
+      {{-- Pagina de test (plugin MN Quiz): ocolim wrapper-ul prose (container +
+           page-header „Test" + .page-content) ca wizard-ul să fie full-bleed pe
+           fundalul paginii, fix ca în mockup. Apelăm shortcode-ul direct ca să
+           evităm wrapper-ele de paragraf Gutenberg în jurul lui. --}}
+      {!! do_shortcode('[mn_quiz]') !!}
     @else
       <main class="single_page">
         <div class="container">

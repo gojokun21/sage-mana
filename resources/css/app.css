@@ -3300,6 +3300,7 @@ p.demo_store {
 @import "./newsletter.css";     /* Omnisend newsletter strip above footer */
 @import "./footer.css";         /* footer everywhere */
 @import "./mega-simptom.css";   /* mega-meniu „După simptom" — în header, orice pagină */
+@import "./mega-produse.css";   /* mega-meniu „Suplimente" — în header, orice pagină */
 @import "./page.css";           /* generic page wrapper */
 @import "./whatsapp-button.css"; /* floating WhatsApp CTA — every page */
 @import "./newsletter-popup.css"; /* welcome popup — first-visit lead capture */

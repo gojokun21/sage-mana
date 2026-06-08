@@ -98,10 +98,19 @@
 .bestseller-page .products-head .meta { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 14px; color: var(--color-text-faint); }
 
 .bestseller-page .grid5 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.bestseller-page .products-empty { background: #fff; border: 1px dashed var(--color-border); border-radius: 16px; padding: 48px 24px; text-align: center; color: var(--color-text-muted); font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 15px; }
 
 .bestseller-page .pcard { background: #fff; border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; position: relative; transition: border-color 0.15s ease, box-shadow 0.15s ease; }
 .bestseller-page .pcard:hover { border-color: var(--color-green-medium); box-shadow: 0 12px 24px -8px rgba(15, 42, 29, 0.1); }
-.bestseller-page .pcard .img { aspect-ratio: 1.1 / 1; display: grid; place-items: center; border-bottom: 1px solid var(--color-border); position: relative; padding: 32px; }
+.bestseller-page .pcard .img { aspect-ratio: 1.1 / 1; display: grid; place-items: center; border-bottom: 1px solid var(--color-border); position: relative; padding: 28px; }
+/* Imaginea reală a produsului pe fundal alb (același principiu ca restul site-ului). */
+.bestseller-page .pcard .img.has-img { background: #fff; overflow: hidden; }
+.bestseller-page .pcard .img a { display: grid; place-items: center; width: 100%; height: 100%; text-decoration: none; }
+.bestseller-page .pcard .img .pcard-photo { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; transition: transform 0.25s; }
+.bestseller-page .pcard:hover .img .pcard-photo { transform: scale(1.03); }
+.bestseller-page .pcard .img .rank,
+.bestseller-page .pcard .img .vegan-tag,
+.bestseller-page .pcard .img .cat { z-index: 2; }
 .bestseller-page .pcard .img.t-dig { background: linear-gradient(160deg, #F0E5D0, #E0D2B4); }
 .bestseller-page .pcard .img.t-detox { background: linear-gradient(160deg, var(--color-green-soft-card), #D9E8D2); }
 .bestseller-page .pcard .img.t-imun { background: linear-gradient(160deg, #E5D6B8, #C9B68A); }

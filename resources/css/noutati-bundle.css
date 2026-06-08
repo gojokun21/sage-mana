@@ -1,0 +1,3 @@
+/* Pagina filtru „Noutăți · În curând” — bundle încărcat conditional pe
+ * template-noutati (vezi App\page_bundles). Scoped sub `.noutati-page`. */
+@import "./noutati.css";

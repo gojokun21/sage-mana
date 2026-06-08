@@ -331,11 +331,13 @@
               </a>
 
               @if ($has_mega)
-                <div class="mega-menu-wrapper{{ in_array($mega_type, ['simptom', 'obiectiv'], true) ? ' mega-menu-wrapper--'.$mega_type : '' }}">
+                <div class="mega-menu-wrapper{{ in_array($mega_type, ['simptom', 'obiectiv', 'produse'], true) ? ' mega-menu-wrapper--'.$mega_type : '' }}">
                   @if ($mega_type === 'simptom')
                     @include('partials.mega-simptom')
                   @elseif ($mega_type === 'obiectiv')
                     @include('partials.mega-obiectiv')
+                  @elseif ($mega_type === 'produse')
+                    @include('partials.mega-produse')
                   @else
                   <div class="mega-menu-container">
                     <div class="mega-menu-categories">
