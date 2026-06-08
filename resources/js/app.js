@@ -453,6 +453,11 @@ if (document.querySelector('.woocommerce-checkout')) {
   import('./checkout.js');
 }
 
+/* ==================== LAZY: CONFIRMARE COMANDĂ (order-received) ==================== */
+if (document.querySelector('.or-confirm')) {
+  import('./order-confirm.js');
+}
+
 /* ==================== LAZY: HOME TEMPLATE ==================== */
 if (document.querySelector('.home-template')) {
   import('./home.js');

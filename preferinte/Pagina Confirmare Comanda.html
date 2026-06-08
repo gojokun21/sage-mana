@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Confirmare comandă</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* Funnel */
+  .funnel{padding:18px 64px;background:#fff;border-bottom:1px solid var(--color-border)}
+  .funnel-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:10px;justify-content:center}
+  .funnel .step{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:12.5px;color:var(--color-green-primary);font-weight:600}
+  .funnel .step .n{width:24px;height:24px;border-radius:50%;background:var(--color-green-soft-card);border:1.5px solid var(--color-green-primary);color:var(--color-green-primary);display:grid;place-items:center;font-family:var(--font-serif);font-size:13px;font-weight:500}
+  .funnel .step.final .n{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+  .funnel .arrow{color:var(--color-green-primary);opacity:.55;font-family:var(--font-serif)}
+
+  /* HERO */
+  .ok-hero{padding:64px 64px 48px;background:var(--color-bg-page);text-align:center;position:relative;overflow:hidden}
+  .ok-hero::before{content:"";position:absolute;left:50%;top:48px;transform:translateX(-50%);width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,var(--color-green-soft-card),transparent 65%);pointer-events:none}
+  .ok-hero-inner{max-width:780px;margin:0 auto;position:relative}
+  .check-stamp{width:88px;height:88px;border-radius:50%;background:var(--color-green-primary);color:#fff;display:grid;place-items:center;margin:0 auto 24px;box-shadow:0 14px 28px -8px rgba(12,84,47,.35)}
+  .ok-hero h1{font-family:var(--font-serif);font-weight:400;font-size:48px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 10px;color:var(--color-text-primary)}
+  .ok-hero h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .ok-hero .sub{font-family:var(--font-serif);font-style:italic;font-size:18px;color:var(--color-text-muted);margin:0 0 22px;line-height:1.55}
+  .order-num{display:inline-flex;align-items:center;gap:14px;background:#fff;border:1.5px solid var(--color-green-medium);border-radius:14px;padding:14px 22px;margin:0 0 8px}
+  .order-num .lbl{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700}
+  .order-num .num{font-family:var(--font-serif);font-size:22px;font-weight:500;color:var(--color-text-primary);letter-spacing:-0.01em}
+  .email-line{font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--color-text-muted);margin:14px 0 28px;line-height:1.55}
+  .email-line strong{color:var(--color-text-primary);font-style:normal;font-family:var(--font-sans);font-weight:600}
+  .ok-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+  .ok-actions a{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 26px;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14.5px;text-decoration:none}
+  .ok-actions a.outline{background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary)}
+  .ok-actions a.outline:hover{background:var(--color-green-soft-card)}
+  .ok-actions a.primary{background:var(--color-cta-primary);color:#fff;box-shadow:var(--shadow-cta)}
+  .ok-actions a.primary:hover{background:var(--color-cta-primary-hover)}
+
+  /* MAIN GRID */
+  .main-area{padding:32px 64px 64px;background:var(--color-bg-page)}
+  .main-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start}
+
+  /* Blocks */
+  .block{background:#fff;border:1px solid var(--color-border);border-radius:18px;padding:26px 28px;display:flex;flex-direction:column;gap:18px}
+  .block .head{display:flex;flex-direction:column;gap:4px;padding-bottom:14px;border-bottom:1px solid var(--color-border)}
+  .block .head h2{font-family:var(--font-serif);font-weight:500;font-size:22px;letter-spacing:-0.01em;margin:0;color:var(--color-text-primary)}
+  .block .head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .block .head p{font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-muted);margin:0;line-height:1.5}
+
+  .left-stack{display:flex;flex-direction:column;gap:18px}
+
+  /* Tracking timeline */
+  .track-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+  .track-timeline::before{content:"";position:absolute;top:18px;left:12.5%;right:12.5%;height:2px;background:repeating-linear-gradient(to right,var(--color-green-medium) 0 6px,transparent 6px 12px);opacity:.45;z-index:0}
+  .track-step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;position:relative;z-index:1}
+  .track-step .dot{width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid var(--color-border);display:grid;place-items:center;color:var(--color-text-faint);font-family:var(--font-serif);font-size:14px;font-weight:500}
+  .track-step.done .dot{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+  .track-step.current .dot{background:var(--color-gold);border-color:var(--color-gold);color:var(--color-text-primary);box-shadow:0 0 0 4px rgba(202,164,74,.25)}
+  .track-step .ttl{font-family:var(--font-sans);font-size:12.5px;color:var(--color-text-primary);font-weight:600;line-height:1.3}
+  .track-step.done .ttl{color:var(--color-green-primary)}
+  .track-step.current .ttl{color:var(--color-text-primary)}
+  .track-step .when{font-family:var(--font-serif);font-style:italic;font-size:11.5px;color:var(--color-text-faint);line-height:1.3}
+  .track-foot{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);line-height:1.6;padding:14px 16px;background:var(--color-bg-page);border-radius:10px;border-left:3px solid var(--color-green-medium)}
+  .track-link{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:9px 18px;background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:12.5px;text-decoration:none}
+  .track-link:hover{background:var(--color-green-soft-card)}
+
+  /* Use cards */
+  .use-grid{display:flex;flex-direction:column;gap:14px}
+  .use-card{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:14px;padding:20px 22px;display:grid;grid-template-columns:54px 1fr;gap:18px;align-items:flex-start}
+  .use-card .ph{width:54px;height:54px;border-radius:11px;display:grid;place-items:center;position:relative;padding:8px}
+  .use-card .ph.t-dig{background:linear-gradient(160deg,#F0E5D0,#E0D2B4)}
+  .use-card .ph.t-detox{background:linear-gradient(160deg,var(--color-green-soft-card),#D9E8D2)}
+  .use-card .ph.t-imun{background:linear-gradient(160deg,#E5D6B8,#C9B68A)}
+  .use-card .ph::after{content:"";width:14px;height:28px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:2px 2px 4px 4px}
+  .use-card .ph.t-dig::after{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .use-card .ph.t-detox::after{display:none}
+  .use-card .ph.t-detox .pair{display:flex;gap:3px}
+  .use-card .ph.t-detox .pair span{width:11px;height:24px;background:linear-gradient(180deg,#1E4530,#0a2418);border-radius:2px 2px 3px 3px;display:block}
+  .use-card .ph.t-detox .pair span:last-child{background:linear-gradient(180deg,#3A2110,#1A0C04)}
+  .use-card .info h3{font-family:var(--font-serif);font-size:18px;font-weight:500;line-height:1.3;margin:0 0 4px;color:var(--color-text-primary)}
+  .use-card .info h3 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .use-card .info .qty{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-faint);margin:0 0 12px}
+  .use-rows{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}
+  .use-row{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.4}
+  .use-row .k{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700}
+  .use-row .v{color:var(--color-text-primary);font-weight:500}
+  .use-row .v strong{color:var(--color-green-primary);font-weight:600}
+
+  /* Opt-in suport */
+  .reminder-box{display:flex;flex-direction:column;gap:14px}
+  .reminder-emails{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .rem-mini{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+  .rem-mini .when{font-family:var(--font-sans);font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700}
+  .rem-mini h4{font-family:var(--font-serif);font-size:14px;font-weight:500;line-height:1.35;margin:0;color:var(--color-text-primary)}
+  .rem-mini h4 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .reminder-action{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--color-green-soft-card);border-radius:12px;flex-wrap:wrap}
+  .reminder-action .cb-row{display:flex;align-items:center;gap:12px;cursor:pointer;flex:1;min-width:220px}
+  .reminder-action .cb{width:22px;height:22px;border:1.5px solid var(--color-border-2);border-radius:6px;background:#fff;display:grid;place-items:center;color:transparent}
+  .reminder-action.checked .cb{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+  .reminder-action .lbl{font-family:var(--font-sans);font-size:13.5px;color:var(--color-text-primary);font-weight:500;line-height:1.4}
+  .reminder-action .activate{height:40px;padding:0 18px;background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:12.5px;cursor:pointer}
+  .reminder-action .activate:hover{background:#fff}
+  .reminder-fine{font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint);line-height:1.55}
+
+  /* Right summary */
+  .summary-col{position:sticky;top:24px}
+  .summary{background:#fff;border:1px solid var(--color-border);border-radius:18px;padding:24px 26px;display:flex;flex-direction:column;gap:14px}
+  .summary .head-row{padding-bottom:12px;border-bottom:1px solid var(--color-border)}
+  .summary .head-row h3{font-family:var(--font-serif);font-weight:500;font-size:17px;margin:0;color:var(--color-text-primary)}
+  .summary .head-row h3 em{font-style:italic;color:var(--color-green-primary);font-weight:400;font-size:14px;display:block;margin-top:2px}
+  .summary .mini-items{display:flex;flex-direction:column;gap:9px}
+  .summary .mini-item{display:grid;grid-template-columns:36px 1fr auto;gap:11px;align-items:center}
+  .summary .mini-item .ph{width:36px;height:36px;border-radius:7px;display:grid;place-items:center;position:relative;overflow:hidden}
+  .summary .mini-item .ph.t-dig{background:linear-gradient(160deg,#F0E5D0,#E0D2B4)}
+  .summary .mini-item .ph.t-detox{background:linear-gradient(160deg,var(--color-green-soft-card),#D9E8D2)}
+  .summary .mini-item .ph.t-imun{background:linear-gradient(160deg,#E5D6B8,#C9B68A)}
+  .summary .mini-item .ph::after{content:"";width:10px;height:20px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:1.5px 1.5px 3px 3px}
+  .summary .mini-item .ph.t-dig::after{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .summary .mini-item .name{font-family:var(--font-sans);font-size:12.5px;color:var(--color-text-primary);font-weight:500;line-height:1.3}
+  .summary .mini-item .name .qty{display:block;font-family:var(--font-serif);font-style:italic;font-size:11px;color:var(--color-text-faint);font-weight:400;margin-top:1px}
+  .summary .mini-item .v{font-family:var(--font-serif);font-size:13px;font-weight:500;color:var(--color-text-primary);text-align:right;white-space:nowrap}
+  .summary .divider{height:1px;background:var(--color-border);margin:4px 0}
+  .summary .row{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:var(--color-text-primary)}
+  .summary .row.muted{color:var(--color-text-muted);font-size:12.5px}
+  .summary .row .v{font-family:var(--font-serif);font-size:13.5px;font-weight:500}
+  .summary .row.free .v{color:var(--color-green-primary);font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase;font-family:var(--font-sans)}
+  .summary .total-row{display:flex;justify-content:space-between;align-items:baseline;padding-top:8px;border-top:1px solid var(--color-border)}
+  .summary .total-row .lbl{font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--color-text-primary)}
+  .summary .total-row .v{font-family:var(--font-serif);font-size:26px;font-weight:500;color:var(--color-green-primary);line-height:1;letter-spacing:-0.02em}
+  .summary .total-row .paid{font-family:var(--font-sans);font-size:9.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;display:block;margin-top:4px;text-align:right}
+  .meta-list{display:flex;flex-direction:column;gap:10px;padding-top:12px;border-top:1px solid var(--color-border)}
+  .meta-row{display:flex;flex-direction:column;gap:2px}
+  .meta-row .k{font-family:var(--font-sans);font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700}
+  .meta-row .v{font-family:var(--font-sans);font-size:12.5px;color:var(--color-text-primary);font-weight:500;line-height:1.45}
+  .meta-row .v.italic{font-family:var(--font-serif);font-style:italic;color:var(--color-text-muted)}
+
+  /* FAQ */
+  .faq{padding:64px;background:var(--color-bg-card);border-top:1px solid var(--color-border)}
+  .faq-inner{max-width:780px;margin:0 auto}
+  .faq h2{font-family:var(--font-serif);font-weight:400;font-size:28px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 24px;text-align:center}
+  .faq h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .faq-list{display:flex;flex-direction:column;border-top:1px solid var(--color-border)}
+  .faq-item{border-bottom:1px solid var(--color-border)}
+  .faq-q{padding:20px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--font-serif);font-weight:500;font-size:17px;color:var(--color-text-primary);line-height:1.3}
+  .faq-q .toggle{width:26px;height:26px;border-radius:50%;background:var(--color-green-soft-card);display:grid;place-items:center;color:var(--color-green-primary);flex-shrink:0;font-size:16px;line-height:1}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;transform:rotate(45deg)}
+  .faq-a{padding:0 0 20px;color:var(--color-text-muted);font-size:14px;line-height:1.7;display:none;max-width:680px}
+  .faq-item.open .faq-a{display:block}
+  .faq-a strong{color:var(--color-text-primary);font-weight:600}
+
+  /* Passive cross-sell */
+  .passive-cross{padding:48px 64px;background:var(--color-bg-page)}
+  .pc-inner{max-width:780px;margin:0 auto;background:var(--color-gold-soft);border:1px dashed var(--color-gold);border-radius:14px;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .pc-inner .copy{flex:1;min-width:240px}
+  .pc-inner .copy .label{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#7A5530;font-weight:700;margin-bottom:6px}
+  .pc-inner .copy h4{font-family:var(--font-serif);font-size:18px;font-weight:500;line-height:1.35;margin:0 0 6px;color:#5A3A1A}
+  .pc-inner .copy h4 em{font-style:italic;color:#7A5530;font-weight:400}
+  .pc-inner .copy p{font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:#5A3A1A;line-height:1.6;margin:0}
+  .pc-inner .copy p strong{font-family:var(--font-sans);font-style:normal;color:#3A2510;font-weight:600;font-size:13px}
+  .pc-inner .save-btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;background:transparent;color:#7A5530;border:1.5px solid #7A5530;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:12.5px;text-decoration:none;cursor:pointer;white-space:nowrap}
+  .pc-inner .save-btn:hover{background:rgba(122,85,48,.08)}
+
+  /* Support */
+  .support{padding:48px 64px 80px;background:var(--color-bg-page)}
+  .support-inner{max-width:780px;margin:0 auto;background:#fff;border:1px solid var(--color-border);border-radius:18px;padding:28px 32px}
+  .support-inner h3{font-family:var(--font-serif);font-weight:500;font-size:22px;line-height:1.2;margin:0 0 6px;color:var(--color-text-primary)}
+  .support-inner h3 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .support-inner p{font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--color-text-muted);margin:0 0 18px}
+  .support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .support-card{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+  .support-card .ico{width:32px;height:32px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;margin-bottom:4px}
+  .support-card .lbl{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700}
+  .support-card .val{font-family:var(--font-serif);font-size:16px;font-weight:500;color:var(--color-text-primary);letter-spacing:-0.005em}
+  .support-card .hint{font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint);margin-top:2px}
+
+  .cart-badge-3{background:var(--color-green-primary);color:#fff;font-family:var(--font-sans);font-size:10px;font-weight:700;letter-spacing:.04em;padding:1px 5px;border-radius:8px;margin-left:4px}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Confirmare comanda (3/4)">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><span class="here">Confirmare comandă</span></div>
+
+  <!-- Funnel 3/4 (toate done) -->
+  <div class="funnel">
+    <div class="funnel-inner">
+      <span class="step"><span class="n">✓</span>Coșul tău</span>
+      <span class="arrow">›</span>
+      <span class="step"><span class="n">✓</span>Livrare</span>
+      <span class="arrow">›</span>
+      <span class="step"><span class="n">✓</span>Plata</span>
+      <span class="arrow">›</span>
+      <span class="step final"><span class="n">✓</span>Confirmare</span>
+    </div>
+  </div>
+
+  <!-- HERO confirmare -->
+  <section class="ok-hero">
+    <div class="ok-hero-inner">
+      <div class="check-stamp">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h1>Mulțumim, <em>Maria!</em></h1>
+      <p class="sub">Comanda ta a fost plasată cu succes.</p>
+      <div class="order-num">
+        <span class="lbl">Număr comandă</span>
+        <span class="num">#MN-2026-04827</span>
+      </div>
+      <p class="email-line">Ți-am trimis confirmarea la <strong>maria.popescu@exemplu.ro</strong> — verifică și folderul SPAM dacă nu apare în 5 minute.</p>
+      <div class="ok-actions">
+        <a class="outline" href="Cont - Gestionare Abonament.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="m18.5 2.5 3 3L12 15l-4 1 1-4z"/></svg>
+          Modifică sau anulează comanda
+        </a>
+        <a class="primary" href="Mana Naturii - Homepage.html">
+          Înapoi la magazin
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN GRID -->
+  <section class="main-area">
+    <div class="main-grid">
+
+      <!-- LEFT -->
+      <div class="left-stack">
+
+        <!-- A. Tracking -->
+        <div class="block">
+          <div class="head">
+            <h2>Livrare <em>estimată.</em></h2>
+            <p>Comanda ajunge la tine în 2 zile lucrătoare — pe 27–28 mai 2026.</p>
+          </div>
+          <div class="track-timeline">
+            <div class="track-step done">
+              <div class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <span class="ttl">Comandă primită</span>
+              <span class="when">26 mai · 14:32</span>
+            </div>
+            <div class="track-step current">
+              <div class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
+              <span class="ttl">În pregătire</span>
+              <span class="when">27 mai · în curs</span>
+            </div>
+            <div class="track-step">
+              <div class="dot">3</div>
+              <span class="ttl">Predată curierului</span>
+              <span class="when">27 mai după-amiază</span>
+            </div>
+            <div class="track-step">
+              <div class="dot">4</div>
+              <span class="ttl">Livrată</span>
+              <span class="when">28 mai (estimat)</span>
+            </div>
+          </div>
+          <div class="track-foot">Curierul îți va trimite SMS cu intervalul de livrare în dimineața zilei <strong>28 mai</strong>. Dacă nu ești acasă, programezi redirecționarea direct din SMS.</div>
+          <a class="track-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="15" height="10" rx="1"/><path d="M18 11h2l3 3v4h-5"/><circle cx="7" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+            Urmărește comanda pe Sameday
+          </a>
+        </div>
+
+        <!-- B. Cum sa iei produsele -->
+        <div class="block">
+          <div class="head">
+            <h2>Cum să iei <em>produsele tale.</em></h2>
+            <p>Instrucțiuni concrete per produs. Aplică din prima zi.</p>
+          </div>
+          <div class="use-grid">
+
+            <!-- Microflora+ -->
+            <div class="use-card">
+              <div class="ph t-dig"></div>
+              <div class="info">
+                <h3>Microflora+ <em>Lemon Shots</em></h3>
+                <p class="qty">cantitate × 1 · 33 doze · vegan</p>
+                <div class="use-rows">
+                  <div class="use-row"><span class="k">Când</span><span class="v">Dimineața, pe stomacul gol, cu <strong>15 min înainte de mic dejun</strong></span></div>
+                  <div class="use-row"><span class="k">Cât</span><span class="v"><strong>15 ml</strong> (1 capac dozator)</span></div>
+                  <div class="use-row"><span class="k">Cum</span><span class="v">Direct din capac sau diluat în 100 ml apă</span></div>
+                  <div class="use-row"><span class="k">Durată cură</span><span class="v"><strong>33 zile</strong> · 1 flacon = 1 cură completă</span></div>
+                  <div class="use-row" style="grid-column:1/-1"><span class="k">Păstrare</span><span class="v">La frigider după deschidere · consumă în 30 zile</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pachet Confort Digestiv -->
+            <div class="use-card">
+              <div class="ph t-detox"><div class="pair"><span></span><span></span></div></div>
+              <div class="info">
+                <h3>Pachet <em>Confort Digestiv</em></h3>
+                <p class="qty">cantitate × 1 · Microflora+ + D-Tox Ficat · 120 zile · vegan</p>
+                <div class="use-rows">
+                  <div class="use-row"><span class="k">Când</span><span class="v"><strong>Microflora+</strong> dimineața · <strong>D-Tox Ficat</strong> la prânz și seara</span></div>
+                  <div class="use-row"><span class="k">Cât</span><span class="v">15 ml Microflora+ · <strong>1 capsulă D-Tox × 2/zi</strong></span></div>
+                  <div class="use-row"><span class="k">Cum</span><span class="v">D-Tox cu un pahar mare de apă, <strong>între mese</strong></span></div>
+                  <div class="use-row"><span class="k">Durată cură</span><span class="v"><strong>120 zile</strong> · 4 luni complete</span></div>
+                  <div class="use-row" style="grid-column:1/-1"><span class="k">Păstrare</span><span class="v">D-Tox la temperatura camerei, ferit de lumină · Microflora+ la frigider după deschidere</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Black Seed Elixir -->
+            <div class="use-card">
+              <div class="ph t-imun"></div>
+              <div class="info">
+                <h3>Black Seed <em>Elixir</em></h3>
+                <p class="qty">cantitate × 2 · 240 capsule/cutie · 120 zile/cutie</p>
+                <div class="use-rows">
+                  <div class="use-row"><span class="k">Când</span><span class="v">Cu masa principală (<strong>prânz sau cină</strong>)</span></div>
+                  <div class="use-row"><span class="k">Cât</span><span class="v"><strong>2 capsule × 2/zi</strong> · doza zilnică = 4 capsule</span></div>
+                  <div class="use-row"><span class="k">Cum</span><span class="v">Cu un pahar de apă, în timpul mesei</span></div>
+                  <div class="use-row"><span class="k">Durată cură</span><span class="v"><strong>120 zile/cutie</strong> · 2 cutii = 4 luni cură completă</span></div>
+                  <div class="use-row" style="grid-column:1/-1"><span class="k">Păstrare</span><span class="v">La temperatura camerei, ferit de lumină și umiditate</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- C. Opt-in suport cura -->
+        <div class="block">
+          <div class="head">
+            <h2>Suport pe parcursul curei <em>(opțional).</em></h2>
+            <p>Îți trimitem 3 emailuri scurte care te ajută să rămâi pe traseu și să observi rezultatele.</p>
+          </div>
+          <div class="reminder-box">
+            <div class="reminder-emails">
+              <div class="rem-mini">
+                <span class="when">Email 1 · la 7 zile</span>
+                <h4>Primele observații — <em>ce trebuie să simți</em></h4>
+              </div>
+              <div class="rem-mini">
+                <span class="when">Email 2 · la mijlocul curei</span>
+                <h4>Cum reglezi <em>dacă apare disconfort</em></h4>
+              </div>
+              <div class="rem-mini">
+                <span class="when">Email 3 · la final</span>
+                <h4>Evaluare cură — <em>ce urmează</em></h4>
+              </div>
+            </div>
+            <div class="reminder-action" id="reminderRow">
+              <label class="cb-row" onclick="this.parentElement.classList.toggle('checked')">
+                <div class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+                <span class="lbl">Da, vreau să primesc cele 3 emailuri.</span>
+              </label>
+              <button class="activate">Activează</button>
+            </div>
+            <p class="reminder-fine">Pe acest singur email. Te poți dezabona cu 1 click oricând. <strong>Fără newsletter, fără reclame.</strong></p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Summary -->
+      <aside class="summary-col">
+        <div class="summary">
+          <div class="head-row">
+            <h3>Comanda <em>#MN-2026-04827</em></h3>
+          </div>
+
+          <div class="mini-items">
+            <div class="mini-item">
+              <div class="ph t-dig"></div>
+              <div class="name">Microflora+ Lemon Shots<span class="qty">cantitate × 1</span></div>
+              <span class="v">159 lei</span>
+            </div>
+            <div class="mini-item">
+              <div class="ph t-detox"></div>
+              <div class="name">Pachet Confort Digestiv<span class="qty">cantitate × 1</span></div>
+              <span class="v">283 lei</span>
+            </div>
+            <div class="mini-item">
+              <div class="ph t-imun"></div>
+              <div class="name">Black Seed Elixir<span class="qty">cantitate × 2</span></div>
+              <span class="v">368 lei</span>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <span>Subtotal</span>
+            <span class="v">810 lei</span>
+          </div>
+          <div class="row free">
+            <span>Transport (Sameday)</span>
+            <span class="v">Gratuit</span>
+          </div>
+
+          <div class="total-row">
+            <span class="lbl">Total plătit</span>
+            <span class="v">810 lei<span class="paid">✓ Plată confirmată</span></span>
+          </div>
+
+          <div class="meta-list">
+            <div class="meta-row">
+              <span class="k">Metodă plată</span>
+              <span class="v">Card Stripe · <span style="font-family:var(--font-serif);font-style:italic;color:var(--color-text-faint)">**** **** **** 4321</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="k">Adresă livrare</span>
+              <span class="v">Str. Florilor 12, bl. A, sc. 1, ap. 4<br/><span class="italic">București · Sector 2</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="k">Telefon contact</span>
+              <span class="v">0712 345 678</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-inner">
+      <h2>Întrebări <em>frecvente.</em></h2>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <div class="faq-q">Când pot anula comanda?<span class="toggle">+</span></div>
+          <div class="faq-a">Până când intră în pregătire (de regulă <strong>în primele 24h</strong>). După, anulezi <strong>direct la curier</strong> când vine cu pachetul — îl refuzi politicos și nu se procesează plata (sau ți se returnează dacă ai plătit cu card).</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Pot returna după primire?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>14 zile garanție</strong> conform legii consumatorului — doar pentru produsele <strong>sigilate</strong>, în ambalajul original. Pentru produsele deschise cu defect de fabricație, garanția de calitate e separată — scrie-ne pe WhatsApp și rezolvăm caz cu caz.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Ce fac dacă lipsește un produs din colet?<span class="toggle">+</span></div>
+          <div class="faq-a">Scrie-ne la <strong>office@mananaturii.ro</strong> cu numărul comenzii (#MN-2026-04827) și o poză a coletului deschis. Rezolvăm în <strong>24h lucrătoare</strong> — fie retrimitere, fie refund pentru produsul lipsă.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Când vine confirmarea pe email?<span class="toggle">+</span></div>
+          <div class="faq-a">În maximum <strong>5 minute</strong> de la plasarea comenzii. Verifică și folderul <strong>SPAM</strong> / Promoții. Dacă nu apare în 30 minute, scrie-ne pe WhatsApp și retrimitem.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Passive cross-sell -->
+  <section class="passive-cross">
+    <div class="pc-inner">
+      <div class="copy">
+        <div class="label">După ce termini curile actuale...</div>
+        <h4>În 4 luni vei reevalua. <em>Dacă rezultatele te încântă...</em></h4>
+        <p><strong>Pachet Echilibru</strong> (325 lei) e un următor pas natural pentru beauty și articulații — dar e prea devreme acum. <em>Bucură-te de cura actuală.</em></p>
+      </div>
+      <a class="save-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        Salvează pentru mai târziu
+      </a>
+    </div>
+  </section>
+
+  <!-- Support -->
+  <section class="support">
+    <div class="support-inner">
+      <h3>Ai nevoie de <em>ajutor?</em></h3>
+      <p>Răspundem rapid pe oricare canal. Cel mai rapid: WhatsApp.</p>
+      <div class="support-grid">
+        <div class="support-card">
+          <div class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5z"/></svg></div>
+          <span class="lbl">WhatsApp · cel mai rapid</span>
+          <span class="val">0712 345 678</span>
+          <span class="hint">răspuns în câteva minute, 9–21</span>
+        </div>
+        <div class="support-card">
+          <div class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg></div>
+          <span class="lbl">Email</span>
+          <span class="val">office@mananaturii.ro</span>
+          <span class="hint">răspuns în 24h lucrătoare</span>
+        </div>
+        <div class="support-card">
+          <div class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></div>
+          <span class="lbl">Telefon</span>
+          <span class="val">021 XXX XX XX</span>
+          <span class="hint">luni–vineri, 9–17</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 14 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="color:var(--color-gold);font-weight:600">Ediția de toamnă, Octombrie 2025</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

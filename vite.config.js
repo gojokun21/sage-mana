@@ -39,6 +39,7 @@ export default defineConfig({
         'resources/css/symptom-bundle.css',
         'resources/css/simptom-bundle.css',
         'resources/css/obiectiv-bundle.css',
+        'resources/css/retur-bundle.css',
         'resources/css/newsletter-lp-bundle.css',
         'resources/css/responsive.css',
       ],

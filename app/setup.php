@@ -282,6 +282,13 @@ function page_bundles(): array
         $bundles[] = 'resources/css/symptom-bundle.css';
     }
 
+    // Hub „După obiectiv" — REUTILIZEAZĂ scope-ul .symptom-page (design identic
+    // cu hubul simptom), deci primește același bundle. Substring-ul
+    // 'template-dupa-obiectiv' NU se potrivește cu 'template-obiectiv' (detaliul).
+    if ($template_has('template-dupa-obiectiv')) {
+        $bundles[] = 'resources/css/symptom-bundle.css';
+    }
+
     // Pagina de detaliu pe simptom — pagina .simptom-detail (toate simptomele
     // folosesc acest template; vezi template-simptom.blade.php). Substring-ul
     // 'template-simptom' NU se potrivește cu 'template-dupa-simptom'.
@@ -307,6 +314,12 @@ function page_bundles(): array
 
     if ($template_has('template-contact')) {
         $bundles[] = 'resources/css/contact-bundle.css';
+    }
+
+    // Pagina „Retur și rambursare" (.retur-page). Formularul RMA vine din
+    // plugin-ul mn-contact-form ([natura_rma_form]); aici doar stilurile paginii.
+    if ($template_has('template-retur')) {
+        $bundles[] = 'resources/css/retur-bundle.css';
     }
 
     if ($template_has('template-faq')) {

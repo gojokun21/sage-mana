@@ -2,4 +2,5 @@
  * it styles the single-product add-to-cart area, not the cart totals. */
 @import "./cart.css";
 @import "./checkout.css";
+@import "./confirmare-comanda.css"; /* pagina order-received (.or-confirm) — redesign mockup */
 @import "./loyalty-redeem.css"; /* „Plată cu puncte" panel on cart + checkout */
