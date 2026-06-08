@@ -12,7 +12,11 @@
   $shop_url = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/magazin/');
 @endphp
 
-<section class="natura-favorites">
+{{-- `catalog-page` scope: reuse the shared `.pcard` product-card styling
+     (defined in shop.css under `.catalog-page`) + its color tokens, so the
+     favorite products look identical to the catalog. shop-bundle.css is
+     enqueued for this template in App\page_bundles(). --}}
+<section class="natura-favorites catalog-page">
   <div class="container">
   <header class="natura-favorites__header">
     <h1 class="natura-favorites__title">{{ __('Produse favorite', 'sage') }}</h1>

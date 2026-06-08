@@ -140,10 +140,20 @@ add_action('parse_request', function ($wp) {
         return;
     }
 
-    // Let WP route pages/posts normally if one matches this slug.
+    // Let WP route pages/posts normally if one matches this slug — but ONLY a
+    // TOP-LEVEL page (post_parent = 0) actually lives at `/{slug}/`. A CHILD
+    // page (e.g. the obiectiv pages at /dupa-obiectiv/{slug}/) shares the slug
+    // yet resolves at a different URL, so it must NOT block a bare `/{slug}/`
+    // from routing to the product category of the same name. Otherwise WP 404s
+    // and core's "guess 404 permalink" feature 301-redirects the category URL
+    // onto the child page (e.g. /performanta-sportiva/ → /dupa-obiectiv/...).
     global $wpdb;
     $existing_page = $wpdb->get_var($wpdb->prepare(
-        "SELECT ID FROM {$wpdb->posts} WHERE post_name = %s AND post_type IN ('page', 'post') AND post_status = 'publish' LIMIT 1",
+        "SELECT ID FROM {$wpdb->posts}
+         WHERE post_name = %s
+           AND post_status = 'publish'
+           AND ( (post_type = 'page' AND post_parent = 0) OR post_type = 'post' )
+         LIMIT 1",
         $slug
     ));
     if ($existing_page) {

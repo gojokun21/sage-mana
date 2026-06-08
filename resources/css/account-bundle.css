@@ -2,3 +2,4 @@
  * because the login modal is triggered from the header on every page. */
 @import "./myaccount.css";
 @import "./loyalty.css";        /* „Cod fidelitate" tab (.loyalty-tab) */
+@import "./account-dashboard.css"; /* Dashboard redesign (.account-dash) */

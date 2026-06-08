@@ -308,6 +308,14 @@ function page_bundles(): array
         $bundles[] = 'resources/css/account-bundle.css';
     }
 
+    // Pagina „Favorite" (.natura-favorites) — randează carduri de produs `.pcard`
+    // prin content-product.blade.php. Stilul cardului trăiește în shop.css (scope
+    // `.catalog-page`), de aceea pagina reutilizează acel scope (vezi
+    // partials/favorites-list.blade.php) și are nevoie de shop-bundle.
+    if ($template_has('template-favorite')) {
+        $bundles[] = 'resources/css/shop-bundle.css';
+    }
+
     if ($template_has('template-about')) {
         $bundles[] = 'resources/css/about-bundle.css';
     }

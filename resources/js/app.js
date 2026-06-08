@@ -458,6 +458,11 @@ if (document.querySelector('.or-confirm')) {
   import('./order-confirm.js');
 }
 
+/* ==================== LAZY: CONT · DASHBOARD ==================== */
+if (document.querySelector('.account-dash')) {
+  import('./account-dashboard.js');
+}
+
 /* ==================== LAZY: HOME TEMPLATE ==================== */
 if (document.querySelector('.home-template')) {
   import('./home.js');
