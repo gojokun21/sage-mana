@@ -1,0 +1,49 @@
+/* ============================================================================
+   Panou „Plată cu puncte Constant" — cart + checkout.
+   Randat de pluginul mn-loyalty (MN_Loyalty_Redemption::render_panel).
+   ============================================================================ */
+
+.mn-loyalty-redeem {
+  --mlr-green: #2d6b3a;
+  --mlr-green-deep: #0f3a1c;
+  --mlr-terra: #c4623f;
+  --mlr-terra-deep: #ad5234;
+  --mlr-ink: #1a1f1c;
+  --mlr-ink-2: #5b6960;
+  --mlr-rule: #e5ebe2;
+  --mlr-cream: #f3f7f3;
+
+  background: #fff;
+  border: 1px solid var(--mlr-rule);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 0 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--font-sans);
+}
+
+.mn-loyalty-redeem .mlr-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.mn-loyalty-redeem .mlr-title { font-size: 13.5px; font-weight: 600; color: var(--mlr-ink); display: inline-flex; align-items: center; gap: 8px; }
+.mn-loyalty-redeem .mlr-title::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--mlr-green); }
+.mn-loyalty-redeem .mlr-balance { font-size: 12.5px; color: var(--mlr-ink-2); }
+
+.mn-loyalty-redeem .mlr-form { display: flex; gap: 8px; align-items: center; }
+.mn-loyalty-redeem .mlr-input {
+  flex: 1; min-width: 0; height: 42px; border: 1px solid var(--mlr-rule); border-radius: 10px;
+  padding: 0 12px; font-family: var(--font-sans); font-size: 14px; color: var(--mlr-ink); background: #fff;
+}
+.mn-loyalty-redeem .mlr-input:focus { outline: none; border-color: var(--mlr-green); box-shadow: 0 0 0 3px rgba(45,107,58,.12); }
+.mn-loyalty-redeem .mlr-apply,
+.mn-loyalty-redeem .mlr-remove {
+  height: 42px; padding: 0 18px; border: 0; border-radius: 999px; cursor: pointer;
+  font-family: var(--font-sans); font-size: 13px; font-weight: 600; background: var(--mlr-terra); color: #fff;
+  transition: background .15s; white-space: nowrap;
+}
+.mn-loyalty-redeem .mlr-apply:hover { background: var(--mlr-terra-deep); }
+.mn-loyalty-redeem .mlr-applied { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--mlr-cream); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: var(--mlr-green-deep); font-weight: 600; flex-wrap: wrap; }
+.mn-loyalty-redeem .mlr-remove { background: transparent; color: var(--mlr-ink-2); height: auto; padding: 4px 10px; text-decoration: underline; text-underline-offset: 2px; }
+.mn-loyalty-redeem .mlr-remove:hover { color: var(--mlr-terra-deep); background: transparent; }
+.mn-loyalty-redeem .mlr-help { margin: 0; font-size: 11.5px; color: var(--mlr-ink-2); font-style: italic; }
+.mn-loyalty-redeem.is-busy { opacity: .6; pointer-events: none; }

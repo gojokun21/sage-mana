@@ -1,85 +1,30 @@
 {{--
   Template Name: Contact Template
+  Redesign după mockup `preferinte/Pagina Contact.html`.
+  Chrome-ul paginii (CSS) e scoped sub `.contact-page` (vezi resources/css/contact.css,
+  livrat prin contact-bundle.css din App\page_bundles()). Formularul în sine (markup +
+  JS + AJAX + email + stocare) e furnizat de plugin-ul `mn-contact-form` prin
+  shortcode-ul [natura_contact_form] (vezi partials/contact/form.blade.php).
 --}}
 
 @extends('layouts.app')
 
 @section('content')
-  <main class="contact-template" id="contact-template">
-    <section class="contact_sec">
-      <div class="container">
-        <h1 class="contact_title">{{ html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8') }}</h1>
-
-        <div class="contact_row">
-          {{-- ============ Left column ============ --}}
-          <div class="contact_left">
-            @php $description = get_field('description_section'); @endphp
-            @if ($description)
-              <div class="contact_description">
-                {!! apply_filters('the_content', $description) !!}
-              </div>
-            @endif
-
-            <div class="map-contacts">
-              @if (function_exists('have_rows') && have_rows('contact_section'))
-                @while (have_rows('contact_section')) @php the_row() @endphp
-                  <div class="contacts">
-                    <div class="phone-mail">
-                      @if (have_rows('telefon'))
-                        @while (have_rows('telefon')) @php the_row() @endphp
-                          <div class="phone c-mini-block">
-                            <span>{{ __('Telefon:', 'sage') }}</span>
-                            <a href="tel:{{ esc_attr(get_sub_field('link_numar')) }}" class="c-mini-block-title">
-                              {{ get_sub_field('numarul_de_telefon') }}
-                            </a>
-                          </div>
-                        @endwhile
-                      @endif
-
-                      @php $mail = get_sub_field('mail'); @endphp
-                      @if ($mail)
-                        <div class="mail c-mini-block">
-                          <span>{{ __('Email:', 'sage') }}</span>
-                          <a href="mailto:{{ esc_attr($mail) }}" class="c-mini-block-title">
-                            {{ $mail }}
-                          </a>
-                        </div>
-                      @endif
-                    </div>
-                  </div>
-                @endwhile
-              @endif
-
-              @php
-                $banner = get_field('image');
-                $banner_url = is_array($banner) ? ($banner['url'] ?? '') : $banner;
-                $banner_alt = is_array($banner) ? ($banner['alt'] ?? '') : '';
-              @endphp
-              @if ($banner_url)
-                <div class="banner_contact">
-                  <img src="{{ esc_url($banner_url) }}"
-                       alt="{{ esc_attr($banner_alt ?: get_the_title()) }}"
-                       loading="lazy"
-                       decoding="async">
-                </div>
-              @endif
-            </div>
-          </div>
-
-          {{-- ============ Right column (form) ============ --}}
-          <div class="contact_right">
-            <div class="contact_form">
-              @php
-                $cf7_shortcode = apply_filters(
-                  'natura_contact_form_shortcode',
-                  '[contact-form-7 id="f9e38cb" title="Contacteaza-ne"]'
-                );
-              @endphp
-              {!! do_shortcode($cf7_shortcode) !!}
-            </div>
-          </div>
-        </div>
+  <div class="contact-page">
+    <nav class="breadcrumb" aria-label="{{ esc_attr__('Breadcrumb', 'sage') }}">
+      <div class="breadcrumb-inner">
+        <a href="{{ esc_url(home_url('/')) }}">{{ __('Acasă', 'sage') }}</a>
+        <span class="sep" aria-hidden="true">›</span>
+        <span class="here">{{ __('Contact', 'sage') }}</span>
       </div>
-    </section>
-  </main>
+    </nav>
+
+    @include('partials.contact.hero')
+    @include('partials.contact.channels')
+    @include('partials.contact.self-serve')
+    @include('partials.contact.form')
+    @include('partials.contact.sediu')
+    @include('partials.contact.program')
+    @include('partials.contact.social')
+  </div>
 @endsection

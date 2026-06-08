@@ -1,0 +1,4 @@
+/* Pagina hub „După simptom".
+ * Stiluri dedicate, scoped sub `.symptom-page` (vezi resources/css/symptom.css).
+ * Nu importăm home-shared.css — pagina nu reutilizează blocuri de pe home. */
+@import "./symptom.css";

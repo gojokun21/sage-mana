@@ -1,0 +1,3 @@
+/* Pagina filtru „Cele mai vândute" — bundle încărcat conditional pe
+ * template-cele-mai-vandute (vezi App\page_bundles). Scoped sub `.bestseller-page`. */
+@import "./cele-mai-vandute.css";

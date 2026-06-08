@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Cele mai vândute</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* HERO */
+  .filt-hero{padding:64px 64px 56px;background:var(--color-bg-page)}
+  .filt-hero .inner{max-width:1180px;margin:0 auto}
+  .filt-hero .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:18px}
+  .filt-hero .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .filt-hero h1{font-family:var(--font-serif);font-weight:400;font-size:54px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 16px;color:var(--color-text-primary);max-width:780px}
+  .filt-hero h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .filt-hero .lede{font-size:16.5px;color:var(--color-text-muted);line-height:1.7;max-width:640px;margin:0 0 18px}
+  .filt-hero .lede strong{color:var(--color-text-primary);font-weight:600}
+  .honest-note{max-width:720px;background:var(--color-bg-card);border-left:3px solid var(--color-gold);padding:16px 20px;border-radius:0 10px 10px 0;font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-muted);line-height:1.7;margin:0 0 26px}
+  .honest-note strong{font-family:var(--font-sans);font-style:normal;color:var(--color-text-primary);font-weight:700;display:block;margin-bottom:4px;letter-spacing:.04em;font-size:11px;text-transform:uppercase}
+  .honest-note .body-line{display:block;color:var(--color-text-primary);font-style:normal;font-family:var(--font-sans);font-size:13.5px;font-weight:500;margin-top:4px}
+
+  /* EXPLAIN */
+  .explain{padding:64px;background:var(--color-bg-card);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
+  .explain-inner{max-width:1180px;margin:0 auto}
+  .explain-head{margin-bottom:32px;max-width:680px}
+  .explain-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:12px}
+  .explain-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .explain-head h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0}
+  .explain-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .explain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .ex-card{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:24px 26px;display:flex;flex-direction:column;gap:12px}
+  .ex-card .ico{width:38px;height:38px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;flex-shrink:0}
+  .ex-card h3{font-family:var(--font-serif);font-size:18px;font-weight:500;line-height:1.3;margin:0;color:var(--color-text-primary)}
+  .ex-card p{font-size:14px;color:var(--color-text-muted);line-height:1.65;margin:0}
+  .ex-card p strong{color:var(--color-text-primary);font-weight:600}
+
+  /* PRODUCTS GRID */
+  .products{padding:80px 64px 56px;background:var(--color-bg-page)}
+  .products-inner{max-width:1180px;margin:0 auto}
+  .products-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:32px}
+  .products-head h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.1;letter-spacing:-0.02em;margin:0;max-width:540px}
+  .products-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .products-head .meta{font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--color-text-faint)}
+
+  .grid5{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .grid5 .pcard:nth-child(4),.grid5 .pcard:nth-child(5){grid-column:span 1}
+
+  .pcard{background:#fff;border:1px solid var(--color-border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+  .pcard:hover{border-color:var(--color-green-medium);box-shadow:0 12px 24px -8px rgba(15,42,29,.10)}
+  .pcard .img{aspect-ratio:1.1/1;display:grid;place-items:center;border-bottom:1px solid var(--color-border);position:relative;padding:32px}
+  .pcard .img.t-dig{background:linear-gradient(160deg,#F0E5D0,#E0D2B4)}
+  .pcard .img.t-detox{background:linear-gradient(160deg,var(--color-green-soft-card),#D9E8D2)}
+  .pcard .img.t-imun{background:linear-gradient(160deg,#E5D6B8,#C9B68A)}
+  .pcard .img.t-sport{background:linear-gradient(160deg,#E8DCC8,#C4A989)}
+  .pcard .img.t-art{background:linear-gradient(160deg,#EFD9C9,#D9B69A)}
+
+  .pcard .img .ph{display:flex;align-items:flex-end;gap:6px;position:relative}
+  .pcard .img .ph .bot{width:50px;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 12px 14px rgba(7,58,31,.30))}
+  .pcard .img .ph .bot .cap{width:16px;height:6px;background:linear-gradient(180deg,#2c1b08,#1A0C04);border-radius:1.5px 1.5px 0 0}
+  .pcard .img .ph .bot .body{width:48px;height:100px;border-radius:5px 5px 8px 8px;position:relative;box-shadow:inset -4px -4px 8px rgba(0,0,0,.4)}
+  .pcard .img .ph .bot.amber .body{background:linear-gradient(180deg,#3A2110,#1A0C04)}
+  .pcard .img .ph .bot.matte .body{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .pcard .img .ph .bot.matte .cap{background:linear-gradient(180deg,#0a2418,#051209)}
+  .pcard .img .ph .bot .lbl{position:absolute;left:11%;right:11%;top:30%;bottom:14%;background:linear-gradient(180deg,#F5EAD0,#E5D4A8);border-radius:2px;padding:5px 3px;display:grid;place-items:center;font-family:var(--font-serif);font-size:9.5px;font-weight:600;letter-spacing:.04em;color:#3A2510;text-align:center;line-height:1.05}
+  .pcard .img .ph .bot.matte .lbl{background:linear-gradient(180deg,#F4F1E5,#D9D2BD);color:#0F2A1D}
+  .pcard .img .ph.trio .bot{width:40px}
+  .pcard .img .ph.trio .bot .body{width:38px;height:84px}
+
+  .pcard .img .rank{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:7px;background:var(--color-green-primary);color:#fff;font-family:var(--font-sans);font-size:11px;font-weight:700;letter-spacing:.06em;padding:6px 12px;border-radius:999px}
+  .pcard .img .rank .num{font-family:var(--font-serif);font-style:italic;font-weight:500;font-size:13px}
+  .pcard .img .cat{position:absolute;bottom:14px;left:14px;background:rgba(255,255,255,.92);color:var(--color-green-primary);font-family:var(--font-sans);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--color-border)}
+  .pcard .img .vegan-tag{position:absolute;top:14px;right:14px;background:var(--color-green-primary);color:#fff;font-family:var(--font-sans);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:6px}
+
+  .pcard .body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .pcard h3{font-family:var(--font-serif);font-size:22px;font-weight:500;line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--color-text-primary)}
+  .pcard h3 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .pcard .sub{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);line-height:1.45;margin:0 0 2px}
+  .pcard ul.bens{list-style:none;padding:0;margin:6px 0 4px;display:flex;flex-direction:column;gap:6px}
+  .pcard ul.bens li{font-size:13px;color:var(--color-text-primary);line-height:1.45;display:flex;gap:8px;align-items:flex-start}
+  .pcard ul.bens li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--color-green-medium);flex-shrink:0;margin-top:8px}
+
+  .why-bs{background:var(--color-bg-page);border-left:3px solid var(--color-cta-primary);border-radius:0 10px 10px 0;padding:12px 16px;margin:6px 0 4px;font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);line-height:1.55;flex:1}
+  .why-bs strong{font-family:var(--font-sans);font-style:normal;font-weight:700;color:var(--color-cta-primary);font-size:10.5px;letter-spacing:.10em;text-transform:uppercase;display:block;margin-bottom:4px}
+
+  .pcard .price-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding-top:14px;border-top:1px solid var(--color-border);margin-top:6px}
+  .pcard .price-stack{display:flex;flex-direction:column;gap:3px}
+  .pcard .price{font-family:var(--font-serif);font-size:28px;font-weight:500;color:var(--color-text-primary);line-height:1;letter-spacing:-0.01em}
+  .pcard .cpd{font-family:var(--font-sans);font-size:11.5px;color:var(--color-text-faint);font-weight:500}
+  .pcard .cpd strong{color:var(--color-text-muted);font-weight:600}
+  .pcard .cta{font-family:var(--font-sans);font-size:13px;font-weight:600;padding:11px 18px;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:var(--color-cta-primary);color:#fff;border:0;cursor:pointer;box-shadow:var(--shadow-cta);align-self:center;white-space:nowrap}
+  .pcard .cta:hover{background:var(--color-cta-primary-hover)}
+
+  /* TABLE */
+  .cpd-section{padding:72px 64px;background:var(--color-bg-card)}
+  .cpd-inner{max-width:1000px;margin:0 auto}
+  .cpd-head{margin-bottom:22px}
+  .cpd-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px}
+  .cpd-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .cpd-head h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 6px}
+  .cpd-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .cpd-head p{font-size:14.5px;color:var(--color-text-muted);line-height:1.7;margin:0;max-width:680px}
+  .cpd-table{background:#fff;border:1px solid var(--color-border);border-radius:14px;overflow:hidden;margin-top:18px}
+  .cpd-table table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .cpd-table thead th{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700;text-align:left;padding:14px 18px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .cpd-table thead th:nth-child(n+3):nth-child(-n+5),
+  .cpd-table tbody td:nth-child(n+3):nth-child(-n+5){text-align:center}
+  .cpd-table tbody td{padding:16px 18px;border-bottom:1px solid var(--color-border);color:var(--color-text-primary);vertical-align:middle}
+  .cpd-table tbody tr:last-child td{border-bottom:0}
+  .cpd-table tbody td.name{font-weight:500}
+  .cpd-table tbody td.name .meta{display:block;font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-faint);font-weight:400;margin-top:2px}
+  .cpd-table tbody td.cat{font-family:var(--font-sans);font-size:11.5px;color:var(--color-green-primary);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+  .cpd-table tbody td.cpd-val{font-family:var(--font-serif);font-size:15px;font-weight:600;color:var(--color-green-primary)}
+  .cpd-table tbody td.rating{color:var(--color-gold);font-size:14px;letter-spacing:.04em}
+  .cpd-table tbody td.rating .lbl{display:block;font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint);font-weight:400;margin-top:2px;letter-spacing:0}
+  .cpd-note{font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-muted);text-align:center;margin-top:16px;line-height:1.6;max-width:720px;margin-left:auto;margin-right:auto}
+  .cpd-note strong{color:var(--color-text-primary);font-weight:600;font-style:normal;font-family:var(--font-sans)}
+
+  /* BRIDGE QUIZ */
+  .bridge-quiz{padding:80px 64px;background:var(--color-green-primary);color:#fff;position:relative;overflow:hidden}
+  .bridge-quiz::before{content:"";position:absolute;right:-100px;top:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(202,164,74,.10),transparent 70%)}
+  .bridge-quiz-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:center;position:relative}
+  .bridge-quiz .eyebrow-gold{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-gold);font-weight:700;margin-bottom:14px;display:inline-flex;align-items:center;gap:10px}
+  .bridge-quiz .eyebrow-gold::before{content:"";width:24px;height:1px;background:var(--color-gold)}
+  .bridge-quiz h2{font-family:var(--font-serif);font-weight:400;font-size:34px;line-height:1.1;letter-spacing:-0.015em;margin:0 0 14px;color:#fff}
+  .bridge-quiz h2 em{font-style:italic;color:#C2D9AC;font-weight:300}
+  .bridge-quiz p{color:#C2D9AC;font-size:15.5px;line-height:1.7;margin:0;max-width:560px}
+  .bridge-quiz .right-side{display:flex;flex-direction:column;align-items:flex-start;gap:12px;justify-self:end}
+  .quiz-cta{display:inline-flex;align-items:center;gap:12px;height:56px;padding:0 28px;background:var(--color-cta-primary);color:#fff;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:15px;text-decoration:none;box-shadow:var(--shadow-cta)}
+  .quiz-cta:hover{background:var(--color-cta-primary-hover)}
+  .bridge-quiz .micro{font-family:var(--font-serif);font-style:italic;font-size:13px;color:#9AC0A8}
+
+  /* FAQ */
+  .faq{padding:80px 64px;background:var(--color-bg-card)}
+  .faq-inner{max-width:780px;margin:0 auto}
+  .faq h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 28px;text-align:center}
+  .faq h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .faq-list{display:flex;flex-direction:column;border-top:1px solid var(--color-border)}
+  .faq-item{border-bottom:1px solid var(--color-border)}
+  .faq-q{padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--color-text-primary);line-height:1.35}
+  .faq-q .toggle{width:28px;height:28px;border-radius:50%;background:var(--color-green-soft-card);display:grid;place-items:center;color:var(--color-green-primary);flex-shrink:0;font-size:18px;line-height:1}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;transform:rotate(45deg)}
+  .faq-a{padding:0 0 22px;color:var(--color-text-muted);font-size:14.5px;line-height:1.7;display:none;max-width:680px}
+  .faq-item.open .faq-a{display:block}
+  .faq-a strong{color:var(--color-text-primary);font-weight:600}
+
+  /* CTA FINAL */
+  .cta-final{padding:80px 64px;background:var(--color-bg-page);text-align:center;border-top:1px solid var(--color-border)}
+  .cta-final-inner{max-width:680px;margin:0 auto}
+  .cta-final h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.1;letter-spacing:-0.02em;margin:0 0 12px;color:var(--color-text-primary)}
+  .cta-final h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .cta-final p{color:var(--color-text-muted);font-size:15.5px;line-height:1.65;margin:0 0 28px}
+  .cta-final p strong{color:var(--color-text-primary);font-weight:600}
+  .cta-final a.btn{display:inline-flex;align-items:center;gap:12px;height:56px;padding:0 30px;background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:15px;text-decoration:none}
+  .cta-final a.btn:hover{background:var(--color-green-soft-card)}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Filtru Cele mai vandute">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș (0)</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item active">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item">Pachete</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a>Acasă</a><span class="sep">›</span><a href="Pagina Suplimente - catalog.html">Suplimente</a><span class="sep">›</span><span class="here">Cele mai vândute</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="filt-hero">
+    <div class="inner">
+      <div class="eyebrow">Top 5 · Quick link</div>
+      <h1>Cele mai <em>vândute.</em></h1>
+      <p class="lede"><strong>5 produse</strong> pe care clienții noștri le cumpără constant și le recomandă mai departe.</p>
+      <div class="honest-note">
+        <strong>Notă de onestitate</strong>
+        Nu publicăm cifre de vânzări fabricate. Mâna Naturii este un brand mic — nu vindem milioane de unități. În schimb, urmărim reorder rate, recenzii și retenția clienților.
+        <span class="body-line">→ Aceste 5 produse sunt cele cu cea mai mare loialitate măsurată în 12 luni.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPLAIN -->
+  <section class="explain">
+    <div class="explain-inner">
+      <div class="explain-head">
+        <div class="eyebrow">Cum am ales</div>
+        <h2>Trei criterii reale, <em>fără cifre fabricate.</em></h2>
+      </div>
+      <div class="explain-grid">
+        <div class="ex-card">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg></div>
+          <h3>Reorder rate, nu volum brut.</h3>
+          <p>Pentru un brand mic, contează <strong>câți clienți repetă cumpărarea</strong>. Aceste 5 produse au cele mai multe re-cumpărări în 12 luni.</p>
+        </div>
+        <div class="ex-card">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+          <h3>Recomandare către prieteni.</h3>
+          <p>Toate au scor mare la întrebarea <strong>„ai recomanda acest produs?"</strong> în sondajele post-cură. Word-of-mouth, nu publicitate plătită.</p>
+        </div>
+        <div class="ex-card">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg></div>
+          <h3>Acoperire pe 5 nevoi diferite.</h3>
+          <p>Nu sunt 5 produse din aceeași categorie. Acoperă <strong>digestie, detox, imunitate, sport, articulații</strong>. Probabil 1 din 5 e exact pentru tine.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products">
+    <div class="products-inner">
+      <div class="products-head">
+        <h2>5 produse, <em>5 motive diferite.</em></h2>
+        <div class="meta">Ordonate după reorder rate</div>
+      </div>
+      <div class="grid5">
+
+        <!-- 1. Microflora+ -->
+        <div class="pcard">
+          <div class="img t-dig">
+            <span class="rank">★ <span class="num">#1</span></span>
+            <span class="vegan-tag">Vegan</span>
+            <div class="ph"><div class="bot matte"><div class="cap"></div><div class="body"><div class="lbl">Microflora+<br/>Lemon</div></div></div></div>
+            <span class="cat">Sănătate Intestinală</span>
+          </div>
+          <div class="body">
+            <h3>Microflora+ <em>Lemon Shots</em></h3>
+            <p class="sub">500 ml · 33 doze · 10 mld UFC · 4 tulpini</p>
+            <ul class="bens">
+              <li>Echilibrul florei intestinale și confort digestiv</li>
+              <li>Sprijină sistemul imunitar</li>
+              <li>Regenerarea mucoasei intestinale</li>
+            </ul>
+            <div class="why-bs">
+              <strong>De ce e best-seller</strong>
+              Reorder rate cel mai mare din catalog. Clienții îl iau preventiv toamnă-iarnă și post-antibiotice. Gustul de lămâie face cura sustenabilă.
+            </div>
+            <div class="price-row">
+              <div class="price-stack">
+                <span class="price">159 lei</span>
+                <span class="cpd"><strong>4,82 lei/zi</strong> · 33 zile</span>
+              </div>
+              <a class="cta" href="PDP - Microflora+ Lemon Shots.html">Vezi produsul
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Pachet Detox Plus -->
+        <div class="pcard">
+          <div class="img t-detox">
+            <span class="rank">★ <span class="num">#2</span></span>
+            <span class="vegan-tag">Vegan</span>
+            <div class="ph trio">
+              <div class="bot amber"><div class="cap"></div><div class="body"><div class="lbl">D-Tox<br/>Ficat</div></div></div>
+              <div class="bot matte"><div class="cap"></div><div class="body"><div class="lbl">Microflora+</div></div></div>
+              <div class="bot amber"><div class="cap"></div><div class="body"><div class="lbl">Black Seed</div></div></div>
+            </div>
+            <span class="cat">Detox · 3 produse</span>
+          </div>
+          <div class="body">
+            <h3>Pachet <em>Detox Plus</em></h3>
+            <p class="sub">120 zile · 3 suplimente · curățare profundă</p>
+            <ul class="bens">
+              <li>Curățare profundă ficat și sistem digestiv</li>
+              <li>Echilibru intestinal post-antibiotice</li>
+              <li>Recuperare post-sărbători și exces alimentar</li>
+            </ul>
+            <div class="why-bs">
+              <strong>De ce e best-seller</strong>
+              Pachetul cu cea mai mare cerere în ianuarie–februarie (post-sărbători) și septembrie. Clienții observă diferența clară după 30–40 zile pe digestie și energie matinală.
+            </div>
+            <div class="price-row">
+              <div class="price-stack">
+                <span class="price">457 lei</span>
+                <span class="cpd"><strong>3,81 lei/zi</strong> · 120 zile</span>
+              </div>
+              <a class="cta" href="Pagina Pachet - Detox Plus.html">Vezi pachetul
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Black Seed Elixir -->
+        <div class="pcard">
+          <div class="img t-imun">
+            <span class="rank">★ <span class="num">#3</span></span>
+            <span class="vegan-tag">Vegan</span>
+            <div class="ph"><div class="bot amber"><div class="cap"></div><div class="body"><div class="lbl">Black Seed<br/>Elixir</div></div></div></div>
+            <span class="cat">Imunitate</span>
+          </div>
+          <div class="body">
+            <h3>Black Seed <em>Elixir</em></h3>
+            <p class="sub">240 capsule · 120 zile · ulei chimen negru + Vit. E</p>
+            <ul class="bens">
+              <li>Protecție imunitară prin timoquinonă</li>
+              <li>Echilibru metabolic natural</li>
+              <li>Suport cardiovascular</li>
+            </ul>
+            <div class="why-bs">
+              <strong>De ce e best-seller</strong>
+              Produs nișat dar cu fani loiali — clienții care îl încep continuă 2–3 cure consecutive. Cost/zi excelent (1,53 lei/zi pentru 4 luni de protecție). Recomandat de medici colaboratori.
+            </div>
+            <div class="price-row">
+              <div class="price-stack">
+                <span class="price">184 lei</span>
+                <span class="cpd"><strong>1,53 lei/zi</strong> · 120 zile</span>
+              </div>
+              <a class="cta" href="PDP - Black Seed Elixir.html">Vezi produsul
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. ChocoProtein -->
+        <div class="pcard">
+          <div class="img t-sport">
+            <span class="rank">★ <span class="num">#4</span></span>
+            <div class="ph"><div class="bot amber"><div class="cap"></div><div class="body"><div class="lbl">Choco<br/>Protein</div></div></div></div>
+            <span class="cat">Performanță Sportivă</span>
+          </div>
+          <div class="body">
+            <h3>ChocoProtein <em>1000g</em></h3>
+            <p class="sub">1000 g · 33 porții · proteină din zer · ciocolată</p>
+            <ul class="bens">
+              <li>Creșterea și menținerea masei musculare</li>
+              <li>Refacere musculară după antrenamente</li>
+              <li>Aport complet de aminoacizi esențiali</li>
+            </ul>
+            <div class="why-bs">
+              <strong>De ce e best-seller</strong>
+              Best-seller în segmentul sportiv. Sportivi recreaționali și profesioniști revin pentru gust și solubilitate. Prețul corect pe porție (6,63 lei) îl face accesibil pentru cură continuă.
+            </div>
+            <div class="price-row">
+              <div class="price-stack">
+                <span class="price">219 lei</span>
+                <span class="cpd"><strong>6,63 lei/porție</strong> · 33 porții</span>
+              </div>
+              <a class="cta" href="PDP - ChocoProtein 1000g.html">Vezi produsul
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Collagen Joint+ -->
+        <div class="pcard">
+          <div class="img t-art">
+            <span class="rank">★ <span class="num">#5</span></span>
+            <div class="ph"><div class="bot matte"><div class="cap"></div><div class="body"><div class="lbl">Collagen<br/>Joint+</div></div></div></div>
+            <span class="cat">Articulații &amp; Frumusețe</span>
+          </div>
+          <div class="body">
+            <h3>Collagen Joint+ <em>Berry</em></h3>
+            <p class="sub">500 ml · 33 doze · 7,2 g peptide colagen tip 1+2+3</p>
+            <ul class="bens">
+              <li>Sprijină sănătatea articulațiilor și mobilitatea</li>
+              <li>Menține elasticitatea pielii și țesuturilor</li>
+              <li>Susține sinteza naturală de colagen</li>
+            </ul>
+            <div class="why-bs">
+              <strong>De ce e best-seller</strong>
+              Cel mai cumpărat în segmentul beauty/articulații. Clienții peste 35 ani revin lunar. Forma lichidă cu gust de fructe de pădure face cura plăcută — retention rate mare.
+            </div>
+            <div class="price-row">
+              <div class="price-stack">
+                <span class="price">184 lei</span>
+                <span class="cpd"><strong>5,58 lei/zi</strong> · 33 zile</span>
+              </div>
+              <a class="cta" href="PDP - Collagen Joint+ Berry.html">Vezi produsul
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE -->
+  <section class="cpd-section">
+    <div class="cpd-inner">
+      <div class="cpd-head">
+        <div class="eyebrow">Top 5 · cifre transparente</div>
+        <h2>Reorder rate, <em>nu vânzări fabricate.</em></h2>
+        <p>Coloana „Reorder rate" folosește semne calitative, nu cifre exacte. Rating-ul intern e calculat pe re-cumpărări în 12 luni — nu îl publicăm pe cifre rotunde manipulative.</p>
+      </div>
+      <div class="cpd-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Produs</th>
+              <th>Categorie</th>
+              <th>Preț</th>
+              <th>Cost / zi</th>
+              <th>Reorder rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">Microflora+ Lemon Shots<span class="meta">500 ml · 33 doze · vegan</span></td>
+              <td class="cat">Digestie</td>
+              <td>159 lei</td>
+              <td class="cpd-val">4,82 lei/zi</td>
+              <td class="rating">★★★★★<span class="lbl">Foarte ridicat</span></td>
+            </tr>
+            <tr>
+              <td class="name">Pachet Detox Plus<span class="meta">3 suplimente · 120 zile · vegan</span></td>
+              <td class="cat">Detox</td>
+              <td>457 lei</td>
+              <td class="cpd-val">3,81 lei/zi</td>
+              <td class="rating">★★★★★<span class="lbl">Foarte ridicat</span></td>
+            </tr>
+            <tr>
+              <td class="name">Black Seed Elixir<span class="meta">240 capsule · 120 zile · vegan</span></td>
+              <td class="cat">Imunitate</td>
+              <td>184 lei</td>
+              <td class="cpd-val">1,53 lei/zi</td>
+              <td class="rating">★★★★<span class="lbl">Ridicat · fani loiali</span></td>
+            </tr>
+            <tr>
+              <td class="name">ChocoProtein 1000g<span class="meta">1000 g · 33 porții · proteină din zer</span></td>
+              <td class="cat">Sport</td>
+              <td>219 lei</td>
+              <td class="cpd-val">6,63 lei/porție</td>
+              <td class="rating">★★★★<span class="lbl">Ridicat · segment sportiv</span></td>
+            </tr>
+            <tr>
+              <td class="name">Collagen Joint+ Berry<span class="meta">500 ml · 33 doze · colagen lichid</span></td>
+              <td class="cat">Articulații</td>
+              <td>184 lei</td>
+              <td class="cpd-val">5,58 lei/zi</td>
+              <td class="rating">★★★★<span class="lbl">Ridicat · 35+</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cpd-note">Aceste rate sunt calculate intern pe baza re-cumpărărilor în 12 luni. <strong>Nu sunt cifre publicabile exact</strong>, dar le folosim pentru a alege ce promovăm.</p>
+    </div>
+  </section>
+
+  <!-- BRIDGE QUIZ -->
+  <section class="bridge-quiz">
+    <div class="bridge-quiz-inner">
+      <div class="left">
+        <div class="eyebrow-gold">Ghid onest · 60 secunde</div>
+        <h2>Niciunul nu ți se <em>potrivește exact?</em></h2>
+        <p>Aceste 5 sunt cele mai cerute, dar nu sunt singurele potrivite pentru tine. Testul de 60 secunde recomandă exact ce ai nevoie pe baza simptomelor și stilului tău de viață.</p>
+      </div>
+      <div class="right-side">
+        <a class="quiz-cta" href="Test de 60 sec - Quiz Wizard.html">Începe testul
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <span class="micro">7 întrebări · fără email · anonim</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-inner">
+      <h2>Întrebări <em>frecvente.</em></h2>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <div class="faq-q">Cum știți că acestea sunt best-seller?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>Reorder rate calculat la 12 luni</strong> + sondaje post-cură („ai recomanda acest produs?"). Nu cifre fake gen „1234 vânduri" sau „top 1 luna aceasta". Sunt produsele cu cea mai mare loialitate măsurată intern.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Pot lua 2 best-seller-uri simultan?<span class="toggle">+</span></div>
+          <div class="faq-a">Da, dar verifică întâi dacă un <strong>pachet acoperă deja ambele probleme</strong>. De exemplu, dacă vrei Microflora+ și Black Seed, Pachet Detox Plus le include pe amândouă plus D-Tox Ficat, la 457 lei — mai economic decât 159 + 184 = 343 lei pentru doar 2 produse.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">De ce nu publicați cifre exacte?<span class="toggle">+</span></div>
+          <div class="faq-a">Pentru că am văzut competitori cu cifre suspect de rotunde („10.000 vânduri", „bestseller #1 această lună"). <strong>Onestitatea contează mai mult</strong>. Suntem un brand mic — vindem mii, nu zeci de mii de unități. Reorder rate-ul real spune mai mult decât un volum brut umflat.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Lista se actualizează?<span class="toggle">+</span></div>
+          <div class="faq-a">Da, o <strong>revizuim trimestrial</strong> pe baza datelor reale. Dacă un produs scade în reorder rate sau primește feedback amestecat, dispare din top. Lista nu e statică — reflectă comportamentul real al clienților, nu marketingul nostru.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="cta-final-inner">
+      <h2>Vezi catalogul <em>complet.</em></h2>
+      <p><strong>20 de produse</strong> și <strong>11 pachete</strong> în total. Aceste 5 sunt doar punctul de plecare — dacă nu te regăsești aici, restul catalogului are altă soluție pentru tine.</p>
+      <a class="btn" href="Pagina Suplimente - catalog.html">Vezi toate suplimentele
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 30 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="color:var(--color-gold);font-weight:600">Ediția de toamnă, Octombrie 2025</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

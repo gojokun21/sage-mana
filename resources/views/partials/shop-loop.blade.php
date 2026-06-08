@@ -1,39 +1,66 @@
 {{--
-  Shared shop loop: filter sidebar + product grid + pagination hook.
+  Shared shop loop — grid + pagination.
   Used by archive-product (shop) and taxonomy-product_cat (categorii).
 --}}
 
-<div class="shop_wrapper">
-  <button class="filter-toggle-btn" id="filterToggle">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    </svg>
-    Categorii
-  </button>
+@php
+  global $wp_query;
+  $current_page = max(1, (int) get_query_var('paged'));
+  $per_page = (int) get_query_var('posts_per_page');
+  if ($per_page <= 0) {
+      $per_page = (int) wc_get_loop_prop('per_page', 12);
+  }
+  $found = (int) ($wp_query->found_posts ?? 0);
+  $max_pages = (int) ($wp_query->max_num_pages ?? 1);
+  $start = $found > 0 ? (($current_page - 1) * $per_page) + 1 : 0;
+  $end = min($current_page * $per_page, $found);
 
-  <aside class="shop_filter" id="shopFilter">
-    {!! do_shortcode('[fe_widget]') !!}
-  </aside>
+  // Marker pentru carduri „featured" — folosit de content-product.blade.php.
+  // Primele 3 pe pagina 1 primesc CTA solid (verde închis).
+  $loop_idx = 0;
+@endphp
 
-  <div class="shop_products">
-    <div id="wpc-products" class="wpc-products-container">
-      @if (woocommerce_product_loop())
-        @php woocommerce_product_loop_start() @endphp
-
-        @while (have_posts())
-          @php the_post() @endphp
-          @php wc_get_template_part('content', 'product') @endphp
-        @endwhile
-
-        @php
-          woocommerce_product_loop_end();
-          do_action('woocommerce_after_shop_loop');
-        @endphp
-      @else
-        @php do_action('woocommerce_no_products_found') @endphp
-      @endif
-    </div>
-
-    @php do_action('woocommerce_after_main_content') @endphp
+@if (have_posts())
+  <div class="grid">
+    @while (have_posts())
+      @php
+        the_post();
+        $GLOBALS['mn_pcard_featured'] = ($current_page === 1 && $loop_idx < 3);
+        wc_get_template_part('content', 'product');
+        $loop_idx++;
+      @endphp
+    @endwhile
   </div>
-</div>
+
+  @php unset($GLOBALS['mn_pcard_featured']); @endphp
+
+  <div class="pagination">
+    <span class="info">
+      @if ($found > 0)
+        {{ sprintf(__('%1$d–%2$d din %3$d afișate', 'sage'), $start, $end, $found) }}
+      @endif
+    </span>
+
+    @php
+      $links = paginate_links([
+          'current' => $current_page,
+          'total' => $max_pages,
+          'type' => 'array',
+          'prev_text' => '‹ ' . __('Pagina anterioară', 'sage'),
+          'next_text' => __('Pagina următoare', 'sage') . ' ›',
+          'end_size' => 1,
+          'mid_size' => 1,
+      ]);
+    @endphp
+
+    @if (is_array($links) && count($links) > 1)
+      <nav class="page-nav" aria-label="{{ esc_attr__('Paginare', 'sage') }}">
+        @foreach ($links as $link)
+          {!! $link !!}
+        @endforeach
+      </nav>
+    @endif
+  </div>
+@else
+  <p class="grid-empty">{{ __('Niciun produs nu corespunde filtrelor selectate.', 'sage') }}</p>
+@endif

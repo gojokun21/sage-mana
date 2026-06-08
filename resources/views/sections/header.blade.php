@@ -112,6 +112,62 @@
                                   <li><a href="{{ esc_url(get_term_link($category)) }}">{{ esc_html($category->name) }}</a></li>
                                 @endforeach
                               @endif
+                            @elseif ($mobile_mega_type === 'simptom')
+                              @php
+                                $ms_mobile = [
+                                  [__('Balonare și digestie greoaie', 'sage'), 'balonare'],
+                                  [__('Cură detox & curățare', 'sage'), 'cura-detox'],
+                                  [__('Răceli frecvente & imunitate slăbită', 'sage'), 'raceli-frecvente'],
+                                  [__('Oboseală cronică & lipsă de energie', 'sage'), 'oboseala-cronica'],
+                                  [__('Stres, anxietate & somn agitat', 'sage'), 'stres-si-somn'],
+                                  [__('Lipsă de concentrare & ceață mentală', 'sage'), 'ceata-mentala'],
+                                  [__('Păr care cade, unghii fragile, ten stins', 'sage'), 'par-si-ten'],
+                                  [__('Articulații care scârțâie, mobilitate redusă', 'sage'), 'articulatii'],
+                                  [__('Recuperare lentă după antrenament', 'sage'), 'recuperare-antrenament'],
+                                ];
+                              @endphp
+                              @foreach ($ms_mobile as $m)
+                                @php $mp = get_page_by_path($m[1], OBJECT, 'page'); @endphp
+                                <li><a href="{{ $mp ? esc_url(get_permalink($mp)) : esc_url(home_url('/dupa-simptom/')) }}">{{ $m[0] }}</a></li>
+                              @endforeach
+                              <li class="mobile-mega-cta-item">
+                                <a href="{{ esc_url(home_url('/dupa-simptom/')) }}" class="mobile-mega-cta">
+                                  <span>{{ __('Vezi toate simptomele', 'sage') }}</span>
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M5 12 H19"/><path d="M13 6 L19 12 L13 18"/>
+                                  </svg>
+                                </a>
+                              </li>
+                            @elseif ($mobile_mega_type === 'obiectiv')
+                              @php
+                                $mo_mobile = [
+                                  [__('Mai multă energie zilnică', 'sage'), 'energie'],
+                                  [__('Anti-aging și longevitate', 'sage'), 'anti-aging'],
+                                  [__('Detoxifiere și curățare', 'sage'), 'detoxifiere'],
+                                  [__('Sănătate intestinală', 'sage'), 'sanatate-intestinala'],
+                                  [__('Focus și claritate mentală', 'sage'), 'focus'],
+                                  [__('Performanță sportivă', 'sage'), 'performanta-sportiva'],
+                                  [__('Imunitate puternică', 'sage'), 'imunitate'],
+                                  [__('Sănătatea inimii', 'sage'), 'sanatatea-inimii'],
+                                  [__('Frumusețe — piele, păr, unghii', 'sage'), 'frumusete'],
+                                  [__('Oase și articulații', 'sage'), 'oase-articulatii'],
+                                ];
+                              @endphp
+                              @foreach ($mo_mobile as $m)
+                                @php
+                                  $mp = get_page_by_path('dupa-obiectiv/' . $m[1], OBJECT, 'page');
+                                  $murl = $mp ? get_permalink($mp) : home_url('/dupa-obiectiv/');
+                                @endphp
+                                <li><a href="{{ esc_url($murl) }}">{{ $m[0] }}</a></li>
+                              @endforeach
+                              <li class="mobile-mega-cta-item">
+                                <a href="{{ esc_url(home_url('/dupa-obiectiv/')) }}" class="mobile-mega-cta">
+                                  <span>{{ __('Vezi toate obiectivele', 'sage') }}</span>
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M5 12 H19"/><path d="M13 6 L19 12 L13 18"/>
+                                  </svg>
+                                </a>
+                              </li>
                             @endif
                           </ul>
                         </li>
@@ -275,7 +331,12 @@
               </a>
 
               @if ($has_mega)
-                <div class="mega-menu-wrapper">
+                <div class="mega-menu-wrapper{{ in_array($mega_type, ['simptom', 'obiectiv'], true) ? ' mega-menu-wrapper--'.$mega_type : '' }}">
+                  @if ($mega_type === 'simptom')
+                    @include('partials.mega-simptom')
+                  @elseif ($mega_type === 'obiectiv')
+                    @include('partials.mega-obiectiv')
+                  @else
                   <div class="mega-menu-container">
                     <div class="mega-menu-categories">
                       @if (function_exists('have_rows') && have_rows('pachete', 'options'))
@@ -322,6 +383,7 @@
                       @endif
                     </div>
                   </div>
+                  @endif
                 </div>
               @endif
             </li>

@@ -16,6 +16,26 @@ add_filter('excerpt_more', function () {
 });
 
 /**
+ * Breadcrumb separator → „›", consistent cu noul design (breadcrumb-urile custom
+ * de pe pachete/contact/about folosesc „›"). Acoperim atât Rank Math (renderer-ul
+ * activ), cât și breadcrumb-ul WooCommerce nativ — oricare ar genera markup-ul,
+ * separatorul devine „›". Inofensiv dacă unul dintre ele nu e folosit.
+ */
+add_filter('rank_math/frontend/breadcrumb/settings', function ($settings) {
+    if (is_array($settings)) {
+        $settings['separator'] = '›';
+    }
+
+    return $settings;
+});
+
+add_filter('woocommerce_breadcrumb_defaults', function ($defaults) {
+    $defaults['delimiter'] = ' <span class="breadcrumb-sep">›</span> ';
+
+    return $defaults;
+});
+
+/**
  * Disable the WP 6.7+ `sizes="auto"` prefix on lazy-loaded images. The
  * feature has inconsistent browser support — in particular, Lighthouse and
  * some Chromium builds treat the full `sizes` attribute as invalid when they

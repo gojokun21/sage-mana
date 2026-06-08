@@ -1,0 +1,232 @@
+/* ============================================================================
+   Pagina filtru „Cele mai vândute" — redesign după mockup
+   `preferinte/Pagina filtru - Cele mai vandute.html`.
+   TOATE selectoarele sunt scoped sub `.bestseller-page`. Conținut editorial
+   curatat (Top 5 după reorder rate); fără cifre de vânzări fabricate.
+   ============================================================================ */
+
+.bestseller-page {
+  --color-bg-page: #fafaf6;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1a1f1c;
+  --color-text-muted: #5b6960;
+  --color-text-faint: #8a978d;
+  --color-border: #e5ebe2;
+  --color-border-2: #d4ddcf;
+  --color-green-soft-card: #eaf2e4;
+  --color-green-mute: #c9dbbe;
+  --color-green-medium: #73a06a;
+  --color-green-primary: #2d6b3a;
+  --color-green-deep: #0f3a1c;
+  --color-gold: #caa44a;
+  --color-gold-soft: #e2c787;
+  --color-cta-primary: #c4623f;
+  --color-cta-primary-hover: #ad5234;
+  --shadow-cta: 0 10px 22px -10px rgba(196, 98, 63, 0.5);
+
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+/* ---------- Breadcrumb ---------- */
+.bestseller-page .breadcrumb {
+  padding: 22px 0;
+  font-size: 13px;
+  color: var(--color-text-faint);
+  background: var(--color-bg-page);
+  border-bottom: 1px solid var(--color-border);
+}
+.bestseller-page .breadcrumb .breadcrumb-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 10px; }
+.bestseller-page .breadcrumb a { color: var(--color-text-faint); text-decoration: none; }
+.bestseller-page .breadcrumb a:hover { color: var(--color-green-primary); }
+.bestseller-page .breadcrumb .sep { opacity: 0.5; }
+.bestseller-page .breadcrumb .here { color: var(--color-text-primary); font-weight: 600; }
+
+/* shared eyebrow (label cu linie) */
+.bestseller-page .eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 18px;
+}
+.bestseller-page .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-green-medium); }
+
+/* ---------- HERO ---------- */
+.bestseller-page .filt-hero { padding: 64px 24px 56px; background: var(--color-bg-page); }
+.bestseller-page .filt-hero .inner { max-width: 1180px; margin: 0 auto; }
+.bestseller-page .filt-hero h1 {
+  font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 54px;
+  line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 16px; color: var(--color-text-primary); max-width: 780px;
+}
+.bestseller-page .filt-hero h1 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.bestseller-page .filt-hero .lede { font-size: 16.5px; color: var(--color-text-muted); line-height: 1.7; max-width: 640px; margin: 0 0 18px; }
+.bestseller-page .filt-hero .lede strong { color: var(--color-text-primary); font-weight: 600; }
+.bestseller-page .honest-note {
+  max-width: 720px; background: var(--color-bg-card); border-left: 3px solid var(--color-gold);
+  padding: 16px 20px; border-radius: 0 10px 10px 0; font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic; font-size: 13.5px; color: var(--color-text-muted); line-height: 1.7; margin: 0;
+}
+.bestseller-page .honest-note strong {
+  font-family: var(--font-sans, 'Inter', sans-serif); font-style: normal; color: var(--color-text-primary);
+  font-weight: 700; display: block; margin-bottom: 4px; letter-spacing: 0.04em; font-size: 11px; text-transform: uppercase;
+}
+.bestseller-page .honest-note .body-line {
+  display: block; color: var(--color-text-primary); font-style: normal; font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13.5px; font-weight: 500; margin-top: 4px;
+}
+
+/* ---------- EXPLAIN ---------- */
+.bestseller-page .explain { padding: 64px 24px; background: var(--color-bg-card); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.bestseller-page .explain-inner { max-width: 1180px; margin: 0 auto; }
+.bestseller-page .explain-head { margin-bottom: 32px; max-width: 680px; }
+.bestseller-page .explain-head .eyebrow { margin-bottom: 12px; }
+.bestseller-page .explain-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 30px; line-height: 1.15; letter-spacing: -0.015em; margin: 0; }
+.bestseller-page .explain-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.bestseller-page .explain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.bestseller-page .ex-card { background: #fff; border: 1px solid var(--color-border); border-radius: 14px; padding: 24px 26px; display: flex; flex-direction: column; gap: 12px; }
+.bestseller-page .ex-card .ico { width: 38px; height: 38px; border-radius: 50%; background: var(--color-green-soft-card); color: var(--color-green-primary); display: grid; place-items: center; flex-shrink: 0; }
+.bestseller-page .ex-card h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 18px; font-weight: 500; line-height: 1.3; margin: 0; color: var(--color-text-primary); }
+.bestseller-page .ex-card p { font-size: 14px; color: var(--color-text-muted); line-height: 1.65; margin: 0; }
+.bestseller-page .ex-card p strong { color: var(--color-text-primary); font-weight: 600; }
+
+/* ---------- PRODUCTS GRID ---------- */
+.bestseller-page .products { padding: 80px 24px 56px; background: var(--color-bg-page); }
+.bestseller-page .products-inner { max-width: 1180px; margin: 0 auto; }
+.bestseller-page .products-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; }
+.bestseller-page .products-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 36px; line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 540px; }
+.bestseller-page .products-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.bestseller-page .products-head .meta { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 14px; color: var(--color-text-faint); }
+
+.bestseller-page .grid5 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+
+.bestseller-page .pcard { background: #fff; border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; position: relative; transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+.bestseller-page .pcard:hover { border-color: var(--color-green-medium); box-shadow: 0 12px 24px -8px rgba(15, 42, 29, 0.1); }
+.bestseller-page .pcard .img { aspect-ratio: 1.1 / 1; display: grid; place-items: center; border-bottom: 1px solid var(--color-border); position: relative; padding: 32px; }
+.bestseller-page .pcard .img.t-dig { background: linear-gradient(160deg, #F0E5D0, #E0D2B4); }
+.bestseller-page .pcard .img.t-detox { background: linear-gradient(160deg, var(--color-green-soft-card), #D9E8D2); }
+.bestseller-page .pcard .img.t-imun { background: linear-gradient(160deg, #E5D6B8, #C9B68A); }
+.bestseller-page .pcard .img.t-sport { background: linear-gradient(160deg, #E8DCC8, #C4A989); }
+.bestseller-page .pcard .img.t-art { background: linear-gradient(160deg, #EFD9C9, #D9B69A); }
+
+.bestseller-page .pcard .img .ph { display: flex; align-items: flex-end; gap: 6px; position: relative; }
+.bestseller-page .pcard .img .ph .bot { width: 50px; display: flex; flex-direction: column; align-items: center; filter: drop-shadow(0 12px 14px rgba(7, 58, 31, 0.3)); }
+.bestseller-page .pcard .img .ph .bot .cap { width: 16px; height: 6px; background: linear-gradient(180deg, #2c1b08, #1A0C04); border-radius: 1.5px 1.5px 0 0; }
+.bestseller-page .pcard .img .ph .bot .body { width: 48px; height: 100px; border-radius: 5px 5px 8px 8px; position: relative; box-shadow: inset -4px -4px 8px rgba(0, 0, 0, 0.4); }
+.bestseller-page .pcard .img .ph .bot.amber .body { background: linear-gradient(180deg, #3A2110, #1A0C04); }
+.bestseller-page .pcard .img .ph .bot.matte .body { background: linear-gradient(180deg, #1E4530, #0a2418); }
+.bestseller-page .pcard .img .ph .bot.matte .cap { background: linear-gradient(180deg, #0a2418, #051209); }
+.bestseller-page .pcard .img .ph .bot .lbl { position: absolute; left: 11%; right: 11%; top: 30%; bottom: 14%; background: linear-gradient(180deg, #F5EAD0, #E5D4A8); border-radius: 2px; padding: 5px 3px; display: grid; place-items: center; font-family: var(--font-serif, 'Fraunces', serif); font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em; color: #3A2510; text-align: center; line-height: 1.05; }
+.bestseller-page .pcard .img .ph .bot.matte .lbl { background: linear-gradient(180deg, #F4F1E5, #D9D2BD); color: #0F2A1D; }
+.bestseller-page .pcard .img .ph.trio .bot { width: 40px; }
+.bestseller-page .pcard .img .ph.trio .bot .body { width: 38px; height: 84px; }
+
+.bestseller-page .pcard .img .rank { position: absolute; top: 14px; left: 14px; display: inline-flex; align-items: center; gap: 7px; background: var(--color-green-primary); color: #fff; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 12px; border-radius: 999px; }
+.bestseller-page .pcard .img .rank .num { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-weight: 500; font-size: 13px; }
+.bestseller-page .pcard .img .cat { position: absolute; bottom: 14px; left: 14px; background: rgba(255, 255, 255, 0.92); color: var(--color-green-primary); font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--color-border); }
+.bestseller-page .pcard .img .vegan-tag { position: absolute; top: 14px; right: 14px; background: var(--color-green-primary); color: #fff; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 9px; border-radius: 6px; }
+
+.bestseller-page .pcard .body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.bestseller-page .pcard h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 22px; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; margin: 0; color: var(--color-text-primary); }
+.bestseller-page .pcard h3 em { font-style: italic; color: var(--color-green-primary); font-weight: 400; }
+.bestseller-page .pcard .sub { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: var(--color-text-muted); line-height: 1.45; margin: 0 0 2px; }
+.bestseller-page .pcard ul.bens { list-style: none; padding: 0; margin: 6px 0 4px; display: flex; flex-direction: column; gap: 6px; }
+.bestseller-page .pcard ul.bens li { font-size: 13px; color: var(--color-text-primary); line-height: 1.45; display: flex; gap: 8px; align-items: flex-start; }
+.bestseller-page .pcard ul.bens li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--color-green-medium); flex-shrink: 0; margin-top: 8px; }
+
+.bestseller-page .why-bs { background: var(--color-bg-page); border-left: 3px solid var(--color-cta-primary); border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 6px 0 4px; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: var(--color-text-muted); line-height: 1.55; flex: 1; }
+.bestseller-page .why-bs strong { font-family: var(--font-sans, 'Inter', sans-serif); font-style: normal; font-weight: 700; color: var(--color-cta-primary); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+.bestseller-page .pcard .price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; padding-top: 14px; border-top: 1px solid var(--color-border); margin-top: 6px; }
+.bestseller-page .pcard .price-stack { display: flex; flex-direction: column; gap: 3px; }
+.bestseller-page .pcard .price { font-family: var(--font-serif, 'Fraunces', serif); font-size: 28px; font-weight: 500; color: var(--color-text-primary); line-height: 1; letter-spacing: -0.01em; }
+.bestseller-page .pcard .cpd { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11.5px; color: var(--color-text-faint); font-weight: 500; }
+.bestseller-page .pcard .cpd strong { color: var(--color-text-muted); font-weight: 600; }
+.bestseller-page .pcard .cta { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13px; font-weight: 600; padding: 11px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: var(--color-cta-primary); color: #fff; border: 0; cursor: pointer; box-shadow: var(--shadow-cta); align-self: center; white-space: nowrap; transition: background 0.15s ease; }
+.bestseller-page .pcard .cta:hover { background: var(--color-cta-primary-hover); }
+
+/* ---------- TABLE ---------- */
+.bestseller-page .cpd-section { padding: 72px 24px; background: var(--color-bg-card); }
+.bestseller-page .cpd-inner { max-width: 1000px; margin: 0 auto; }
+.bestseller-page .cpd-head { margin-bottom: 22px; }
+.bestseller-page .cpd-head .eyebrow { margin-bottom: 14px; }
+.bestseller-page .cpd-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 30px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 6px; }
+.bestseller-page .cpd-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.bestseller-page .cpd-head p { font-size: 14.5px; color: var(--color-text-muted); line-height: 1.7; margin: 0; max-width: 680px; }
+.bestseller-page .cpd-table { background: #fff; border: 1px solid var(--color-border); border-radius: 14px; overflow: hidden; margin-top: 18px; }
+.bestseller-page .cpd-table table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.bestseller-page .cpd-table thead th { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; text-align: left; padding: 14px 18px; background: var(--color-bg-page); border-bottom: 1px solid var(--color-border); }
+.bestseller-page .cpd-table thead th:nth-child(n+3):nth-child(-n+5),
+.bestseller-page .cpd-table tbody td:nth-child(n+3):nth-child(-n+5) { text-align: center; }
+.bestseller-page .cpd-table tbody td { padding: 16px 18px; border-bottom: 1px solid var(--color-border); color: var(--color-text-primary); vertical-align: middle; }
+.bestseller-page .cpd-table tbody tr:last-child td { border-bottom: 0; }
+.bestseller-page .cpd-table tbody td.name { font-weight: 500; }
+.bestseller-page .cpd-table tbody td.name .meta { display: block; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: var(--color-text-faint); font-weight: 400; margin-top: 2px; }
+.bestseller-page .cpd-table tbody td.cat { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11.5px; color: var(--color-green-primary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.bestseller-page .cpd-table tbody td.cpd-val { font-family: var(--font-serif, 'Fraunces', serif); font-size: 15px; font-weight: 600; color: var(--color-green-primary); }
+.bestseller-page .cpd-table tbody td.rating { color: var(--color-gold); font-size: 14px; letter-spacing: 0.04em; }
+.bestseller-page .cpd-table tbody td.rating .lbl { display: block; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12px; color: var(--color-text-faint); font-weight: 400; margin-top: 2px; letter-spacing: 0; }
+.bestseller-page .cpd-note { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13.5px; color: var(--color-text-muted); text-align: center; margin: 16px auto 0; line-height: 1.6; max-width: 720px; }
+.bestseller-page .cpd-note strong { color: var(--color-text-primary); font-weight: 600; font-style: normal; font-family: var(--font-sans, 'Inter', sans-serif); }
+
+/* ---------- BRIDGE QUIZ ---------- */
+.bestseller-page .bridge-quiz { padding: 80px 24px; background: var(--color-green-primary); color: #fff; position: relative; overflow: hidden; }
+.bestseller-page .bridge-quiz::before { content: ""; position: absolute; right: -100px; top: -80px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(202, 164, 74, 0.1), transparent 70%); }
+.bestseller-page .bridge-quiz-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: center; position: relative; }
+.bestseller-page .bridge-quiz .eyebrow-gold { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-gold); font-weight: 700; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 10px; }
+.bestseller-page .bridge-quiz .eyebrow-gold::before { content: ""; width: 24px; height: 1px; background: var(--color-gold); }
+.bestseller-page .bridge-quiz h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 34px; line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 14px; color: #fff; }
+.bestseller-page .bridge-quiz h2 em { font-style: italic; color: #C2D9AC; font-weight: 300; }
+.bestseller-page .bridge-quiz p { color: #C2D9AC; font-size: 15.5px; line-height: 1.7; margin: 0; max-width: 560px; }
+.bestseller-page .bridge-quiz .right-side { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; justify-self: end; }
+.bestseller-page .quiz-cta { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 28px; background: var(--color-cta-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; box-shadow: var(--shadow-cta); transition: background 0.15s ease; }
+.bestseller-page .quiz-cta:hover { background: var(--color-cta-primary-hover); }
+.bestseller-page .bridge-quiz .micro { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: #9AC0A8; }
+
+/* ---------- FAQ ---------- */
+.bestseller-page .faq { padding: 80px 24px; background: var(--color-bg-card); }
+.bestseller-page .faq-inner { max-width: 780px; margin: 0 auto; }
+.bestseller-page .faq h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 30px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 28px; text-align: center; }
+.bestseller-page .faq h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.bestseller-page .faq-list { display: flex; flex-direction: column; border-top: 1px solid var(--color-border); }
+.bestseller-page .faq-item { border-bottom: 1px solid var(--color-border); }
+.bestseller-page .faq-q { padding: 22px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-family: var(--font-serif, 'Fraunces', serif); font-weight: 500; font-size: 18px; color: var(--color-text-primary); line-height: 1.35; list-style: none; gap: 16px; }
+.bestseller-page .faq-q::-webkit-details-marker { display: none; }
+.bestseller-page .faq-q .toggle { width: 28px; height: 28px; border-radius: 50%; background: var(--color-green-soft-card); display: grid; place-items: center; color: var(--color-green-primary); flex-shrink: 0; font-size: 18px; line-height: 1; transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease; }
+.bestseller-page .faq-item[open] .toggle { background: var(--color-green-primary); color: #fff; transform: rotate(45deg); }
+.bestseller-page .faq-a { padding: 0 0 22px; color: var(--color-text-muted); font-size: 14.5px; line-height: 1.7; max-width: 680px; }
+.bestseller-page .faq-a strong { color: var(--color-text-primary); font-weight: 600; }
+.bestseller-page .faq-a p { margin: 0; }
+
+/* ---------- CTA FINAL ---------- */
+.bestseller-page .cta-final { padding: 80px 24px; background: var(--color-bg-page); text-align: center; border-top: 1px solid var(--color-border); }
+.bestseller-page .cta-final-inner { max-width: 680px; margin: 0 auto; }
+.bestseller-page .cta-final h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 36px; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; color: var(--color-text-primary); }
+.bestseller-page .cta-final h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.bestseller-page .cta-final p { color: var(--color-text-muted); font-size: 15.5px; line-height: 1.65; margin: 0 0 28px; }
+.bestseller-page .cta-final p strong { color: var(--color-text-primary); font-weight: 600; }
+.bestseller-page .cta-final a.btn { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 30px; background: transparent; color: var(--color-green-primary); border: 1.5px solid var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; transition: background 0.15s ease; }
+.bestseller-page .cta-final a.btn:hover { background: var(--color-green-soft-card); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1023px) {
+  .bestseller-page .explain-grid { grid-template-columns: 1fr; }
+  .bestseller-page .grid5 { grid-template-columns: repeat(2, 1fr); }
+  .bestseller-page .bridge-quiz-inner { grid-template-columns: 1fr; gap: 28px; }
+  .bestseller-page .bridge-quiz .right-side { justify-self: start; align-items: stretch; }
+}
+
+@media (max-width: 640px) {
+  .bestseller-page .filt-hero { padding: 44px 18px 40px; }
+  .bestseller-page .filt-hero h1 { font-size: 38px; }
+  .bestseller-page .explain,
+  .bestseller-page .products,
+  .bestseller-page .cpd-section,
+  .bestseller-page .bridge-quiz,
+  .bestseller-page .faq,
+  .bestseller-page .cta-final { padding-left: 18px; padding-right: 18px; }
+  .bestseller-page .grid5 { grid-template-columns: 1fr; }
+  .bestseller-page .products-head h2 { font-size: 30px; }
+  .bestseller-page .cpd-section { overflow-x: auto; }
+  .bestseller-page .cpd-table { min-width: 640px; }
+  .bestseller-page .cta-final h2 { font-size: 30px; }
+}

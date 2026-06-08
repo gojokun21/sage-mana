@@ -458,9 +458,31 @@ if (document.querySelector('.home-template')) {
   import('./home.js');
 }
 
+/* ==================== LAZY: CATALOG / SHOP PAGE ==================== */
+if (document.querySelector('.catalog-page')) {
+  import('./shop.js');
+}
+
 /* ==================== LAZY: ABOUT TEMPLATE ==================== */
 if (document.querySelector('.about-template')) {
   import('./about.js');
+}
+
+/* Contact form JS lives in the mn-contact-form plugin (shortcode-enqueued). */
+
+/* ==================== LAZY: PROMOTII TEMPLATE ==================== */
+if (document.querySelector('.promo-page')) {
+  import('./promotii.js');
+}
+
+/* ==================== LAZY: HUB DUPĂ SIMPTOM (filtrare live) ==================== */
+if (document.querySelector('.symptom-page')) {
+  import('./symptom.js');
+}
+
+/* ==================== LAZY: PAGINA SIMPTOM DETALIU (autotest) ==================== */
+if (document.querySelector('.simptom-detail')) {
+  import('./simptom.js');
 }
 
 /* ==================== LAZY: BLOG (single + related slider) ==================== */
@@ -483,8 +505,23 @@ if (document.querySelector('.faq .faq-item')) {
   import('./faq-accordion.js');
 }
 
-/* ==================== LAZY: LOGIN MODAL ==================== */
-if (document.querySelector('.open-login-modal')) {
+/* ==================== LAZY: FAQ PAGE (căutare live) ==================== */
+if (document.querySelector('.faq-page')) {
+  import('./faq.js');
+}
+
+/* ==================== LAZY: LOYALTY TAB (Cod fidelitate) ==================== */
+if (document.querySelector('.loyalty-tab')) {
+  import('./loyalty.js');
+}
+
+/* ==================== LAZY: LOYALTY REDEEM (cart/checkout) ==================== */
+if (document.querySelector('[data-mn-loyalty-redeem]')) {
+  import('./loyalty-redeem.js');
+}
+
+/* ==================== LAZY: LOGIN MODAL + AUTH PAGE ==================== */
+if (document.querySelector('.open-login-modal') || document.querySelector('[data-natura-auth-group]')) {
   import('./auth.js');
 }
 

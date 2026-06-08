@@ -1,0 +1,255 @@
+/* ============================================================================
+   Pagina „După obiectiv" — redesign după mockup `preferinte/Pagina obiectiv - *`.
+   TOATE selectoarele sunt scoped sub `.obiectiv-detail`.
+   Produsele (reco/alts) folosesc preț/link LIVE din WooCommerce.
+   ============================================================================ */
+
+.obiectiv-detail {
+  --color-bg-page: #fafaf6;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1a1f1c;
+  --color-text-muted: #5b6960;
+  --color-text-faint: #8a978d;
+  --color-border: #e5ebe2;
+  --color-border-2: #d4ddcf;
+  --color-green-soft-card: #eaf2e4;
+  --color-green-mute: #c9dbbe;
+  --color-green-medium: #73a06a;
+  --color-green-primary: #2d6b3a;
+  --color-green-deep: #0f3a1c;
+  --color-gold: #caa44a;
+  --color-gold-soft: #e2c787;
+  --color-cta-primary: #c4623f;
+  --color-cta-primary-hover: #ad5234;
+  --shadow-soft: 0 24px 48px -24px rgba(15, 58, 28, 0.25);
+
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+/* ---------- Breadcrumb ---------- */
+.obiectiv-detail .breadcrumb {
+  padding: 20px max(24px, calc((100% - 1470px) / 2));
+  font-size: 13px;
+  color: var(--color-text-faint);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-bg-page);
+  border-bottom: 1px solid var(--color-border);
+}
+.obiectiv-detail .breadcrumb a { color: var(--color-text-faint); text-decoration: none; }
+.obiectiv-detail .breadcrumb a:hover { color: var(--color-green-primary); }
+.obiectiv-detail .breadcrumb .sep { opacity: 0.5; }
+.obiectiv-detail .breadcrumb .here { color: var(--color-text-primary); font-weight: 600; }
+
+/* ============================================================================
+   HERO
+   ============================================================================ */
+.obiectiv-detail .obj-hero { padding: 56px 24px; background: var(--color-bg-page); }
+.obiectiv-detail .obj-hero-inner {
+  max-width: 1470px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.obiectiv-detail .obj-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-green-primary);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.obiectiv-detail .obj-hero .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-green-medium); }
+.obiectiv-detail .obj-hero h1 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 0 0 18px;
+  color: var(--color-text-primary);
+}
+.obiectiv-detail .obj-hero h1 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.obiectiv-detail .obj-hero .lede { font-size: 17px; color: var(--color-text-muted); line-height: 1.7; max-width: 560px; margin: 0 0 26px; }
+.obiectiv-detail .obj-hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+.obiectiv-detail .obj-hero .ctas .btn-terra {
+  background: var(--color-cta-primary); color: #fff; padding: 14px 24px; border-radius: 999px;
+  font-weight: 600; font-size: 14.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 9px;
+}
+.obiectiv-detail .obj-hero .ctas .btn-terra:hover { background: var(--color-cta-primary-hover); }
+.obiectiv-detail .obj-hero .ctas .btn-ghost {
+  background: #fff; color: var(--color-green-deep); padding: 13px 22px;
+  border: 1.5px solid var(--color-green-primary); border-radius: 999px; font-weight: 600; font-size: 14.5px; text-decoration: none;
+}
+.obiectiv-detail .obj-hero .ctas .btn-ghost:hover { background: var(--color-green-soft-card); }
+.obiectiv-detail .obj-hero .stats { display: flex; flex-wrap: wrap; gap: 8px 14px; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: var(--color-text-faint); }
+.obiectiv-detail .obj-hero .stats .sep { opacity: 0.4; font-style: normal; }
+.obiectiv-detail .obj-hero .stats .stars { color: var(--color-gold); font-style: normal; }
+
+.obiectiv-detail .obj-art {
+  aspect-ratio: 1; background: var(--color-green-soft-card); border: 1px solid var(--color-border-2);
+  border-radius: 24px; display: grid; place-items: center; position: relative; overflow: hidden;
+}
+.obiectiv-detail .obj-art::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(202, 164, 74, 0.22), transparent 55%); }
+.obiectiv-detail .obj-art svg { width: 60%; height: auto; color: var(--color-green-primary); opacity: 0.55; position: relative; }
+
+/* ============================================================================
+   RECOMANDARE PRINCIPALĂ
+   ============================================================================ */
+.obiectiv-detail .reco { padding: 64px 24px; background: var(--color-bg-card); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.obiectiv-detail .reco-inner { max-width: 1470px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center; }
+.obiectiv-detail .reco-art { aspect-ratio: 1; background: linear-gradient(160deg, var(--color-green-soft-card), var(--color-green-mute)); border-radius: 20px; display: grid; place-items: center; position: relative; overflow: hidden; min-height: 360px; }
+.obiectiv-detail .reco-art::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.5), transparent 60%); }
+.obiectiv-detail .reco-art svg { width: 58%; height: auto; color: var(--color-green-primary); opacity: 0.65; position: relative; }
+.obiectiv-detail .reco-art img { width: 100%; height: 100%; object-fit: cover; position: relative; }
+.obiectiv-detail .reco-eye { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-cta-primary); font-weight: 700; margin-bottom: 12px; }
+.obiectiv-detail .reco-eye::before { content: ""; width: 18px; height: 1px; background: var(--color-cta-primary); }
+.obiectiv-detail .reco h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 40px; line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 6px; color: var(--color-text-primary); }
+.obiectiv-detail .reco h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.obiectiv-detail .reco .subt { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 16px; color: var(--color-text-muted); margin: 0 0 18px; }
+.obiectiv-detail .reco .price-row { display: flex; align-items: baseline; gap: 14px; margin-bottom: 22px; flex-wrap: wrap; }
+.obiectiv-detail .reco .price-row .price { font-family: var(--font-serif, 'Fraunces', serif); font-size: 38px; font-weight: 600; color: var(--color-green-primary); line-height: 1; letter-spacing: -0.02em; }
+.obiectiv-detail .reco .price-row .price del { font-size: 22px; color: var(--color-text-faint); font-weight: 400; }
+.obiectiv-detail .reco .price-row .price ins { text-decoration: none; }
+.obiectiv-detail .reco .price-row .dur { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 14px; color: var(--color-text-faint); }
+.obiectiv-detail .reco ul.benefits { list-style: none; padding: 0; margin: 0 0 26px; display: flex; flex-direction: column; gap: 12px; }
+.obiectiv-detail .reco ul.benefits li { display: flex; gap: 12px; font-size: 14.5px; color: var(--color-text-primary); line-height: 1.55; }
+.obiectiv-detail .reco ul.benefits li svg { flex-shrink: 0; margin-top: 3px; color: var(--color-green-primary); }
+.obiectiv-detail .reco .cta-big { background: var(--color-cta-primary); color: #fff; padding: 18px 30px; border-radius: 999px; font-weight: 600; font-size: 15.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 0; cursor: pointer; }
+.obiectiv-detail .reco .cta-big:hover { background: var(--color-cta-primary-hover); }
+.obiectiv-detail .reco .trust-line { margin-top: 14px; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: var(--color-text-faint); display: flex; flex-wrap: wrap; gap: 8px 14px; }
+.obiectiv-detail .reco .trust-line .sep { opacity: 0.4; font-style: normal; }
+
+/* ============================================================================
+   ALTE OPȚIUNI
+   ============================================================================ */
+.obiectiv-detail .alts { padding: 72px 24px; background: var(--color-bg-card); }
+.obiectiv-detail .alts-inner { max-width: 1470px; margin: 0 auto; }
+.obiectiv-detail .alts h3 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 32px; line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 32px; text-align: center; }
+.obiectiv-detail .alts h3 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.obiectiv-detail .alts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.obiectiv-detail .alt-card { background: #fff; border: 1px solid var(--color-border); border-radius: 18px; overflow: hidden; display: flex; align-items: stretch; text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s; }
+.obiectiv-detail .alt-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+.obiectiv-detail .alt-card .art { width: 200px; flex-shrink: 0; padding: 18px; background: linear-gradient(160deg, var(--color-green-soft-card), var(--color-bg-page)); display: grid; place-items: center; border-right: 1px solid var(--color-border); position: relative; overflow: hidden; }
+.obiectiv-detail .alt-card .art svg { width: 55%; height: auto; color: var(--color-green-primary); opacity: 0.55; }
+.obiectiv-detail .alt-card .art img { width: 100%; height: 100%; max-height: 200px; object-fit: contain; filter: drop-shadow(0 8px 18px rgba(0,0,0,0.12)); }
+.obiectiv-detail .alt-card.b2 .art { background: linear-gradient(160deg, #f1e8d4, #e5d6b5); }
+.obiectiv-detail .alt-card .body { padding: 22px 24px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.obiectiv-detail .alt-card h4 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 500; font-size: 20px; line-height: 1.25; margin: 0; color: var(--color-text-primary); }
+.obiectiv-detail .alt-card .price { font-family: var(--font-serif, 'Fraunces', serif); font-size: 18px; font-weight: 600; color: var(--color-green-primary); }
+.obiectiv-detail .alt-card .desc { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 14px; color: var(--color-text-muted); line-height: 1.55; }
+.obiectiv-detail .alt-card .cta-ghost { margin-top: auto; align-self: flex-start; background: transparent; color: var(--color-green-primary); padding: 10px 18px; border: 1.5px solid var(--color-green-primary); border-radius: 999px; font-weight: 600; font-size: 13px; text-decoration: none; }
+.obiectiv-detail .alt-card:hover .cta-ghost { background: var(--color-green-primary); color: #fff; }
+
+/* ============================================================================
+   BUNDLE BAND
+   ============================================================================ */
+.obiectiv-detail .bundle-band { padding: 64px 24px; background: var(--color-green-deep); color: #fff; position: relative; overflow: hidden; }
+.obiectiv-detail .bundle-band::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 50%, rgba(202, 164, 74, 0.12), transparent 60%); pointer-events: none; }
+.obiectiv-detail .bundle-inner { max-width: 1470px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; position: relative; }
+.obiectiv-detail .bundle-inner .eyebrow { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-gold-soft); font-weight: 700; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 10px; }
+.obiectiv-detail .bundle-inner .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--color-gold-soft); }
+.obiectiv-detail .bundle-inner h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 36px; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; color: #fff; }
+.obiectiv-detail .bundle-inner h2 em { font-style: italic; color: var(--color-gold-soft); font-weight: 400; }
+.obiectiv-detail .bundle-inner p { color: #c2d9ac; font-size: 15px; line-height: 1.65; margin: 0; }
+.obiectiv-detail .bundle-cta-wrap { text-align: right; }
+.obiectiv-detail .bundle-cta { background: var(--color-cta-primary); color: #fff; padding: 16px 28px; border-radius: 999px; font-weight: 600; font-size: 14.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
+.obiectiv-detail .bundle-cta:hover { background: var(--color-cta-primary-hover); }
+
+/* ============================================================================
+   CUM SE FOLOSEȘTE
+   ============================================================================ */
+.obiectiv-detail .how { padding: 72px 24px; background: var(--color-bg-card); }
+.obiectiv-detail .how-inner { max-width: 1470px; margin: 0 auto; }
+.obiectiv-detail .how-head { text-align: center; margin-bottom: 40px; }
+.obiectiv-detail .how-head .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 14px; }
+.obiectiv-detail .how-head .eyebrow::before,
+.obiectiv-detail .how-head .eyebrow::after { content: ""; width: 18px; height: 1px; background: var(--color-green-medium); }
+.obiectiv-detail .how-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 34px; line-height: 1.15; letter-spacing: -0.015em; margin: 0; }
+.obiectiv-detail .how-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.obiectiv-detail .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.obiectiv-detail .how-card { background: var(--color-bg-page); border: 1px solid var(--color-border); border-radius: 16px; padding: 26px 26px 24px; display: flex; flex-direction: column; gap: 12px; }
+.obiectiv-detail .how-card .num { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 500; font-size: 22px; color: var(--color-green-primary); letter-spacing: -0.01em; }
+.obiectiv-detail .how-card .when { font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; }
+.obiectiv-detail .how-card .body { font-size: 14.5px; color: var(--color-text-primary); line-height: 1.6; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; }
+
+/* ============================================================================
+   RECENZII
+   ============================================================================ */
+.obiectiv-detail .reviews { padding: 80px 24px; background: var(--color-bg-page); }
+.obiectiv-detail .reviews-inner { max-width: 1470px; margin: 0 auto; }
+.obiectiv-detail .rev-head { text-align: center; margin-bottom: 36px; }
+.obiectiv-detail .rev-head .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 14px; }
+.obiectiv-detail .rev-head .eyebrow::before,
+.obiectiv-detail .rev-head .eyebrow::after { content: ""; width: 18px; height: 1px; background: var(--color-green-medium); }
+.obiectiv-detail .rev-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 32px; line-height: 1.15; letter-spacing: -0.015em; margin: 0; }
+.obiectiv-detail .rev-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.obiectiv-detail .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-bottom: 18px; }
+.obiectiv-detail .rev-card { background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+.obiectiv-detail .rev-card .stars { display: flex; gap: 2px; color: var(--color-gold); font-size: 13px; }
+.obiectiv-detail .rev-card .stars svg { width: 14px; height: 14px; }
+.obiectiv-detail .rev-card blockquote { margin: 0; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 15px; line-height: 1.6; color: var(--color-text-primary); }
+.obiectiv-detail .rev-card .by { font-size: 13px; color: var(--color-text-muted); font-weight: 600; }
+.obiectiv-detail .demo-note { text-align: center; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: var(--color-text-faint); margin-top: 14px; }
+
+/* ============================================================================
+   MICRO-EDU
+   ============================================================================ */
+.obiectiv-detail .edu { padding: 72px 24px; background: var(--color-bg-card); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.obiectiv-detail .edu-inner { max-width: 780px; margin: 0 auto; text-align: left; }
+.obiectiv-detail .edu .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 14px; }
+.obiectiv-detail .edu .eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--color-green-medium); }
+.obiectiv-detail .edu h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 30px; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 18px; }
+.obiectiv-detail .edu h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.obiectiv-detail .edu p { font-size: 16px; color: var(--color-text-muted); line-height: 1.75; margin: 0; max-width: 680px; }
+.obiectiv-detail .edu p strong { color: var(--color-text-primary); font-weight: 600; }
+
+/* ============================================================================
+   FAQ (acordeon nativ <details> → faq-accordion.js)
+   ============================================================================ */
+.obiectiv-detail .faq { padding: 64px 24px; background: var(--color-bg-page); }
+.obiectiv-detail .faq-inner { max-width: 780px; margin: 0 auto; }
+.obiectiv-detail .faq-head { text-align: center; margin-bottom: 30px; }
+.obiectiv-detail .faq-head .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 14px; }
+.obiectiv-detail .faq-head .eyebrow::before,
+.obiectiv-detail .faq-head .eyebrow::after { content: ""; width: 18px; height: 1px; background: var(--color-green-medium); }
+.obiectiv-detail .faq-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 32px; line-height: 1.15; letter-spacing: -0.015em; margin: 0; }
+.obiectiv-detail .faq-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.obiectiv-detail .faq-list { display: flex; flex-direction: column; border-top: 1px solid var(--color-border); }
+.obiectiv-detail .faq-item { border-bottom: 1px solid var(--color-border); }
+.obiectiv-detail .faq-q { padding: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; cursor: pointer; font-family: var(--font-serif, 'Fraunces', serif); font-weight: 500; font-size: 18px; color: var(--color-text-primary); line-height: 1.35; list-style: none; }
+.obiectiv-detail .faq-q::-webkit-details-marker { display: none; }
+.obiectiv-detail .faq-q .toggle { width: 28px; height: 28px; border-radius: 50%; background: var(--color-green-soft-card); display: grid; place-items: center; color: var(--color-green-primary); flex-shrink: 0; font-size: 18px; line-height: 1; transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease; }
+.obiectiv-detail .faq-item[open] .faq-q .toggle { background: var(--color-green-primary); color: #fff; transform: rotate(45deg); }
+.obiectiv-detail .faq-a { padding: 0 0 22px; color: var(--color-text-muted); font-size: 14.5px; line-height: 1.7; }
+.obiectiv-detail .faq-a p { margin: 0; }
+.obiectiv-detail .faq-a strong { color: var(--color-text-primary); font-weight: 600; }
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 980px) {
+  .obiectiv-detail .obj-hero-inner,
+  .obiectiv-detail .reco-inner,
+  .obiectiv-detail .bundle-inner { grid-template-columns: 1fr; gap: 32px; }
+  .obiectiv-detail .obj-art { max-width: 360px; }
+  .obiectiv-detail .bundle-cta-wrap { text-align: left; }
+  .obiectiv-detail .how-grid,
+  .obiectiv-detail .rev-grid { grid-template-columns: 1fr; }
+  .obiectiv-detail .alts-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .obiectiv-detail .obj-hero h1 { font-size: 38px; }
+  .obiectiv-detail .reco h2 { font-size: 30px; }
+  .obiectiv-detail .alt-card { flex-direction: column; }
+  .obiectiv-detail .alt-card .art { width: 100%; height: 180px; border-right: 0; border-bottom: 1px solid var(--color-border); }
+  .obiectiv-detail .alt-card .art img { max-height: 150px; }
+}

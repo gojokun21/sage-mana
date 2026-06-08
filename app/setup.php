@@ -214,8 +214,7 @@ function page_bundles(): array
     // shapes WP returns. Follows the same pattern as app/favorites.php:178.
     $template_slug = (string) get_page_template_slug();
 
-    $template_has = static fn (string $needle): bool
-        => $template_slug !== '' && str_contains($template_slug, $needle);
+    $template_has = static fn (string $needle): bool => $template_slug !== '' && str_contains($template_slug, $needle);
 
     // Home: either set as static front page, or any page using the Home template.
     if (is_front_page() || $template_has('template-home')) {
@@ -241,6 +240,56 @@ function page_bundles(): array
         $bundles[] = 'resources/css/category-bundle.css';
     }
 
+    // Shop archive + product taxonomies → noul catalog (.catalog-page) redesign.
+    // Include si pe categorii ca .pcard si layout-ul de carduri rescris sa aiba
+    // stilurile potrivite (category-bundle.css ofera doar hero-ul editorial).
+    if (function_exists('is_shop') && (is_shop() || is_product_taxonomy())) {
+        $bundles[] = 'resources/css/shop-bundle.css';
+    }
+
+    // Hub Pachete — pagina .pachete-page (scope propriu, stiluri dedicate).
+    if ($template_has('template-pachete')) {
+        $bundles[] = 'resources/css/pachete-bundle.css';
+    }
+
+    // Promoții — pagina .promo-page (produse la reducere din WooCommerce).
+    if ($template_has('template-promotii')) {
+        $bundles[] = 'resources/css/promotii-bundle.css';
+    }
+
+    // Filtru „Cele mai vândute" — pagina .bestseller-page (Top 5 curatat editorial).
+    if ($template_has('template-cele-mai-vandute')) {
+        $bundles[] = 'resources/css/cele-mai-vandute-bundle.css';
+    }
+
+    // Filtru „Pachete sub 400 lei" — pagina .packsub-page (4 pachete de 2 suplimente).
+    if ($template_has('template-pachete-sub-400')) {
+        $bundles[] = 'resources/css/packsub-bundle.css';
+    }
+
+    // Filtru „Suplimente sub 200 lei" — pagina .sub200-page (produse simple < 200 lei din WC).
+    if ($template_has('template-sub-200')) {
+        $bundles[] = 'resources/css/sub200-bundle.css';
+    }
+
+    // Hub „După simptom" — pagina .symptom-page (index static de simptome).
+    if ($template_has('template-dupa-simptom')) {
+        $bundles[] = 'resources/css/symptom-bundle.css';
+    }
+
+    // Pagina de detaliu pe simptom — pagina .simptom-detail (toate simptomele
+    // folosesc acest template; vezi template-simptom.blade.php). Substring-ul
+    // 'template-simptom' NU se potrivește cu 'template-dupa-simptom'.
+    if ($template_has('template-simptom')) {
+        $bundles[] = 'resources/css/simptom-bundle.css';
+    }
+
+    // Pagina de detaliu pe obiectiv — pagina .obiectiv-detail (toate obiectivele
+    // folosesc template-obiectiv.blade.php, copii sub /dupa-obiectiv/).
+    if ($template_has('template-obiectiv')) {
+        $bundles[] = 'resources/css/obiectiv-bundle.css';
+    }
+
     // My Account (all sub-pages: dashboard, orders, addresses, login/register
     // shown to logged-out users, lost-password flow, etc.).
     if (function_exists('is_account_page') && is_account_page()) {
@@ -253,6 +302,10 @@ function page_bundles(): array
 
     if ($template_has('template-contact')) {
         $bundles[] = 'resources/css/contact-bundle.css';
+    }
+
+    if ($template_has('template-faq')) {
+        $bundles[] = 'resources/css/faq-bundle.css';
     }
 
     if ($template_has('template-newsletter-lp') || $template_has('template-newsletter-lp-thankyou')) {

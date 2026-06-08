@@ -1,0 +1,4 @@
+/* Pagina simptom (detaliu) — ex. „Sindrom metabolic".
+ * Stiluri dedicate, scoped sub `.simptom-detail` (vezi resources/css/simptom.css).
+ * Nu importăm home-shared.css — pagina nu reutilizează blocuri de pe home. */
+@import "./simptom.css";

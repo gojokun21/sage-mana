@@ -1,0 +1,2 @@
+/* Shop / catalog bundle — încărcat conditional pe is_shop() + is_product_taxonomy(). */
+@import "./shop.css";

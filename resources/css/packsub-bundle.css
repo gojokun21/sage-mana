@@ -1,0 +1,3 @@
+/* Pagina filtru „Pachete sub 400 lei" — bundle încărcat conditional pe
+ * template-pachete-sub-400 (vezi App\page_bundles). Scoped sub `.packsub-page`. */
+@import "./packsub.css";

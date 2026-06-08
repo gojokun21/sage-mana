@@ -175,6 +175,13 @@
 
     swapFragments(data);
     if (typeof data.coupon_html === 'string') swapCouponShell(data.coupon_html);
+    if (typeof data.cross_sell_html === 'string') swapCrossSell(data.cross_sell_html);
+  }
+
+  function swapCrossSell(html) {
+    var target = document.querySelector('[data-cart-cross-sell]');
+    if (!target) return;
+    target.innerHTML = html;
   }
 
   function setBtnLoading(btn, on) {
@@ -239,61 +246,10 @@
   });
 
 
-  /* ---------------- Bundle rows: collapsible child items ---------------- */
-
-  var BUNDLE_ICON_INFO =
-    '<svg class="icon-info" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>';
-  var BUNDLE_ICON_CLOSE =
-    '<svg class="icon-close" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
-
-  function initBundleToggle() {
-    var rows = document.querySelectorAll('.woocommerce-cart-form tr.bundle_table_item');
-    rows.forEach(function (bundleRow) {
-      var nameCell = bundleRow.querySelector('.product-name');
-      if (!nameCell || nameCell.querySelector('.bundle-toggle-btn')) return;
-
-      var next = bundleRow.nextElementSibling;
-      var bundled = [];
-      while (next && next.classList.contains('bundled_table_item')) {
-        bundled.push(next);
-        next = next.nextElementSibling;
-      }
-
-      if (!bundled.length) return;
-
-      var link = nameCell.querySelector('a');
-      if (!link) return;
-
-      var label = document.createElement('span');
-      label.className = 'bundle-label';
-      label.textContent = 'PACHET';
-
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'bundle-toggle-btn';
-      btn.title = 'Vezi produsele din pachet';
-      btn.setAttribute('aria-expanded', 'false');
-      btn.innerHTML = BUNDLE_ICON_INFO + BUNDLE_ICON_CLOSE;
-
-      var info = document.createElement('span');
-      info.className = 'bundle-info-text';
-      info.textContent = bundled.length + (bundled.length === 1 ? ' produs' : ' produse');
-
-      link.insertAdjacentElement('afterend', info);
-      link.insertAdjacentElement('afterend', btn);
-      link.insertAdjacentElement('afterend', label);
-
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        var open = !btn.classList.contains('is-open');
-        btn.classList.toggle('is-open', open);
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        bundled.forEach(function (row) { row.classList.toggle('is-visible', open); });
-      });
-    });
-  }
-
-  initBundleToggle();
+  /* ---------------- Bundle rows: child items stay hidden, no toggle ---------------- */
+  // (Previously injected a PACHET label + info button + child-toggle here.
+  // Removed by request — bundle children are now permanently hidden via CSS:
+  // `.cart-item.bundled_table_item { display: none }`.)
 
   function swapFragments(data) {
     if (!data) return;
@@ -306,20 +262,16 @@
 
     var itemsTarget = document.querySelector('[data-cart-items]');
     if (itemsTarget && typeof data.items_html === 'string') {
-      // Replace rendered item rows (preserve the .actions row at the end).
+      // After redesign, items live as <article> cards inside a <div> container
+      // (no more <tr>/<tbody>/.actions row). Clear all existing rendered items
+      // and re-append fresh markup from the AJAX response.
       itemsTarget.querySelectorAll('[data-cart-item-key]').forEach(function (el) {
         el.remove();
       });
-      var actionsRow = itemsTarget.querySelector('tr:has(.actions)') || itemsTarget.querySelector('.actions');
-      if (actionsRow && actionsRow.tagName !== 'TR') actionsRow = actionsRow.closest('tr');
-      var wrap = document.createElement('tbody');
+      var wrap = document.createElement('div');
       wrap.innerHTML = data.items_html;
       Array.prototype.slice.call(wrap.children).forEach(function (node) {
-        if (actionsRow) {
-          itemsTarget.insertBefore(node, actionsRow);
-        } else {
-          itemsTarget.appendChild(node);
-        }
+        itemsTarget.appendChild(node);
       });
     }
 
@@ -353,8 +305,7 @@
       window.jQuery(document.body).trigger('updated_cart_totals');
     }
 
-    // Re-init bundle toggles — the rows were re-rendered from scratch.
-    initBundleToggle();
+    // (Bundle toggle re-init removed — children are hidden via CSS only.)
   }
 
   function scheduleQtyUpdate(key, qty) {
@@ -434,17 +385,46 @@
       });
   });
 
-  /* ---------------- WC added_to_cart (upsell) → reload ---------------- */
-  // When an upsell product is added via WC's AJAX add-to-cart, reload the
-  // page so the recommended slider and the "no-more-upsell-discount" state
-  // rebuild. WC fires a jQuery event; bridge via window.jQuery.
-  if (window.jQuery) {
-    window.jQuery(document.body).on('added_to_cart', function (e, fragments, cart_hash, $button) {
-      if ($button && $button.data && $button.data('upsell_discount') == 1) {
-        location.reload();
-      }
-    });
-  }
+  /* ---------------- Cross-sell add → AJAX ---------------- */
+  // Intercept the cross-sell "Adaugă" button: send op=add_cross_sell to the
+  // natura_cart endpoint, which adds the product (with upsell-discount flag
+  // when eligible) and returns fresh fragments. No page navigation, no
+  // double-add on refresh — replaces the old <a href="?add-to-cart=..."> flow.
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('[data-cart-cross-add]');
+    if (!btn) return;
+    e.preventDefault();
+
+    if (btn.disabled || btn.classList.contains('is-loading')) return;
+
+    var productId = btn.getAttribute('data-product-id');
+    var upsellNonce = btn.getAttribute('data-upsell-nonce');
+    if (!productId) return;
+
+    setBtnLoading(btn, true);
+
+    postCart({
+      op: 'add_cross_sell',
+      product_id: productId,
+      upsell_nonce: upsellNonce || '',
+    })
+      .then(function (res) {
+        if (res && res.success) {
+          applyFragments(res.data);
+          if (res.data && res.data.message) showMessage(res.data.message, 'success');
+        } else {
+          showMessage((res && res.data && res.data.message) || cfg.i18n.error, 'error');
+        }
+      })
+      .catch(function () {
+        showMessage(cfg.i18n.error, 'error');
+      })
+      .finally(function () {
+        // Button may have been replaced by swapCrossSell; only restore if
+        // still in the DOM.
+        if (document.body.contains(btn)) setBtnLoading(btn, false);
+      });
+  });
 
   /* ---------------- Recommended slider (scroll-snap nav) ---------------- */
 

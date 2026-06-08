@@ -1,0 +1,420 @@
+/* ============================================================================
+   Mega-meniu „După simptom" — după mockup `preferinte/Mega-menu - Dupa simptom.html`.
+   Randat în `.mega-menu-wrapper--simptom` (header), care oferă deja cardul alb
+   (fundal, radius, umbră, overflow). Tokenii sunt scoped local sub `.ms-mega`,
+   identici cu paleta din pdp.css / single-pachet.css.
+   ============================================================================ */
+
+/* Wrapper: card contained, aliniat la stânga cu navigația — nu full-bleed pe tot
+   containerul (link-urile meniului ocupă doar partea stângă). Lățime ca în mockup. */
+.navbar__menu__items ul > li.has-mega-menu .mega-menu-wrapper--simptom,
+.navbar__menu__items ul > li.has-mega-menu .mega-menu-wrapper--obiectiv {
+  left: 0;
+  right: auto;
+  width: min(1280px, 100%);
+  /* Fără gap (margin-top) între meniu și panou: ar crea o zonă moartă de hover
+     și panoul s-ar închide înainte să ajungi pe el. Spațierea vizuală vine din
+     padding-ul intern al `.ms-mega`. */
+}
+
+.ms-mega {
+  --color-bg-page: #fafaf6;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1a1f1c;
+  --color-text-muted: #5b6960;
+  --color-text-faint: #8a978d;
+  --color-border: #e5ebe2;
+  --color-border-2: #d4ddcf;
+  --color-green-soft-card: #eaf2e4;
+  --color-green-pale: #dcebd3;
+  --color-green-mute: #c9dbbe;
+  --color-green-medium: #73a06a;
+  --color-green-primary: #2d6b3a;
+  --color-green-deep: #0f3a1c;
+  --color-gold-soft: #e2c787;
+  --color-cta-primary: #c4623f;
+  --color-cta-primary-hover: #ad5234;
+  --shadow-cta: 0 10px 20px -8px rgba(196, 98, 63, 0.45);
+
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  color: var(--color-text-primary);
+  padding: 28px 32px 0;
+}
+
+/* ---------- Grid 5 coloane ---------- */
+.ms-mega .ms-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.05fr 1.05fr 1.05fr 0.95fr;
+  gap: 24px;
+  padding-bottom: 26px;
+}
+.ms-mega .ms-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ms-mega .ms-col h4 {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-green-primary);
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3px 8px;
+  line-height: 1.4;
+}
+.ms-mega .ms-col h4 .swatch {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-green-medium);
+  flex-shrink: 0;
+}
+.ms-mega .ms-col h4 .ctx {
+  color: var(--color-text-faint);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  flex-basis: 100%;
+  margin-left: 15px;
+}
+.ms-mega .ms-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ---------- Item simptom ---------- */
+.ms-mega .symptom {
+  display: flex;
+  gap: 11px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  align-items: flex-start;
+  transition: background 0.15s;
+  text-decoration: none;
+  color: inherit;
+}
+.ms-mega .symptom:hover {
+  background: var(--color-green-soft-card);
+  box-shadow: inset 0 0 0 1px var(--color-border-2);
+}
+.ms-mega .symptom:hover .ttl {
+  color: var(--color-green-deep);
+}
+.ms-mega .symptom .leaf {
+  width: 18px;
+  height: 18px;
+  color: var(--color-green-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ms-mega .symptom .body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.ms-mega .symptom .ttl {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+.ms-mega .symptom .micro {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 12.5px;
+  color: var(--color-text-faint);
+  line-height: 1.35;
+  font-weight: 400;
+}
+.ms-mega .symptom .arrow {
+  margin-left: auto;
+  color: var(--color-green-primary);
+  opacity: 0;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: opacity 0.15s;
+}
+.ms-mega .symptom:hover .arrow {
+  opacity: 1;
+}
+/* Anulează underline-ul global de navigație (`.navbar__menu__items ul > li > a::after`)
+   care se scurge pe link-urile din panou (sunt și ele `ul > li > a`). Acoperă și hover-ul. */
+.ms-mega .symptom::after,
+.ms-mega .symptom:hover::after {
+  display: none;
+  content: none;
+}
+
+/* ---------- Card featured (col 5) ---------- */
+.ms-mega .ms-featured {
+  margin-top: auto;
+  background: var(--color-green-soft-card);
+  border: 1px solid var(--color-border-2);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+.ms-mega .ms-featured .photo {
+  height: 80px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--color-green-medium), var(--color-green-primary));
+  display: grid;
+  place-items: center;
+}
+.ms-mega .ms-featured .photo .glyph {
+  width: 40px;
+  height: 40px;
+  color: var(--color-gold-soft);
+}
+.ms-mega .ms-featured .lbl {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+.ms-mega .ms-featured .lk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--color-green-primary);
+  font-weight: 600;
+}
+
+/* ---------- Bară de jos (WhatsApp) ---------- */
+.ms-mega .ms-bottom {
+  margin: 0 -32px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-page);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.ms-mega .ms-bottom .left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ms-mega .ms-bottom .dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  color: var(--color-green-primary);
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+.ms-mega .ms-bottom .txt strong {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--color-text-primary);
+  display: block;
+  line-height: 1.35;
+}
+.ms-mega .ms-bottom .txt span {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+}
+.ms-mega .btn-wa {
+  background: var(--color-cta-primary);
+  color: #fff;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-cta);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ms-mega .btn-wa:hover {
+  background: var(--color-cta-primary-hover);
+}
+.ms-mega .btn-wa .wa-ic {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+}
+
+/* ============================================================================
+   „După obiectiv" — extra față de simptom: 5 coloane egale, rând de carduri
+   featured, link „Vezi toate obiectivele". Restul (grid, coloane, .symptom,
+   bara de jos) e reutilizat din `.ms-mega`.
+   ============================================================================ */
+.ms-mega--obiectiv .ms-grid {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/* Rând featured (2 carduri) */
+.ms-mega .ms-fr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 18px 0 22px;
+  border-top: 1px solid var(--color-border);
+}
+.ms-mega .ms-fc {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--color-bg-page);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s;
+}
+.ms-mega .ms-fc:hover {
+  border-color: var(--color-green-medium);
+}
+.ms-mega .ms-fc .photo {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--color-green-medium), var(--color-green-primary));
+  display: grid;
+  place-items: center;
+  color: var(--color-gold-soft);
+}
+.ms-mega .ms-fc .photo svg {
+  width: 26px;
+  height: 26px;
+}
+/* „Pick-ul lunii": imaginea reală a produsului în locul glyph-ului.
+   `contain` + padding mic → produsul se vede întreg și clar, fără decupaj. */
+.ms-mega .ms-fc .photo.has-img {
+  background: #fff;
+  overflow: hidden;
+  padding: 4px;
+}
+.ms-mega .ms-fc .photo .fc-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+}
+.ms-mega .ms-fc .photo.quiz {
+  background: linear-gradient(135deg, var(--color-green-soft-card), var(--color-green-pale));
+  color: var(--color-green-primary);
+}
+.ms-mega .ms-fc .body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.ms-mega .fc-eye {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-green-primary);
+  font-weight: 700;
+}
+.ms-mega .fc-ttl {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+.ms-mega .fc-micro {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+}
+.ms-mega .cta-terra,
+.ms-mega .cta-ghost {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ms-mega .cta-terra {
+  background: var(--color-cta-primary);
+  color: #fff;
+}
+.ms-mega .ms-fc:hover .cta-terra {
+  background: var(--color-cta-primary-hover);
+}
+.ms-mega .cta-ghost {
+  border: 1.5px solid var(--color-green-primary);
+  color: var(--color-green-primary);
+}
+.ms-mega .ms-fc:hover .cta-ghost {
+  background: var(--color-green-soft-card);
+}
+
+/* Link „Vezi toate obiectivele" (în bara de jos, în loc de butonul WhatsApp) */
+.ms-mega .ms-see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-green-primary);
+  color: var(--color-green-primary);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.ms-mega .ms-see-all:hover {
+  background: var(--color-green-soft-card);
+}
+
+/* ---------- Fallback pentru desktop îngust ---------- */
+@media (max-width: 1180px) {
+  .ms-mega .ms-grid,
+  .ms-mega--obiectiv .ms-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .ms-mega .ms-fr {
+    grid-template-columns: 1fr;
+  }
+  .ms-mega .ms-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

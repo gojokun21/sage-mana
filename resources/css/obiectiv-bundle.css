@@ -1,0 +1,4 @@
+/* Pagina „După obiectiv" (detaliu) — ex. „Mai multă energie".
+ * Stiluri dedicate, scoped sub `.obiectiv-detail` (vezi resources/css/obiectiv.css).
+ * FAQ-ul folosește faq-accordion.js (lazy-load global din app.js pe `.faq .faq-item`). */
+@import "./obiectiv.css";

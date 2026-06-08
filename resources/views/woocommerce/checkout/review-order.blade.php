@@ -1,130 +1,131 @@
 {{--
-  Checkout order review table. Re-rendered via WC AJAX on updated_checkout.
+  Sumar comandă (order review) — redesign mockup `.summary`.
+  Re-randat prin WC AJAX la fiecare `updated_checkout`, deci AICI stau
+  produsele + totalurile (singura parte care se actualizează dinamic).
+  Structura `.mini-items` + `.row`/`.total-row` înlocuiește tabelul WC implicit;
+  WC doar înlocuiește innerHTML-ul lui `.woocommerce-checkout-review-order`,
+  nu cere un <table>. Toată logica de totaluri (subtotal, cupoane, livrare,
+  taxe ramburs/discount card, TVA, total) e păstrată identic.
+
   @see https://woocommerce.com/document/template-structure/
   @version 5.2.0
 --}}
 
 @php defined('ABSPATH') || exit; @endphp
 
-<table class="shop_table woocommerce-checkout-review-order-table">
-  <thead>
-    <tr>
-      <th class="product-name">{{ __('Product', 'woocommerce') }}</th>
-      <th class="product-total">{{ __('Subtotal', 'woocommerce') }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    @php do_action('woocommerce_review_order_before_cart_contents') @endphp
+{{--
+  Wrapper-ul `.woocommerce-checkout-review-order-table` e OBLIGATORIU: WC
+  actualizează sumarul prin AJAX (`update_order_review`) făcând
+  `$('.woocommerce-checkout-review-order-table').replaceWith(fragment)`. Fără
+  acest selector pe elementul rădăcină, totalurile ar rămâne neactualizate la
+  schimbarea metodei de plată / aplicarea cuponului. Nu mai e un <table>, dar
+  selectorul de clasă e tot ce contează pentru fragment replacement.
+--}}
+<div class="woocommerce-checkout-review-order-table">
 
-    @foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item)
-      @php
-        $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+<div class="mini-items">
+  @php do_action('woocommerce_review_order_before_cart_contents') @endphp
 
-        if (! ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key))) {
-          continue;
-        }
+  @foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item)
+    @php
+      $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
 
-        // Skip bundled child items (WC Product Bundles) — the parent bundle
-        // already represents them with the aggregated price.
-        $is_bundled_child = function_exists('wc_pb_is_bundled_cart_item')
-          ? wc_pb_is_bundled_cart_item($cart_item)
-          : ! empty($cart_item['bundled_by']);
-        if ($is_bundled_child) {
-          continue;
-        }
-      @endphp
+      if (! ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key))) {
+        continue;
+      }
 
-      <tr class="{{ esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)) }}">
-        <td class="product-name">
-          <div class="checkout-product-item">
-            <div class="checkout-product-image">
-              {!! $_product->get_image('woocommerce_thumbnail') !!}
-            </div>
-            <div class="checkout-product-info">
-              <span class="name">
-                {!! wp_kses_post(apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key)) !!}
-              </span>
-              <span class="qty">
-                {!! apply_filters(
-                  'woocommerce_checkout_cart_item_quantity',
-                  '<strong class="product-quantity">' . sprintf('&times; %s', (int) $cart_item['quantity']) . '</strong>',
-                  $cart_item,
-                  $cart_item_key
-                ) !!}
-              </span>
-              {!! wc_get_formatted_cart_item_data($cart_item) !!}
-            </div>
-          </div>
-        </td>
-        <td class="product-total">
-          {!! apply_filters('woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal($_product, $cart_item['quantity']), $cart_item, $cart_item_key) !!}
-        </td>
-      </tr>
-    @endforeach
+      // Skip bundled child items (WC Product Bundles) — pachetul părinte le
+      // reprezintă deja cu prețul agregat.
+      $is_bundled_child = function_exists('wc_pb_is_bundled_cart_item')
+        ? wc_pb_is_bundled_cart_item($cart_item)
+        : ! empty($cart_item['bundled_by']);
+      if ($is_bundled_child) {
+        continue;
+      }
+    @endphp
 
-    @php do_action('woocommerce_review_order_after_cart_contents') @endphp
-  </tbody>
-  <tfoot>
-    <tr class="cart-subtotal">
-      <th>{{ __('Subtotal', 'woocommerce') }}</th>
-      <td>{!! WC()->cart->get_cart_subtotal() !!}</td>
-    </tr>
+    <div class="mini-item {{ esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)) }}">
+      <div class="ph">
+        {!! $_product->get_image('woocommerce_thumbnail') !!}
+      </div>
+      <div class="name">
+        {!! wp_kses_post(apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key)) !!}
+        <span class="qty">{{ __('cantitate', 'sage') }} × {{ (int) $cart_item['quantity'] }}</span>
+        {!! wc_get_formatted_cart_item_data($cart_item) !!}
+      </div>
+      <span class="v">
+        {!! apply_filters('woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal($_product, $cart_item['quantity']), $cart_item, $cart_item_key) !!}
+      </span>
+    </div>
+  @endforeach
 
-    @foreach (WC()->cart->get_coupons() as $code => $coupon)
-      <tr class="cart-discount coupon-{{ esc_attr(sanitize_title($code)) }}">
-        <th>{!! wc_cart_totals_coupon_label($coupon) !!}</th>
-        <td>@php wc_cart_totals_coupon_html($coupon) @endphp</td>
-      </tr>
-    @endforeach
+  @php do_action('woocommerce_review_order_after_cart_contents') @endphp
+</div>
 
-    @if (WC()->cart->needs_shipping() && WC()->cart->show_shipping())
-      @php
-        $shipping_total = (float) WC()->cart->get_shipping_total();
-        $shipping_tax = (float) WC()->cart->get_shipping_tax();
-        $total = $shipping_total + $shipping_tax;
-      @endphp
-      <tr class="shipping">
-        <th>{{ __('Livrare', 'sage') }}</th>
-        <td>
-          @if ($total > 0)
-            {!! wc_price($total) !!}
-          @else
-            <span class="free-shipping">{{ __('Livrare gratuită', 'sage') }}</span>
-          @endif
-        </td>
-      </tr>
+<div class="divider"></div>
+
+<div class="totals">
+  <div class="row">
+    <span>{{ __('Subtotal', 'woocommerce') }}</span>
+    <span class="v">{!! WC()->cart->get_cart_subtotal() !!}</span>
+  </div>
+
+  @foreach (WC()->cart->get_coupons() as $code => $coupon)
+    <div class="row muted coupon-{{ esc_attr(sanitize_title($code)) }}">
+      <span>{!! wc_cart_totals_coupon_label($coupon) !!}</span>
+      <span class="v">@php wc_cart_totals_coupon_html($coupon) @endphp</span>
+    </div>
+  @endforeach
+
+  @if (WC()->cart->needs_shipping() && WC()->cart->show_shipping())
+    @php
+      $shipping_total = (float) WC()->cart->get_shipping_total();
+      $shipping_tax = (float) WC()->cart->get_shipping_tax();
+      $shipping_sum = $shipping_total + $shipping_tax;
+    @endphp
+    <div class="row {{ $shipping_sum > 0 ? '' : 'free' }}">
+      <span>{{ __('Livrare', 'sage') }}</span>
+      <span class="v">
+        @if ($shipping_sum > 0)
+          {!! wc_price($shipping_sum) !!}
+        @else
+          {{ __('Gratuit', 'sage') }}
+        @endif
+      </span>
+    </div>
+  @endif
+
+  @foreach (WC()->cart->get_fees() as $fee)
+    <div class="row muted fee">
+      <span>{{ esc_html($fee->name) }}</span>
+      <span class="v">@php wc_cart_totals_fee_html($fee) @endphp</span>
+    </div>
+  @endforeach
+
+  @if (wc_tax_enabled() && ! WC()->cart->display_prices_including_tax())
+    @if (get_option('woocommerce_tax_total_display') === 'itemized')
+      @foreach (WC()->cart->get_tax_totals() as $code => $tax)
+        <div class="row muted tax-rate-{{ esc_attr(sanitize_title($code)) }}">
+          <span>{{ esc_html($tax->label) }}</span>
+          <span class="v">{!! wp_kses_post($tax->formatted_amount) !!}</span>
+        </div>
+      @endforeach
+    @else
+      <div class="row muted">
+        <span>{{ esc_html(WC()->countries->tax_or_vat()) }}</span>
+        <span class="v">@php wc_cart_totals_taxes_total_html() @endphp</span>
+      </div>
     @endif
+  @endif
 
-    @foreach (WC()->cart->get_fees() as $fee)
-      <tr class="fee">
-        <th>{{ esc_html($fee->name) }}</th>
-        <td>@php wc_cart_totals_fee_html($fee) @endphp</td>
-      </tr>
-    @endforeach
+  @php do_action('woocommerce_review_order_before_order_total') @endphp
 
-    @if (wc_tax_enabled() && ! WC()->cart->display_prices_including_tax())
-      @if (get_option('woocommerce_tax_total_display') === 'itemized')
-        @foreach (WC()->cart->get_tax_totals() as $code => $tax)
-          <tr class="tax-rate tax-rate-{{ esc_attr(sanitize_title($code)) }}">
-            <th>{{ esc_html($tax->label) }}</th>
-            <td>{!! wp_kses_post($tax->formatted_amount) !!}</td>
-          </tr>
-        @endforeach
-      @else
-        <tr class="tax-total">
-          <th>{{ esc_html(WC()->countries->tax_or_vat()) }}</th>
-          <td>@php wc_cart_totals_taxes_total_html() @endphp</td>
-        </tr>
-      @endif
-    @endif
+  <div class="total-row">
+    <span class="lbl">{{ __('Total', 'woocommerce') }}</span>
+    <span class="v">@php wc_cart_totals_order_total_html() @endphp</span>
+  </div>
 
-    @php do_action('woocommerce_review_order_before_order_total') @endphp
+  @php do_action('woocommerce_review_order_after_order_total') @endphp
+</div>
 
-    <tr class="order-total">
-      <th>{{ __('Total', 'woocommerce') }}</th>
-      <td>@php wc_cart_totals_order_total_html() @endphp</td>
-    </tr>
-
-    @php do_action('woocommerce_review_order_after_order_total') @endphp
-  </tfoot>
-</table>
+</div>{{-- /.woocommerce-checkout-review-order-table --}}

@@ -50,7 +50,7 @@ Application::configure()
 |
 */
 
-collect(['setup', 'filters', 'permalinks', 'ajax-search', 'woocommerce-tabs', 'mini-cart', 'cart-modal', 'favorites', 'cart', 'checkout', 'home', 'auth', 'bundle-stock', 'perf', 'acf-options', 'cpt-studii', 'datalayer', 'category-theme', 'newsletter-popup', 'black-friday'])
+collect(['setup', 'filters', 'permalinks', 'ajax-search', 'woocommerce-tabs', 'mini-cart', 'cart-modal', 'favorites', 'cart', 'checkout', 'home', 'auth', 'bundle-stock', 'perf', 'acf-options', 'acf-simptom', 'acf-obiectiv', 'acf-sub200', 'cpt-studii', 'datalayer', 'newsletter-popup', 'black-friday', 'shop-filters', 'loyalty'])
     ->each(function ($file) {
         if (! locate_template($file = "app/{$file}.php", true, true)) {
             wp_die(

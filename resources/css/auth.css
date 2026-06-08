@@ -530,3 +530,455 @@ body.natura-login-open {
   }
   .natura-auth-title { font-size: 20px; }
 }
+
+/* ==========================================================================
+   PAGINA DE AUTENTIFICARE — redesign după mockup
+   `preferinte/Pagina Autentificare.html`. TOTUL e scoped sub `.natura-auth-screen`
+   ca să NU afecteze modalul de login din header (care folosește `.natura-auth-*`
+   fără acest wrapper). Comportamentul (tab-uri, toggle, strength) rămâne pe
+   resources/js/auth.js prin hook-urile data-natura-*.
+   ========================================================================== */
+
+.natura-auth-screen {
+  /* Paletă identică cu home/cart/checkout — scope local. */
+  --color-bg-page: #fafaf6;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1a1f1c;
+  --color-text-muted: #5b6960;
+  --color-text-faint: #8a978d;
+  --color-border: #e5ebe2;
+  --color-border-2: #d4ddcf;
+  --color-green-soft-card: #eaf2e4;
+  --color-green-mute: #c9dbbe;
+  --color-green-medium: #73a06a;
+  --color-green-primary: #2d6b3a;
+  --color-cta-primary: #c4623f;
+  --color-cta-primary-hover: #ad5234;
+  --shadow-cta: 0 10px 20px -8px rgba(196, 98, 63, 0.45);
+
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+/* HERO */
+.natura-auth-screen .auth-hero { padding: 56px 24px 24px; text-align: center; background: var(--color-bg-page); }
+.natura-auth-screen .auth-hero h1 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+  color: var(--color-text-primary);
+}
+.natura-auth-screen .auth-hero h1 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.natura-auth-screen .auth-hero .sub {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* WRAP */
+.natura-auth-screen .auth-wrap {
+  padding: 24px 24px 48px;
+  background: var(--color-bg-page);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* CARD */
+.natura-auth-screen .auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(31, 61, 46, 0.08);
+  overflow: hidden;
+}
+
+/* Tabs */
+.natura-auth-screen .tabs { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--color-border); }
+.natura-auth-screen .tabs:has(.tab-btn:only-child) { grid-template-columns: 1fr; }
+.natura-auth-screen .tab-btn {
+  background: transparent;
+  border: 0;
+  padding: 18px 0 16px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-faint);
+  cursor: pointer;
+  position: relative;
+  letter-spacing: 0.01em;
+}
+.natura-auth-screen .tab-btn:hover { color: var(--color-text-muted); }
+.natura-auth-screen .tab-btn.is-active { color: var(--color-green-primary); }
+.natura-auth-screen .tab-btn.is-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: var(--color-cta-primary);
+  border-radius: 3px 3px 0 0;
+}
+
+/* Card body */
+.natura-auth-screen .card-body { padding: 28px 32px 26px; }
+
+/* SSO */
+.natura-auth-screen .sso-label {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.natura-auth-screen .sso-stack { display: flex; flex-direction: column; gap: 9px; }
+.natura-auth-screen .sso-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 48px;
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.12s;
+}
+.natura-auth-screen .sso-btn:hover { border-color: var(--color-green-medium); background: var(--color-bg-page); }
+.natura-auth-screen .sso-btn svg { flex-shrink: 0; }
+.natura-auth-screen .sso-consent {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 11.5px;
+  color: var(--color-text-faint);
+  text-align: center;
+  line-height: 1.5;
+  margin-top: 12px;
+}
+.natura-auth-screen .sso-consent a { color: var(--color-green-primary); text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+
+/* Separator */
+.natura-auth-screen .or-sep { display: flex; align-items: center; gap: 12px; margin: 22px 0 20px; }
+.natura-auth-screen .or-sep::before,
+.natura-auth-screen .or-sep::after { content: ""; flex: 1; height: 1px; background: var(--color-border); }
+.natura-auth-screen .or-sep span {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 11px;
+  color: var(--color-text-faint);
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Forms */
+.natura-auth-screen .auth-form { display: flex; flex-direction: column; gap: 14px; }
+.natura-auth-screen .field { display: flex; flex-direction: column; gap: 6px; }
+.natura-auth-screen .field label {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+.natura-auth-screen .field label .opt {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-text-faint);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12px;
+  margin-left: 6px;
+}
+.natura-auth-screen .field-wrap { position: relative; }
+.natura-auth-screen .field input[type="text"],
+.natura-auth-screen .field input[type="email"],
+.natura-auth-screen .field input[type="password"] {
+  height: 48px;
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  padding: 0 14px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 14.5px;
+  color: var(--color-text-primary);
+  background: #fff;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.12s;
+}
+.natura-auth-screen .field input:focus { border-color: var(--color-green-primary); box-shadow: 0 0 0 3px rgba(45, 107, 58, 0.10); }
+.natura-auth-screen .field input::placeholder { color: var(--color-text-faint); }
+.natura-auth-screen .field-wrap.with-icon input { padding-right: 48px; }
+.natura-auth-screen .toggle-pw {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: 7px;
+}
+.natura-auth-screen .toggle-pw:hover,
+.natura-auth-screen .toggle-pw.is-revealed { color: var(--color-green-primary); background: var(--color-bg-page); }
+.natura-auth-screen .helper {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--color-text-faint);
+  line-height: 1.45;
+  margin: 2px 0 0;
+}
+.natura-auth-screen .auth-info {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  background: var(--color-green-soft-card);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Strength meter (un singur bar, driven de auth.js) */
+.natura-auth-screen .pw-strength-track {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--color-border);
+  overflow: hidden;
+  margin-top: 6px;
+}
+.natura-auth-screen .pw-strength-bar { display: block; height: 100%; width: 0; transition: width 0.2s ease, background-color 0.2s ease; }
+
+/* Row: remember + forgot */
+.natura-auth-screen .row-between { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 2px; }
+.natura-auth-screen .check-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13px;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+.natura-auth-screen .forgot-link {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13px;
+  color: var(--color-cta-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+.natura-auth-screen .forgot-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Custom checkbox (real <input> ascuns + .cb-box) — pentru remember & consents */
+.natura-auth-screen .check-inline input[type="checkbox"],
+.natura-auth-screen .consent-row input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+.natura-auth-screen .check-inline .cb-box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-border-2);
+  border-radius: 5px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: transparent;
+  transition: all 0.12s;
+}
+.natura-auth-screen .consent-row .cb-box {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--color-border-2);
+  border-radius: 5px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: transparent;
+  transition: all 0.12s;
+}
+.natura-auth-screen .check-inline input:checked + .cb-box,
+.natura-auth-screen .consent-row input:checked + .cb-box {
+  background: var(--color-green-primary);
+  border-color: var(--color-green-primary);
+  color: #fff;
+}
+.natura-auth-screen .check-inline input:focus-visible + .cb-box,
+.natura-auth-screen .consent-row input:focus-visible + .cb-box { box-shadow: 0 0 0 3px rgba(45, 107, 58, 0.18); }
+
+/* Consent rows (signup) */
+.natura-auth-screen .consent-row { display: flex; align-items: flex-start; gap: 11px; cursor: pointer; padding: 2px 0; }
+.natura-auth-screen .consent-row .txt {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13px;
+  color: var(--color-text-primary);
+  line-height: 1.55;
+}
+.natura-auth-screen .consent-row .txt a { color: var(--color-cta-primary); text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+.natura-auth-screen .consent-row.required .txt::after { content: "*"; color: var(--color-cta-primary); margin-left: 3px; font-weight: 700; }
+
+/* Submit */
+.natura-auth-screen .submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 52px;
+  width: 100%;
+  background: var(--color-cta-primary);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: var(--shadow-cta);
+  margin-top: 6px;
+  transition: all 0.12s;
+}
+.natura-auth-screen .submit-btn:hover:not(:disabled) { background: var(--color-cta-primary-hover); }
+.natura-auth-screen .submit-btn:disabled { background: var(--color-text-faint); cursor: not-allowed; box-shadow: none; opacity: 0.6; }
+.natura-auth-screen .alt-line {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 14px 0 0;
+}
+.natura-auth-screen .alt-line a { color: var(--color-green-primary); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* Guest escape card */
+.natura-auth-screen .guest-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-bg-card);
+  border: 1.5px solid var(--color-green-mute);
+  border-radius: 14px;
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+}
+.natura-auth-screen .guest-card .ico {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-green-soft-card);
+  color: var(--color-green-primary);
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
+}
+.natura-auth-screen .guest-card h3 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+.natura-auth-screen .guest-card h3 em { font-style: italic; color: var(--color-green-primary); font-weight: 400; }
+.natura-auth-screen .guest-card p {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+.natura-auth-screen .guest-card a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 22px;
+  background: transparent;
+  color: var(--color-green-primary);
+  border: 1.5px solid var(--color-green-primary);
+  border-radius: 999px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  align-self: center;
+}
+.natura-auth-screen .guest-card a:hover { background: #fff; }
+
+/* Trust signals */
+.natura-auth-screen .trust-row { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 14px; max-width: 560px; }
+.natura-auth-screen .trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 11.5px;
+  color: var(--color-text-faint);
+  font-weight: 500;
+}
+.natura-auth-screen .trust-item svg { color: var(--color-green-medium); flex-shrink: 0; }
+
+/* WC notices afișate de woocommerce_before_customer_login_form */
+.natura-auth-screen .woocommerce-error,
+.natura-auth-screen .woocommerce-message,
+.natura-auth-screen .woocommerce-info {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 0 4px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  list-style: none;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.natura-auth-screen .woocommerce-error { background: #fdecea; border: 1px solid #f5c6c2; color: #b3261e; }
+.natura-auth-screen .woocommerce-message,
+.natura-auth-screen .woocommerce-info { background: #e8f3ee; border: 1px solid #c6e0d3; color: var(--color-green-primary); }
+
+@media (max-width: 560px) {
+  .natura-auth-screen .auth-hero { padding: 36px 18px 18px; }
+  .natura-auth-screen .auth-hero h1 { font-size: 32px; }
+  .natura-auth-screen .card-body { padding: 24px 20px 22px; }
+  .natura-auth-screen .trust-row { gap: 14px; }
+}

@@ -1,3 +1,4 @@
 /* My Account pages. `auth.css` stays in the universal bundle (app.css)
  * because the login modal is triggered from the header on every page. */
 @import "./myaccount.css";
+@import "./loyalty.css";        /* „Cod fidelitate" tab (.loyalty-tab) */

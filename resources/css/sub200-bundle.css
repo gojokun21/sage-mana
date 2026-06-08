@@ -1,0 +1,3 @@
+/* Pagina filtru „Sub 200 lei" — bundle încărcat conditional pe
+ * template-sub-200 (vezi App\page_bundles). Scoped sub `.sub200-page`. */
+@import "./sub200.css";

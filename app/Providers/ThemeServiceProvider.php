@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Console\Commands\AddressImport;
+use App\Console\Commands\ObiectivSeed;
+use App\Console\Commands\SimptomSeed;
+use App\Console\Commands\Sub200Seed;
 use Roots\Acorn\Sage\SageServiceProvider;
 
 class ThemeServiceProvider extends SageServiceProvider
@@ -19,6 +22,9 @@ class ThemeServiceProvider extends SageServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 AddressImport::class,
+                SimptomSeed::class,
+                ObiectivSeed::class,
+                Sub200Seed::class,
             ]);
         }
     }

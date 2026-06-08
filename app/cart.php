@@ -328,6 +328,17 @@ function cart_fragments(): array
     $missing = max(0, FREE_SHIPPING_MIN - $subtotal);
     $applied = $cart->get_applied_coupons();
 
+    $recommended = cart_recommended_products();
+    $cross_sell_html = '';
+    if (! empty($recommended)) {
+        $cross_sell_html = View::make('partials.cart.cross-sell-card', [
+            'recommended' => $recommended,
+            'cart_has_upsell' => cart_has_upsell_product(),
+            'upsell_percent' => cart_upsell_percent(),
+            'upsell_nonce' => wp_create_nonce(UPSELL_NONCE),
+        ])->render();
+    }
+
     return [
         'is_empty' => false,
         'count' => (int) $cart->get_cart_contents_count(),
@@ -338,6 +349,7 @@ function cart_fragments(): array
             'has_coupon' => ! empty($applied),
             'applied_coupon' => $applied[0] ?? '',
         ])->render(),
+        'cross_sell_html' => $cross_sell_html,
     ];
 }
 
@@ -443,6 +455,44 @@ function cart_handler(): void
                 // page after the mini-cart (or any other source) changed the cart.
                 WC()->cart->calculate_totals();
                 wp_send_json_success(cart_fragments());
+
+                break;
+
+            case 'add_cross_sell':
+                $product_id = isset($_POST['product_id']) ? (int) $_POST['product_id'] : 0;
+                $upsell_nonce = isset($_POST['upsell_nonce']) ? sanitize_text_field(wp_unslash($_POST['upsell_nonce'])) : '';
+
+                if (! wp_verify_nonce($upsell_nonce, UPSELL_NONCE)) {
+                    wp_send_json_error(['message' => __('Token expirat. Reîncarcă pagina.', 'sage')]);
+                }
+
+                $product = $product_id ? wc_get_product($product_id) : null;
+                if (! $product || ! $product->is_purchasable() || ! $product->is_in_stock()) {
+                    wp_send_json_error(['message' => __('Produsul nu poate fi adăugat.', 'sage')]);
+                }
+
+                // Set upsell-discount intent for woocommerce_add_cart_item_data filter
+                // by mimicking the GET flow expected fields. Inject into $_REQUEST so
+                // the existing add_cart_item_data filter (uses $_REQUEST) sees them.
+                $_REQUEST['upsell_discount'] = '1';
+                $_REQUEST['_upsell_nonce'] = $upsell_nonce;
+
+                $added_key = WC()->cart->add_to_cart($product_id, 1);
+                if (! $added_key) {
+                    $notices = wc_get_notices('error');
+                    wc_clear_notices();
+                    $raw = ! empty($notices) ? ($notices[0]['notice'] ?? '') : '';
+                    $msg = $raw
+                        ? html_entity_decode(wp_strip_all_tags($raw), ENT_QUOTES, 'UTF-8')
+                        : __('Produsul nu a putut fi adăugat.', 'sage');
+                    wp_send_json_error(['message' => $msg]);
+                }
+
+                WC()->cart->calculate_totals();
+                wp_send_json_success(array_merge(
+                    ['message' => sprintf(__('„%s" a fost adăugat în coș.', 'sage'), $product->get_name())],
+                    cart_fragments()
+                ));
 
                 break;
 

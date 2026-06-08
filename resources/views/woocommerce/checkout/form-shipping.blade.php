@@ -17,7 +17,7 @@
               aria-expanded="false"
               aria-controls="shipping-accordion-panel"
               data-shipping-toggle>
-        <span class="shipping-accordion__title">{{ __('Ship to a different address?', 'woocommerce') }}</span>
+        <span class="shipping-accordion__title">{{ __('Livrez la altă adresă', 'sage') }}</span>
         <svg class="shipping-accordion__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

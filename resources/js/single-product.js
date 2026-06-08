@@ -177,9 +177,17 @@ import { Thumbs, Navigation, Pagination } from 'swiper/modules';
   const container = document.getElementById('sticky-price-container');
   if (!container) return;
 
-  const mainAddToCart = document.querySelector('.single_add_to_cart_button');
-  const mainQtyInput = document.querySelector('form.cart input.qty');
-  const trigger = mainAddToCart || document.querySelector('.summary.entry-summary');
+  // Redesign PDP: add-to-cart-ul real e în `.pdp-atc` (simple = .mn-atc-btn, fără
+  // form.cart). Fallback-urile acoperă și layout-ul vechi (.single_add_to_cart_button).
+  const mainAddToCart =
+    document.querySelector('.single_add_to_cart_button') ||
+    document.querySelector('.pdp-atc .mn-atc-btn');
+  const mainQtyInput =
+    document.querySelector('.pdp-atc input.qty') || document.querySelector('form.cart input.qty');
+  const trigger =
+    mainAddToCart ||
+    document.querySelector('.pdp-atc') ||
+    document.querySelector('.summary.entry-summary');
 
   function updateVisibility() {
     if (!trigger) {

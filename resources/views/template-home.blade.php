@@ -7,31 +7,13 @@
 @section('content')
   <div class="home-template">
     @include('partials.home.hero')
-    @include('partials.home.categories')
-    @include('partials.home.trust-badges')
-    @include('partials.home.products-slider', [
-      'id' => 'popular-packages',
-      'title' => __('Pachete populare', 'sage'),
-      'products' => $popular_packages,
-    ])
+    @include('partials.home.philosophy')
+    @include('partials.home.entry-points')
+    @include('partials.home.quiz-strip')
+    @include('partials.home.flagship-products')
+    @include('partials.home.trust')
+    @include('partials.home.blog')
     @include('partials.home.testimonials')
-    @include('partials.home.quote-banner')
-    @include('partials.home.products-slider', [
-      'id' => 'new-products',
-      'title' => __('Produse Noi', 'sage'),
-      'products' => $new_products,
-    ])
-    @include('partials.home.banner')
-    @include('partials.home.products-slider', [
-      'id' => 'promo-products',
-      'title' => __('Cele mai vândute produse', 'sage'),
-      'products' => $promo_products,
-      'badge' => 'promo',
-      'cta_url' => function_exists('wc_get_page_id') ? get_permalink(wc_get_page_id('shop')) : home_url('/magazin/'),
-      'cta_text' => __('Vezi produsele VivensGenetica', 'sage'),
-    ])
-    @include('partials.single-product.customer-reviews')
-    @include('partials.home.benefits')
-    @include('partials.home.faq')
+    @include('partials.home.newsletter')
   </div>
 @endsection

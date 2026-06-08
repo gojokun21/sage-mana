@@ -1,96 +1,99 @@
 {{--
-  Cart page.
-  Ported from mana-naturii/woocommerce/cart/cart.php (WC template v10.1.0 baseline).
+  Cart page — redesign după mockup `preferinte/Pagina Cos - Cart.html`.
+
+  Structură:
+    - .cart-page (scope CSS)
+      - funnel-steps (4 pași, primul activ)
+      - cart-hero (titlu + count subline + secure-line)
+      - free-shipping-box (progress bar)
+      - .cart-grid (2-col)
+        - items column: .cart-items (data-cart-items) + cross-sell-card
+        - summary aside: cart-summary (.cart_totals + CTAs + reassurance)
+      - pre-checkout-faq
+
+  AJAX hooks păstrate prin selectoarele/atributele:
+    [data-cart-item-key], [data-cart-item-remove], [data-cart-items],
+    [data-coupon-shell], .qty-stepper__input, .cart_totals, .free-shipping-box.
 --}}
 
 @php
   defined('ABSPATH') || exit;
 
-  $cart_total = WC()->cart->get_subtotal();
-  $missing = max(0, \App\FREE_SHIPPING_MIN - $cart_total);
+  $cart_subtotal_raw = WC()->cart->get_subtotal();
+  $missing = max(0, \App\FREE_SHIPPING_MIN - $cart_subtotal_raw);
+  $cart_count = WC()->cart->get_cart_contents_count();
+  $subtotal_html = WC()->cart->get_cart_subtotal();
 
   $recommended = \App\cart_recommended_products();
   $cart_has_upsell = \App\cart_has_upsell_product();
   $upsell_percent = \App\cart_upsell_percent();
   $upsell_nonce = wp_create_nonce(\App\UPSELL_NONCE);
 
-  $applied_coupons = WC()->cart->get_applied_coupons();
-  $has_coupon = ! empty($applied_coupons);
-
   do_action('woocommerce_before_cart');
 @endphp
 
-{!! \App\render_checkout_steps() !!}
+<div class="cart-page">
+  @include('partials.cart.funnel-steps')
 
-<form class="woocommerce-cart-form" action="{{ esc_url(wc_get_cart_url()) }}" method="post">
-  @php do_action('woocommerce_before_cart_table') @endphp
-
-  <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
-    <thead>
-      <tr>
-        <th class="product-thumbnail"><span class="screen-reader-text">{{ __('Thumbnail image', 'woocommerce') }}</span></th>
-        <th scope="col" class="product-name">{{ __('Product', 'woocommerce') }}</th>
-        <th scope="col" class="product-price">{{ __('Price', 'woocommerce') }}</th>
-        <th scope="col" class="product-quantity">{{ __('Quantity', 'woocommerce') }}</th>
-        <th scope="col" class="product-subtotal">{{ __('Subtotal', 'woocommerce') }}</th>
-        <th class="product-remove"><span class="screen-reader-text">{{ __('Remove item', 'woocommerce') }}</span></th>
-      </tr>
-    </thead>
-    <tbody data-cart-items>
-      @php do_action('woocommerce_before_cart_contents') @endphp
-
-      @include('partials.cart.cart-items')
-
-      @php do_action('woocommerce_cart_contents') @endphp
-
-      <tr>
-        <td colspan="6" class="actions">
-          <button type="submit" class="button" name="update_cart" value="{{ esc_attr__('Update cart', 'woocommerce') }}">
-            {{ __('Update cart', 'woocommerce') }}
-          </button>
-
-          @php do_action('woocommerce_cart_actions') @endphp
-
-          {!! wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce', true, false) !!}
-        </td>
-      </tr>
-
-      @php do_action('woocommerce_after_cart_contents') @endphp
-    </tbody>
-  </table>
-  @php do_action('woocommerce_after_cart_table') @endphp
-</form>
-
-@include('partials.cart.free-shipping-box', ['missing' => $missing])
-
-@if (! empty($recommended))
-  @include('partials.cart.recommended-slider', [
-    'recommended' => $recommended,
-    'cart_has_upsell' => $cart_has_upsell,
-    'upsell_percent' => $upsell_percent,
-    'upsell_nonce' => $upsell_nonce,
+  @include('partials.cart.cart-hero', [
+    'count' => $cart_count,
+    'subtotal' => $subtotal_html,
   ])
-@endif
 
-<div class="cart_bottom_grid">
-  <div class="cart_coupon_area">
-    <h3>{{ __('Cod de reducere', 'sage') }}</h3>
+  @include('partials.cart.free-shipping-box', ['missing' => $missing])
 
-    @if (wc_coupons_enabled())
-      @include('partials.cart.coupon-form', [
-        'has_coupon' => $has_coupon,
-        'applied_coupon' => $has_coupon ? $applied_coupons[0] : '',
-      ])
-    @endif
-  </div>
+  <section class="cart-content">
+    {{-- NOTE: was <form class="woocommerce-cart-form">, dar coupon form-ul AJAX
+         (#mn-ajax-coupon-form) e nested în summary → browserul strip-uia form-ul
+         intern (nested forms = invalid HTML). Schimbăm pe <div> — cart.js folosește
+         doar selectorul de clasă, nu form.submit(). Hidden update_cart button rămâne
+         pentru orice plugin care îl caută, dar nu mai există fallback non-AJAX. --}}
+    <div class="woocommerce-cart-form cart-grid" data-cart-form>
+      @php do_action('woocommerce_before_cart_table') @endphp
 
+      <div class="cart-col-items">
+        <div class="cart-items" data-cart-items>
+          @php do_action('woocommerce_before_cart_contents') @endphp
+
+          @include('partials.cart.cart-items')
+
+          @php do_action('woocommerce_cart_contents') @endphp
+          @php do_action('woocommerce_after_cart_contents') @endphp
+        </div>
+
+        @if (! empty($recommended))
+          @include('partials.cart.cross-sell-card', [
+            'recommended' => $recommended,
+            'cart_has_upsell' => $cart_has_upsell,
+            'upsell_percent' => $upsell_percent,
+            'upsell_nonce' => $upsell_nonce,
+          ])
+        @endif
+
+        {{-- Nonce-ul WC păstrat pentru pluginele care îl verifică. --}}
+        <div class="cart-hidden-actions" hidden aria-hidden="true">
+          {!! wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce', true, false) !!}
+          @php do_action('woocommerce_cart_actions') @endphp
+        </div>
+      </div>
+
+      <aside class="cart-col-summary">
+        <div class="cart-summary-sticky">
+          @include('partials.cart.summary')
+        </div>
+      </aside>
+
+      @php do_action('woocommerce_after_cart_table') @endphp
+    </div>
+  </section>
+
+  {{-- `woocommerce_cart_collaterals` (WC default) re-renders cart-totals here
+       — drop intenționat: avem totals în summary card și folosim propriul
+       cross-sell ACF în coloana de items. Hook-ul `before_cart_collaterals` rămâne
+       util pentru plugins care injectează ceva între cart și pre-checkout. --}}
   @php do_action('woocommerce_before_cart_collaterals') @endphp
 
-  <div class="cart_left_area">
-    <div class="cart-collaterals">
-      @php do_action('woocommerce_cart_collaterals') @endphp
-    </div>
-  </div>
+  @include('partials.cart.pre-checkout-faq')
 </div>
 
 @php do_action('woocommerce_after_cart') @endphp

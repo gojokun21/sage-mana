@@ -1,0 +1,3 @@
+/* Pagina Promoții — bundle încărcat conditional pe template-promotii
+ * (vezi App\page_bundles). Scoped sub `.promo-page`. */
+@import "./promotii.css";

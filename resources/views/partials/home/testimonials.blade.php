@@ -1,114 +1,84 @@
-{{--
-  Video testimonials.
-  ACF Options group: `testimonials_section` with:
-    - title_section, description_section
-    - items repeater: image, product_name, video_file
---}}
+{{-- Testimoniale text — 3 carduri (înlocuiește vechea variantă video-ACF). --}}
+<section class="testi">
+  <div class="testi-head">
+    <div class="eyebrow" style="margin-bottom:14px">{{ __('Ce spun oamenii care ne-au folosit produsele 60+ zile', 'sage') }}</div>
+    <h2>{{ __('Recenzii pe care', 'sage') }} <em>{{ __('nu le-am editat.', 'sage') }}</em></h2>
+  </div>
 
-@php
-  if (! function_exists('have_rows') || ! have_rows('testimonials_section', 'options')) {
-    return;
-  }
-
-  $catalog_url = apply_filters('natura_home_catalog_url', home_url('/catalog/'));
-@endphp
-
-@while (have_rows('testimonials_section', 'options'))
-  @php the_row() @endphp
-
-  @php
-    $title = get_sub_field('title_section');
-    $description = get_sub_field('description_section');
-  @endphp
-
-  @if (have_rows('items'))
-    <section class="home-section home-testimonials" aria-labelledby="home-testimonials-title">
-      @if ($title || $description)
-        <div class="home-section__header">
-          @if ($title)
-            <h2 id="home-testimonials-title" class="home-section__title">{{ $title }}</h2>
-          @endif
-          @if ($description)
-            <p class="home-section__subtitle">{!! wp_kses_post($description) !!}</p>
-          @endif
-        </div>
-      @endif
-
-      <div class="home-slider">
-        <div class="home-slider__swiper swiper" data-home-swiper="testimonials">
-          <div class="swiper-wrapper">
-            @while (have_rows('items'))
-              @php
-                the_row();
-                $image = get_sub_field('image');
-                $product_name = get_sub_field('product_name');
-                $video = get_sub_field('video_file');
-
-                $image_id = \App\acf_image_id($image);
-                $image_url = is_array($image) ? ($image['url'] ?? '') : (is_string($image) ? $image : '');
-                $image_alt = is_array($image) ? ($image['alt'] ?? '') : '';
-                $video_url = is_array($video) ? ($video['url'] ?? '') : $video;
-
-                // Displayed ~191x340 → medium_large (768w) as base is plenty;
-                // WP auto-emits srcset with smaller sizes so mobile DPR=2 fetches
-                // ~400-500px tops instead of 1080x1412.
-                $thumb_html = $image_id
-                    ? wp_get_attachment_image($image_id, 'medium_large', false, [
-                        'alt' => esc_attr($image_alt ?: $product_name),
-                        'sizes' => '(max-width: 768px) 45vw, 220px',
-                        'loading' => 'lazy',
-                        'decoding' => 'async',
-                    ])
-                    : ($image_url
-                        ? '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($image_alt ?: $product_name) . '" loading="lazy" decoding="async">'
-                        : '');
-              @endphp
-
-              <div class="swiper-slide home-testimonial">
-                <div class="home-testimonial__thumb">
-                  {!! $thumb_html !!}
-
-                  @if ($video_url)
-                    <a class="home-testimonial__play"
-                       data-fancybox="home-testimonials"
-                       data-thumb="{{ esc_url($image_url) }}"
-                       @if ($product_name) data-caption="{{ esc_attr($product_name) }}" @endif
-                       href="{{ esc_url($video_url) }}"
-                       aria-label="{{ esc_attr__('Vezi recenzia clienților noștri', 'sage') }}">
-                      <img src="{{ get_stylesheet_directory_uri() }}/assets/images/icons/play-solid.svg" alt="{{ esc_attr__('Vezi recenzia clienților noștri', 'sage') }}">
-                    </a>
-                  @endif
-
-                  <div class="home-testimonial__overlay">
-                    <a class="btn-primary" href="{{ esc_url($catalog_url) }}">
-                      {{ __('Vezi Catalog', 'sage') }}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            @endwhile
-          </div>
-        </div>
-
-        <button type="button"
-                class="home-slider__btn home-slider__btn--prev"
-                aria-label="{{ esc_attr__('Anterior', 'sage') }}"
-                data-home-slider-prev="testimonials">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button type="button"
-                class="home-slider__btn home-slider__btn--next"
-                aria-label="{{ esc_attr__('Următorul', 'sage') }}"
-                data-home-slider-next="testimonials">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-
-        <div class="home-slider__pagination" data-home-slider-pagination="testimonials"></div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars-row">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg class="empty" viewBox="0 0 24 24"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
       </div>
-    </section>
-  @endif
-@endwhile
+      <blockquote>{{ __('„Al treilea flacon. Diferența se vede după lună, dar se vede."', 'sage') }}</blockquote>
+      <div class="who">
+        <div class="avatar">A</div>
+        <div>
+          <div class="name">Andreea M.</div>
+          <div class="role">{{ __('38 · Cluj', 'sage') }}</div>
+        </div>
+      </div>
+      <div class="product-tag">
+        <span>Black Seed Elixir</span>
+        <span class="vchip">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          {{ __('verificat · 4 luni', 'sage') }}
+        </span>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="stars-row">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+      </div>
+      <blockquote>{{ __('„Am cumpărat pentru imunitate, fără să iau zinc și vitamina C. Trei săptămâni să simt o diferență — energia după-amiezei e alta."', 'sage') }}</blockquote>
+      <div class="who">
+        <div class="avatar">M</div>
+        <div>
+          <div class="name">Mihai R.</div>
+          <div class="role">{{ __('42 · București', 'sage') }}</div>
+        </div>
+      </div>
+      <div class="product-tag">
+        <span>Microflora+</span>
+        <span class="vchip">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          {{ __('verificat · 2 luni', 'sage') }}
+        </span>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="stars-row">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        <svg class="empty" viewBox="0 0 24 24"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+      </div>
+      <blockquote>{{ __('„Nu e dulce, exact așa cum scrie. Mi-a luat 2 săptămâni să mă obișnuiesc. Acum nu mai pot la celelalte."', 'sage') }}</blockquote>
+      <div class="who">
+        <div class="avatar">B</div>
+        <div>
+          <div class="name">Bogdan T.</div>
+          <div class="role">{{ __('28 · Brașov', 'sage') }}</div>
+        </div>
+      </div>
+      <div class="product-tag">
+        <span>ChocoProtein</span>
+        <span class="vchip">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          {{ __('verificat · 3 luni', 'sage') }}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

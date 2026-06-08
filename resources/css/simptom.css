@@ -1,0 +1,846 @@
+/* ============================================================================
+   Pagina simptom (detaliu) — redesign după mockup
+   `preferinte/Pagina simptom - Sindrom metabolic.html`.
+   TOATE selectoarele sunt scoped sub `.simptom-detail`.
+   Toate paginile de simptom folosesc aceleași secțiuni; conținutul vine
+   din partials/simptom/*.blade.php (static, în română).
+   ============================================================================ */
+
+.simptom-detail {
+  /* Paletă identică cu about/home/symptom hub — scope local. */
+  --color-bg-page: #fafaf6;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1a1f1c;
+  --color-text-muted: #5b6960;
+  --color-text-faint: #8a978d;
+  --color-border: #e5ebe2;
+  --color-border-2: #d4ddcf;
+  --color-green-soft-card: #eaf2e4;
+  --color-green-pale: #d9e8d2;
+  --color-green-mute: #c9dbbe;
+  --color-green-medium: #73a06a;
+  --color-green-primary: #2d6b3a;
+  --color-green-deep: #0f3a1c;
+  --color-gold: #caa44a;
+  --color-gold-soft: #e2c787;
+  --color-cta-primary: #c4623f;
+  --color-cta-primary-hover: #ad5234;
+  --shadow-soft: 0 18px 40px -22px rgba(45, 107, 58, 0.35);
+  --shadow: 0 14px 34px -14px rgba(26, 31, 28, 0.16);
+  --shadow-cta: 0 10px 20px -8px rgba(196, 98, 63, 0.45);
+
+  /* Gutter centrat: fundalul secțiunilor rămâne full-bleed, dar conținutul
+     se plafonează la 1470px (min 64px gutter lateral). */
+  --page-gutter: max(64px, calc((100% - 1470px) / 2));
+
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+/* ---------- Breadcrumb ---------- */
+.simptom-detail .breadcrumb {
+  padding: 22px var(--page-gutter);
+  font-size: 13px;
+  color: var(--color-text-faint);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-bg-page);
+  border-bottom: 1px solid var(--color-border);
+}
+.simptom-detail .breadcrumb a { color: var(--color-text-faint); text-decoration: none; cursor: pointer; }
+.simptom-detail .breadcrumb a:hover { color: var(--color-green-primary); }
+.simptom-detail .breadcrumb .sep { opacity: 0.5; }
+.simptom-detail .breadcrumb .here { color: var(--color-text-primary); font-weight: 600; }
+
+/* Shared eyebrow base. */
+.simptom-detail .eyebrow {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-green-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.simptom-detail .eyebrow.with-rule::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--color-green-medium);
+}
+
+/* ============================================================================
+   HERO
+   ============================================================================ */
+.simptom-detail .hero { padding: 80px var(--page-gutter) 96px; background: var(--color-bg-page); }
+.simptom-detail .hero-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.simptom-detail .hero-left .eyebrow { margin-bottom: 18px; }
+.simptom-detail .hero-left h1 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 22px;
+  color: var(--color-text-primary);
+}
+.simptom-detail .hero-left h1 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.simptom-detail .hero-left p.lede {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  max-width: 580px;
+  margin: 0 0 28px;
+}
+.simptom-detail .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; }
+.simptom-detail .meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-green-soft-card);
+  border: 1px solid var(--color-border-2);
+  color: var(--color-green-deep);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+.simptom-detail .meta-chip svg { color: var(--color-green-primary); flex-shrink: 0; }
+
+.simptom-detail .hero-illu {
+  aspect-ratio: 1;
+  border-radius: 24px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-soft);
+}
+.simptom-detail .hero-illu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 55%, var(--color-green-soft-card) 0%, transparent 60%);
+}
+.simptom-detail .hero-illu svg { position: relative; width: 65%; height: auto; color: var(--color-green-medium); opacity: 0.75; }
+.simptom-detail .hero-illu img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================================================
+   SECTION — Definiție
+   ============================================================================ */
+.simptom-detail .definitie { padding: 80px var(--page-gutter); background: var(--color-green-soft-card); }
+.simptom-detail .def-head { text-align: center; max-width: 680px; margin: 0 auto 48px; }
+.simptom-detail .def-head .eyebrow { margin-bottom: 14px; justify-content: center; }
+.simptom-detail .def-head h2 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.simptom-detail .def-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.simptom-detail .def-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.simptom-detail .def-cell {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 28px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.simptom-detail .def-cell .ico {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--color-green-soft-card);
+  display: grid;
+  place-items: center;
+  color: var(--color-green-primary);
+}
+.simptom-detail .def-cell h3 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+.simptom-detail .def-cell p { font-size: 14.5px; color: var(--color-text-muted); line-height: 1.7; margin: 0; }
+
+/* ============================================================================
+   SECTION — Trei semne
+   ============================================================================ */
+.simptom-detail .cauze { padding: 96px var(--page-gutter); background: var(--color-bg-page); }
+.simptom-detail .cauze-head { margin-bottom: 48px; max-width: 680px; }
+.simptom-detail .cauze-head .eyebrow { margin-bottom: 14px; }
+.simptom-detail .cauze-head h2 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.simptom-detail .cauze-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.simptom-detail .cauze-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.simptom-detail .cauza-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-2);
+  border-radius: 20px;
+  padding: 32px 32px 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.simptom-detail .cauza-card .num {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 54px;
+  color: var(--color-green-primary);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin-bottom: 8px;
+}
+.simptom-detail .cauza-card h3 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0 0 14px;
+  color: var(--color-text-primary);
+}
+.simptom-detail .cauza-card p { font-size: 14.5px; color: var(--color-text-muted); line-height: 1.75; margin: 0 0 24px; }
+.simptom-detail .cauza-foot {
+  margin: auto -32px 0;
+  padding: 18px 32px;
+  background: var(--color-green-soft-card);
+  border-top: 1px solid var(--color-border-2);
+  font-size: 13.5px;
+  color: var(--color-text-primary);
+  line-height: 1.55;
+}
+.simptom-detail .cauza-foot strong {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-green-primary);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ============================================================================
+   SECTION — Autotest
+   ============================================================================ */
+.simptom-detail .autotest { padding: 96px var(--page-gutter); background: var(--color-green-soft-card); }
+.simptom-detail .auto-head { text-align: center; max-width: 680px; margin: 0 auto 48px; }
+.simptom-detail .auto-head .eyebrow { margin-bottom: 14px; justify-content: center; }
+.simptom-detail .auto-head h2 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.simptom-detail .auto-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.simptom-detail .auto-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  max-width: 920px;
+  margin: 0 auto 36px;
+}
+.simptom-detail .auto-q { background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 24px 28px; }
+.simptom-detail .auto-q .q {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+  margin: 0 0 16px;
+}
+.simptom-detail .auto-opts { display: flex; gap: 8px; }
+.simptom-detail .auto-opt {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  background: #fff;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.simptom-detail .auto-opt:hover { border-color: var(--color-green-medium); color: var(--color-green-primary); }
+.simptom-detail .auto-opt.selected { background: var(--color-green-primary); border-color: var(--color-green-primary); color: #fff; }
+
+.simptom-detail .auto-result {
+  max-width: 920px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1.5px solid var(--color-green-medium);
+  border-radius: 18px;
+  padding: 28px 32px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+}
+.simptom-detail .auto-result .body p.lbl {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--color-green-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
+.simptom-detail .auto-result .body p.txt {
+  font-size: 15px;
+  color: var(--color-text-primary);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 560px;
+}
+.simptom-detail .auto-result .body p.txt strong { font-weight: 600; }
+.simptom-detail .auto-result a.btn-q {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 22px;
+  height: 48px;
+  background: transparent;
+  border: 1.5px solid var(--color-green-primary);
+  color: var(--color-green-primary);
+  border-radius: 999px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-weight: 600;
+  font-size: 13.5px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.simptom-detail .auto-result a.btn-q:hover { background: var(--color-green-primary); color: #fff; }
+
+/* ============================================================================
+   SECTION — Când la medic
+   ============================================================================ */
+.simptom-detail .medic { padding: 96px var(--page-gutter); background: var(--color-bg-page); }
+.simptom-detail .medic-card {
+  max-width: 880px;
+  margin: 0 auto;
+  background: #fff;
+  border: 2px solid var(--color-green-primary);
+  border-radius: 24px;
+  padding: 48px 56px;
+  text-align: center;
+  position: relative;
+}
+.simptom-detail .medic-card .ico {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-green-soft-card);
+  display: grid;
+  place-items: center;
+  color: var(--color-green-primary);
+  margin: 0 auto 22px;
+}
+.simptom-detail .medic-card h2 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0 0 16px;
+  color: var(--color-text-primary);
+}
+.simptom-detail .medic-card h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.simptom-detail .medic-card p.lede {
+  font-size: 15.5px;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin: 0 auto 28px;
+  max-width: 600px;
+}
+.simptom-detail .medic-list {
+  list-style: none;
+  margin: 0 auto 24px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  max-width: 620px;
+}
+.simptom-detail .medic-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14.5px;
+  color: var(--color-text-primary);
+  line-height: 1.55;
+}
+.simptom-detail .medic-list li .check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-green-soft-card);
+  color: var(--color-green-primary);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.simptom-detail .medic-foot {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-text-faint);
+  background: var(--color-bg-page);
+  padding: 14px 20px;
+  border-radius: 10px;
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.55;
+}
+
+/* ============================================================================
+   SECTION — Trei produse
+   ============================================================================ */
+.simptom-detail .produse { padding: 96px var(--page-gutter); background: var(--color-bg-page); }
+.simptom-detail .prod-head { text-align: center; max-width: 760px; margin: 0 auto 48px; }
+.simptom-detail .prod-head .eyebrow { margin-bottom: 14px; justify-content: center; }
+.simptom-detail .prod-head h2 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0 0 14px;
+}
+.simptom-detail .prod-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.simptom-detail .prod-head p {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+.simptom-detail .prod-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 24px; }
+
+.simptom-detail .prod-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.simptom-detail .prod-card .opt-chip {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: var(--color-green-soft-card);
+  color: var(--color-green-deep);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 999px;
+  z-index: 2;
+  border: 1px solid var(--color-border-2);
+}
+.simptom-detail .prod-photo {
+  aspect-ratio: 1 / 0.85;
+  background: #fff;
+  position: relative;
+  display: grid;
+  place-items: center;
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+}
+.simptom-detail .prod-photo .wash {
+  display: none;
+}
+.simptom-detail .prod-photo img {
+  position: relative;
+  width: 80%;
+  height: 100%;
+  object-fit: contain;
+  padding: 20px 0;
+}
+
+/* Fallback vizual „mini-pack" când produsul nu are imagine. */
+.simptom-detail .mini-pack {
+  position: relative;
+  width: 80px;
+  height: 130px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 18px 22px -10px rgba(7, 58, 31, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.simptom-detail .mini-pack::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 10px; background: var(--color-green-primary); }
+.simptom-detail .mini-pack .lbl {
+  padding: 18px 6px 8px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.simptom-detail .mini-pack .lbl .b { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 6.5px; letter-spacing: 0.16em; color: var(--color-green-primary); font-weight: 700; }
+.simptom-detail .mini-pack .lbl .n { font-family: var(--font-serif, 'Fraunces', serif); font-size: 10px; color: var(--color-text-primary); font-weight: 500; line-height: 1.1; }
+.simptom-detail .mini-pack .lbl .v { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 6.5px; color: var(--color-text-primary); letter-spacing: 0.12em; font-weight: 600; }
+.simptom-detail .mini-pack.b2::before { background: #7a5a2d; }
+.simptom-detail .mini-pack.b3::before { background: var(--color-green-medium); }
+
+.simptom-detail .prod-body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.simptom-detail .prod-body .eyebrow-mini {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-green-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.simptom-detail .prod-body .eyebrow-mini::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--color-green-medium); }
+.simptom-detail .prod-body h3 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+.simptom-detail .prod-body .why { font-size: 13.5px; color: var(--color-text-muted); line-height: 1.65; margin: 0; }
+.simptom-detail .prod-body .rating-mini { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--color-text-muted); }
+.simptom-detail .prod-body .rating-mini .stars { color: var(--color-gold); display: flex; gap: 1px; }
+.simptom-detail .prod-body .rating-mini .stars svg { width: 12px; height: 12px; }
+.simptom-detail .prod-body .rating-mini strong { color: var(--color-text-primary); font-weight: 600; }
+.simptom-detail .prod-body .price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+}
+.simptom-detail .prod-body .price-row .price {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+.simptom-detail .prod-body .price-row .price-old { font-size: 15px; color: var(--color-text-faint); text-decoration: line-through; }
+
+.simptom-detail .btn-terra {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 22px;
+  background: var(--color-cta-primary);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: var(--shadow-cta);
+  transition: background 0.15s ease;
+}
+.simptom-detail .btn-terra:hover { background: var(--color-cta-primary-hover); }
+.simptom-detail .btn-secondary-g {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 22px;
+  background: transparent;
+  color: var(--color-green-primary);
+  border: 1.5px solid var(--color-green-primary);
+  border-radius: 999px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.simptom-detail .btn-secondary-g:hover { background: var(--color-green-primary); color: #fff; }
+
+.simptom-detail .prod-foot {
+  text-align: center;
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--color-text-faint);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ============================================================================
+   SECTION — Mituri
+   ============================================================================ */
+.simptom-detail .mituri { padding: 96px var(--page-gutter); background: var(--color-green-soft-card); }
+.simptom-detail .mit-head { text-align: center; max-width: 680px; margin: 0 auto 48px; }
+.simptom-detail .mit-head .eyebrow { margin-bottom: 14px; justify-content: center; }
+.simptom-detail .mit-head h2 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.simptom-detail .mit-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.simptom-detail .mit-grid { display: flex; flex-direction: column; gap: 18px; max-width: 920px; margin: 0 auto; }
+.simptom-detail .mit-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 32px;
+  align-items: center;
+}
+.simptom-detail .mit-card .mit-side { padding-right: 24px; border-right: 1px solid var(--color-border); }
+.simptom-detail .mit-card .lbl {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--color-text-faint);
+  font-weight: 700;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+.simptom-detail .mit-card .mit-side .lbl { color: var(--color-cta-primary-hover); }
+.simptom-detail .mit-card .real-side .lbl { color: var(--color-green-primary); }
+.simptom-detail .mit-card .txt {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  margin: 0;
+}
+.simptom-detail .mit-card .real-side .txt {
+  font-style: normal;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 14.5px;
+  color: var(--color-text-primary);
+  line-height: 1.65;
+}
+
+/* ============================================================================
+   SECTION — FAQ + Quiz
+   ============================================================================ */
+.simptom-detail .end { padding: 96px var(--page-gutter); background: var(--color-bg-page); }
+.simptom-detail .end-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 48px;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.simptom-detail .end-faq h2 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 14px 0 26px;
+}
+.simptom-detail .end-faq h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.simptom-detail .end-faq .faq-list { display: flex; flex-direction: column; }
+
+.simptom-detail .faq-item { border-top: 1px solid var(--color-border-2); padding: 22px 0; cursor: pointer; }
+.simptom-detail .faq-item:last-child { border-bottom: 1px solid var(--color-border-2); }
+.simptom-detail .faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  list-style: none;
+}
+.simptom-detail .faq-q::-webkit-details-marker { display: none; }
+.simptom-detail .faq-q h4 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  flex: 1;
+  color: var(--color-text-primary);
+}
+.simptom-detail .faq-q .toggle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-2);
+  display: grid;
+  place-items: center;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+.simptom-detail .faq-q .toggle .ico-minus { display: none; }
+.simptom-detail .faq-item[open] .toggle { background: var(--color-green-primary); color: #fff; border-color: var(--color-green-primary); }
+.simptom-detail .faq-item[open] .toggle .ico-plus { display: none; }
+.simptom-detail .faq-item[open] .toggle .ico-minus { display: block; }
+.simptom-detail .faq-a {
+  margin-top: 12px;
+  color: var(--color-text-muted);
+  font-size: 14.5px;
+  line-height: 1.75;
+  max-width: 680px;
+  overflow: hidden;
+}
+.simptom-detail .faq-a strong { color: var(--color-text-primary); font-weight: 600; }
+
+.simptom-detail .end-quiz {
+  background: var(--color-green-primary);
+  color: #fff;
+  border-radius: 24px;
+  padding: 36px 32px;
+  position: sticky;
+  top: 24px;
+  overflow: hidden;
+}
+.simptom-detail .end-quiz::before {
+  content: "";
+  position: absolute;
+  right: -50px;
+  top: -40px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(202, 164, 74, 0.14), transparent 70%);
+}
+.simptom-detail .end-quiz .eyebrow-gold {
+  color: var(--color-gold);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: block;
+  position: relative;
+}
+.simptom-detail .end-quiz p {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 21px;
+  line-height: 1.4;
+  color: #fff;
+  margin: 0 0 26px;
+  position: relative;
+}
+.simptom-detail .end-quiz p em { font-style: italic; color: var(--color-green-pale); font-weight: 300; }
+.simptom-detail .end-quiz a.btn-terra {
+  height: 54px;
+  padding: 0 28px;
+  font-size: 15px;
+  width: 100%;
+  position: relative;
+}
+.simptom-detail .end-quiz .small {
+  margin-top: 12px;
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 12.5px;
+  color: #9ac0a8;
+  position: relative;
+  text-align: center;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 1024px) {
+  .simptom-detail .breadcrumb { padding: 20px 32px; }
+  .simptom-detail .hero { padding: 56px 32px 64px; }
+  .simptom-detail .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .simptom-detail .hero-illu { max-width: 360px; margin: 0 auto; width: 100%; }
+  .simptom-detail .hero-left h1 { font-size: 44px; }
+  .simptom-detail .definitie { padding: 64px 32px; }
+  .simptom-detail .def-grid { grid-template-columns: 1fr; gap: 18px; }
+  .simptom-detail .cauze { padding: 72px 32px; }
+  .simptom-detail .cauze-grid { grid-template-columns: 1fr; }
+  .simptom-detail .cauza-foot { margin-top: 24px; }
+  .simptom-detail .autotest { padding: 72px 32px; }
+  .simptom-detail .auto-grid { grid-template-columns: 1fr; }
+  .simptom-detail .auto-result { grid-template-columns: 1fr; }
+  .simptom-detail .medic { padding: 72px 32px; }
+  .simptom-detail .produse { padding: 72px 32px; }
+  .simptom-detail .prod-grid { grid-template-columns: repeat(2, 1fr); }
+  .simptom-detail .mituri { padding: 72px 32px; }
+  .simptom-detail .end { padding: 72px 32px; }
+  .simptom-detail .end-grid { grid-template-columns: 1fr; gap: 36px; }
+  .simptom-detail .end-quiz { position: static; }
+}
+
+@media (max-width: 640px) {
+  .simptom-detail .breadcrumb { padding: 18px 20px; }
+  .simptom-detail .hero { padding: 44px 20px 52px; }
+  .simptom-detail .hero-left h1 { font-size: 34px; }
+  .simptom-detail .hero-left p.lede { font-size: 15.5px; }
+  .simptom-detail .definitie { padding: 52px 20px; }
+  .simptom-detail .def-head h2 { font-size: 28px; }
+  .simptom-detail .cauze { padding: 52px 20px; }
+  .simptom-detail .cauze-head h2 { font-size: 32px; }
+  .simptom-detail .autotest { padding: 52px 20px; }
+  .simptom-detail .medic { padding: 52px 20px; }
+  .simptom-detail .medic-card { padding: 36px 24px; }
+  .simptom-detail .medic-card h2 { font-size: 24px; }
+  .simptom-detail .produse { padding: 52px 20px; }
+  .simptom-detail .prod-grid { grid-template-columns: 1fr; }
+  .simptom-detail .mituri { padding: 52px 20px; }
+  .simptom-detail .mit-card { grid-template-columns: 1fr; gap: 18px; }
+  .simptom-detail .mit-card .mit-side { padding-right: 0; border-right: 0; padding-bottom: 18px; border-bottom: 1px solid var(--color-border); }
+  .simptom-detail .end { padding: 52px 20px; }
+  .simptom-detail .end-faq h2 { font-size: 30px; }
+}

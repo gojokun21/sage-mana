@@ -1,0 +1,457 @@
+/* ============================================================================
+   Pagina de single PACHET (produs WC de tip `bundle`) — redesign după mockup
+   `preferinte/Pagina Pachet - Echilibru.html`.
+   TOATE selectoarele sunt scoped sub `.pachet-page`.
+   Hero-ul mapează add-to-cart-ul WooCommerce real pe stilul mockup.
+   ============================================================================ */
+
+.pachet-page {
+  /* Paletă identică cu pdp.css / home / cart — scope local. */
+  --color-bg-page: #fafaf6;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1a1f1c;
+  --color-text-muted: #5b6960;
+  --color-text-faint: #8a978d;
+  --color-border: #e5ebe2;
+  --color-border-2: #d4ddcf;
+  --color-green-soft-card: #eaf2e4;
+  --color-green-pale: #dcebd3;
+  --color-green-mute: #c9dbbe;
+  --color-green-medium: #73a06a;
+  --color-green-primary: #2d6b3a;
+  --color-green-deep: #0f3a1c;
+  --color-gold: #caa44a;
+  --color-cta-primary: #c4623f;
+  --color-cta-primary-hover: #ad5234;
+  --shadow-soft: 0 24px 48px -24px rgba(15, 58, 28, 0.25);
+  --shadow-cta: 0 10px 20px -8px rgba(196, 98, 63, 0.45);
+
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+/* Kicker comun (eyebrow mic, uppercase, verde). */
+.pachet-page .kicker {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-green-primary);
+  font-weight: 700;
+  display: block;
+}
+
+/* Titluri serif cu accent italic verde — pattern repetat în toate secțiunile. */
+.pachet-page h2 em,
+.pachet-page h1 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+
+/* ============================================================================
+   HERO
+   ============================================================================ */
+.pachet-page .pachet-hero { padding: 56px 24px 72px; background: var(--color-bg-page); }
+.pachet-page .pachet-hero-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* Galeria folosește markup-ul/stilurile originale WooCommerce (swiper + thumbs). */
+.pachet-page .gallery { min-width: 0; }
+.pachet-page .gallery .woocommerce-product-gallery { width: 100%; }
+.pachet-page .gallery .gallery-layout { padding-right: 0; }
+
+.pachet-page .pinfo { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.pachet-page .pinfo .eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-green-primary);
+  font-weight: 700;
+}
+.pachet-page .pinfo h1 {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+.pachet-page .pinfo .subline {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 520px;
+}
+.pachet-page .pinfo .subline p { margin: 0 0 6px; }
+
+.pachet-page .rating { display: flex; align-items: center; gap: 12px; padding: 4px 0; flex-wrap: wrap; }
+.pachet-page .rating .stars { color: var(--color-gold); letter-spacing: 0.05em; }
+.pachet-page .rating .score { font-weight: 600; color: var(--color-text-primary); font-size: 14px; }
+.pachet-page .rating .count { color: var(--color-text-faint); font-size: 13.5px; }
+
+/* ---------- Lista produselor din pachet ---------- */
+.pachet-page .bundle-list {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 8px 16px;
+}
+.pachet-page .bundle-line {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px 4px;
+  text-decoration: none;
+  color: inherit;
+}
+.pachet-page .bundle-line + .bundle-line { border-top: 1px solid var(--color-border); }
+.pachet-page .bundle-line .mini-ph {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  background: linear-gradient(160deg, var(--color-green-pale), var(--color-green-mute));
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.pachet-page .bundle-line .mini-ph img { width: 100%; height: 100%; object-fit: cover; }
+.pachet-page .bundle-line .b-info { display: flex; flex-direction: column; min-width: 0; }
+.pachet-page .bundle-line .b-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+.pachet-page .bundle-line:hover .b-name { color: var(--color-green-primary); }
+.pachet-page .bundle-line .b-meta {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 12.5px;
+  color: var(--color-text-faint);
+  margin-top: 2px;
+}
+.pachet-page .bundle-line .b-price {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* ---------- Bloc preț ---------- */
+.pachet-page .price-block {
+  background: var(--color-bg-card);
+  border: 1.5px solid var(--color-border);
+  border-radius: 18px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pachet-page .price-block .row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.pachet-page .price-block .row .lbl { font-size: 13px; color: var(--color-text-muted); font-weight: 500; }
+.pachet-page .price-block .now-price {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 38px;
+  color: var(--color-green-primary);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+/* get_price_html() poate include <del>/<ins> — le aliniem cu prețul mare. */
+.pachet-page .price-block .now-price del { font-size: 18px; color: var(--color-text-faint); font-weight: 400; }
+.pachet-page .price-block .now-price ins { text-decoration: none; }
+.pachet-page .price-block .save-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  background: var(--color-green-soft-card);
+  color: var(--color-green-primary);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--color-green-mute);
+}
+.pachet-page .price-block .sub-line {
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-style: italic;
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---------- Add-to-cart WooCommerce real (bundle) ---------- */
+.pachet-page .pachet-atc .stock { font-size: 12.5px; color: var(--color-green-primary); font-weight: 600; margin: 0 0 8px; }
+.pachet-page .pachet-atc .stock.out-of-stock { color: var(--color-cta-primary); }
+.pachet-page .pachet-atc form.cart { margin: 4px 0 0; }
+/* Rândul qty + buton din formularul bundle. */
+.pachet-page .pachet-atc .cart .quantity,
+.pachet-page .pachet-atc .mn-qty-wrap { display: inline-flex; align-items: stretch; }
+.pachet-page .pachet-atc .qty-stepper {
+  height: 58px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 12px;
+  background: #fff;
+}
+.pachet-page .pachet-atc .qty-stepper__btn { width: 44px; color: var(--color-text-primary); font-size: 18px; }
+.pachet-page .pachet-atc .qty-stepper__btn:hover { color: var(--color-green-primary); background: var(--color-bg-page); }
+.pachet-page .pachet-atc .qty-stepper__input {
+  width: 44px;
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 17px;
+  color: var(--color-text-primary);
+}
+.pachet-page .pachet-atc .single_add_to_cart_button,
+.pachet-page .pachet-atc .add_to_cart_button {
+  width: 100%;
+  min-height: 58px;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-cta-primary);
+  color: #fff;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-weight: 600;
+  font-size: 15.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: var(--shadow-cta);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.pachet-page .pachet-atc .single_add_to_cart_button:hover,
+.pachet-page .pachet-atc .add_to_cart_button:hover { background: var(--color-cta-primary-hover); color: #fff; }
+.pachet-page .pachet-atc .single_add_to_cart_button.disabled,
+.pachet-page .pachet-atc .single_add_to_cart_button:disabled {
+  background: var(--color-text-faint);
+  opacity: 0.7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+/* Formularul de bundle (WC Product Bundles) — spațiere lizibilă pentru componente. */
+.pachet-page .pachet-atc .bundled_product { margin-bottom: 12px; }
+.pachet-page .pachet-atc .price { display: none; } /* prețul e deja în .price-block deasupra */
+
+.pachet-page .trust-row { display: flex; flex-wrap: wrap; gap: 12px 22px; padding-top: 6px; }
+.pachet-page .trust-row .item { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--color-text-muted); font-weight: 500; }
+.pachet-page .trust-row .item svg { color: var(--color-green-primary); flex-shrink: 0; }
+
+/* ============================================================================
+   PROOF STRIP
+   ============================================================================ */
+.pachet-page .pachet-proof {
+  background: var(--color-green-soft-card);
+  padding: 32px 24px;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.pachet-page .proof-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.pachet-page .proof-cell { display: flex; flex-direction: column; gap: 6px; padding-left: 18px; border-left: 2px solid var(--color-green-medium); }
+.pachet-page .proof-cell strong { font-family: var(--font-serif, 'Fraunces', serif); font-size: 15.5px; font-weight: 500; color: var(--color-text-primary); line-height: 1.3; }
+.pachet-page .proof-cell span { font-size: 12.5px; color: var(--color-text-muted); line-height: 1.45; }
+
+/* ============================================================================
+   WHY — cum lucrează împreună
+   ============================================================================ */
+.pachet-page .pachet-why { padding: 88px 24px; background: var(--color-bg-card); }
+.pachet-page .why-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.pachet-page .why-text { max-width: 520px; }
+.pachet-page .why-text h2 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 36px; line-height: 1.1; font-weight: 400; letter-spacing: -0.02em; margin: 14px 0 20px; }
+.pachet-page .why-text p { font-size: 15.5px; color: var(--color-text-muted); line-height: 1.75; margin: 0 0 16px; }
+.pachet-page .why-text p strong { color: var(--color-text-primary); font-weight: 600; }
+.pachet-page .why-cards { display: flex; flex-direction: column; gap: 18px; }
+.pachet-page .why-card { background: var(--color-bg-page); border: 1px solid var(--color-border); border-radius: 18px; padding: 24px 26px; display: flex; flex-direction: column; gap: 12px; }
+.pachet-page .why-card .head { display: flex; align-items: center; gap: 14px; }
+.pachet-page .why-card .ill { width: 54px; height: 54px; border-radius: 12px; flex-shrink: 0; }
+.pachet-page .why-card .ill.a { background: linear-gradient(160deg, var(--color-green-soft-card), var(--color-green-pale)); }
+.pachet-page .why-card .ill.b { background: linear-gradient(160deg, var(--color-green-pale), var(--color-green-mute)); }
+.pachet-page .why-card .role-tag { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; display: block; margin-bottom: 4px; }
+.pachet-page .why-card h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 19px; font-weight: 500; margin: 0; line-height: 1.25; }
+.pachet-page .why-card .role-line { font-size: 14px; color: var(--color-text-muted); line-height: 1.55; margin: 0; }
+
+/* ============================================================================
+   BENEFITS
+   ============================================================================ */
+.pachet-page .pachet-benefits { padding: 88px 24px; background: var(--color-bg-page); }
+.pachet-page .benefits-inner { max-width: 1100px; margin: 0 auto; }
+.pachet-page .benefits-inner h2 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 34px; line-height: 1.1; font-weight: 400; letter-spacing: -0.02em; margin: 10px 0 36px; max-width: 620px; }
+.pachet-page .b-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 32px; padding: 0; margin: 0; }
+.pachet-page .b-grid li {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14.5px;
+  color: var(--color-text-primary);
+  line-height: 1.55;
+  padding: 8px 0;
+}
+.pachet-page .b-grid li::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232d6b3a' stroke-width='2.5'><path d='M20 6L9 17l-5-5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ============================================================================
+   MATH — transparență preț
+   ============================================================================ */
+.pachet-page .pachet-math { padding: 88px 24px; background: var(--color-bg-card); }
+.pachet-page .math-card { max-width: 760px; margin: 0 auto; background: var(--color-bg-page); border: 1px solid var(--color-border); border-radius: 24px; padding: 44px 52px; }
+.pachet-page .math-card h2 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 32px; line-height: 1.1; font-weight: 400; letter-spacing: -0.02em; margin: 6px 0 8px; }
+.pachet-page .math-card .lede { font-size: 14.5px; color: var(--color-text-muted); margin: 0 0 28px; }
+.pachet-page .math-list { display: flex; flex-direction: column; }
+.pachet-page .math-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; font-size: 14.5px; color: var(--color-text-primary); }
+.pachet-page .math-row + .math-row { border-top: 1px solid var(--color-border); }
+.pachet-page .math-row .v { font-family: var(--font-serif, 'Fraunces', serif); font-size: 18px; font-weight: 500; white-space: nowrap; }
+.pachet-page .math-row.total-row { color: var(--color-text-muted); }
+.pachet-page .math-row.total-row .v { color: var(--color-text-muted); }
+.pachet-page .math-row.bundle-row { padding: 18px 0 14px; border-top: 1.5px solid var(--color-green-medium); margin-top: 6px; }
+.pachet-page .math-row.bundle-row .lbl { font-family: var(--font-serif, 'Fraunces', serif); font-size: 19px; font-weight: 500; }
+.pachet-page .math-row.bundle-row .v { font-family: var(--font-serif, 'Fraunces', serif); font-size: 30px; color: var(--color-green-primary); font-weight: 500; letter-spacing: -0.01em; }
+.pachet-page .save-chip { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; background: var(--color-green-soft-card); color: var(--color-green-primary); font-size: 12.5px; font-weight: 600; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--color-green-mute); }
+.pachet-page .math-card .foot-line { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: var(--color-text-muted); margin-top: 24px; line-height: 1.6; text-align: center; padding-top: 18px; border-top: 1px dashed var(--color-border-2); }
+
+/* ============================================================================
+   TIMELINE — cum se folosește
+   ============================================================================ */
+.pachet-page .pachet-timeline { padding: 88px 24px; background: var(--color-bg-page); }
+.pachet-page .timeline-head { max-width: 1240px; margin: 0 auto 48px; }
+.pachet-page .timeline-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 36px; line-height: 1.1; font-weight: 400; letter-spacing: -0.02em; margin: 14px 0 0; max-width: 640px; }
+.pachet-page .timeline-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; position: relative; }
+.pachet-page .timeline-grid::before { content: ""; position: absolute; top: 34px; left: 14%; right: 14%; height: 2px; background: repeating-linear-gradient(to right, var(--color-green-medium) 0 6px, transparent 6px 12px); opacity: 0.35; }
+.pachet-page .tl-step { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 1; }
+.pachet-page .tl-step .num { width: 46px; height: 46px; border-radius: 50%; background: var(--color-green-soft-card); color: var(--color-green-primary); display: grid; place-items: center; font-family: var(--font-serif, 'Fraunces', serif); font-weight: 500; font-size: 16px; }
+.pachet-page .tl-step .when { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; }
+.pachet-page .tl-step h4 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 17px; font-weight: 500; line-height: 1.25; margin: 0; }
+.pachet-page .tl-step p { font-size: 13.5px; color: var(--color-text-muted); line-height: 1.6; margin: 0; }
+
+/* ============================================================================
+   PENTRU CINE — yes / no
+   ============================================================================ */
+.pachet-page .pachet-pcine { padding: 88px 24px; background: var(--color-bg-card); }
+.pachet-page .pcine-inner { max-width: 1180px; margin: 0 auto; }
+.pachet-page .pcine-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 36px; line-height: 1.1; font-weight: 400; letter-spacing: -0.02em; margin: 12px 0 32px; }
+.pachet-page .pcine-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.pachet-page .pcine-col { background: var(--color-bg-page); border: 1px solid var(--color-border); border-radius: 14px; padding: 28px 30px; }
+.pachet-page .pcine-col.yes h3 { color: var(--color-green-primary); }
+.pachet-page .pcine-col.no h3 { color: var(--color-text-muted); }
+.pachet-page .pcine-col h3 { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-weight: 500; font-size: 20px; margin: 0 0 18px; }
+.pachet-page .pcine-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.pachet-page .pcine-col li { display: flex; gap: 10px; font-size: 14px; color: var(--color-text-primary); line-height: 1.5; }
+.pachet-page .pcine-col.yes li::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232d6b3a' stroke-width='2.5'><path d='M20 6L9 17l-5-5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.pachet-page .pcine-col.no li::before { content: "\00d7"; color: var(--color-text-faint); font-weight: 300; font-size: 18px; line-height: 1; flex-shrink: 0; width: 16px; text-align: center; margin-top: 1px; }
+
+/* ============================================================================
+   FAQ — accordion <details> (faq-accordion.js)
+   ============================================================================ */
+.pachet-page .pachet-faq { padding: 88px 24px; background: var(--color-bg-page); }
+.pachet-page .faq-inner { max-width: 880px; margin: 0 auto; }
+.pachet-page .faq-head { margin: 0 0 32px; }
+.pachet-page .faq-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 32px; line-height: 1.1; font-weight: 400; letter-spacing: -0.02em; margin: 14px 0 0; }
+.pachet-page .faq-list { display: flex; flex-direction: column; border-top: 1px solid var(--color-border-2); }
+.pachet-page .faq-item { border-bottom: 1px solid var(--color-border-2); }
+.pachet-page .faq-q { padding: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; cursor: pointer; font-family: var(--font-serif, 'Fraunces', serif); font-weight: 500; font-size: 18px; color: var(--color-text-primary); line-height: 1.35; list-style: none; }
+.pachet-page .faq-q::-webkit-details-marker { display: none; }
+.pachet-page .faq-q .toggle { width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid var(--color-border); display: grid; place-items: center; color: var(--color-green-primary); flex-shrink: 0; font-size: 18px; line-height: 1; transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease; }
+.pachet-page .faq-item[open] .faq-q .toggle { background: var(--color-green-primary); color: #fff; transform: rotate(45deg); }
+.pachet-page .faq-a { padding: 0 0 22px; color: var(--color-text-muted); font-size: 14.5px; line-height: 1.7; max-width: 780px; }
+.pachet-page .faq-a p { margin: 0; }
+.pachet-page .faq-a strong { color: var(--color-text-primary); font-weight: 600; }
+
+/* ============================================================================
+   CROSS-SELL — alte pachete
+   ============================================================================ */
+.pachet-page .pachet-cross { padding: 88px 24px; background: var(--color-bg-card); }
+.pachet-page .cross-inner { max-width: 1240px; margin: 0 auto; }
+.pachet-page .cross-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 30px; line-height: 1.1; font-weight: 400; letter-spacing: -0.02em; margin: 0 0 32px; }
+.pachet-page .cross-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.pachet-page .cross-card { background: var(--color-bg-page); border: 1px solid var(--color-border); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: inherit; transition: border-color 0.15s ease; }
+.pachet-page .cross-card:hover { border-color: var(--color-green-medium); }
+.pachet-page .cross-card .ill { aspect-ratio: 1 / 1; border-radius: 10px; background: linear-gradient(160deg, var(--color-green-pale), var(--color-green-mute)); display: grid; place-items: center; overflow: hidden; margin-bottom: 6px; }
+.pachet-page .cross-card .ill img { width: 100%; height: 100%; object-fit: contain; }
+.pachet-page .cross-card h4 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 17px; font-weight: 500; margin: 0; line-height: 1.25; }
+.pachet-page .cross-card .desc { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: var(--color-text-muted); line-height: 1.45; margin: 0; }
+.pachet-page .cross-card .pr { font-family: var(--font-serif, 'Fraunces', serif); font-size: 18px; font-weight: 600; color: var(--color-green-primary); margin-top: 6px; }
+.pachet-page .cross-card .pr del { font-size: 14px; color: var(--color-text-faint); font-weight: 400; }
+.pachet-page .cross-card .pr ins { text-decoration: none; }
+
+/* ============================================================================
+   QUIZ MINI
+   ============================================================================ */
+.pachet-page .pachet-quiz { padding: 56px 24px; background: var(--color-bg-page); }
+.pachet-page .quiz-card { max-width: 600px; margin: 0 auto; background: #fff; border: 1px solid var(--color-border); border-radius: 14px; padding: 32px; text-align: center; }
+.pachet-page .quiz-card .ico { width: 42px; height: 42px; border-radius: 50%; background: var(--color-green-soft-card); color: var(--color-green-primary); display: grid; place-items: center; margin: 0 auto 14px; }
+.pachet-page .quiz-card h3 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 24px; line-height: 1.25; letter-spacing: -0.015em; margin: 0 0 10px; }
+.pachet-page .quiz-card p { font-size: 14px; color: var(--color-text-muted); line-height: 1.65; margin: 0 0 20px; }
+.pachet-page .quiz-card a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border: 1.5px solid var(--color-green-primary); color: var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.15s ease; }
+.pachet-page .quiz-card a:hover { background: var(--color-green-soft-card); }
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 1024px) {
+  .pachet-page .pachet-hero-inner,
+  .pachet-page .why-inner { grid-template-columns: 1fr; gap: 40px; }
+  .pachet-page .proof-row { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .pachet-page .cross-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .pachet-page .pachet-hero { padding: 32px 18px 48px; }
+  .pachet-page .pachet-why,
+  .pachet-page .pachet-benefits,
+  .pachet-page .pachet-math,
+  .pachet-page .pachet-timeline,
+  .pachet-page .pachet-pcine,
+  .pachet-page .pachet-faq,
+  .pachet-page .pachet-cross { padding: 56px 18px; }
+  .pachet-page .pinfo h1 { font-size: 32px; }
+  .pachet-page .b-grid,
+  .pachet-page .pcine-grid,
+  .pachet-page .timeline-grid { grid-template-columns: 1fr; }
+  .pachet-page .timeline-grid::before { display: none; }
+  .pachet-page .math-card { padding: 32px 24px; }
+  .pachet-page .why-text h2,
+  .pachet-page .timeline-head h2,
+  .pachet-page .pcine-head h2 { font-size: 28px; }
+}
+
+@media (max-width: 560px) {
+  .pachet-page .proof-row { grid-template-columns: 1fr; }
+  .pachet-page .cross-grid { grid-template-columns: 1fr; }
+}

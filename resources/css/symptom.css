@@ -1,0 +1,535 @@
+/* ============================================================================
+   Pagina hub „După simptom" — redesign după mockup
+   `preferinte/Pagina hub - Dupa simptom.html`.
+   TOATE selectoarele sunt scoped sub `.symptom-page`.
+   ============================================================================ */
+
+.symptom-page {
+  /* Paletă identică cu about/home/cart/checkout — scope local. */
+  --color-bg-page: #fafaf6;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1a1f1c;
+  --color-text-muted: #5b6960;
+  --color-text-faint: #8a978d;
+  --color-border: #e5ebe2;
+  --color-border-2: #d4ddcf;
+  --color-green-soft-card: #eaf2e4;
+  --color-green-pale: #d9e8d2;
+  --color-green-mute: #c9dbbe;
+  --color-green-medium: #73a06a;
+  --color-green-primary: #2d6b3a;
+  --color-green-deep: #0f3a1c;
+  --color-gold: #caa44a;
+  --color-gold-soft: #e2c787;
+  --color-cta-primary: #c4623f;
+  --color-cta-primary-hover: #ad5234;
+  --shadow-soft: 0 2px 10px rgba(26, 31, 28, 0.04);
+  --shadow: 0 14px 34px -14px rgba(26, 31, 28, 0.16);
+  --shadow-cta: 0 10px 20px -8px rgba(196, 98, 63, 0.45);
+
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+/* ---------- Breadcrumb ---------- */
+.symptom-page .breadcrumb {
+  padding: 22px 64px;
+  font-size: 13px;
+  color: var(--color-text-faint);
+  background: var(--color-bg-page);
+  border-bottom: 1px solid var(--color-border);
+}
+.symptom-page .breadcrumb .breadcrumb-inner {
+  max-width: 1470px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.symptom-page .breadcrumb a { color: var(--color-text-faint); text-decoration: none; cursor: pointer; }
+.symptom-page .breadcrumb a:hover { color: var(--color-green-primary); }
+.symptom-page .breadcrumb .sep { opacity: 0.5; }
+.symptom-page .breadcrumb .here { color: var(--color-text-primary); font-weight: 600; }
+
+/* Shared eyebrow base. */
+.symptom-page .eyebrow {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-green-primary);
+}
+
+/* ============================================================================
+   HERO
+   ============================================================================ */
+.symptom-page .hero { padding: 72px 64px 88px; background: var(--color-bg-page); }
+.symptom-page .hero-grid {
+  max-width: 1470px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.symptom-page .hero .eyebrow { margin-bottom: 18px; display: inline-flex; align-items: center; gap: 10px; }
+.symptom-page .hero .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-green-medium); }
+.symptom-page .hero h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 22px;
+  color: var(--color-text-primary);
+}
+.symptom-page .hero h1 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.symptom-page .hero .lede {
+  font-size: 17px;
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  max-width: 580px;
+  margin: 0 0 28px;
+}
+.symptom-page .hero-search {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-card);
+  border: 1.5px solid var(--color-border);
+  border-radius: 14px;
+  height: 54px;
+  padding: 0 20px;
+  gap: 12px;
+  max-width: 480px;
+  transition: border-color 0.15s;
+}
+.symptom-page .hero-search:focus-within { border-color: var(--color-green-primary); }
+.symptom-page .hero-search svg { color: var(--color-green-primary); flex-shrink: 0; }
+.symptom-page .hero-search input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 14.5px;
+  color: var(--color-text-primary);
+  outline: none;
+}
+.symptom-page .hero-search input::placeholder { color: var(--color-text-faint); }
+
+.symptom-page .hero-illu {
+  aspect-ratio: 1 / 1.1;
+  border-radius: 24px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-soft);
+}
+.symptom-page .hero-illu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, var(--color-green-soft-card) 0%, transparent 65%);
+}
+.symptom-page .body-figure { position: relative; width: 170px; height: 340px; }
+.symptom-page .body-figure svg { width: 100%; height: 100%; color: var(--color-green-medium); opacity: 0.55; }
+.symptom-page .body-dot {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-green-primary);
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 4px rgba(12, 84, 47, 0.18);
+}
+.symptom-page .body-dot.d-head { top: 6%; left: 50%; transform: translateX(-50%); }
+.symptom-page .body-dot.d-chest { top: 36%; left: 50%; transform: translateX(-50%); }
+.symptom-page .body-dot.d-abdomen { top: 48%; left: 50%; transform: translateX(-50%); }
+.symptom-page .body-dot.d-leg { top: 78%; left: 30%; }
+.symptom-page .body-dot.d-label {
+  position: absolute;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  background: #fff;
+  border: 1px solid var(--color-border);
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-weight: 500;
+  width: auto;
+  height: auto;
+  box-shadow: none;
+}
+.symptom-page .body-dot.d-label.lh { top: 5%; left: calc(50% + 26px); transform: translateX(0); }
+.symptom-page .body-dot.d-label.lc { top: 35%; left: calc(50% + 26px); transform: translateX(0); }
+.symptom-page .body-dot.d-label.la { top: 47%; left: calc(50% - 110px); transform: translateX(0); }
+.symptom-page .body-dot.d-label.ll { top: 77%; left: calc(30% - 110px); transform: translateX(0); }
+
+/* ============================================================================
+   GROUP SECTION
+   ============================================================================ */
+.symptom-page .grp-block { padding: 88px 64px; }
+.symptom-page .grp-block.tone-a { background: var(--color-bg-page); }
+.symptom-page .grp-block.tone-b { background: var(--color-green-soft-card); }
+.symptom-page .grp-inner { max-width: 1470px; margin-inline: auto; }
+.symptom-page .grp-head { margin-bottom: 36px; max-width: 780px; }
+.symptom-page .grp-head .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.symptom-page .grp-head .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-green-medium); }
+.symptom-page .grp-head h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.symptom-page .grp-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+
+.symptom-page .grp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.symptom-page .grp-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 22px 22px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  text-decoration: none;
+  color: inherit;
+  min-height: 240px;
+}
+.symptom-page .grp-card:hover {
+  border-color: var(--color-green-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+.symptom-page .grp-card .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.symptom-page .grp-card h3 {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 0;
+  color: var(--color-text-primary);
+  flex: 1;
+}
+.symptom-page .grp-card .chip-prev {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--color-green-soft-card);
+  color: var(--color-green-deep);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.symptom-page .grp-card .desc {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+.symptom-page .grp-card .more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-green-primary);
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border);
+}
+
+.symptom-page .grp-foot-line {
+  margin-top: 36px;
+  font-size: 14.5px;
+  color: var(--color-text-muted);
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+.symptom-page .grp-foot-line a {
+  color: var(--color-green-primary);
+  font-weight: 600;
+  font-style: normal;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Live-filter helpers (JS: resources/js/symptom.js). */
+.symptom-page .grp-card.is-hidden { display: none; }
+.symptom-page .grp-block.is-hidden { display: none; }
+.symptom-page .symptom-noresult {
+  display: none;
+  padding: 56px 64px 88px;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--color-text-muted);
+  background: var(--color-bg-page);
+}
+.symptom-page .symptom-noresult.is-visible { display: block; }
+.symptom-page .symptom-noresult b { font-style: normal; color: var(--color-text-primary); }
+
+/* ============================================================================
+   MEDIC CARD
+   ============================================================================ */
+.symptom-page .medic { padding: 96px 64px; background: var(--color-bg-page); }
+.symptom-page .medic-card {
+  max-width: 880px;
+  margin: 0 auto;
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-green-primary);
+  border-radius: 24px;
+  padding: 48px 56px;
+  text-align: center;
+  position: relative;
+}
+.symptom-page .medic-card .ico {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-green-soft-card);
+  display: grid;
+  place-items: center;
+  color: var(--color-green-primary);
+  margin: 0 auto 22px;
+}
+.symptom-page .medic-card h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0 0 16px;
+  color: var(--color-text-primary);
+}
+.symptom-page .medic-card h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.symptom-page .medic-card p.lede {
+  font-size: 15.5px;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin: 0 auto 28px;
+  max-width: 600px;
+}
+.symptom-page .medic-list {
+  list-style: none;
+  margin: 0 auto 24px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  max-width: 640px;
+}
+.symptom-page .medic-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14.5px;
+  color: var(--color-text-primary);
+  line-height: 1.55;
+}
+.symptom-page .medic-list li .check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-green-soft-card);
+  color: var(--color-green-primary);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.symptom-page .medic-foot {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-text-faint);
+  background: var(--color-bg-page);
+  padding: 14px 20px;
+  border-radius: 10px;
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.55;
+}
+
+/* ============================================================================
+   QUIZ STRIP
+   ============================================================================ */
+.symptom-page .quiz-strip {
+  background: var(--color-green-primary);
+  color: #fff;
+  padding: 80px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.symptom-page .quiz-strip::before {
+  content: "";
+  position: absolute;
+  right: -100px;
+  bottom: -100px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(202, 164, 74, 0.1), transparent 70%);
+}
+.symptom-page .quiz-grid {
+  max-width: 1470px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+}
+.symptom-page .quiz-grid .left .eyebrow-gold { color: var(--color-gold); margin-bottom: 18px; }
+.symptom-page .quiz-grid .left h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+  color: #fff;
+}
+.symptom-page .quiz-grid .left h2 em { font-style: italic; color: #c2d9ac; font-weight: 300; }
+.symptom-page .quiz-grid .left p { font-size: 16px; color: #c2d9ac; line-height: 1.7; margin: 0; max-width: 560px; }
+.symptom-page .quiz-grid .right { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.symptom-page .quiz-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 60px;
+  padding: 0 32px;
+  background: var(--color-cta-primary);
+  color: #fff;
+  border-radius: 999px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  box-shadow: var(--shadow-cta);
+  transition: background 0.15s;
+}
+.symptom-page .quiz-cta:hover { background: var(--color-cta-primary-hover); }
+.symptom-page .quiz-micro { font-family: var(--font-serif); font-style: italic; font-size: 13px; color: #9ac0a8; }
+
+/* ============================================================================
+   BLOG
+   ============================================================================ */
+.symptom-page .blog { padding: 96px 64px; background: var(--color-bg-page); }
+.symptom-page .blog-inner { max-width: 1470px; margin-inline: auto; }
+.symptom-page .blog-head { margin-bottom: 48px; display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
+.symptom-page .blog-head h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 14px 0 0;
+}
+.symptom-page .blog-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
+.symptom-page .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.symptom-page .blog-card { display: flex; flex-direction: column; gap: 14px; cursor: pointer; text-decoration: none; color: inherit; }
+.symptom-page .blog-thumb {
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.symptom-page .blog-thumb.t1 { background: linear-gradient(160deg, var(--color-green-pale), var(--color-green-medium)); }
+.symptom-page .blog-thumb.t2 { background: linear-gradient(160deg, var(--color-green-mute), var(--color-green-soft-card)); }
+.symptom-page .blog-thumb.t3 { background: linear-gradient(160deg, var(--color-green-soft-card), #d9e8d2); }
+.symptom-page .blog-thumb svg { width: 42%; height: 42%; color: var(--color-green-deep); opacity: 0.5; }
+.symptom-page .blog-thumb .cat {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #fff;
+  color: var(--color-green-primary);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+}
+.symptom-page .blog-card .meta { font-size: 12px; color: var(--color-text-faint); display: flex; align-items: center; gap: 10px; }
+.symptom-page .blog-card h3 {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+.symptom-page .blog-foot { text-align: center; margin-top: 36px; }
+.symptom-page .blog-foot a {
+  color: var(--color-green-primary);
+  font-weight: 600;
+  font-size: 14.5px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 1024px) {
+  .symptom-page .breadcrumb { padding: 20px 32px; }
+  .symptom-page .hero { padding: 56px 32px 64px; }
+  .symptom-page .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .symptom-page .hero-illu { max-width: 360px; margin: 0 auto; width: 100%; }
+  .symptom-page .hero h1 { font-size: 44px; }
+  .symptom-page .grp-block { padding: 64px 32px; }
+  .symptom-page .grp-grid { grid-template-columns: repeat(2, 1fr); }
+  .symptom-page .medic { padding: 72px 32px; }
+  .symptom-page .quiz-strip { padding: 64px 32px; }
+  .symptom-page .quiz-grid { grid-template-columns: 1fr; gap: 28px; }
+  .symptom-page .blog { padding: 72px 32px; }
+}
+
+@media (max-width: 640px) {
+  .symptom-page .breadcrumb { padding: 18px 20px; }
+  .symptom-page .hero { padding: 44px 20px 52px; }
+  .symptom-page .hero h1 { font-size: 34px; }
+  .symptom-page .hero .lede { font-size: 15.5px; }
+  .symptom-page .grp-block { padding: 52px 20px; }
+  .symptom-page .grp-grid { grid-template-columns: 1fr; }
+  .symptom-page .grp-card { min-height: 0; }
+  .symptom-page .grp-head h2 { font-size: 28px; }
+  .symptom-page .medic { padding: 56px 20px; }
+  .symptom-page .medic-card { padding: 36px 24px; }
+  .symptom-page .medic-card h2 { font-size: 24px; }
+  .symptom-page .quiz-strip { padding: 52px 20px; }
+  .symptom-page .quiz-grid .left h2 { font-size: 32px; }
+  .symptom-page .blog { padding: 56px 20px; }
+  .symptom-page .blog-grid { grid-template-columns: 1fr; }
+  .symptom-page .blog-head h2 { font-size: 30px; }
+}
