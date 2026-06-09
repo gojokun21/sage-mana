@@ -54,8 +54,13 @@
     var list = document.querySelector('.natura-favorites-list');
     if (!list) return;
 
+    // Card markup is `<article class="pcard ...">` (content-product.blade.php),
+    // rendered directly inside `<ul class="natura-favorites-list">`. Match that
+    // first, with the WC `li.product` / generic `.product-card` as fallbacks.
+    var CARD_SELECTOR = 'article.pcard, li.product, .product-card';
+
     var btn = list.querySelector('.natura-fav-btn[data-product-id="' + productId + '"]');
-    var card = btn ? btn.closest('li.product, .product-card') : null;
+    var card = btn ? btn.closest(CARD_SELECTOR) : null;
     if (!card) return;
 
     card.classList.add('is-removing');
@@ -65,7 +70,7 @@
         if (e.target !== card || e.propertyName !== 'opacity') return;
         card.removeEventListener('transitionend', handler);
         card.remove();
-        if (!list.querySelector('li.product, .product-card')) {
+        if (!list.querySelector(CARD_SELECTOR)) {
           // Last one — reload so the server-rendered empty state takes over.
           location.reload();
         }
@@ -76,7 +81,7 @@
     setTimeout(function () {
       if (card.isConnected) {
         card.remove();
-        if (!list.querySelector('li.product, .product-card')) location.reload();
+        if (!list.querySelector(CARD_SELECTOR)) location.reload();
       }
     }, 500);
   }

@@ -163,11 +163,13 @@
   margin: 0;
 }
 
+.natura-favorites-list > article.pcard,
 .natura-favorites-list > .product-card,
 .natura-favorites-list > li.product {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
+.natura-favorites-list > article.pcard.is-removing,
 .natura-favorites-list > .product-card.is-removing,
 .natura-favorites-list > li.product.is-removing {
   opacity: 0;

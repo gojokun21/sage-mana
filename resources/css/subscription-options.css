@@ -1,0 +1,41 @@
+/* Subscription purchase-type selector (mn-subscriptions) — styled independently
+ * of the page wrapper so it works on both simple products (.pdp-page) and
+ * bundles (.pachet-page). pdp.css keeps its own higher-specificity copy for
+ * .pdp-page (identical values), so simple products are unaffected. */
+
+.sub-options { display: flex; flex-direction: column; gap: 10px; margin: 4px 0 8px; }
+.sub-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 14px;
+  padding: 14px 18px;
+  background: #fff;
+  border: 1.5px solid var(--color-border, #e7e2d6);
+  border-radius: 12px;
+  cursor: pointer;
+  align-items: center;
+}
+.sub-card .sub-radio { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.sub-card .radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border-2, #cfc8b8);
+  background: #fff;
+  display: grid;
+  place-items: center;
+}
+.sub-card:has(.sub-radio:checked),
+.sub-card.selected { border-color: var(--color-green-primary, #0f5132); background: var(--color-green-soft-card, #f1f6f0); }
+.sub-card:has(.sub-radio:checked) .radio,
+.sub-card.selected .radio { border-color: var(--color-green-primary, #0f5132); background: var(--color-green-primary, #0f5132); }
+.sub-card:has(.sub-radio:checked) .radio::after,
+.sub-card.selected .radio::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #fff; }
+.sub-card .body { display: flex; flex-direction: column; min-width: 0; }
+.sub-card .body strong { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13.5px; font-weight: 600; color: var(--color-text-primary, #1f2a24); }
+.sub-card .body .top-eyebrow { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-cta-primary, #e07a4b); font-weight: 700; margin-bottom: 3px; }
+.sub-card .body .det { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: var(--color-text-muted, #4a564e); margin-top: 3px; }
+.sub-card .price { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 500; font-size: 18px; color: var(--color-text-primary, #1f2a24); text-align: right; white-space: nowrap; }
+.sub-card .price .woocommerce-Price-amount { font-size: 18px; font-weight: 500; }
+.sub-card .price small { display: block; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; color: var(--color-text-faint, #8a968e); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }

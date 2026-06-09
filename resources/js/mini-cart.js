@@ -233,6 +233,8 @@
         qty: args.qty || 1,
         variation_id: args.variation_id || 0,
         variation: args.variation || null,
+        // Subscription vs one-time selection from the PDP (mn-subscriptions).
+        mn_sub_purchase_type: args.mn_sub_purchase_type || undefined,
       });
     },
   };

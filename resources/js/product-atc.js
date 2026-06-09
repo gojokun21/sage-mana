@@ -65,9 +65,15 @@
       ? Math.max(1, parseInt(qtyInput.value, 10) || 1)
       : Math.max(1, parseInt(btn.getAttribute('data-quantity') || '1', 10) || 1);
 
+    // Subscription vs one-time selection (mn-subscriptions). Only present on the
+    // single-product page when the product is subscription-enabled.
+    var subType = '';
+    var subRadio = document.querySelector('input[name="mn_sub_purchase_type"]:checked');
+    if (subRadio) subType = subRadio.value;
+
     pendingProductIds.add(productId);
     setLoading(btn, true);
-    window.NaturaMiniCart.add({ product_id: productId, qty: qty })
+    window.NaturaMiniCart.add({ product_id: productId, qty: qty, mn_sub_purchase_type: subType })
       .then(function (data) {
         if (data && !data.is_empty) {
           flashAdded(btn);
@@ -155,6 +161,13 @@
 
   function submitFormAdd(form, btn) {
     var formData = new FormData(form);
+
+    // Subscription selection (mn-subscriptions) renders above the form, so it's
+    // not part of FormData(form) — append it explicitly when present.
+    if (!formData.has('mn_sub_purchase_type')) {
+      var subRadio = document.querySelector('input[name="mn_sub_purchase_type"]:checked');
+      if (subRadio) formData.set('mn_sub_purchase_type', subRadio.value);
+    }
 
     // `<button name="add-to-cart" value="ID">` only contributes when the
     // button is the submitter. FormData(form) misses it unless passed

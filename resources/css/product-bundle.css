@@ -7,3 +7,4 @@
 @import "./product-reviews.css"; /* „Recenziile clienților noștri" — carusel după taburi */
 @import "./pdp.css"; /* Redesign PDP (mockup Black Seed Elixir) — scoped sub .pdp-page */
 @import "./single-pachet.css"; /* Redesign single PACHET (mockup Pachet Echilibru) — scoped sub .pachet-page */
+@import "./subscription-options.css"; /* Selector abonament (mn-subscriptions) — pe orice produs (pdp + pachet) */
