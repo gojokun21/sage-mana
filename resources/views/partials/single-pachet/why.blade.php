@@ -24,29 +24,35 @@
   }
 
   // Potrivește cardul ACF cu produsul component după numele scurt din `rol`
-  // (partea de după ultimul „·", ex. „Combustibilul · Vita Complete+").
-  $match_image = static function (string $role) use ($components): int {
+  // (partea de după ultimul „·", ex. „Combustibilul · Vita Complete+"). Întoarce
+  // produsul WC ca să scoatem și imaginea, și linkul către pagina lui.
+  $match_product = static function (string $role) use ($components) {
       $pos = mb_strrpos($role, '·');
       $short = trim($pos !== false ? mb_substr($role, $pos + 1) : $role);
       if ($short === '') {
-          return 0;
+          return null;
       }
       foreach ($components as $p) {
           if (mb_stripos($p->get_name(), $short) !== false) {
-              return (int) $p->get_image_id();
+              return $p;
           }
       }
-      return 0;
+      return null;
   };
 
   $acf_cards = collect(get_field('pk_why_cards') ?: [])
-    ->map(static fn ($c, $i) => [
-      'role' => $c['rol'] ?? '',
-      'name' => $c['titlu'] ?? '',
-      'desc' => $c['text'] ?? '',
-      'variant' => $i % 2 === 0 ? 'a' : 'b',
-      'image_id' => $match_image((string) ($c['rol'] ?? '')),
-    ])
+    ->map(static function ($c, $i) use ($match_product) {
+        $matched = $match_product((string) ($c['rol'] ?? ''));
+
+        return [
+            'role' => $c['rol'] ?? '',
+            'name' => $c['titlu'] ?? '',
+            'desc' => $c['text'] ?? '',
+            'variant' => $i % 2 === 0 ? 'a' : 'b',
+            'image_id' => $matched ? (int) $matched->get_image_id() : 0,
+            'permalink' => $matched ? (string) get_permalink($matched->get_id()) : '',
+        ];
+    })
     ->filter(static fn ($c) => $c['name'] !== '')
     ->values()
     ->all();
@@ -64,6 +70,7 @@
             'desc' => wp_strip_all_tags($p->get_short_description()),
             'variant' => $i % 2 === 0 ? 'b' : 'a',
             'image_id' => (int) $p->get_image_id(),
+            'permalink' => (string) get_permalink($p->get_id()),
         ];
     }
   }
@@ -82,7 +89,8 @@
     @if (! empty($cards))
       <div class="why-cards">
         @foreach ($cards as $card)
-          <div class="why-card">
+          @php $has_link = ! empty($card['permalink']); @endphp
+          <{{ $has_link ? 'a' : 'div' }} class="why-card {{ $has_link ? 'is-linked' : '' }}" @if ($has_link) href="{{ esc_url($card['permalink']) }}" @endif>
             <div class="head">
               <div class="ill {{ $card['variant'] }}">
                 @if (! empty($card['image_id']))
@@ -101,7 +109,7 @@
             @if ($card['desc'])
               <p class="role-line">{!! wp_kses($card['desc'], ['strong' => []]) !!}</p>
             @endif
-          </div>
+          </{{ $has_link ? 'a' : 'div' }}>
         @endforeach
       </div>
     @endif
