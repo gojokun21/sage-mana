@@ -6,12 +6,36 @@
    white and pop on top). `--cream` is scoped per sub-page, so use the literal. */
 .woocommerce-account main.main { background: #fafaf6; }
 
+/* Fără padding-ul mare de pagină (.single_page: 80px 0 din page.css) pe TOT contul
+   — dashboard + toate endpoint-urile (Comenzi, Adrese, Date personale, Abonamente…).
+   Layout-ul de cont își are propriul spațiu (breadcrumb + .woocommerce). */
+.woocommerce-account .single_page { padding: 0; }
+
 .woocommerce-account .woocommerce {
   display: flex;
   gap: 32px;
   align-items: flex-start;
   padding: 30px 0 60px;
 }
+
+/* Breadcrumb cont (ca în machete): „Acasă › Contul meu [› Secțiune]".
+   Înlocuiește titlul page-header „Contul meu" pe contul logat. */
+.woocommerce-account .mn-account-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 18px 0;
+  font-family: 'Rubik', sans-serif;
+  font-size: 13px;
+  color: #8a978d;
+  border-bottom: 1px solid #e5ebe2;
+}
+.woocommerce-account .mn-account-breadcrumb a { color: #8a978d; text-decoration: none; transition: color 0.15s ease; }
+.woocommerce-account .mn-account-breadcrumb a:hover { color: #2d6b3a; }
+.woocommerce-account .mn-account-breadcrumb .sep { opacity: 0.5; }
+.woocommerce-account .mn-account-breadcrumb .here { color: #1a1f1c; font-weight: 600; }
 
 /* Hide sidebar on login/register screens */
 .woocommerce-account:not(.logged-in) .woocommerce { display: block; padding: 40px 0; }

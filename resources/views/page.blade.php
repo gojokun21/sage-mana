@@ -20,6 +20,18 @@
            full-bleed, fix ca în mockup. Contul LOGAT păstrează wrapper-ul normal
            (dashboard-ul). --}}
       {!! do_shortcode('[woocommerce_my_account]') !!}
+    @elseif (function_exists('is_account_page') && is_account_page() && is_user_logged_in())
+      {{-- Cont LOGAT: ca în machete — breadcrumb „Acasă › Contul meu [› secțiune]"
+           în loc de titlul page-header „Contul meu" (dashboard-ul are deja hero-ul
+           „Bună, …"). Păstrăm containerul + .page-content (layout-ul de cont). --}}
+      <main class="single_page">
+        <div class="container">
+          @include('partials.account-breadcrumb')
+          <article @php(post_class('page-content'))>
+            @includeFirst(['partials.content-page', 'partials.content'])
+          </article>
+        </div>
+      </main>
     @elseif (has_shortcode((string) get_post()->post_content, 'mn_quiz'))
       {{-- Pagina de test (plugin MN Quiz): ocolim wrapper-ul prose (container +
            page-header „Test" + .page-content) ca wizard-ul să fie full-bleed pe
