@@ -28,6 +28,8 @@ class SimptomSeed extends Command
 
     private const TEMPLATE = 'template-simptom.blade.php';
 
+    private const HUB_SLUG = 'dupa-simptom';
+
     public function handle(): int
     {
         foreach (['get_page_by_path', 'wp_insert_post', 'update_field'] as $fn) {
@@ -59,6 +61,9 @@ class SimptomSeed extends Command
             return self::FAILURE;
         }
 
+        // Hub-ul părinte: paginile de detaliu trăiesc la /dupa-simptom/<slug>/.
+        $hub_id = $this->ensureHub($dry);
+
         $created = 0;
         $updated = 0;
         $skipped = 0;
@@ -71,37 +76,53 @@ class SimptomSeed extends Command
             $slug = sanitize_title((string) $slug);
             $title = (string) ($simptom['title'] ?? ucfirst($slug));
 
-            $page = get_page_by_path($slug, OBJECT, 'page');
+            // Întâi pagina-copil sub hub; dacă nu există, caută o pagină legacy
+            // creată la top-level (/<slug>/) ca s-o migrăm sub hub.
+            $page = get_page_by_path(self::HUB_SLUG.'/'.$slug, OBJECT, 'page');
+            $legacy = ($page instanceof \WP_Post) ? null : get_page_by_path($slug, OBJECT, 'page');
             $exists = $page instanceof \WP_Post;
-            $id = $exists ? (int) $page->ID : 0;
+            $id = $exists ? (int) $page->ID : (($legacy instanceof \WP_Post) ? (int) $legacy->ID : 0);
 
             if ($dry) {
-                $action = $exists ? ($force ? 'ar actualiza (ACF rescris)' : 'ar actualiza (ACF păstrat)') : 'ar crea';
-                $this->line(sprintf('  [dry] %-22s → %s /%s/', $title, $action, $slug));
+                if ($exists) {
+                    $action = $force ? 'ar actualiza (ACF rescris)' : 'ar actualiza (ACF păstrat)';
+                } elseif ($legacy) {
+                    $action = 'ar muta sub hub'.($force ? ' (ACF rescris)' : ' (ACF păstrat)');
+                } else {
+                    $action = 'ar crea';
+                }
+                $this->line(sprintf('  [dry] %-22s → %s /%s/%s/', $title, $action, self::HUB_SLUG, $slug));
 
                 continue;
             }
 
-            if (! $exists) {
+            if (! $exists && $legacy instanceof \WP_Post) {
+                // Mută pagina existentă sub hub — schimbă doar părintele; ID/ACF rămân.
+                wp_update_post(['ID' => $id, 'post_parent' => $hub_id]);
+                $exists = true;
+                $updated++;
+                $this->info("  ↪ Mutat sub hub: {$title} (/".self::HUB_SLUG."/{$slug}/, ID {$id})");
+            } elseif (! $exists) {
                 $id = (int) wp_insert_post([
                     'post_type' => 'page',
                     'post_status' => 'publish',
                     'post_title' => $title,
                     'post_name' => $slug,
+                    'post_parent' => $hub_id,
                     'post_content' => '',
                     'meta_input' => ['_wp_page_template' => self::TEMPLATE],
                 ], true);
 
                 if (! $id || $id instanceof \WP_Error) {
-                    $this->error("  Eșec la crearea paginii /{$slug}/");
+                    $this->error('  Eșec la crearea paginii /'.self::HUB_SLUG."/{$slug}/");
 
                     continue;
                 }
                 $created++;
-                $this->info("  + Creat: {$title} (/{$slug}/, ID {$id})");
+                $this->info("  + Creat: {$title} (/".self::HUB_SLUG."/{$slug}/, ID {$id})");
             } else {
                 $updated++;
-                $this->line("  ~ Există: {$title} (/{$slug}/, ID {$id})");
+                $this->line("  ~ Există: {$title} (/".self::HUB_SLUG."/{$slug}/, ID {$id})");
             }
 
             // Asigură template-ul corect pe orice rulare.
@@ -127,6 +148,37 @@ class SimptomSeed extends Command
         $this->info("Gata. Create: {$created}, existente: {$updated}, ACF păstrat: {$skipped}.");
 
         return self::SUCCESS;
+    }
+
+    /**
+     * Asigură pagina-hub `dupa-simptom` (părintele paginilor de simptom).
+     * De regulă există deja (template-dupa-simptom.blade.php); o creăm doar dacă lipsește.
+     */
+    private function ensureHub(bool $dry): int
+    {
+        $hub = get_page_by_path(self::HUB_SLUG, OBJECT, 'page');
+        if ($hub instanceof \WP_Post) {
+            return (int) $hub->ID;
+        }
+
+        if ($dry) {
+            $this->line('  [dry] ar crea pagina-hub /'.self::HUB_SLUG.'/');
+
+            return 0;
+        }
+
+        $id = (int) wp_insert_post([
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'post_title' => 'După simptom',
+            'post_name' => self::HUB_SLUG,
+            'post_content' => '',
+            'meta_input' => ['_wp_page_template' => 'template-dupa-simptom.blade.php'],
+        ], true);
+
+        $this->info('  + Creat hub: După simptom (/'.self::HUB_SLUG."/, ID {$id})");
+
+        return $id;
     }
 
     /**

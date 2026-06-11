@@ -47,6 +47,17 @@
 
   $mn_brand = \App\resolve_product_brand($product);
   $mn_category = \App\resolve_product_category($product);
+
+  // Chip „Abonament: <preț> · −X%" — preț + discount REALE când produsul are
+  // abonament activ (plugin mn-subscriptions). Aceeași logică ca pe cardurile home.
+  $sub_enabled = class_exists('MN_Subs_Product') && \MN_Subs_Product::is_enabled($product_id);
+  $sub_price_html = '';
+  $sub_pct_label = '';
+  if ($sub_enabled) {
+      $sub_pct = \MN_Subs_Product::discount_pct($product_id);
+      $sub_price_html = wc_price(\MN_Subs_Pricing::discounted_unit_price((float) $product->get_price(), $sub_pct));
+      $sub_pct_label = rtrim(rtrim(number_format((float) $sub_pct, 2), '0'), '.');
+  }
 @endphp
 
 <article class="pcard{{ $is_featured ? ' featured' : '' }} {{ implode(' ', wc_get_product_class('', $product_id)) }}">
@@ -78,6 +89,15 @@
           <li>{{ esc_html($beneficiu['denumire_beneficiu'] ?? '') }}</li>
         @endforeach
       </ul>
+    @endif
+
+    @if ($sub_enabled)
+      <span class="chip-loyalty">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+          <path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>
+        </svg>
+        {!! sprintf(__('Abonament: %1$s · −%2$s%%', 'sage'), $sub_price_html, esc_html($sub_pct_label)) !!}
+      </span>
     @endif
 
     <div class="foot">

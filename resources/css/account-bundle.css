@@ -5,3 +5,5 @@
 @import "./subscriptions.css";  /* „Abonamente" tab (.mn-subs-account) */
 @import "./account-dashboard.css"; /* Dashboard redesign (.account-dash) */
 @import "./orders.css";         /* „Comenzi" tab (.orders-page) */
+@import "./addresses.css";      /* „Adrese" tab (.addr-page / .addr-form-page) */
+@import "./account-details.css"; /* „Date personale" tab (.dp-page) */

@@ -129,7 +129,7 @@
 .loyalty-tab .ref-card::before { content: ""; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(196,98,63,.18) 0%, transparent 70%); pointer-events: none; }
 .loyalty-tab .ref-head { display: flex; align-items: center; gap: 12px; position: relative; z-index: 1; }
 .loyalty-tab .ref-head .ico { width: 42px; height: 42px; border-radius: 11px; background: rgba(255,255,255,.10); color: #fff; display: grid; place-items: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,.15); }
-.loyalty-tab .ref-head h2 { font-family: var(--font-serif); font-weight: 400; font-size: 24px; line-height: 1.2; letter-spacing: -0.015em; margin: 0; }
+.loyalty-tab .ref-head h2 { font-family: var(--font-serif); font-weight: 400; font-size: 24px; line-height: 1.2; letter-spacing: -0.015em; margin: 0; color: #fff; }
 .loyalty-tab .ref-head h2 em { font-style: italic; color: #E8B89D; font-weight: 300; }
 .loyalty-tab .ref-card .lead { font-family: var(--font-sans); font-size: 14px; line-height: 1.6; color: rgba(255,255,255,.85); margin: 0; max-width: 560px; position: relative; z-index: 1; }
 .loyalty-tab .ref-card .lead strong { color: #fff; font-weight: 600; }

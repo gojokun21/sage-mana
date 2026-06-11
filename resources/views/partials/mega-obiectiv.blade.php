@@ -84,7 +84,11 @@
       // Conținut scurt (din short description) + preț formatat WooCommerce.
       $pick_excerpt = trim(wp_strip_all_tags($pick_product->get_short_description()));
       $pick_excerpt = $pick_excerpt !== '' ? wp_trim_words($pick_excerpt, 10, '…') : '';
-      $pick_price = trim(wp_strip_all_tags($pick_product->get_price_html()));
+      // get_price_html() conține &nbsp; între sumă și „lei"; decodăm entitățile și
+      // normalizăm spațiul insecabil într-un spațiu normal ca să nu apară literal „&nbsp;".
+      $pick_price = trim(wp_strip_all_tags(
+          str_replace("\xC2\xA0", ' ', html_entity_decode($pick_product->get_price_html(), ENT_QUOTES, 'UTF-8'))
+      ));
       $pick_micro = implode(' · ', array_filter([$pick_excerpt, $pick_price]));
 
       // Imaginea produsului (înlocuiește glyph-ul de stea); fallback pe stea dacă lipsește.

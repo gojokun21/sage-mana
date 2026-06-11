@@ -1,11 +1,12 @@
 {{--
-  Un card-simptom. Variabile: $name, $desc, $chip (opțional).
-  href „#" placeholder — paginile de detaliu pe simptom nu există încă.
+  Un card-simptom. Variabile: $name, $desc, $chip (opțional), $link (default „#").
+  $link vine din ACF (pagina de detaliu /dupa-simptom/<slug>/) prin groups.blade.php.
   data-symptom / data-desc sunt folosite de resources/js/symptom.js pentru filtrare live.
 --}}
+@php $link = $link ?? '#'; @endphp
 <a
   class="grp-card"
-  href="#"
+  href="{{ esc_url($link) }}"
   data-symptom="{{ esc_attr($name) }}"
   data-desc="{{ esc_attr($desc) }}"
 >

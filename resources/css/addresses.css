@@ -1,0 +1,145 @@
+/* My Account → Adrese. Scope `.addr-page` (listing) + `.addr-form-page` (form WC).
+ * Port vizual după mockup `Cont - Adrese de livrare.html`, pe modelul nativ WC
+ * (Livrare + Facturare). Aceleași design tokens ca .orders-page; font Inter→Rubik. */
+
+.addr-page,
+.addr-form-page {
+  --green: #2d6b3a;
+  --green-deep: #0f3a1c;
+  --green-2: #73a06a;
+  --terra: #c4623f;
+  --terra-deep: #ad5234;
+  --ink: #1a1f1c;
+  --ink-2: #5b6960;
+  --ink-3: #8a978d;
+  --cream: #fafaf6;
+  --cream-2: #f1f5ef;
+  --rule: #e5ebe2;
+  --rule-2: #d4ddcf;
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+.addr-page h1, .addr-page h2, .addr-page h3, .addr-page h4,
+.addr-form-page h1, .addr-form-page h2, .addr-form-page h3 { font-family: "Fraunces", Georgia, serif; margin: 0; }
+
+/* Hero (shared) */
+.addr-page .page-head,
+.addr-form-page .page-head { padding: 0 4px; }
+.addr-page .page-head .eyebrow,
+.addr-form-page .page-head .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: "Rubik", sans-serif; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--green-2); font-weight: 600; margin-bottom: 14px; }
+.addr-page .page-head .eyebrow::before,
+.addr-form-page .page-head .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--green-2); }
+.addr-page .page-head h1,
+.addr-form-page .page-head h1 { font-weight: 400; font-size: 36px; line-height: 1.1; letter-spacing: -.015em; margin: 0 0 12px; }
+.addr-page .page-head h1 em,
+.addr-form-page .page-head h1 em { font-style: italic; color: var(--green); font-weight: 300; }
+.addr-page .page-head p,
+.addr-form-page .page-head p { font-size: 14.5px; color: var(--ink-2); line-height: 1.6; max-width: 680px; margin: 0; }
+
+/* Actions / count */
+.addr-page .actions-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding: 0 4px; }
+.addr-page .actions-row .count { font-family: "Rubik", sans-serif; font-size: 13px; color: var(--ink-3); display: inline-flex; align-items: center; gap: 9px; }
+.addr-page .actions-row .count strong { color: var(--ink-2); font-weight: 600; }
+.addr-page .actions-row .count .sep-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--rule-2); }
+
+/* Grid */
+.addr-page .addr-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+@media (max-width: 880px) { .addr-page .addr-grid { grid-template-columns: 1fr; } }
+
+/* Card */
+.addr-page .addr-card { background: #fff; border: 1px solid var(--rule); border-radius: 18px; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; position: relative; transition: border-color .15s, box-shadow .15s; }
+.addr-page .addr-card.is-default-ship { border: 2px solid var(--green); padding: 21px 23px; }
+.addr-page .addr-card:hover { box-shadow: 0 6px 22px -10px rgba(15, 42, 29, .15); }
+.addr-page .addr-card.is-empty { border-style: dashed; border-width: 1.5px; border-color: var(--rule-2); background: var(--cream); }
+.addr-page .addr-card.is-empty.is-default-ship { border-color: var(--green-2); }
+
+.addr-page .addr-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.addr-page .addr-head .lbl-wrap { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.addr-page .addr-head .name { font-family: "Fraunces", serif; font-weight: 500; font-size: 19px; line-height: 1.2; letter-spacing: -.01em; color: var(--ink); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.addr-page .addr-head .name .ico-pin { width: 30px; height: 30px; border-radius: 9px; background: var(--cream); color: var(--green); display: grid; place-items: center; flex-shrink: 0; }
+.addr-page .addr-card.is-empty .name .ico-pin { background: #fff; }
+.addr-page .addr-head .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-left: 40px; }
+.addr-page .addr-head .badges:empty { display: none; }
+.addr-page .badge { display: inline-flex; align-items: center; gap: 5px; font-family: "Rubik", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; text-transform: uppercase; line-height: 1; }
+.addr-page .badge svg { width: 9px; height: 9px; }
+.addr-page .badge.ship-default { background: var(--green); color: #fff; }
+.addr-page .badge.bill-default { background: var(--terra); color: #fff; }
+
+.addr-page .addr-head .type-chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 11px; background: var(--cream); border: 1px solid var(--rule); border-radius: 999px; font-family: "Rubik", sans-serif; font-size: 11px; font-weight: 600; color: var(--ink-2); letter-spacing: .02em; flex-shrink: 0; white-space: nowrap; }
+.addr-page .addr-head .type-chip svg { width: 11px; height: 11px; color: var(--green); }
+
+.addr-page .addr-body { display: flex; flex-direction: column; gap: 6px; font-family: "Rubik", sans-serif; font-size: 13.5px; line-height: 1.55; color: var(--ink); }
+.addr-page .addr-body .person { font-weight: 600; color: var(--ink); font-size: 14px; }
+.addr-page .addr-body .phone { color: var(--ink-2); font-weight: 500; display: inline-flex; align-items: center; gap: 7px; }
+.addr-page .addr-body .phone svg { color: var(--ink-3); }
+.addr-page .addr-body .street { color: var(--ink-2); font-weight: 500; }
+.addr-page .addr-body .city-line { color: var(--ink-2); font-weight: 500; }
+.addr-page .addr-body .city-line strong { color: var(--ink); font-weight: 600; }
+.addr-page .addr-body .addr-empty { font-family: "Fraunces", serif; font-style: italic; font-size: 13px; color: var(--ink-3); line-height: 1.5; margin: 0; }
+
+.addr-page .addr-foot { display: flex; align-items: center; gap: 0; padding-top: 14px; border-top: 1px solid var(--rule); margin-top: auto; flex-wrap: wrap; }
+.addr-page .addr-card.is-empty .addr-foot { border-top-color: var(--rule-2); }
+.addr-page .addr-foot .act { display: inline-flex; align-items: center; gap: 6px; font-family: "Rubik", sans-serif; font-size: 12.5px; font-weight: 600; color: var(--ink-2); background: transparent; border: 0; cursor: pointer; padding: 5px 0; transition: color .12s; text-decoration: none; }
+.addr-page .addr-foot .act svg { color: var(--ink-3); transition: color .12s; }
+.addr-page .addr-foot .act:hover { color: var(--green); }
+.addr-page .addr-foot .act:hover svg { color: var(--green); }
+
+/* Info card */
+.addr-page .info-card { background: var(--cream-2); border: 1px solid var(--rule); border-radius: 14px; padding: 18px 22px; display: flex; align-items: flex-start; gap: 14px; }
+.addr-page .info-card .ico { width: 34px; height: 34px; border-radius: 9px; background: #fff; color: var(--green); display: grid; place-items: center; flex-shrink: 0; border: 1px solid var(--rule); }
+.addr-page .info-card .txt { font-family: "Rubik", sans-serif; font-size: 13px; color: var(--ink-2); line-height: 1.6; }
+.addr-page .info-card .txt strong { color: var(--ink); font-weight: 600; }
+
+/* ============================================================
+   FORM (WC native fields, restilizate ca în mockup)
+   ============================================================ */
+.addr-form-page .addr-form { background: #fff; border: 1px solid var(--rule); border-radius: 20px; padding: 26px 28px; }
+.addr-form-page .woocommerce-address-fields__field-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+
+.addr-form-page .form-row { display: flex; flex-direction: column; gap: 5px; margin: 0; }
+.addr-form-page .form-row-wide,
+.addr-form-page .form-row.notes,
+.addr-form-page .woocommerce-address-fields__field-wrapper > .form-row:only-child { grid-column: 1 / -1; }
+@media (max-width: 560px) { .addr-form-page .woocommerce-address-fields__field-wrapper { grid-template-columns: 1fr; } }
+
+.addr-form-page .form-row label { font-family: "Rubik", sans-serif; font-size: 11.5px; letter-spacing: .04em; color: var(--ink-2); font-weight: 600; display: flex; align-items: center; gap: 7px; }
+.addr-form-page .form-row label .required,
+.addr-form-page .form-row label .required-field { color: var(--terra); font-weight: 700; text-decoration: none; border: 0; }
+.addr-form-page .form-row label .optional { font-family: "Fraunces", serif; font-style: italic; font-size: 11px; color: var(--ink-3); font-weight: 400; letter-spacing: 0; }
+
+.addr-form-page .form-row .woocommerce-input-wrapper { display: block; width: 100%; }
+.addr-form-page .form-row input.input-text,
+.addr-form-page .form-row input[type="text"],
+.addr-form-page .form-row input[type="tel"],
+.addr-form-page .form-row input[type="email"],
+.addr-form-page .form-row input[type="number"],
+.addr-form-page .form-row select,
+.addr-form-page .form-row .select2-selection,
+.addr-form-page .form-row textarea {
+  height: 44px; border: 1.5px solid var(--rule); border-radius: 9px; padding: 0 13px; font-family: "Rubik", sans-serif; font-size: 14px; color: var(--ink); background: #fff; outline: none; transition: border-color .15s, box-shadow .15s; width: 100%; box-sizing: border-box;
+}
+.addr-form-page .form-row textarea { height: auto; min-height: 72px; padding: 10px 13px; resize: vertical; line-height: 1.5; }
+.addr-form-page .form-row input:focus,
+.addr-form-page .form-row select:focus,
+.addr-form-page .form-row textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(45, 107, 58, .10); }
+
+/* Select2 (county dropdown) alignment with mockup field height. */
+.addr-form-page .form-row .select2-container .select2-selection--single { display: flex; align-items: center; }
+.addr-form-page .form-row .select2-container--default .select2-selection--single .select2-selection__rendered { line-height: 42px; padding: 0; color: var(--ink); }
+.addr-form-page .form-row .select2-container--default .select2-selection--single .select2-selection__arrow { height: 42px; }
+
+/* Native validation hints from WC. */
+.addr-form-page .form-row.woocommerce-invalid input.input-text,
+.addr-form-page .form-row.woocommerce-invalid select { border-color: #c44; }
+.addr-form-page .form-row.woocommerce-validated input.input-text { border-color: var(--green-2); }
+
+/* Footer actions */
+.addr-form-page .addr-form-actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin: 22px 0 0; padding-top: 20px; border-top: 1px solid var(--rule); }
+.addr-form-page .addr-form-actions .btn-cancel { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; background: transparent; color: var(--ink-2); border: 1.5px solid var(--rule); border-radius: 999px; font-family: "Rubik", sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: border-color .15s, color .15s; }
+.addr-form-page .addr-form-actions .btn-cancel:hover { border-color: var(--ink-3); color: var(--ink); }
+.addr-form-page .addr-form-actions .btn-save { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 22px; background: var(--terra); color: #fff; border: 0; border-radius: 999px; font-family: "Rubik", sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: background .15s; }
+.addr-form-page .addr-form-actions .btn-save:hover { background: var(--terra-deep); }
+.addr-form-page .addr-form-actions .btn-save svg { flex-shrink: 0; }

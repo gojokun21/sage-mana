@@ -50,7 +50,7 @@ Application::configure()
 |
 */
 
-collect(['setup', 'filters', 'permalinks', 'ajax-search', 'woocommerce-tabs', 'mini-cart', 'cart-modal', 'favorites', 'cart', 'checkout', 'home', 'auth', 'bundle-stock', 'perf', 'acf-options', 'acf-simptom', 'acf-obiectiv', 'acf-sub200', 'sub200-seed', 'acf-pdp', 'pdp-seed', 'acf-pachet', 'pachet-seed', 'acf-bestseller', 'bestseller-seed', 'acf-noutati', 'noutati-seed', 'acf-mega-suplimente', 'mega-suplimente-seed', 'cpt-studii', 'datalayer', 'newsletter-popup', 'black-friday', 'shop-filters', 'loyalty', 'subscriptions'])
+collect(['setup', 'filters', 'permalinks', 'ajax-search', 'woocommerce-tabs', 'mini-cart', 'cart-modal', 'favorites', 'cart', 'checkout', 'home', 'auth', 'bundle-stock', 'perf', 'acf-options', 'acf-simptom', 'acf-dupa-simptom', 'acf-obiectiv', 'acf-sub200', 'sub200-seed', 'acf-pdp', 'pdp-seed', 'acf-pachet', 'pachet-seed', 'acf-bestseller', 'bestseller-seed', 'acf-noutati', 'noutati-seed', 'acf-mega-suplimente', 'mega-suplimente-seed', 'cpt-studii', 'datalayer', 'newsletter-popup', 'black-friday', 'shop-filters', 'loyalty', 'subscriptions', 'account-details'])
     ->each(function ($file) {
         if (! locate_template($file = "app/{$file}.php", true, true)) {
             wp_die(

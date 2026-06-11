@@ -197,26 +197,61 @@ Aspect → Meniuri → (Opțiuni ecran, bifează „Clase CSS”) → pune `mega
 
 ---
 
+# Seed prin link — „După simptom (pagini detaliu)”
+
+Script: `seed-simptom.php`. Creează paginile de simptom (template
+`template-simptom.blade.php`, ACF din `database/seeds/simptome.php`) și le **mută
+sub `/dupa-simptom/<slug>/`**. Bootstrap-ează WP și rulează comanda Acorn
+`natura:simptom-seed` prin kernel. Face `flush_rewrite_rules()` la `run`/`force`.
+
+- **Token:** `mn7x2k9q-simptom-seed`
+- **Moduri:** `dry` (previzualizare) · `run` (creează/mută, păstrează ACF) · `force` (rescrie ACF)
+
+### LOCAL
+```
+http://mananaturii-new.local/wp-content/themes/sage-nature/seed-simptom.php?token=mn7x2k9q-simptom-seed&mode=dry
+http://mananaturii-new.local/wp-content/themes/sage-nature/seed-simptom.php?token=mn7x2k9q-simptom-seed&mode=run
+```
+### LIVE
+```
+https://DOMENIUL-TAU/wp-content/themes/sage-nature/seed-simptom.php?token=TOKEN-NOU&mode=run
+```
+### Alternativă
+- **WP-CLI:** `wp acorn natura:simptom-seed --dry-run` / `` / `--force` / `--force --only=<slug>`
+
+---
+
+# Seed prin link — „Hub După simptom (index ACF)”
+
+Script: `seed-dupa-simptom.php`. Populează ACF-ul hub-ului `/dupa-simptom/` (cele 4
+grupe + carduri din `database/seeds/dupa-simptom-grupe.php`) și **leagă cardurile**
+de paginile de detaliu. Rulează comanda Acorn `natura:dupa-simptom-seed` prin kernel.
+
+> ⚠️ Rulează **DUPĂ** `seed-simptom.php` — are nevoie ca paginile de detaliu să existe
+> ca să le poată lega.
+
+- **Token:** `mn7x2k9q-dupasimptom-seed`
+- **Moduri:** `dry` · `run` (scrie doar dacă ACF e gol) · `force` (rescrie, inclusiv editări din admin)
+
+### LOCAL
+```
+http://mananaturii-new.local/wp-content/themes/sage-nature/seed-dupa-simptom.php?token=mn7x2k9q-dupasimptom-seed&mode=dry
+http://mananaturii-new.local/wp-content/themes/sage-nature/seed-dupa-simptom.php?token=mn7x2k9q-dupasimptom-seed&mode=run
+```
+### LIVE
+```
+https://DOMENIUL-TAU/wp-content/themes/sage-nature/seed-dupa-simptom.php?token=TOKEN-NOU&mode=run
+```
+### Alternativă
+- **WP-CLI:** `wp acorn natura:dupa-simptom-seed --dry-run` / `` / `--force`
+
+---
+
 ## Alte seed-uri existente (WP-CLI)
 
 Acestea **nu au link** — generează mai multe pagini-copil, deci se rulează din
 site shell prin WP-CLI (`wp acorn …`). Sunt idempotente; fără `--force` nu rescriu
 paginile existente.
-
-### „După simptom” — `natura:simptom-seed`
-Creează paginile de simptom (template `template-simptom.blade.php`) și le populează
-ACF din `database/seeds/simptome.php`.
-```
-wp acorn natura:simptom-seed --dry-run
-wp acorn natura:simptom-seed
-wp acorn natura:simptom-seed --force
-wp acorn natura:simptom-seed --force --only=<slug>
-```
-| Opțiune    | Efect                                                   |
-|------------|---------------------------------------------------------|
-| `--dry-run`| Afișează ce ar face, fără să scrie nimic                |
-| `--force`  | Rescrie ACF-ul și pe paginile care există deja          |
-| `--only=`  | Procesează doar simptomul cu acel slug                   |
 
 ### „După obiectiv” — `natura:obiectiv-seed`
 Asigură hub-ul `/dupa-obiectiv/`, apoi creează câte o pagină-copil per obiectiv
@@ -259,7 +294,9 @@ După ce ai rulat seed-urile, **șterge** (obligatoriu — singurele cu acces f�
 2. **`seed-bestseller.php`**
 3. **`seed-noutati.php`**
 4. **`seed-mega-suplimente.php`**
-5. **`SEED-LINKS.md`** — acest fișier.
+5. **`seed-simptom.php`**
+6. **`seed-dupa-simptom.php`**
+7. **`SEED-LINKS.md`** — acest fișier.
 
 Opțional, dacă nu mai vrei deloc seed-ul (pagina rămâne pe fallback-urile din cod,
 **dar nu mai e editabilă din ACF**):

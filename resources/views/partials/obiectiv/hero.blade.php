@@ -11,6 +11,9 @@
     ['text' => __('din 312 recenzii', 'sage')],
     ['text' => __('90 zile garanție', 'sage')],
   ]);
+
+  // Imagine hero opțională (ACF). Dacă lipsește, rămâne ilustrația SVG.
+  $hero_img = \App\simptom_field('hero_imagine');
 @endphp
 
 <section class="obj-hero">
@@ -38,15 +41,19 @@
       </div>
     </div>
     <div class="obj-art" aria-hidden="true">
-      <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="100" cy="100" r="32" fill="currentColor" opacity=".25"/>
-        <circle cx="100" cy="100" r="20" fill="currentColor" opacity=".45"/>
-        <g stroke-linecap="round" opacity=".7">
-          <path d="M100 30 V 50"/><path d="M100 150 V 170"/><path d="M30 100 H 50"/><path d="M150 100 H 170"/>
-          <path d="M52 52 L 66 66"/><path d="M134 134 L 148 148"/><path d="M52 148 L 66 134"/><path d="M134 66 L 148 52"/>
-        </g>
-        <path d="M40 170 Q 80 130, 120 130 T 170 80" stroke-width="2" stroke-linecap="round" opacity=".55"/>
-      </svg>
+      @if ($hero_img)
+        {!! wp_get_attachment_image($hero_img, 'large', false, ['alt' => esc_attr($titlu ? wp_strip_all_tags($titlu) : ''), 'loading' => 'lazy', 'decoding' => 'async']) !!}
+      @else
+        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="100" cy="100" r="32" fill="currentColor" opacity=".25"/>
+          <circle cx="100" cy="100" r="20" fill="currentColor" opacity=".45"/>
+          <g stroke-linecap="round" opacity=".7">
+            <path d="M100 30 V 50"/><path d="M100 150 V 170"/><path d="M30 100 H 50"/><path d="M150 100 H 170"/>
+            <path d="M52 52 L 66 66"/><path d="M134 134 L 148 148"/><path d="M52 148 L 66 134"/><path d="M134 66 L 148 52"/>
+          </g>
+          <path d="M40 170 Q 80 130, 120 130 T 170 80" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+        </svg>
+      @endif
     </div>
   </div>
 </section>

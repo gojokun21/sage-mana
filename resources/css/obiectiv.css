@@ -100,6 +100,7 @@
 }
 .obiectiv-detail .obj-art::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(202, 164, 74, 0.22), transparent 55%); }
 .obiectiv-detail .obj-art svg { width: 60%; height: auto; color: var(--color-green-primary); opacity: 0.55; position: relative; }
+.obiectiv-detail .obj-art img { position: relative; width: 100%; height: 100%; object-fit: cover; }
 
 /* ============================================================================
    RECOMANDARE PRINCIPALĂ

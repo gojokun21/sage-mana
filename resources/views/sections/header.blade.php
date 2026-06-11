@@ -130,7 +130,7 @@
                                 ];
                               @endphp
                               @foreach ($ms_mobile as $m)
-                                @php $mp = get_page_by_path($m[1], OBJECT, 'page'); @endphp
+                                @php $mp = get_page_by_path('dupa-simptom/' . $m[1], OBJECT, 'page') ?: get_page_by_path($m[1], OBJECT, 'page'); @endphp
                                 <li><a href="{{ $mp ? esc_url(get_permalink($mp)) : esc_url(home_url('/dupa-simptom/')) }}">{{ $m[0] }}</a></li>
                               @endforeach
                               <li class="mobile-mega-cta-item">

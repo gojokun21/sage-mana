@@ -48,6 +48,7 @@ add_action('acf/init', function () {
             ['key' => 'field_obiectiv_hero_stats', 'name' => 'hero_stats', 'label' => 'Stats (linie)', 'type' => 'repeater', 'min' => 0, 'layout' => 'table', 'button_label' => 'Adaugă stat', 'sub_fields' => [
                 ['key' => 'field_obiectiv_hero_stat', 'name' => 'text', 'label' => 'Text', 'type' => 'text'],
             ]],
+            ['key' => 'field_obiectiv_hero_imagine', 'name' => 'hero_imagine', 'label' => 'Imagine hero (opțional)', 'instructions' => 'Dacă o setezi, înlocuiește ilustrația SVG din dreapta. Lasă gol ca să rămână SVG-ul.', 'type' => 'image', 'return_format' => 'id', 'preview_size' => 'medium', 'library' => 'all'],
 
             // ---------------------------------------------------------------
             // RECOMANDARE PRINCIPALĂ

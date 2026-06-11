@@ -13,6 +13,9 @@
     ['text' => __('Poftele scad odată cu glicemia', 'sage')],
   ]);
 
+  // Imagine hero opțională (ACF). Dacă lipsește, rămâne ilustrația SVG.
+  $hero_img = \App\simptom_field('hero_imagine');
+
   // SVG-uri decorative, alocate pe poziție (max 3).
   $chip_svgs = [
     '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
@@ -37,13 +40,17 @@
     </div>
 
     <div class="hero-illu" aria-hidden="true">
-      <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-        <circle cx="100" cy="100" r="78" stroke="currentColor" fill="none" opacity=".55"/>
-        <path d="M30 110 Q55 70 80 110 T130 110 T180 110" stroke-width="2.2"/>
-        <circle cx="55" cy="86" r="3" fill="currentColor"/>
-        <circle cx="105" cy="86" r="3" fill="currentColor"/>
-        <circle cx="155" cy="86" r="3" fill="currentColor"/>
-      </svg>
+      @if ($hero_img)
+        {!! wp_get_attachment_image($hero_img, 'large', false, ['alt' => esc_attr($titlu ? wp_strip_all_tags($titlu) : ''), 'loading' => 'lazy', 'decoding' => 'async']) !!}
+      @else
+        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="100" cy="100" r="78" stroke="currentColor" fill="none" opacity=".55"/>
+          <path d="M30 110 Q55 70 80 110 T130 110 T180 110" stroke-width="2.2"/>
+          <circle cx="55" cy="86" r="3" fill="currentColor"/>
+          <circle cx="105" cy="86" r="3" fill="currentColor"/>
+          <circle cx="155" cy="86" r="3" fill="currentColor"/>
+        </svg>
+      @endif
     </div>
   </div>
 </section>

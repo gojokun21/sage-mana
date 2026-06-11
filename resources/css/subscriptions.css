@@ -158,6 +158,10 @@
   font-size: 13px; color: var(--mns-ink); background: #fff;
 }
 .mn-subs-input { width: 80px; }
+/* flatpickr „Data nouă": input-ul vizibil (altInput-ul; sau text-ul fallback fără JS)
+   are nevoie de mai multă lățime pentru data lizibilă „5 Iunie 2026". Originalul ascuns
+   de flatpickr e type=hidden, deci nu-l atingem. */
+.mn-subs-account .mn-subs-inline input.mn-subs-input:not([type="hidden"]) { width: auto; min-width: 150px; }
 .mn-subs-inline { display: inline-flex; align-items: center; gap: 8px; }
 
 .mn-subs-small-links { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding-top: 12px; border-top: 1px solid var(--mns-rule); font-size: 12.5px; }

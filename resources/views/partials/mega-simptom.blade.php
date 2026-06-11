@@ -8,11 +8,14 @@
   $hub = home_url('/dupa-simptom/');
 
   // Rezolvă slug-ul de pagină la permalink; fallback pe hub dacă lipsește.
+  // Paginile de simptom trăiesc sub /dupa-simptom/<slug>/ (mutate de natura:simptom-seed);
+  // fallback pe slug top-level pentru compatibilitate cu starea dinainte de mutare.
   $ms_url = static function ($slug) use ($hub) {
       if (! $slug) {
           return $hub;
       }
-      $p = get_page_by_path($slug, OBJECT, 'page');
+      $p = get_page_by_path('dupa-simptom/'.$slug, OBJECT, 'page')
+          ?: get_page_by_path($slug, OBJECT, 'page');
       return $p ? get_permalink($p) : $hub;
   };
 

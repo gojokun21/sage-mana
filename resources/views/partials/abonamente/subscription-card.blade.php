@@ -80,7 +80,7 @@
           <button class="mn-subs-btn" data-mn-subs-action="skip">{{ __('Omite livrarea', 'sage') }}</button>
 
           <span class="mn-subs-inline" data-control-group>
-            <input type="date" class="mn-subs-input" data-field="date" style="width:auto" aria-label="{{ esc_attr__('Data nouă', 'sage') }}" />
+            <input type="text" class="mn-subs-input" data-field="date" style="width:auto" autocomplete="off" placeholder="{{ esc_attr__('AAAA-LL-ZZ', 'sage') }}" aria-label="{{ esc_attr__('Data nouă', 'sage') }}" />
             <button class="mn-subs-btn" data-mn-subs-action="change_date">{{ __('Schimbă data', 'sage') }}</button>
           </span>
 

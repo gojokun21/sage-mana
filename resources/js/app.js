@@ -468,6 +468,16 @@ if (document.querySelector('.orders-page')) {
   import('./account-orders.js');
 }
 
+/* ==================== LAZY: CONT · DATE PERSONALE ==================== */
+if (document.querySelector('.dp-page')) {
+  import('./account-details.js');
+}
+
+/* ==================== LAZY: CONT · ABONAMENTE (flatpickr „Data nouă") ==================== */
+if (document.querySelector('.mn-subs-account [data-field="date"]')) {
+  import('./subscriptions.js');
+}
+
 /* ==================== LAZY: HOME TEMPLATE ==================== */
 if (document.querySelector('.home-template')) {
   import('./home.js');
