@@ -31,8 +31,8 @@
   <section class="blog">
     <div class="blog-head">
       <div>
-        <div class="eyebrow" style="margin-bottom:14px">{{ __('Din jurnalul nostru', 'sage') }}</div>
-        <h2>{{ __('Ce scriem,', 'sage') }} <em>{{ __('când nu vindem.', 'sage') }}</em></h2>
+        <div class="eyebrow" style="margin-bottom:14px">{{ \App\home_field('blog_eyebrow') }}</div>
+        <h2>{{ \App\home_field('blog_titlu') }} <em>{{ \App\home_field('blog_titlu_em') }}</em></h2>
       </div>
     </div>
 
@@ -81,7 +81,7 @@
     </div>
 
     <div class="blog-foot">
-      <a href="{{ esc_url($blog_archive_url) }}">{{ __('Toate articolele →', 'sage') }}</a>
+      <a href="{{ esc_url($blog_archive_url) }}">{{ \App\home_field('blog_foot') }}</a>
     </div>
   </section>
 @endif

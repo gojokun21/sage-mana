@@ -7,32 +7,17 @@
   $packages = isset($popular_packages) && is_array($popular_packages) ? $popular_packages : [];
   $packages = array_slice($packages, 0, 3);
 
-  // Placeholder-uri per slot pentru câmpurile fără sursă în WC (vor migra în ACF).
-  $slot_fallbacks = [
-    [
-      'eyebrow_class' => 'gold',
-      'eyebrow_text'  => __('Elixir · ediție limitată', 'sage'),
-      'loyalty_text'  => __('Abonament: −15% la fiecare livrare', 'sage'),
-    ],
-    [
-      'eyebrow_class' => 'green',
-      'eyebrow_text'  => __('Pachet · recomandat', 'sage'),
-      'loyalty_text'  => __('Abonament: −15% la fiecare livrare', 'sage'),
-    ],
-    [
-      'eyebrow_class' => 'green',
-      'eyebrow_text'  => __('Performanță', 'sage'),
-      'loyalty_text'  => __('Abonament: −15% la fiecare livrare', 'sage'),
-    ],
-  ];
+  // Etichetele per slot vin din ACF (grup Home → tab „Produse recomandate"),
+  // cu fallback pe database/seeds/home.php. Produsele rămân dinamice.
+  $slot_fallbacks = \App\home_field('flagship_slots') ?: [];
 
   $star_path = 'm12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z';
 @endphp
 
 <section class="flagship">
   <div class="flagship-head">
-    <div class="eyebrow">{{ __('Cele 3 pe care le recomandăm cel mai des', 'sage') }}</div>
-    <h2>{{ __('Dacă ar fi să alegem trei,', 'sage') }} <em>{{ __('ar fi astea.', 'sage') }}</em></h2>
+    <div class="eyebrow">{{ \App\home_field('flagship_eyebrow') }}</div>
+    <h2>{{ \App\home_field('flagship_titlu') }} <em>{{ \App\home_field('flagship_titlu_em') }}</em></h2>
   </div>
 
   @if (! empty($packages))
@@ -60,7 +45,7 @@
           $filled = (int) round($avg);
           $filled = max(0, min(5, $filled));
 
-          $slot = $slot_fallbacks[$i] ?? $slot_fallbacks[count($slot_fallbacks) - 1];
+          $slot = $slot_fallbacks[$i] ?? (! empty($slot_fallbacks) ? end($slot_fallbacks) : ['eyebrow_class' => 'green', 'eyebrow_text' => '']);
           $sub = $short !== '' ? $short : __('Formulat onest, dozaj măsurat, lot trasabil.', 'sage');
 
           // Subscription offer chip — real price + discount when the product is
@@ -128,7 +113,7 @@
 
   <div class="flagship-foot">
     <a href="{{ function_exists('wc_get_page_id') ? esc_url(get_permalink(wc_get_page_id('shop'))) : esc_url(home_url('/magazin/')) }}">
-      {{ __('Vezi tot catalogul', 'sage') }}
+      {{ \App\home_field('flagship_foot') }}
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
       </svg>

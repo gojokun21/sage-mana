@@ -33,6 +33,7 @@ function seed_runner_commands(): array
         'natura:bestseller-seed' => 'Cele mai vândute',
         'natura:noutati-seed' => 'Noutăți · În curând',
         'natura:mega-suplimente-seed' => 'Mega meniu Suplimente',
+        'natura:home-seed' => 'Home — conținut editorial',
     ];
 }
 

@@ -1,9 +1,9 @@
-{{-- Filosofia noastră — strip text, fundal alb cu border sus/jos. --}}
+{{-- Filosofia noastră — strip text. Text din ACF (grup Home) → fallback seed. --}}
 <section class="philo">
-  <div class="eyebrow">{{ __('Filosofia noastră', 'sage') }}</div>
+  <div class="eyebrow">{{ \App\home_field('philo_eyebrow') }}</div>
   <h2>
-    {{ __('Un supliment bun nu ține loc de', 'sage') }}
-    <em>{{ __('medic, somn sau salată.', 'sage') }}</em>
+    {{ \App\home_field('philo_titlu') }}
+    <em>{{ \App\home_field('philo_titlu_em') }}</em>
   </h2>
-  <p>{{ __('Dar dacă mesele tale sunt deja ok și tot e ceva în neregulă — acolo intervenim noi. Onest, măsurat, cu produsul potrivit pentru tine.', 'sage') }}</p>
+  <p>{{ \App\home_field('philo_text') }}</p>
 </section>

@@ -1,28 +1,27 @@
 {{--
-  Newsletter inline (homepage only) — distinct de `partials/newsletter.blade.php`
-  care e popup-ul global. Aici e doar markup vizual (form-ul nu trimite încă —
-  va fi cablat ulterior la endpoint-ul deja existent).
+  Newsletter inline (homepage). Text din ACF (grup Home) → fallback seed.
+  Form-ul e doar vizual (se cablează ulterior la endpoint-ul existent).
 --}}
 <section class="news-inline">
   <div class="news-grid">
     <div class="left">
-      <div class="eyebrow eyebrow-gold">{{ __('Jurnal lunar', 'sage') }}</div>
+      <div class="eyebrow eyebrow-gold">{{ \App\home_field('news_eyebrow') }}</div>
       <h2>
-        {{ __('Un email pe lună,', 'sage') }}
-        <em>{{ __('niciodată mai des.', 'sage') }}</em>
+        {{ \App\home_field('news_titlu') }}
+        <em>{{ \App\home_field('news_titlu_em') }}</em>
       </h2>
-      <p>{{ __('Ultimele lucruri pe care le-am învățat despre suplimentare, plus dacă apare ceva nou în laborator. Fără vouchere, fără „ultima zi de reducere", fără oferte de team-leader.', 'sage') }}</p>
+      <p>{{ \App\home_field('news_text') }}</p>
     </div>
     <div class="right">
       <form class="news-form" method="post" action="#newsletter-subscribe" novalidate>
         <input type="email"
                name="email"
-               placeholder="{{ esc_attr__('email@exemplu.com', 'sage') }}"
+               placeholder="{{ esc_attr(\App\home_field('news_placeholder')) }}"
                aria-label="{{ esc_attr__('Adresa de email', 'sage') }}"
                required>
-        <button type="submit">{{ __('Abonează-mă', 'sage') }}</button>
+        <button type="submit">{{ \App\home_field('news_button') }}</button>
       </form>
-      <p class="news-micro">{{ __('Nu pre-bifăm nimic. Te dezabonezi din primul email dacă-ți schimbi părerea.', 'sage') }}</p>
+      <p class="news-micro">{{ \App\home_field('news_micro') }}</p>
     </div>
   </div>
 </section>
