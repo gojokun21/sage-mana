@@ -3327,6 +3327,7 @@ p.demo_store {
 @import "./mega-produse.css";   /* mega-meniu „Suplimente" — în header, orice pagină */
 @import "./page.css";           /* generic page wrapper */
 @import "./whatsapp-button.css"; /* floating WhatsApp CTA — every page */
+@import "./mobile-sticky-bar.css"; /* bară de tab jos pe mobil — every page (după whatsapp ca să-l ridice) */
 @import "./newsletter-popup.css"; /* welcome popup — first-visit lead capture */
 
 /* responsive.css moved to its own entry — App\page_bundles() appends it

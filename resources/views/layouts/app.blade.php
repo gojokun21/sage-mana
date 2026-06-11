@@ -48,6 +48,8 @@
       @include('partials.newsletter')
 
       @include('sections.footer')
+
+      @include('partials.mobile-sticky-bar')
     </div>
 
     {{-- Mini Cart Drawer rendered at body root so it escapes the sticky

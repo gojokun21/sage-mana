@@ -102,8 +102,9 @@ import 'swiper/css/thumbs';
 /* ==================== MOBILE SEARCH POPUP ==================== */
 (function () {
   var searchPopup = document.getElementById('mobileSearchPopup');
-  var searchTrigger = document.querySelector('.mobile-search-trigger');
-  if (!searchPopup || !searchTrigger) return;
+  // Mai mulți declanșatori: butonul din header + itemul „Caută" din bara mobilă.
+  var searchTriggers = document.querySelectorAll('.mobile-search-trigger');
+  if (!searchPopup || !searchTriggers.length) return;
 
   var popupOverlay = searchPopup.querySelector('.mobile-search-popup__overlay');
   var popupClose = searchPopup.querySelector('.mobile-search-popup__close');
@@ -125,7 +126,9 @@ import 'swiper/css/thumbs';
     if (popupResults) popupResults.style.display = 'none';
   }
 
-  searchTrigger.addEventListener('click', openSearchPopup);
+  searchTriggers.forEach(function (t) {
+    t.addEventListener('click', openSearchPopup);
+  });
   if (popupClose) popupClose.addEventListener('click', closeSearchPopup);
   if (popupOverlay) popupOverlay.addEventListener('click', closeSearchPopup);
 

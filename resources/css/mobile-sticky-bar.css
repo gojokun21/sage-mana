@@ -1,0 +1,77 @@
+/* Bară de navigare sticky jos — DOAR pe mobil (≤640px), globală.
+   Scope .mn-tabbar. Markup: partials/mobile-sticky-bar.blade.php. */
+
+.mn-tabbar { display: none; }
+
+@media (max-width: 640px) {
+  .mn-tabbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9990; /* peste conținut, sub mini-cart drawer (9999) */
+    display: flex;
+    align-items: stretch;
+    background: #fff;
+    border-top: 1px solid #e8eae8;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+    padding-bottom: env(safe-area-inset-bottom, 0px); /* zona „home indicator" iOS */
+  }
+
+  .mn-tabbar__item {
+    position: relative;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-height: 56px;
+    padding: 8px 4px 7px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+    color: #6b6f6d;
+    font-family: 'Rubik', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.15s ease;
+  }
+  .mn-tabbar__item:active { background: rgba(0, 0, 0, 0.03); }
+  .mn-tabbar__item.is-active { color: var(--green); }
+
+  .mn-tabbar__icon { display: inline-flex; align-items: center; justify-content: center; }
+  .mn-tabbar__icon svg { width: 22px; height: 22px; }
+  .mn-tabbar__label { font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 0.01em; }
+
+  .mn-tabbar__badge {
+    position: absolute;
+    top: 5px;
+    left: calc(50% + 6px);
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--green);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 999px;
+    box-sizing: border-box;
+  }
+  .mn-tabbar__badge.is-empty { display: none; }
+
+  /* Lasă spațiu cât bara, ca footer-ul/conținutul să nu fie acoperite. */
+  body { padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px)); }
+
+  /* Ridică butonul flotant WhatsApp deasupra barei (importat după whatsapp-button.css). */
+  .natura-whatsapp { bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+
+  /* Căutarea și coșul sunt acum în bara de jos → scoate-le din header pe mobil,
+     ca să nu fie duplicate. (Doar cele din header; cele din .mn-tabbar rămân.) */
+  .menu__left .mobile-search-trigger,
+  .menu__left .shopping-cart { display: none; }
+}
