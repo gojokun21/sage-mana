@@ -20,7 +20,7 @@
       <span class="sep" aria-hidden="true">›</span>
       <a href="{{ esc_url(home_url('/dupa-simptom/')) }}">{{ __('După simptom', 'sage') }}</a>
       <span class="sep" aria-hidden="true">›</span>
-      <span class="here">{{ get_the_title() }}</span>
+      <span class="here">{{ html_entity_decode(get_the_title(), ENT_QUOTES, 'UTF-8') }}</span>
     </nav>
 
     @include('partials.simptom.hero')

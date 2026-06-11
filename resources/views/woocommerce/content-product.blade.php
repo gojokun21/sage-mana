@@ -27,16 +27,16 @@
   }
 
   $info_generala = get_field('informatie_generala', $product_id);
-  $protocol_zile = !empty($info_generala['protocol_zile']) ? $info_generala['protocol_zile'] : '';
-  $forma = !empty($info_generala['forma']) ? $info_generala['forma'] : '';
+  $days = !empty($info_generala['protocol_zile']) ? (int) $info_generala['protocol_zile'] : 0;
+  $forma = !empty($info_generala['forma']) ? trim((string) $info_generala['forma']) : '';
   $beneficii = !empty($info_generala['beneficii']) && is_array($info_generala['beneficii'])
       ? array_slice($info_generala['beneficii'], 0, 3)
       : [];
 
-  // Badge "240 caps · 120 zile" — combinăm formă + protocol_zile dacă există.
+  // Badge "240 capsule · 120 zile" — formă + protocol_zile (numeric, zile de cură).
   $badge_parts = [];
   if ($forma) { $badge_parts[] = $forma; }
-  if ($protocol_zile) { $badge_parts[] = $protocol_zile; }
+  if ($days > 0) { $badge_parts[] = sprintf(_n('%d zi', '%d zile', $days, 'sage'), $days); }
   $badge_text = implode(' · ', $badge_parts);
 
   // Primele 3 carduri din pagina shop (page 1) → CTA filled. Setat în shop-loop.blade.php.

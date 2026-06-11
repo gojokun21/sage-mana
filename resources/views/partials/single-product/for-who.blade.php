@@ -1,17 +1,23 @@
-{{-- PDP — pentru cine merge / nu merge (static). --}}
+{{-- PDP — pentru cine merge / nu merge. ACF (grup PDP, seed `natura:pdp-seed`) cu fallback static. --}}
 @php
-  $yes = [
-    __('Persoane care vor susținere imunitară zilnică', 'sage'),
-    __('Cei cu sensibilitate cardiovasculară (familie cu istoric)', 'sage'),
-    __('Perioade de stres sau oboseală cronică', 'sage'),
-    __('Oricine vrea o sursă naturală de antioxidanți', 'sage'),
-  ];
-  $no = [
-    __('Minori sub 12 ani', 'sage'),
-    __('Alergie la Nigella sativa sau familia Ranunculaceae', 'sage'),
-    __('Femei însărcinate sau care alăptează — consultă medicul', 'sage'),
-    __('Persoane sub tratament anticoagulant — consultă medicul', 'sage'),
-  ];
+  $yes = array_values(array_filter(array_map(static fn ($r) => $r['text'] ?? '', get_field('pcine_da') ?: [])));
+  if (empty($yes)) {
+    $yes = [
+      __('Persoane care vor susținere imunitară zilnică', 'sage'),
+      __('Cei cu sensibilitate cardiovasculară (familie cu istoric)', 'sage'),
+      __('Perioade de stres sau oboseală cronică', 'sage'),
+      __('Oricine vrea o sursă naturală de antioxidanți', 'sage'),
+    ];
+  }
+  $no = array_values(array_filter(array_map(static fn ($r) => $r['text'] ?? '', get_field('pcine_nu') ?: [])));
+  if (empty($no)) {
+    $no = [
+      __('Minori sub 12 ani', 'sage'),
+      __('Alergie la Nigella sativa sau familia Ranunculaceae', 'sage'),
+      __('Femei însărcinate sau care alăptează — consultă medicul', 'sage'),
+      __('Persoane sub tratament anticoagulant — consultă medicul', 'sage'),
+    ];
+  }
 @endphp
 <section class="pcine">
   <div class="pcine-inner">

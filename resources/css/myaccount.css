@@ -2,6 +2,10 @@
    My Account — modern e-commerce dashboard.
    ========================================================================== */
 
+/* Cream page backdrop on all My Account pages (matches the mockups; cards are
+   white and pop on top). `--cream` is scoped per sub-page, so use the literal. */
+.woocommerce-account main.main { background: #fafaf6; }
+
 .woocommerce-account .woocommerce {
   display: flex;
   gap: 32px;

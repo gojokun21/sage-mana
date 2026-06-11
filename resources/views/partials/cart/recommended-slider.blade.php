@@ -51,7 +51,8 @@
         $permalink = get_permalink($product_id);
 
         $info_generala = get_field('informatie_generala', $product_id);
-        $protocol_zile = ! empty($info_generala['protocol_zile']) ? $info_generala['protocol_zile'] : '';
+        $days = ! empty($info_generala['protocol_zile']) ? (int) $info_generala['protocol_zile'] : 0;
+        $protocol_zile = $days > 0 ? sprintf(__('Ajunge %s', 'sage'), sprintf(_n('%d zi', '%d zile', $days, 'sage'), $days)) : '';
 
         $add_url = $cart_has_upsell
           ? add_query_arg(['add-to-cart' => $product_id], wc_get_cart_url())

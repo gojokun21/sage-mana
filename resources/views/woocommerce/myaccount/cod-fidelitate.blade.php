@@ -30,7 +30,7 @@
       <span>{{ __('la următoarea comandă', 'sage') }}</span>
     </div>
     <p class="helper">
-      <strong>{{ sprintf(__('1 punct = %s.', 'sage'), wp_strip_all_tags(wc_price($point_value))) }}</strong>
+      <strong>{{ sprintf(__('1 punct = %s.', 'sage'), html_entity_decode(wp_strip_all_tags(wc_price($point_value)))) }}</strong>
       {{ sprintf(__('Folosești minim %1$s puncte. Maxim %2$d%% din valoarea coșului poate fi plătit cu puncte.', 'sage'), number_format_i18n($min_redeem), $max_cart_pct) }}
     </p>
     @if ($balance >= $min_redeem)

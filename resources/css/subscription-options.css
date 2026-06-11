@@ -33,9 +33,9 @@
 .sub-card:has(.sub-radio:checked) .radio::after,
 .sub-card.selected .radio::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #fff; }
 .sub-card .body { display: flex; flex-direction: column; min-width: 0; }
-.sub-card .body strong { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13.5px; font-weight: 600; color: var(--color-text-primary, #1f2a24); }
-.sub-card .body .top-eyebrow { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-cta-primary, #e07a4b); font-weight: 700; margin-bottom: 3px; }
+.sub-card .body strong { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 13.5px; font-weight: 600; color: var(--color-text-primary, #1f2a24); }
+.sub-card .body .top-eyebrow { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-cta-primary, #e07a4b); font-weight: 700; margin-bottom: 3px; }
 .sub-card .body .det { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: var(--color-text-muted, #4a564e); margin-top: 3px; }
 .sub-card .price { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 500; font-size: 18px; color: var(--color-text-primary, #1f2a24); text-align: right; white-space: nowrap; }
 .sub-card .price .woocommerce-Price-amount { font-size: 18px; font-weight: 500; }
-.sub-card .price small { display: block; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; color: var(--color-text-faint, #8a968e); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
+.sub-card .price small { display: block; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10.5px; color: var(--color-text-faint, #8a968e); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }

@@ -62,6 +62,18 @@
 
           $slot = $slot_fallbacks[$i] ?? $slot_fallbacks[count($slot_fallbacks) - 1];
           $sub = $short !== '' ? $short : __('Formulat onest, dozaj măsurat, lot trasabil.', 'sage');
+
+          // Subscription offer chip — real price + discount when the product is
+          // subscription-enabled (mn-subscriptions plugin).
+          $sub_enabled = class_exists('MN_Subs_Product') && MN_Subs_Product::is_enabled($product_id);
+          $sub_price_html = '';
+          $sub_pct_label = '';
+          if ($sub_enabled) {
+            $base_price = (float) $product->get_price();
+            $sub_pct = MN_Subs_Product::discount_pct($product_id);
+            $sub_price_html = wc_price(MN_Subs_Pricing::discounted_unit_price($base_price, $sub_pct));
+            $sub_pct_label = rtrim(rtrim(number_format((float) $sub_pct, 2), '0'), '.');
+          }
         @endphp
 
         <article class="prod-card">
@@ -95,12 +107,14 @@
               <span class="price">{!! $price_html !!}</span>
             </div>
 
-            <span class="chip-loyalty">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
-                <path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>
-              </svg>
-              {{ $slot['loyalty_text'] }}
-            </span>
+            @if ($sub_enabled)
+              <span class="chip-loyalty">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>
+                </svg>
+                {!! sprintf(__('Abonament: %1$s · −%2$s%%', 'sage'), $sub_price_html, esc_html($sub_pct_label)) !!}
+              </span>
+            @endif
 
             <a class="lk" href="{{ esc_url($link) }}">
               {{ __('Vezi produsul', 'sage') }}

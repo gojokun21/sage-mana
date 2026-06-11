@@ -601,6 +601,7 @@
   padding: 0 15px;
   margin: 0 auto;
 }
+/* Text în stânga (coloana lată), CTA în dreapta (coloana îngustă) — ordine DOM naturală. */
 .home-template .quiz-grid .left .eyebrow-gold { margin-bottom: 18px; display: inline-block; }
 .home-template .quiz-grid .left h2 {
   font-family: var(--font-serif);
@@ -1443,6 +1444,8 @@
     grid-template-columns: 1fr;
     gap: 28px;
   }
+  /* Stacked: keep text first, button after. */
+  .home-template .quiz-grid .right { order: 0; }
   .home-template .quiz-grid .left h2,
   .home-template .news-grid .left h2 { font-size: 32px; }
 

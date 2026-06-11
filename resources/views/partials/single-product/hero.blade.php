@@ -1,10 +1,13 @@
 {{-- PDP hero — galerie (stânga) + info produs (dreapta).
      Date REALE: titlu, preț, descriere scurtă, add-to-cart WooCommerce.
-     STATIC (placeholder ACF): eyebrow, subline, rating, sub-options, bulk-note, trust-row. --}}
+     ACF (grup PDP, seed `natura:pdp-seed`): eyebrow, subline.
+     STATIC: rating fallback, bulk-note, trust-row. --}}
 @php
   global $product;
   $rating_count = $product->get_rating_count();
   $average = $product->get_average_rating();
+  $pdp_eyebrow = get_field('pdp_eyebrow') ?: __('Capsule · imunitate & sănătatea inimii', 'sage');
+  $pdp_subline = get_field('pdp_subline') ?: __('ulei de chimen negru egiptean presat la rece · vitamina E naturală · 240 capsule · 4 luni.', 'sage');
 @endphp
 
 <section class="pdp-hero">
@@ -17,11 +20,11 @@
 
     {{-- INFO PRODUS --}}
     <div class="pinfo">
-      <span class="eyebrow">{{ __('Capsule · imunitate & sănătatea inimii', 'sage') }}</span>
+      <span class="eyebrow">{{ $pdp_eyebrow }}</span>
 
       <h1>{{ $product->get_name() }}</h1>
 
-      <p class="subline">{{ __('ulei de chimen negru egiptean presat la rece · vitamina E naturală · 240 capsule · 4 luni.', 'sage') }}</p>
+      <p class="subline">{{ $pdp_subline }}</p>
 
       <div class="rating">
         <span class="stars" aria-hidden="true">★★★★★</span>

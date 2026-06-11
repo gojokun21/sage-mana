@@ -26,7 +26,7 @@
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -46,7 +46,7 @@
 /* shared eyebrow (label cu linie) */
 .bestseller-page .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
-  font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em;
+  font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 18px;
 }
 .bestseller-page .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-green-medium); }
@@ -67,11 +67,11 @@
   font-style: italic; font-size: 13.5px; color: var(--color-text-muted); line-height: 1.7; margin: 0;
 }
 .bestseller-page .honest-note strong {
-  font-family: var(--font-sans, 'Inter', sans-serif); font-style: normal; color: var(--color-text-primary);
+  font-family: var(--font-sans, 'Rubik', sans-serif); font-style: normal; color: var(--color-text-primary);
   font-weight: 700; display: block; margin-bottom: 4px; letter-spacing: 0.04em; font-size: 11px; text-transform: uppercase;
 }
 .bestseller-page .honest-note .body-line {
-  display: block; color: var(--color-text-primary); font-style: normal; font-family: var(--font-sans, 'Inter', sans-serif);
+  display: block; color: var(--color-text-primary); font-style: normal; font-family: var(--font-sans, 'Rubik', sans-serif);
   font-size: 13.5px; font-weight: 500; margin-top: 4px;
 }
 
@@ -129,10 +129,10 @@
 .bestseller-page .pcard .img .ph.trio .bot { width: 40px; }
 .bestseller-page .pcard .img .ph.trio .bot .body { width: 38px; height: 84px; }
 
-.bestseller-page .pcard .img .rank { position: absolute; top: 14px; left: 14px; display: inline-flex; align-items: center; gap: 7px; background: var(--color-green-primary); color: #fff; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 12px; border-radius: 999px; }
+.bestseller-page .pcard .img .rank { position: absolute; top: 14px; left: 14px; display: inline-flex; align-items: center; gap: 7px; background: var(--color-green-primary); color: #fff; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 12px; border-radius: 999px; }
 .bestseller-page .pcard .img .rank .num { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-weight: 500; font-size: 13px; }
-.bestseller-page .pcard .img .cat { position: absolute; bottom: 14px; left: 14px; background: rgba(255, 255, 255, 0.92); color: var(--color-green-primary); font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--color-border); }
-.bestseller-page .pcard .img .vegan-tag { position: absolute; top: 14px; right: 14px; background: var(--color-green-primary); color: #fff; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 9px; border-radius: 6px; }
+.bestseller-page .pcard .img .cat { position: absolute; bottom: 14px; left: 14px; background: rgba(255, 255, 255, 0.92); color: var(--color-green-primary); font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--color-border); }
+.bestseller-page .pcard .img .vegan-tag { position: absolute; top: 14px; right: 14px; background: var(--color-green-primary); color: #fff; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 9px; border-radius: 6px; }
 
 .bestseller-page .pcard .body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .bestseller-page .pcard h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 22px; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; margin: 0; color: var(--color-text-primary); }
@@ -143,14 +143,14 @@
 .bestseller-page .pcard ul.bens li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--color-green-medium); flex-shrink: 0; margin-top: 8px; }
 
 .bestseller-page .why-bs { background: var(--color-bg-page); border-left: 3px solid var(--color-cta-primary); border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 6px 0 4px; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: var(--color-text-muted); line-height: 1.55; flex: 1; }
-.bestseller-page .why-bs strong { font-family: var(--font-sans, 'Inter', sans-serif); font-style: normal; font-weight: 700; color: var(--color-cta-primary); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+.bestseller-page .why-bs strong { font-family: var(--font-sans, 'Rubik', sans-serif); font-style: normal; font-weight: 700; color: var(--color-cta-primary); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 4px; }
 
 .bestseller-page .pcard .price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; padding-top: 14px; border-top: 1px solid var(--color-border); margin-top: 6px; }
 .bestseller-page .pcard .price-stack { display: flex; flex-direction: column; gap: 3px; }
 .bestseller-page .pcard .price { font-family: var(--font-serif, 'Fraunces', serif); font-size: 28px; font-weight: 500; color: var(--color-text-primary); line-height: 1; letter-spacing: -0.01em; }
-.bestseller-page .pcard .cpd { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11.5px; color: var(--color-text-faint); font-weight: 500; }
+.bestseller-page .pcard .cpd { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11.5px; color: var(--color-text-faint); font-weight: 500; }
 .bestseller-page .pcard .cpd strong { color: var(--color-text-muted); font-weight: 600; }
-.bestseller-page .pcard .cta { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13px; font-weight: 600; padding: 11px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: var(--color-cta-primary); color: #fff; border: 0; cursor: pointer; box-shadow: var(--shadow-cta); align-self: center; white-space: nowrap; transition: background 0.15s ease; }
+.bestseller-page .pcard .cta { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 13px; font-weight: 600; padding: 11px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: var(--color-cta-primary); color: #fff; border: 0; cursor: pointer; box-shadow: var(--shadow-cta); align-self: center; white-space: nowrap; transition: background 0.15s ease; }
 .bestseller-page .pcard .cta:hover { background: var(--color-cta-primary-hover); }
 
 /* ---------- TABLE ---------- */
@@ -163,31 +163,31 @@
 .bestseller-page .cpd-head p { font-size: 14.5px; color: var(--color-text-muted); line-height: 1.7; margin: 0; max-width: 680px; }
 .bestseller-page .cpd-table { background: #fff; border: 1px solid var(--color-border); border-radius: 14px; overflow: hidden; margin-top: 18px; }
 .bestseller-page .cpd-table table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-.bestseller-page .cpd-table thead th { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; text-align: left; padding: 14px 18px; background: var(--color-bg-page); border-bottom: 1px solid var(--color-border); }
+.bestseller-page .cpd-table thead th { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; text-align: left; padding: 14px 18px; background: var(--color-bg-page); border-bottom: 1px solid var(--color-border); }
 .bestseller-page .cpd-table thead th:nth-child(n+3):nth-child(-n+5),
 .bestseller-page .cpd-table tbody td:nth-child(n+3):nth-child(-n+5) { text-align: center; }
 .bestseller-page .cpd-table tbody td { padding: 16px 18px; border-bottom: 1px solid var(--color-border); color: var(--color-text-primary); vertical-align: middle; }
 .bestseller-page .cpd-table tbody tr:last-child td { border-bottom: 0; }
 .bestseller-page .cpd-table tbody td.name { font-weight: 500; }
 .bestseller-page .cpd-table tbody td.name .meta { display: block; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: var(--color-text-faint); font-weight: 400; margin-top: 2px; }
-.bestseller-page .cpd-table tbody td.cat { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11.5px; color: var(--color-green-primary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.bestseller-page .cpd-table tbody td.cat { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11.5px; color: var(--color-green-primary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
 .bestseller-page .cpd-table tbody td.cpd-val { font-family: var(--font-serif, 'Fraunces', serif); font-size: 15px; font-weight: 600; color: var(--color-green-primary); }
 .bestseller-page .cpd-table tbody td.rating { color: var(--color-gold); font-size: 14px; letter-spacing: 0.04em; }
 .bestseller-page .cpd-table tbody td.rating .lbl { display: block; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12px; color: var(--color-text-faint); font-weight: 400; margin-top: 2px; letter-spacing: 0; }
 .bestseller-page .cpd-note { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13.5px; color: var(--color-text-muted); text-align: center; margin: 16px auto 0; line-height: 1.6; max-width: 720px; }
-.bestseller-page .cpd-note strong { color: var(--color-text-primary); font-weight: 600; font-style: normal; font-family: var(--font-sans, 'Inter', sans-serif); }
+.bestseller-page .cpd-note strong { color: var(--color-text-primary); font-weight: 600; font-style: normal; font-family: var(--font-sans, 'Rubik', sans-serif); }
 
 /* ---------- BRIDGE QUIZ ---------- */
 .bestseller-page .bridge-quiz { padding: 80px 24px; background: var(--color-green-primary); color: #fff; position: relative; overflow: hidden; }
 .bestseller-page .bridge-quiz::before { content: ""; position: absolute; right: -100px; top: -80px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(202, 164, 74, 0.1), transparent 70%); }
 .bestseller-page .bridge-quiz-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: center; position: relative; }
-.bestseller-page .bridge-quiz .eyebrow-gold { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-gold); font-weight: 700; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 10px; }
+.bestseller-page .bridge-quiz .eyebrow-gold { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-gold); font-weight: 700; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 10px; }
 .bestseller-page .bridge-quiz .eyebrow-gold::before { content: ""; width: 24px; height: 1px; background: var(--color-gold); }
 .bestseller-page .bridge-quiz h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 34px; line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 14px; color: #fff; }
 .bestseller-page .bridge-quiz h2 em { font-style: italic; color: #C2D9AC; font-weight: 300; }
 .bestseller-page .bridge-quiz p { color: #C2D9AC; font-size: 15.5px; line-height: 1.7; margin: 0; max-width: 560px; }
 .bestseller-page .bridge-quiz .right-side { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; justify-self: end; }
-.bestseller-page .quiz-cta { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 28px; background: var(--color-cta-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; box-shadow: var(--shadow-cta); transition: background 0.15s ease; }
+.bestseller-page .quiz-cta { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 28px; background: var(--color-cta-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; box-shadow: var(--shadow-cta); transition: background 0.15s ease; }
 .bestseller-page .quiz-cta:hover { background: var(--color-cta-primary-hover); }
 .bestseller-page .bridge-quiz .micro { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: #9AC0A8; }
 
@@ -213,7 +213,7 @@
 .bestseller-page .cta-final h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
 .bestseller-page .cta-final p { color: var(--color-text-muted); font-size: 15.5px; line-height: 1.65; margin: 0 0 28px; }
 .bestseller-page .cta-final p strong { color: var(--color-text-primary); font-weight: 600; }
-.bestseller-page .cta-final a.btn { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 30px; background: transparent; color: var(--color-green-primary); border: 1.5px solid var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; transition: background 0.15s ease; }
+.bestseller-page .cta-final a.btn { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 30px; background: transparent; color: var(--color-green-primary); border: 1.5px solid var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; transition: background 0.15s ease; }
 .bestseller-page .cta-final a.btn:hover { background: var(--color-green-soft-card); }
 
 /* ---------- RESPONSIVE ---------- */

@@ -16,7 +16,7 @@
           <span class="new">{!! wc_price($pick['sale']) !!}</span>
           <span class="badge-discount">−{{ $pick['disc'] }}%</span>
         </div>
-        <div class="pick-save">{{ sprintf(__('Economisești %s față de prețul întreg.', 'sage'), wp_strip_all_tags(wc_price($pick['save']))) }}</div>
+        <div class="pick-save">{{ sprintf(__('Economisești %s față de prețul întreg.', 'sage'), html_entity_decode(wp_strip_all_tags(wc_price($pick['save'])))) }}</div>
 
         @if ($pick['can_ajax'])
           <a href="{{ esc_url($pick['add_url']) }}"

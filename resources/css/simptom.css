@@ -35,7 +35,7 @@
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -56,7 +56,7 @@
 
 /* Shared eyebrow base. */
 .simptom-detail .eyebrow {
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-size: 12.5px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -236,7 +236,7 @@
   line-height: 1.55;
 }
 .simptom-detail .cauza-foot strong {
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -284,7 +284,7 @@
   border: 1.5px solid var(--color-border);
   border-radius: 10px;
   background: #fff;
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-size: 13px;
   font-weight: 500;
   color: var(--color-text-muted);
@@ -308,7 +308,7 @@
   align-items: center;
 }
 .simptom-detail .auto-result .body p.lbl {
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-size: 11px;
   letter-spacing: 0.14em;
   color: var(--color-green-primary);
@@ -334,7 +334,7 @@
   border: 1.5px solid var(--color-green-primary);
   color: var(--color-green-primary);
   border-radius: 999px;
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-weight: 600;
   font-size: 13.5px;
   text-decoration: none;
@@ -466,7 +466,7 @@
   left: 18px;
   background: var(--color-green-soft-card);
   color: var(--color-green-deep);
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -518,15 +518,15 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.simptom-detail .mini-pack .lbl .b { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 6.5px; letter-spacing: 0.16em; color: var(--color-green-primary); font-weight: 700; }
+.simptom-detail .mini-pack .lbl .b { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 6.5px; letter-spacing: 0.16em; color: var(--color-green-primary); font-weight: 700; }
 .simptom-detail .mini-pack .lbl .n { font-family: var(--font-serif, 'Fraunces', serif); font-size: 10px; color: var(--color-text-primary); font-weight: 500; line-height: 1.1; }
-.simptom-detail .mini-pack .lbl .v { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 6.5px; color: var(--color-text-primary); letter-spacing: 0.12em; font-weight: 600; }
+.simptom-detail .mini-pack .lbl .v { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 6.5px; color: var(--color-text-primary); letter-spacing: 0.12em; font-weight: 600; }
 .simptom-detail .mini-pack.b2::before { background: #7a5a2d; }
 .simptom-detail .mini-pack.b3::before { background: var(--color-green-medium); }
 
 .simptom-detail .prod-body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .simptom-detail .prod-body .eyebrow-mini {
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-size: 10.5px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -578,7 +578,7 @@
   color: #fff;
   border: 0;
   border-radius: 999px;
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
@@ -598,7 +598,7 @@
   color: var(--color-green-primary);
   border: 1.5px solid var(--color-green-primary);
   border-radius: 999px;
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
@@ -646,7 +646,7 @@
 }
 .simptom-detail .mit-card .mit-side { padding-right: 24px; border-right: 1px solid var(--color-border); }
 .simptom-detail .mit-card .lbl {
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-size: 10.5px;
   letter-spacing: 0.18em;
   color: var(--color-text-faint);
@@ -667,7 +667,7 @@
 }
 .simptom-detail .mit-card .real-side .txt {
   font-style: normal;
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-size: 14.5px;
   color: var(--color-text-primary);
   line-height: 1.65;
@@ -762,7 +762,7 @@
 }
 .simptom-detail .end-quiz .eyebrow-gold {
   color: var(--color-gold);
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans, 'Rubik', sans-serif);
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;

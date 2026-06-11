@@ -1,19 +1,25 @@
-{{-- Single PACHET — „Pentru cine merge / nu merge". Conținut static (mockup). --}}
+{{-- Single PACHET — „Pentru cine merge / nu merge". ACF (grup pachet, seed `natura:pachet-seed`) cu fallback static. --}}
 @php
-  $yes = [
+  $yes = array_values(array_filter(array_map(static fn ($r) => $r['text'] ?? '', get_field('pk_pcine_da') ?: [])));
+  if (empty($yes)) {
+    $yes = [
       __('Cei care vor o cură completă, nu produse răzlețe', 'sage'),
       __('Stil de viață cu mese procesate, stres cronic, somn dezordonat', 'sage'),
       __('Cei care preferă un singur preț transparent, fără bătăi de cap', 'sage'),
       __('Persoane care vor rezultate construite constant pe termen lung', 'sage'),
       __('Cei care au încercat produse izolate fără efect vizibil', 'sage'),
-  ];
-  $no = [
+    ];
+  }
+  $no = array_values(array_filter(array_map(static fn ($r) => $r['text'] ?? '', get_field('pk_pcine_nu') ?: [])));
+  if (empty($no)) {
+    $no = [
       __('Minori sub 12 ani — consultă medicul pediatru', 'sage'),
       __('Femei însărcinate sau care alăptează — consultă medicul', 'sage'),
       __('Persoane cu alergii la ingredientele din formulă', 'sage'),
       __('Cei care caută un efect imediat, peste noapte', 'sage'),
       __('Persoane sub tratament medical — verifică întâi cu medicul', 'sage'),
-  ];
+    ];
+  }
 @endphp
 
 <section class="pachet-pcine">

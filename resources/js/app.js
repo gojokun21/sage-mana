@@ -463,6 +463,11 @@ if (document.querySelector('.account-dash')) {
   import('./account-dashboard.js');
 }
 
+/* ==================== LAZY: CONT · COMENZI ==================== */
+if (document.querySelector('.orders-page')) {
+  import('./account-orders.js');
+}
+
 /* ==================== LAZY: HOME TEMPLATE ==================== */
 if (document.querySelector('.home-template')) {
   import('./home.js');

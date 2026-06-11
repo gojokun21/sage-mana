@@ -1,13 +1,21 @@
 {{-- Single PACHET — hero (galerie stânga + info dreapta).
      Date REALE din WooCommerce: nume, galerie, produse componente (nume + preț
      individual + imagine), preț pachet, economisire vs. suma individuală,
-     add-to-cart real. STATIC (placeholder, mutabil în ACF): eyebrow, subline,
-     rating fallback, trust-row. --}}
+     add-to-cart real. ACF (grup pachet, seed `natura:pachet-seed`): eyebrow,
+     tagline; descrierea lungă vine din post_excerpt. STATIC: rating fallback,
+     trust-row. --}}
 @php
   global $product;
 
   $rating_count = $product->get_rating_count();
   $average = $product->get_average_rating();
+
+  $pk_eyebrow = get_field('pk_eyebrow') ?: __('Pachet · cură completă', 'sage');
+  $pk_tagline = get_field('pk_tagline');
+
+  // Zile de cură (informatie_generala.protocol_zile) pentru sub-line-ul de preț.
+  $pk_info = function_exists('get_field') ? get_field('informatie_generala', $product->get_id()) : null;
+  $pk_days = (is_array($pk_info) && ! empty($pk_info['protocol_zile'])) ? (int) $pk_info['protocol_zile'] : 0;
 
   // Produsele componente ale bundle-ului (vezi și partials/pachete/card.blade.php).
   $items = [];
@@ -52,14 +60,18 @@
 
     {{-- INFO PACHET --}}
     <div class="pinfo">
-      <span class="eyebrow">{{ __('Pachet · cură completă', 'sage') }}</span>
+      <span class="eyebrow">{{ $pk_eyebrow }}</span>
 
       <h1>{{ $product->get_name() }}</h1>
 
+      @if ($pk_tagline)
+        <p class="subline">{{ $pk_tagline }}</p>
+      @endif
+
       @php $short = $product->get_short_description(); @endphp
       @if ($short)
-        <div class="subline">{!! apply_filters('woocommerce_short_description', $short) !!}</div>
-      @else
+        <div class="{{ $pk_tagline ? 'desc' : 'subline' }}">{!! apply_filters('woocommerce_short_description', $short) !!}</div>
+      @elseif (! $pk_tagline)
         <p class="subline">{{ __('Două produse care lucrează împreună, într-o singură cură.', 'sage') }}</p>
       @endif
 
@@ -112,7 +124,13 @@
             {{ sprintf(__('Economisești %s lei față de cumpărarea separată', 'sage'), number_format_i18n($saving, 0)) }}
           </div>
         @endif
-        <div class="sub-line">{{ __('Cură completă. Oprești oricând, fără obligativitate.', 'sage') }}</div>
+        <div class="sub-line">
+          @if ($pk_days > 0)
+            {{ sprintf(__('Cură completă de %s. Oprești oricând, fără obligativitate.', 'sage'), sprintf(_n('%d zi', '%d zile', $pk_days, 'sage'), $pk_days)) }}
+          @else
+            {{ __('Cură completă. Oprești oricând, fără obligativitate.', 'sage') }}
+          @endif
+        </div>
       </div>
 
       {{-- ADD-TO-CART REAL WooCommerce (form bundle + buton). --}}

@@ -46,15 +46,16 @@
         $primary_cat = $cats[0]->name;
     }
 
-    // Detail line: ACF informatie_generala (forma, doze, vegan etc.) cu fallback la short description.
+    // Detail line: ACF informatie_generala (forma + zile de cură) cu fallback la short description.
     $detail_parts = [];
     $info = function_exists('get_field') ? get_field('informatie_generala', $product_id) : null;
     if (is_array($info)) {
         if (! empty($info['forma'])) {
-            $detail_parts[] = $info['forma'];
+            $detail_parts[] = trim((string) $info['forma']);
         }
-        if (! empty($info['protocol_zile'])) {
-            $detail_parts[] = $info['protocol_zile'] . ' ' . __('zile', 'sage');
+        $detail_days = ! empty($info['protocol_zile']) ? (int) $info['protocol_zile'] : 0;
+        if ($detail_days > 0) {
+            $detail_parts[] = sprintf(_n('%d zi', '%d zile', $detail_days, 'sage'), $detail_days);
         }
     }
     $detail_line = implode(' · ', $detail_parts);

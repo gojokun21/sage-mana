@@ -4,3 +4,4 @@
 @import "./loyalty.css";        /* „Cod fidelitate" tab (.loyalty-tab) */
 @import "./subscriptions.css";  /* „Abonamente" tab (.mn-subs-account) */
 @import "./account-dashboard.css"; /* Dashboard redesign (.account-dash) */
+@import "./orders.css";         /* „Comenzi" tab (.orders-page) */
