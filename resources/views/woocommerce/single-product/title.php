@@ -20,6 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-the_title( '<h1 class="single_product_title entry-title">', '</h1>' );
+// Unele titluri sunt stocate cu entități HTML (ex. „&amp;” în loc de „&”), iar
+// the_title() le mai escapează o dată → „&amp;amp;”. Decodăm complet (orice număr
+// de straturi) la caractere literale, apoi escapăm O SINGURĂ dată. Idempotent.
+$mn_title = get_the_title();
+$mn_prev  = null;
+while ( $mn_title !== $mn_prev ) {
+	$mn_prev  = $mn_title;
+	$mn_title = html_entity_decode( $mn_title, ENT_QUOTES, 'UTF-8' );
+}
+echo '<h1 class="single_product_title entry-title">' . esc_html( $mn_title ) . '</h1>';
 ?>
 </div>

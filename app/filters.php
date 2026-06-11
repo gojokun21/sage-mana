@@ -56,6 +56,7 @@ add_filter('wp_img_tag_add_auto_sizes', '__return_false');
  * the largest srcset candidate.
  *
  * This filter is the plugin's own public API (class-tiny-picture.php:77,
+ *
  * @since 3.6.9) — we're not fighting the plugin, we're opting out of one
  * feature through a hook they expose. Upload-time compression stays on.
  */
@@ -275,7 +276,7 @@ add_filter('woocommerce_loop_add_to_cart_args', function ($args, $product) {
     $classes = isset($args['class']) ? explode(' ', $args['class']) : [];
     $classes[] = 'btn-primary';
 
-    if (!$product->is_purchasable() || !$product->is_in_stock()) {
+    if (! $product->is_purchasable() || ! $product->is_in_stock()) {
         $classes[] = 'btn-unavailable';
     }
 
@@ -288,7 +289,7 @@ add_filter('woocommerce_loop_add_to_cart_args', function ($args, $product) {
  * Customize the out-of-stock button label in the shop loop.
  */
 add_filter('woocommerce_product_add_to_cart_text', function ($text, $product) {
-    if (!$product->is_in_stock()) {
+    if (! $product->is_in_stock()) {
         return $product->get_type() === 'bundle' ? 'Pachet indisponibil' : 'Stoc epuizat';
     }
 
@@ -296,12 +297,37 @@ add_filter('woocommerce_product_add_to_cart_text', function ($text, $product) {
 }, 10, 2);
 
 /**
+ * Unele nume de produs sunt stocate în DB cu entități HTML (ex. „&amp;" în loc de
+ * „&", „&nbsp;" — din import/seed). La afișare, template-urile mai escapează o dată
+ * numele (Blade `{{ }}`, esc_html), deci apare „&amp;amp;". Decodăm entitățile la
+ * SURSĂ, în `get_name()`, ca escape-ul ulterior din template să producă encodarea
+ * corectă (o singură dată). Bucla colapsează orice număr de straturi.
+ *
+ * Acoperă tot ce trece prin get_name(): coș, checkout, mini-cart, abonamente
+ * (mn-subscriptions), emailuri, liste. Titlul H1 din single product folosește
+ * the_title() și e tratat separat în woocommerce/single-product/title.php.
+ */
+add_filter('woocommerce_product_get_name', function ($name) {
+    if (! is_string($name) || strpos($name, '&') === false) {
+        return $name;
+    }
+
+    $prev = null;
+    while ($name !== $prev) {
+        $prev = $name;
+        $name = html_entity_decode($name, ENT_QUOTES, 'UTF-8');
+    }
+
+    return $name;
+}, 10, 1);
+
+/**
  * Refresh the header cart count via WooCommerce AJAX fragments.
  * Keeps .count__cart in the shopping-cart link in sync after add-to-cart
  * without a page reload.
  */
 add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
-    if (!function_exists('WC') || !WC()->cart) {
+    if (! function_exists('WC') || ! WC()->cart) {
         return $fragments;
     }
 
@@ -317,18 +343,18 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
  * Prepend a cart icon to the loop add-to-cart button for purchasable, in-stock products.
  */
 add_filter('woocommerce_loop_add_to_cart_link', function ($html, $product) {
-    if (!$product->is_purchasable() || !$product->is_in_stock()) {
+    if (! $product->is_purchasable() || ! $product->is_in_stock()) {
         return $html;
     }
 
     $icon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-        . '<path d="M2 3l.265.088c1.32.44 1.98.66 2.357 1.184.377.524.378 1.22.378 2.611V9.5c0 2.828 0 4.243.879 5.121.878.879 2.293.879 5.121.879h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>'
-        . '<path d="M5 6h11.45c2.055 0 3.083 0 3.528.674.444.675.04 1.619-.77 3.508l-.429 1c-.378.882-.567 1.322-.942 1.57-.376.248-.856.248-1.815.248H5" stroke="currentColor" stroke-width="1.5"/>'
-        . '<circle cx="7.5" cy="19.5" r="1.5" stroke="currentColor" stroke-width="1.5"/>'
-        . '<circle cx="16.5" cy="19.5" r="1.5" stroke="currentColor" stroke-width="1.5"/>'
-        . '</svg>';
+        .'<path d="M2 3l.265.088c1.32.44 1.98.66 2.357 1.184.377.524.378 1.22.378 2.611V9.5c0 2.828 0 4.243.879 5.121.878.879 2.293.879 5.121.879h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>'
+        .'<path d="M5 6h11.45c2.055 0 3.083 0 3.528.674.444.675.04 1.619-.77 3.508l-.429 1c-.378.882-.567 1.322-.942 1.57-.376.248-.856.248-1.815.248H5" stroke="currentColor" stroke-width="1.5"/>'
+        .'<circle cx="7.5" cy="19.5" r="1.5" stroke="currentColor" stroke-width="1.5"/>'
+        .'<circle cx="16.5" cy="19.5" r="1.5" stroke="currentColor" stroke-width="1.5"/>'
+        .'</svg>';
 
-    return preg_replace('/(<a\b[^>]*>)/', '$1' . $icon . ' ', $html, 1);
+    return preg_replace('/(<a\b[^>]*>)/', '$1'.$icon.' ', $html, 1);
 }, 10, 2);
 
 /**
@@ -362,6 +388,7 @@ add_filter('gettext', function ($translated, $text, $domain) {
     if ($domain === 'woocommerce' && $text === 'verified owner') {
         return 'client verificat';
     }
+
     return $translated;
 }, 20, 3);
 
@@ -371,16 +398,16 @@ add_filter('gettext', function ($translated, $text, $domain) {
  * group. Bundles are detected via the WooCommerce `product_type` taxonomy.
  */
 add_filter('posts_clauses', function ($clauses, $query) {
-    if (is_admin() || !$query->is_main_query()) {
+    if (is_admin() || ! $query->is_main_query()) {
         return $clauses;
     }
 
-    if (!is_shop() && !is_product_taxonomy()) {
+    if (! is_shop() && ! is_product_taxonomy()) {
         return $clauses;
     }
 
     $term = get_term_by('slug', 'bundle', 'product_type');
-    if (!$term) {
+    if (! $term) {
         return $clauses;
     }
 
@@ -394,8 +421,8 @@ add_filter('posts_clauses', function ($clauses, $query) {
     );
 
     $bundle_flag = '(CASE WHEN sage_bundle_tr.object_id IS NULL THEN 0 ELSE 1 END)';
-    $clauses['orderby'] = $bundle_flag . ' ASC'
-        . (!empty($clauses['orderby']) ? ', ' . $clauses['orderby'] : '');
+    $clauses['orderby'] = $bundle_flag.' ASC'
+        .(! empty($clauses['orderby']) ? ', '.$clauses['orderby'] : '');
     $clauses['groupby'] = "{$wpdb->posts}.ID";
 
     return $clauses;
