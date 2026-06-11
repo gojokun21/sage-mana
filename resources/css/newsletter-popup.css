@@ -34,7 +34,7 @@
   --mn-gold-soft:   #f0d99a;
 
   --mn-serif: ui-serif, 'New York', 'Iowan Old Style', Georgia, serif;
-  --mn-sans:  'Rubik', 'Rubik', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mn-sans:  'Inter', 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --mn-mono:  'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
 }
 

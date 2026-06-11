@@ -27,7 +27,7 @@
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -39,7 +39,7 @@
 .noutati-page .breadcrumb .here { color: var(--color-text-primary); font-weight: 600; }
 
 /* shared eyebrow */
-.noutati-page .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 18px; }
+.noutati-page .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 18px; }
 .noutati-page .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-green-medium); }
 
 /* ---------- HERO ---------- */
@@ -50,11 +50,11 @@
 .noutati-page .filt-hero .brand-by { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 14.5px; color: var(--color-text-faint); margin: -8px 0 18px; display: block; }
 .noutati-page .filt-hero .lede { font-size: 16.5px; color: var(--color-text-muted); line-height: 1.7; max-width: 640px; margin: 0 0 24px; }
 .noutati-page .filt-hero .lede strong { color: var(--color-text-primary); font-weight: 600; }
-.noutati-page .big-disclaimer { max-width: 760px; background: var(--color-bg-card); border-left: 4px solid var(--color-gold); padding: 18px 22px 18px 56px; border-radius: 0 12px 12px 0; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 14px; color: var(--color-text-primary); line-height: 1.65; margin: 0 0 26px; position: relative; }
+.noutati-page .big-disclaimer { max-width: 760px; background: var(--color-bg-card); border-left: 4px solid var(--color-gold); padding: 18px 22px 18px 56px; border-radius: 0 12px 12px 0; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 14px; color: var(--color-text-primary); line-height: 1.65; margin: 0 0 26px; position: relative; }
 .noutati-page .big-disclaimer::before { content: ""; position: absolute; left: 18px; top: 20px; width: 24px; height: 24px; border-radius: 50%; background: var(--color-gold); background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231F3D2E' stroke-width='2.4'><path d='M12 9v4M12 17h.01'/><circle cx='12' cy='12' r='10'/></svg>"); background-size: 14px; background-position: center; background-repeat: no-repeat; }
-.noutati-page .big-disclaimer strong { display: block; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 700; letter-spacing: 0.04em; font-size: 11px; color: var(--color-gold); text-transform: uppercase; margin-bottom: 4px; }
+.noutati-page .big-disclaimer strong { display: block; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 700; letter-spacing: 0.04em; font-size: 11px; color: var(--color-gold); text-transform: uppercase; margin-bottom: 4px; }
 .noutati-page .big-disclaimer .inline { display: inline; font-size: inherit; color: var(--color-text-primary); text-transform: none; letter-spacing: 0; margin: 0; }
-.noutati-page .hero-cta { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 26px; background: var(--color-cta-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; box-shadow: var(--shadow-cta); transition: background 0.15s; }
+.noutati-page .hero-cta { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 26px; background: var(--color-cta-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; box-shadow: var(--shadow-cta); transition: background 0.15s; }
 .noutati-page .hero-cta:hover { background: var(--color-cta-primary-hover); }
 
 /* ---------- EXPLAIN ---------- */
@@ -82,7 +82,7 @@
 
 .noutati-page .tcard { background: #fff; border: 1.5px dashed var(--color-border-2); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; position: relative; }
 .noutati-page .tcard:hover { border-color: var(--color-gold); border-style: solid; }
-.noutati-page .tcard .pending-badge { position: absolute; top: 14px; left: 14px; right: 14px; display: inline-flex; align-items: center; gap: 8px; background: var(--color-gold); color: var(--color-text-primary); font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; padding: 7px 12px; border-radius: 6px; justify-content: center; z-index: 3; }
+.noutati-page .tcard .pending-badge { position: absolute; top: 14px; left: 14px; right: 14px; display: inline-flex; align-items: center; gap: 8px; background: var(--color-gold); color: var(--color-text-primary); font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; padding: 7px 12px; border-radius: 6px; justify-content: center; z-index: 3; }
 .noutati-page .tcard .pending-badge svg { flex-shrink: 0; }
 .noutati-page .tcard .img { aspect-ratio: 1.05/1; display: grid; place-items: center; border-bottom: 1px solid var(--color-border); padding: 60px 32px 32px; position: relative; background: linear-gradient(160deg, #F0E5D0, var(--color-gold-soft)); }
 .noutati-page .tcard .img.t-immune { background: linear-gradient(160deg, #E5D6B8, #C9B68A); }
@@ -105,16 +105,16 @@
 .noutati-page .tcard .img .tcard-photo { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
 
 .noutati-page .tcard .body { padding: 22px 24px; display: flex; flex-direction: column; gap: 11px; flex: 1; }
-.noutati-page .tcard .cat-chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10.5px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; background: var(--color-green-soft-card); padding: 5px 10px; border-radius: 999px; align-self: flex-start; border: 1px solid var(--color-green-mute); }
+.noutati-page .tcard .cat-chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; background: var(--color-green-soft-card); padding: 5px 10px; border-radius: 999px; align-self: flex-start; border: 1px solid var(--color-green-mute); }
 .noutati-page .tcard h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 22px; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; margin: 0; color: var(--color-text-primary); }
 .noutati-page .tcard h3 em { font-style: italic; color: var(--color-green-primary); font-weight: 400; }
 .noutati-page .tcard .brand-line { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 11.5px; color: var(--color-text-faint); margin: -4px 0 0; letter-spacing: 0.02em; }
-.noutati-page .tcard .role { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 13.5px; color: var(--color-text-primary); font-weight: 500; line-height: 1.45; margin: 0; }
+.noutati-page .tcard .role { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13.5px; color: var(--color-text-primary); font-weight: 500; line-height: 1.45; margin: 0; }
 .noutati-page .tcard .specs { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: var(--color-text-muted); line-height: 1.5; margin: 0; }
-.noutati-page .tcard .usage { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 12.5px; color: var(--color-text-primary); background: var(--color-bg-page); padding: 9px 12px; border-radius: 8px; border: 1px solid var(--color-border); line-height: 1.45; display: flex; gap: 8px; align-items: flex-start; }
+.noutati-page .tcard .usage { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 12.5px; color: var(--color-text-primary); background: var(--color-bg-page); padding: 9px 12px; border-radius: 8px; border: 1px solid var(--color-border); line-height: 1.45; display: flex; gap: 8px; align-items: flex-start; }
 .noutati-page .tcard .usage svg { flex-shrink: 0; color: var(--color-green-primary); margin-top: 1px; }
 .noutati-page .tcard details.ingredients { border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-bg-page); }
-.noutati-page .tcard details.ingredients summary { cursor: pointer; padding: 11px 14px; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.noutati-page .tcard details.ingredients summary { cursor: pointer; padding: 11px 14px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; list-style: none; display: flex; justify-content: space-between; align-items: center; }
 .noutati-page .tcard details.ingredients summary::-webkit-details-marker { display: none; }
 .noutati-page .tcard details.ingredients summary::after { content: "+"; color: var(--color-green-primary); font-size: 16px; font-weight: 300; }
 .noutati-page .tcard details.ingredients[open] summary::after { content: "−"; }
@@ -127,17 +127,17 @@
 .noutati-page .tcard ul.bens li { font-size: 12.5px; color: var(--color-text-primary); line-height: 1.5; display: flex; gap: 8px; align-items: flex-start; }
 .noutati-page .tcard ul.bens li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--color-green-medium); flex-shrink: 0; margin-top: 8px; }
 .noutati-page .tcard .contraindic { background: var(--color-bg-page); border-left: 3px solid var(--color-gold); padding: 10px 14px; border-radius: 0 8px 8px 0; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 11.5px; color: var(--color-text-muted); line-height: 1.5; }
-.noutati-page .tcard .contraindic strong { font-family: var(--font-sans, 'Rubik', sans-serif); font-style: normal; font-weight: 700; letter-spacing: 0.06em; font-size: 9.5px; color: #7A5530; text-transform: uppercase; display: block; margin-bottom: 3px; }
+.noutati-page .tcard .contraindic strong { font-family: var(--font-sans, 'Inter', sans-serif); font-style: normal; font-weight: 700; letter-spacing: 0.06em; font-size: 9.5px; color: #7A5530; text-transform: uppercase; display: block; margin-bottom: 3px; }
 .noutati-page .tcard .contraindic.extra { border-left-color: var(--color-cta-primary); margin-top: 6px; }
 .noutati-page .tcard .contraindic.extra strong { color: var(--color-cta-primary); }
 .noutati-page .tcard .preliminary { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; background: var(--color-bg-page); border: 1px dashed var(--color-border-2); border-radius: 10px; margin-top: auto; }
-.noutati-page .tcard .preliminary .lbl { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; }
+.noutati-page .tcard .preliminary .lbl { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; }
 .noutati-page .tcard .preliminary .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 13.5px; }
 .noutati-page .tcard .preliminary .row .k { color: var(--color-text-muted); font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; }
 .noutati-page .tcard .preliminary .row .v { color: var(--color-text-primary); font-weight: 600; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; }
 .noutati-page .tcard .preliminary .row .v.estimate { color: var(--color-green-primary); font-style: normal; font-weight: 600; }
 .noutati-page .tcard .preliminary .row .v.tba { color: var(--color-text-faint); font-style: italic; }
-.noutati-page .tcard .notify-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 18px; background: transparent; color: var(--color-green-primary); border: 1.5px solid var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 13.5px; text-decoration: none; margin-top: 10px; text-align: center; }
+.noutati-page .tcard .notify-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 18px; background: transparent; color: var(--color-green-primary); border: 1.5px solid var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 13.5px; text-decoration: none; margin-top: 10px; text-align: center; }
 .noutati-page .tcard .notify-btn:hover { background: var(--color-green-soft-card); }
 
 /* ---------- WHY TINCTURES ---------- */
@@ -158,14 +158,14 @@
 .noutati-page .notify { padding: 80px 24px; background: var(--color-green-primary); color: #fff; position: relative; overflow: hidden; scroll-margin-top: 40px; }
 .noutati-page .notify::before { content: ""; position: absolute; right: -100px; top: -80px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(202, 164, 74, 0.10), transparent 70%); pointer-events: none; }
 .noutati-page .notify-inner { max-width: 680px; margin: 0 auto; position: relative; }
-.noutati-page .notify .eyebrow-gold { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-gold); font-weight: 700; display: inline-flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.noutati-page .notify .eyebrow-gold { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-gold); font-weight: 700; display: inline-flex; align-items: center; gap: 12px; margin-bottom: 20px; }
 .noutati-page .notify .eyebrow-gold::before, .noutati-page .notify .eyebrow-gold::after { content: ""; width: 24px; height: 1px; background: var(--color-gold); }
 .noutati-page .notify h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 40px; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 14px; color: #fff; text-align: center; }
 .noutati-page .notify h2 em { font-style: italic; color: var(--color-gold-soft); font-weight: 300; }
 .noutati-page .notify .lede { color: #C2D9AC; font-size: 15.5px; line-height: 1.7; margin: 0 0 32px; text-align: center; }
 .noutati-page .notify-form { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 18px; padding: 28px 30px; }
-.noutati-page .notify-form label { display: block; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #C2D9AC; font-weight: 700; margin-bottom: 8px; }
-.noutati-page .notify-form input[type="email"] { width: 100%; height: 50px; background: #fff; border: 0; border-radius: 10px; padding: 0 18px; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 15px; color: var(--color-text-primary); outline: none; box-sizing: border-box; }
+.noutati-page .notify-form label { display: block; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #C2D9AC; font-weight: 700; margin-bottom: 8px; }
+.noutati-page .notify-form input[type="email"] { width: 100%; height: 50px; background: #fff; border: 0; border-radius: 10px; padding: 0 18px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 15px; color: var(--color-text-primary); outline: none; box-sizing: border-box; }
 .noutati-page .notify-form input[type="email"]::placeholder { color: var(--color-text-faint); }
 .noutati-page .notify-form .which { margin-top: 22px; }
 .noutati-page .notify-form .which-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
@@ -174,12 +174,12 @@
 .noutati-page .notify-form .cb-row.checked { background: rgba(202, 164, 74, 0.10); border-color: rgba(202, 164, 74, 0.50); }
 .noutati-page .notify-form .cb { width: 20px; height: 20px; border-radius: 5px; background: transparent; border: 1.5px solid rgba(255, 255, 255, 0.40); display: grid; place-items: center; flex-shrink: 0; color: transparent; }
 .noutati-page .notify-form .cb-row.checked .cb { background: var(--color-gold); border-color: var(--color-gold); color: var(--color-text-primary); }
-.noutati-page .notify-form .cb-row .label-txt { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 14px; color: #fff; font-weight: 500; }
+.noutati-page .notify-form .cb-row .label-txt { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 14px; color: #fff; font-weight: 500; }
 .noutati-page .notify-form .cb-row .label-txt small { display: block; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-weight: 400; font-size: 12.5px; color: #9AC0A8; margin-top: 2px; }
 .noutati-page .notify-form .consent { margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.10); display: flex; gap: 12px; align-items: flex-start; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13px; color: #C2D9AC; line-height: 1.55; cursor: pointer; }
 .noutati-page .notify-form .consent .cb { margin-top: 2px; }
 .noutati-page .notify-form .consent.checked .cb { background: var(--color-gold); border-color: var(--color-gold); color: var(--color-text-primary); }
-.noutati-page .notify-form .submit-btn { width: 100%; height: 54px; background: var(--color-cta-primary); color: #fff; border: 0; border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 15px; cursor: pointer; margin-top: 22px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--shadow-cta); }
+.noutati-page .notify-form .submit-btn { width: 100%; height: 54px; background: var(--color-cta-primary); color: #fff; border: 0; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 15px; cursor: pointer; margin-top: 22px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--shadow-cta); }
 .noutati-page .notify-form .submit-btn:hover { background: var(--color-cta-primary-hover); }
 .noutati-page .notify .post-line { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: #9AC0A8; text-align: center; margin-top: 18px; line-height: 1.6; }
 
@@ -206,7 +206,7 @@
 .noutati-page .cta-final p { color: var(--color-text-muted); font-size: 15px; line-height: 1.7; margin: 0 0 26px; }
 .noutati-page .cta-final p strong { color: var(--color-text-primary); font-weight: 600; }
 .noutati-page .cta-buttons { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-.noutati-page .cta-buttons a { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 26px; border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 14.5px; text-decoration: none; }
+.noutati-page .cta-buttons a { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 26px; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 14.5px; text-decoration: none; }
 .noutati-page .cta-buttons a.primary { background: var(--color-cta-primary); color: #fff; box-shadow: var(--shadow-cta); }
 .noutati-page .cta-buttons a.primary:hover { background: var(--color-cta-primary-hover); }
 .noutati-page .cta-buttons a.outline { background: transparent; color: var(--color-green-primary); border: 1.5px solid var(--color-green-primary); }

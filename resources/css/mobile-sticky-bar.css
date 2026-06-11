@@ -33,7 +33,7 @@
     cursor: pointer;
     text-decoration: none;
     color: #6b6f6d;
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Inter', sans-serif;
     -webkit-tap-highlight-color: transparent;
     transition: color 0.15s ease;
   }

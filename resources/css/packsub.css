@@ -27,7 +27,7 @@
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -47,7 +47,7 @@
 /* shared eyebrow */
 .packsub-page .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
-  font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.18em;
+  font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 18px;
 }
 .packsub-page .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-green-medium); }
@@ -68,13 +68,13 @@
   font-style: italic; font-size: 13.5px; color: var(--color-text-muted); line-height: 1.65; margin: 0 0 28px;
 }
 .packsub-page .honest-note strong {
-  font-family: var(--font-sans, 'Rubik', sans-serif); font-style: normal; color: var(--color-text-primary);
+  font-family: var(--font-sans, 'Inter', sans-serif); font-style: normal; color: var(--color-text-primary);
   font-weight: 600; display: block; margin-bottom: 3px; letter-spacing: 0.04em; font-size: 11px; text-transform: uppercase;
 }
 .packsub-page .filter-chips { display: flex; flex-wrap: wrap; gap: 10px; }
 .packsub-page .fc {
   display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid var(--color-border);
-  color: var(--color-text-primary); font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 13px;
+  color: var(--color-text-primary); font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13px;
   font-weight: 600; padding: 9px 16px; border-radius: 999px; cursor: pointer; transition: all 0.12s;
 }
 .packsub-page .fc:hover { border-color: var(--color-green-medium); }
@@ -95,7 +95,7 @@
 .packsub-page .ex-card h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 18px; font-weight: 500; line-height: 1.3; margin: 0; color: var(--color-text-primary); }
 .packsub-page .ex-card p { font-size: 14px; color: var(--color-text-muted); line-height: 1.65; margin: 0; }
 .packsub-page .ex-card p strong { color: var(--color-text-primary); font-weight: 600; }
-.packsub-page .ex-card .link { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 13px; font-weight: 600; color: var(--color-green-primary); text-decoration: underline; text-underline-offset: 3px; margin-top: auto; display: inline-flex; align-items: center; gap: 6px; }
+.packsub-page .ex-card .link { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13px; font-weight: 600; color: var(--color-green-primary); text-decoration: underline; text-underline-offset: 3px; margin-top: auto; display: inline-flex; align-items: center; gap: 6px; }
 
 /* ---------- PACK GRID ---------- */
 .packsub-page .packs { padding: 80px 24px 56px; background: var(--color-bg-page); }
@@ -113,8 +113,8 @@
 .packsub-page .pack-art.t-detox { background: linear-gradient(160deg, var(--color-green-soft-card), #D9E8D2); }
 .packsub-page .pack-art.t-focus { background: linear-gradient(160deg, #F1EBD8, var(--color-gold-soft)); }
 .packsub-page .pack-art.t-bel { background: linear-gradient(160deg, #EFD9C9, #D9B69A); }
-.packsub-page .pack-art .tema-tag { position: absolute; top: 14px; left: 14px; background: rgba(255, 255, 255, 0.92); color: var(--color-green-primary); font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--color-border); }
-.packsub-page .pack-art .duration { position: absolute; top: 14px; right: 14px; background: var(--color-green-primary); color: #fff; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; padding: 5px 10px; border-radius: 6px; }
+.packsub-page .pack-art .tema-tag { position: absolute; top: 14px; left: 14px; background: rgba(255, 255, 255, 0.92); color: var(--color-green-primary); font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--color-border); }
+.packsub-page .pack-art .duration { position: absolute; top: 14px; right: 14px; background: var(--color-green-primary); color: #fff; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; padding: 5px 10px; border-radius: 6px; }
 .packsub-page .pack-art .pair { position: relative; display: flex; gap: 8px; align-items: flex-end; }
 .packsub-page .pack-art .bot { width: 54px; display: flex; flex-direction: column; align-items: center; filter: drop-shadow(0 14px 16px rgba(7, 58, 31, 0.3)); }
 .packsub-page .pack-art .bot .cap { width: 18px; height: 7px; background: linear-gradient(180deg, #2c1b08, #1A0C04); border-radius: 1.5px 1.5px 0 0; }
@@ -132,15 +132,15 @@
 .packsub-page .pack-body h3 em { font-style: italic; color: var(--color-green-primary); font-weight: 400; }
 .packsub-page .pack-price-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
 .packsub-page .pack-price-row .price { font-family: var(--font-serif, 'Fraunces', serif); font-size: 30px; font-weight: 500; color: var(--color-text-primary); line-height: 1; letter-spacing: -0.01em; }
-.packsub-page .pack-price-row .cpd { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 12px; color: var(--color-text-faint); font-weight: 500; }
+.packsub-page .pack-price-row .cpd { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 12px; color: var(--color-text-faint); font-weight: 500; }
 .packsub-page .pack-price-row .cpd strong { color: var(--color-text-muted); font-weight: 600; }
-.packsub-page .pack-meta { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 12px; color: var(--color-text-muted); font-weight: 500; letter-spacing: 0.02em; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.packsub-page .pack-meta { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 12px; color: var(--color-text-muted); font-weight: 500; letter-spacing: 0.02em; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .packsub-page .pack-meta .sep { color: var(--color-text-faint); opacity: 0.5; }
 .packsub-page .pack-meta .vegan { color: var(--color-green-primary); font-weight: 700; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; }
 
 .packsub-page .pack-tabs { display: flex; flex-direction: column; gap: 10px; background: var(--color-bg-page); border: 1px dashed var(--color-border); border-radius: 12px; padding: 14px 16px; }
 .packsub-page .pack-tab { display: flex; flex-direction: column; gap: 6px; }
-.packsub-page .pack-tab .t-lbl { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; }
+.packsub-page .pack-tab .t-lbl { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; }
 .packsub-page .pack-tab .t-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 5px; }
 .packsub-page .pack-tab .t-list li { font-size: 13px; color: var(--color-text-primary); line-height: 1.45; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
 .packsub-page .pack-tab .t-list li .pn { font-weight: 500; }
@@ -150,9 +150,9 @@
 .packsub-page .pack-tab.for-who .t-list li .pp { display: none; }
 
 .packsub-page .pack-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px solid var(--color-border); }
-.packsub-page .pack-foot .save { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11.5px; color: var(--color-green-primary); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
+.packsub-page .pack-foot .save { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11.5px; color: var(--color-green-primary); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
 .packsub-page .pack-foot .save.transparent { color: var(--color-text-faint); font-style: italic; font-family: var(--font-serif, 'Fraunces', serif); font-size: 12.5px; font-weight: 400; }
-.packsub-page .pack-foot .cta { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 13px; font-weight: 600; padding: 11px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: var(--color-cta-primary); color: #fff; border: 0; cursor: pointer; box-shadow: var(--shadow-cta); white-space: nowrap; transition: background 0.15s ease; }
+.packsub-page .pack-foot .cta { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13px; font-weight: 600; padding: 11px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: var(--color-cta-primary); color: #fff; border: 0; cursor: pointer; box-shadow: var(--shadow-cta); white-space: nowrap; transition: background 0.15s ease; }
 .packsub-page .pack-card:hover .pack-foot .cta { background: var(--color-cta-primary-hover); }
 
 /* ---------- COMPARE TABLE ---------- */
@@ -165,7 +165,7 @@
 .packsub-page .cpd-head p { font-size: 14.5px; color: var(--color-text-muted); line-height: 1.7; margin: 0; max-width: 680px; }
 .packsub-page .cpd-table { background: #fff; border: 1px solid var(--color-border); border-radius: 14px; overflow: hidden; margin-top: 18px; }
 .packsub-page .cpd-table table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-.packsub-page .cpd-table thead th { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; text-align: left; padding: 14px 18px; background: var(--color-bg-page); border-bottom: 1px solid var(--color-border); }
+.packsub-page .cpd-table thead th { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; text-align: left; padding: 14px 18px; background: var(--color-bg-page); border-bottom: 1px solid var(--color-border); }
 .packsub-page .cpd-table thead th:nth-child(n+2):nth-child(-n+4),
 .packsub-page .cpd-table tbody td:nth-child(n+2):nth-child(-n+4) { text-align: center; }
 .packsub-page .cpd-table thead th:last-child,
@@ -174,10 +174,10 @@
 .packsub-page .cpd-table tbody tr:last-child td { border-bottom: 0; }
 .packsub-page .cpd-table tbody td.name { font-weight: 500; }
 .packsub-page .cpd-table tbody td.name .meta { display: block; font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: var(--color-text-faint); font-weight: 400; margin-top: 2px; }
-.packsub-page .cpd-table tbody td.save { font-family: var(--font-sans, 'Rubik', sans-serif); color: var(--color-green-primary); font-weight: 600; }
+.packsub-page .cpd-table tbody td.save { font-family: var(--font-sans, 'Inter', sans-serif); color: var(--color-green-primary); font-weight: 600; }
 .packsub-page .cpd-table tbody td.cpd-val { font-family: var(--font-serif, 'Fraunces', serif); font-size: 16px; font-weight: 600; color: var(--color-green-primary); }
 .packsub-page .cpd-note { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13.5px; color: var(--color-text-muted); text-align: center; margin-top: 16px; line-height: 1.55; }
-.packsub-page .cpd-note strong { color: var(--color-text-primary); font-weight: 600; font-style: normal; font-family: var(--font-sans, 'Rubik', sans-serif); }
+.packsub-page .cpd-note strong { color: var(--color-text-primary); font-weight: 600; font-style: normal; font-family: var(--font-sans, 'Inter', sans-serif); }
 
 /* ---------- BRIDGE ---------- */
 .packsub-page .bridge { padding: 72px 24px; background: var(--color-bg-page); }
@@ -194,12 +194,12 @@
 .packsub-page .br-card .br-art { aspect-ratio: 1.4 / 1; border-radius: 10px; background: linear-gradient(160deg, var(--color-green-pale), var(--color-green-mute)); display: grid; place-items: center; position: relative; margin-bottom: 4px; }
 .packsub-page .br-card .br-art::after { content: ""; width: 16px; height: 30px; background: linear-gradient(180deg, #1E4530, #0a2418); border-radius: 2px 2px 4px 4px; }
 .packsub-page .br-card .br-art::before { content: ""; width: 14px; height: 26px; background: linear-gradient(180deg, #3A2110, #1A0C04); border-radius: 2px 2px 4px 4px; position: absolute; left: 50%; margin-left: -22px; bottom: 32%; }
-.packsub-page .br-card .count { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; }
+.packsub-page .br-card .count { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; }
 .packsub-page .br-card h4 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 18px; font-weight: 500; line-height: 1.25; margin: 0; color: var(--color-text-primary); }
 .packsub-page .br-card .br-desc { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 12.5px; color: var(--color-text-muted); line-height: 1.45; margin: 0; }
 .packsub-page .br-card .br-pr { font-family: var(--font-serif, 'Fraunces', serif); font-size: 20px; font-weight: 600; color: var(--color-green-primary); margin-top: auto; }
 .packsub-page .bridge-cta-row { text-align: center; margin-top: 8px; }
-.packsub-page .all-link { display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px; background: var(--color-green-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.15s ease; }
+.packsub-page .all-link { display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px; background: var(--color-green-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.15s ease; }
 .packsub-page .all-link:hover { background: var(--color-green-deep); }
 
 /* ---------- FAQ ---------- */
@@ -224,7 +224,7 @@
 .packsub-page .cta-final h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 36px; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 14px; color: #fff; }
 .packsub-page .cta-final h2 em { font-style: italic; color: var(--color-gold-soft); font-weight: 300; }
 .packsub-page .cta-final p { color: #C2D9AC; font-size: 15.5px; line-height: 1.65; margin: 0 0 28px; }
-.packsub-page .cta-final a.btn { display: inline-flex; align-items: center; gap: 12px; height: 58px; padding: 0 32px; background: var(--color-cta-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 16px; text-decoration: none; box-shadow: var(--shadow-cta); transition: background 0.15s ease; }
+.packsub-page .cta-final a.btn { display: inline-flex; align-items: center; gap: 12px; height: 58px; padding: 0 32px; background: var(--color-cta-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 16px; text-decoration: none; box-shadow: var(--shadow-cta); transition: background 0.15s ease; }
 .packsub-page .cta-final a.btn:hover { background: var(--color-cta-primary-hover); }
 
 /* ---------- RESPONSIVE ---------- */

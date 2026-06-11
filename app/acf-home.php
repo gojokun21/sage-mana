@@ -72,7 +72,8 @@ add_action('acf/init', function () {
             $text('field_home_hero_titlu_em', 'hero_titlu_em', 'Titlu — accent italic'),
             $area('field_home_hero_lede', 'hero_lede', 'Lede (permite <strong>)', 4),
             $text('field_home_hero_cta1', 'hero_cta_primary', 'CTA principal (text) → magazin'),
-            $text('field_home_hero_cta2', 'hero_cta_secondary', 'CTA secundar (text) → #test'),
+            $text('field_home_hero_cta2', 'hero_cta_secondary', 'CTA secundar (text)'),
+            $text('field_home_hero_cta2_url', 'hero_cta_secondary_url', 'CTA secundar (link) — implicit „#test" (scroll la secțiunea de test din pagină); poți pune „/test/"'),
             ['key' => 'field_home_hero_trust', 'name' => 'hero_trust', 'label' => 'Chips încredere', 'type' => 'repeater', 'min' => 0, 'max' => 4, 'layout' => 'table', 'button_label' => 'Adaugă chip', 'sub_fields' => [
                 $text('field_home_hero_trust_text', 'text', 'Text'),
             ]],

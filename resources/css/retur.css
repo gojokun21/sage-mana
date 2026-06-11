@@ -25,7 +25,7 @@
   --color-cta-primary-hover: #ad5234;
   --shadow-cta: 0 10px 20px -8px rgba(196, 98, 63, 0.45);
   --font-serif: 'Fraunces', serif;
-  --font-sans: 'Rubik', sans-serif;
+  --font-sans: 'Inter', sans-serif;
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);

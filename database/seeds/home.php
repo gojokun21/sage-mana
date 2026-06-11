@@ -23,6 +23,7 @@ return [
     'hero_lede' => __('Fiecare produs vine cu <strong>raportul de analiză al lotului</strong>, etichetă INCI scurtă și un protocol în 3 etape. Dacă ceva nu funcționează, îți recomandăm pe altul — sau îți spunem că nu ai nevoie de niciunul.', 'sage'),
     'hero_cta_primary' => __('Vezi suplimentele', 'sage'),
     'hero_cta_secondary' => __('Fă testul de 60 sec', 'sage'),
+    'hero_cta_secondary_url' => '#test',
     'hero_trust' => [
         ['text' => __('Analize publice', 'sage')],
         ['text' => __('Retur 14 zile', 'sage')],

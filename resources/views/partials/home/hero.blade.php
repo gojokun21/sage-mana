@@ -26,7 +26,7 @@
             <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
           </svg>
         </a>
-        <a class="btn btn-ghost-green btn-lg" href="#test">{{ \App\home_field('hero_cta_secondary') }}</a>
+        <a class="btn btn-ghost-green btn-lg" href="{{ esc_url(\App\home_field('hero_cta_secondary_url') ?: '#test') }}">{{ \App\home_field('hero_cta_secondary') }}</a>
       </div>
       <div class="hero-trust">
         @foreach ($hero_trust as $t)

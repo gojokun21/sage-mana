@@ -28,12 +28,12 @@
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 
 /* Kicker comun (eyebrow mic, uppercase, verde). */
 .pachet-page .kicker {
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -232,7 +232,7 @@
   border-radius: 999px;
   background: var(--color-cta-primary);
   color: #fff;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-weight: 600;
   font-size: 15.5px;
   cursor: pointer;
@@ -435,7 +435,7 @@
 .pachet-page .quiz-card .ico { width: 42px; height: 42px; border-radius: 50%; background: var(--color-green-soft-card); color: var(--color-green-primary); display: grid; place-items: center; margin: 0 auto 14px; }
 .pachet-page .quiz-card h3 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 24px; line-height: 1.25; letter-spacing: -0.015em; margin: 0 0 10px; }
 .pachet-page .quiz-card p { font-size: 14px; color: var(--color-text-muted); line-height: 1.65; margin: 0 0 20px; }
-.pachet-page .quiz-card a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border: 1.5px solid var(--color-green-primary); color: var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.15s ease; }
+.pachet-page .quiz-card a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border: 1.5px solid var(--color-green-primary); color: var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.15s ease; }
 .pachet-page .quiz-card a:hover { background: var(--color-green-soft-card); }
 
 /* ============================================================================

@@ -29,7 +29,7 @@
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -54,7 +54,7 @@
 
 /* Shared eyebrow base. */
 .symptom-page .eyebrow {
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 12.5px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -111,7 +111,7 @@
   flex: 1;
   border: 0;
   background: transparent;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 14.5px;
   color: var(--color-text-primary);
   outline: none;
@@ -152,7 +152,7 @@
 .symptom-page .body-dot.d-leg { top: 78%; left: 30%; }
 .symptom-page .body-dot.d-label {
   position: absolute;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 11px;
   color: var(--color-text-muted);
   background: #fff;
@@ -226,7 +226,7 @@
   gap: 5px;
   background: var(--color-green-soft-card);
   color: var(--color-green-deep);
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 10px;
   font-weight: 700;
   padding: 3px 8px;
@@ -247,7 +247,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 12.5px;
   font-weight: 600;
   color: var(--color-green-primary);
@@ -268,7 +268,7 @@
   color: var(--color-green-primary);
   font-weight: 600;
   font-style: normal;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -424,7 +424,7 @@
   background: var(--color-cta-primary);
   color: #fff;
   border-radius: 999px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-weight: 600;
   font-size: 16px;
   text-decoration: none;
@@ -471,7 +471,7 @@
   left: 16px;
   background: #fff;
   color: var(--color-green-primary);
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;

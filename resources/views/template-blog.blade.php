@@ -1,7 +1,7 @@
 {{--
   Template Name: Blog Template
   Refacut conform machetei clientului — pastreaza paleta si tipografia temei
-  (Rubik, var(--green), container 1470px).
+  (Inter, var(--green), container 1470px).
 --}}
 
 @extends('layouts.app')

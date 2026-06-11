@@ -26,7 +26,7 @@
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -48,7 +48,7 @@
 .promo-page .promo-hero-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; }
 .promo-page .promo-hero .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
-  font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.18em;
+  font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 16px;
 }
 .promo-page .promo-hero .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-green-medium); }
@@ -61,7 +61,7 @@
 .promo-page .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
 .promo-page .hero-ctas .btn-terra {
   background: var(--color-cta-primary); color: #fff; padding: 14px 26px; border-radius: 999px;
-  font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 14.5px;
+  font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 14.5px;
   text-decoration: none; display: inline-flex; align-items: center; gap: 9px; border: 0; cursor: pointer;
   transition: background 0.15s;
 }
@@ -69,7 +69,7 @@
 .promo-page .hero-ctas .btn-ghost {
   background: #fff; color: var(--color-green-deep); padding: 13px 24px;
   border: 1.5px solid var(--color-green-primary); border-radius: 999px;
-  font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 14.5px; text-decoration: none;
+  font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 14.5px; text-decoration: none;
 }
 .promo-page .hero-ctas .btn-ghost:hover { background: var(--color-green-soft-card); }
 .promo-page .promo-stats { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 12.5px; color: var(--color-text-faint); font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; }
@@ -84,7 +84,7 @@
 .promo-page .promo-hero-art svg { width: 62%; height: auto; color: var(--color-green-primary); opacity: 0.55; position: relative; }
 .promo-page .promo-hero-art .badge {
   position: absolute; top: 24px; left: 24px; background: var(--color-cta-primary); color: #fff;
-  font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 12px; font-weight: 700;
+  font-family: var(--font-sans, 'Inter', sans-serif); font-size: 12px; font-weight: 700;
   padding: 8px 14px; border-radius: 999px; letter-spacing: 0.04em;
 }
 
@@ -92,11 +92,11 @@
 .promo-page .filter-bar { position: sticky; top: 0; background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); padding: 18px 24px; z-index: 30; }
 .promo-page .filter-inner { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
 .promo-page .filter-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.promo-page .filter-label { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; margin-right: 4px; }
+.promo-page .filter-label { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; margin-right: 4px; }
 .promo-page .chip-filter {
   display: inline-flex; align-items: center; gap: 6px; background: var(--color-bg-page); color: var(--color-text-muted);
   border: 1px solid var(--color-border); padding: 7px 14px; border-radius: 999px;
-  font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 12.5px; font-weight: 500; cursor: pointer; transition: all 0.12s;
+  font-family: var(--font-sans, 'Inter', sans-serif); font-size: 12.5px; font-weight: 500; cursor: pointer; transition: all 0.12s;
 }
 .promo-page .chip-filter:hover { border-color: var(--color-green-medium); color: var(--color-green-primary); }
 .promo-page .chip-filter.active { background: var(--color-green-primary); color: #fff; border-color: var(--color-green-primary); }
@@ -104,7 +104,7 @@
 .promo-page .filter-sort { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .promo-page .filter-sort select {
   background: #fff; border: 1px solid var(--color-border); padding: 8px 32px 8px 14px; border-radius: 999px;
-  font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 12.5px; color: var(--color-text-primary); cursor: pointer;
+  font-family: var(--font-sans, 'Inter', sans-serif); font-size: 12.5px; color: var(--color-text-primary); cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%234A5E51' stroke-width='1.5' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 12px center;
@@ -116,7 +116,7 @@
 .promo-page .pick-art { background: #fff; display: grid; place-items: center; padding: 40px; position: relative; min-height: 440px; overflow: hidden; text-decoration: none; }
 .promo-page .pick-art img { max-width: 82%; max-height: 360px; width: auto; height: auto; object-fit: contain; }
 .promo-page .pick-content { padding: 48px; display: flex; flex-direction: column; gap: 14px; justify-content: center; }
-.promo-page .pick-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-cta-primary); font-weight: 700; margin-bottom: 6px; }
+.promo-page .pick-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-cta-primary); font-weight: 700; margin-bottom: 6px; }
 .promo-page .pick-eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--color-cta-primary); }
 .promo-page .pick-content h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 38px; line-height: 1.1; letter-spacing: -0.015em; margin: 0; color: var(--color-text-primary); }
 .promo-page .pick-content h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
@@ -126,9 +126,9 @@
 .promo-page .pick-price .old .woocommerce-Price-amount { color: var(--color-text-faint); }
 .promo-page .pick-price .new { font-family: var(--font-serif, 'Fraunces', serif); font-size: 38px; font-weight: 600; color: var(--color-green-primary); line-height: 1; letter-spacing: -0.02em; }
 .promo-page .pick-price .new .woocommerce-Price-amount { color: var(--color-green-primary); }
-.promo-page .pick-price .badge-discount { background: var(--color-cta-primary); color: #fff; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 13px; font-weight: 700; padding: 5px 11px; border-radius: 8px; letter-spacing: 0.02em; }
+.promo-page .pick-price .badge-discount { background: var(--color-cta-primary); color: #fff; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13px; font-weight: 700; padding: 5px 11px; border-radius: 8px; letter-spacing: 0.02em; }
 .promo-page .pick-save { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 14px; color: var(--color-green-primary); }
-.promo-page .pick-cta { align-self: flex-start; background: var(--color-cta-primary); color: #fff; padding: 16px 32px; border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 15px; border: 0; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; margin-top: 8px; transition: background 0.15s; }
+.promo-page .pick-cta { align-self: flex-start; background: var(--color-cta-primary); color: #fff; padding: 16px 32px; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 15px; border: 0; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; margin-top: 8px; transition: background 0.15s; }
 .promo-page .pick-cta:hover { background: var(--color-cta-primary-hover); color: #fff; }
 .promo-page .pick-stock { font-size: 12.5px; color: var(--color-text-faint); font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; display: inline-flex; align-items: center; gap: 6px; }
 .promo-page .pick-stock .dot-ok { width: 7px; height: 7px; border-radius: 50%; background: var(--color-green-success); }
@@ -146,11 +146,11 @@
 .promo-page .offer-card { background: #fff; border: 1px solid var(--color-border); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; position: relative; transition: transform 0.15s, box-shadow 0.15s; }
 .promo-page .offer-card[hidden] { display: none; }
 .promo-page .offer-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); }
-.promo-page .offer-card .discount-badge { position: absolute; top: 14px; left: 14px; background: var(--color-cta-primary); color: #fff; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11.5px; font-weight: 700; padding: 5px 10px; border-radius: 8px; letter-spacing: 0.02em; z-index: 2; }
+.promo-page .offer-card .discount-badge { position: absolute; top: 14px; left: 14px; background: var(--color-cta-primary); color: #fff; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11.5px; font-weight: 700; padding: 5px 10px; border-radius: 8px; letter-spacing: 0.02em; z-index: 2; }
 .promo-page .offer-art { aspect-ratio: 1; background: #fff; display: grid; place-items: center; padding: 26px; border-bottom: 1px solid var(--color-border); overflow: hidden; }
 .promo-page .offer-art img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 .promo-page .offer-body { padding: 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.promo-page .offer-cat { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; align-self: flex-start; background: var(--color-green-soft-card); padding: 4px 10px; border-radius: 999px; }
+.promo-page .offer-cat { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; align-self: flex-start; background: var(--color-green-soft-card); padding: 4px 10px; border-radius: 999px; }
 .promo-page .offer-body h3 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 500; font-size: 18px; line-height: 1.25; margin: 4px 0 0; color: var(--color-text-primary); }
 .promo-page .offer-body h3 a { color: inherit; text-decoration: none; }
 .promo-page .offer-body h3 a:hover { color: var(--color-green-primary); }
@@ -160,27 +160,27 @@
 .promo-page .offer-price .old .woocommerce-Price-amount { color: var(--color-text-faint); }
 .promo-page .offer-price .new { font-family: var(--font-serif, 'Fraunces', serif); font-size: 22px; font-weight: 600; color: var(--color-green-primary); line-height: 1; letter-spacing: -0.01em; }
 .promo-page .offer-price .new .woocommerce-Price-amount { color: var(--color-green-primary); }
-.promo-page .offer-cta { margin-top: auto; background: transparent; color: var(--color-green-primary); padding: 11px 18px; border: 1.5px solid var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 13px; text-decoration: none; text-align: center; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+.promo-page .offer-cta { margin-top: auto; background: transparent; color: var(--color-green-primary); padding: 11px 18px; border: 1.5px solid var(--color-green-primary); border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 13px; text-decoration: none; text-align: center; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
 .promo-page .offer-cta:hover { background: var(--color-green-primary); color: #fff; }
 
 /* ---------- BUNDLE DEAL ---------- */
 .promo-page .bundle-band { padding: 80px 24px; background: var(--color-green-deep); color: #fff; position: relative; overflow: hidden; }
 .promo-page .bundle-band::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 50%, rgba(202, 164, 74, 0.12), transparent 60%); pointer-events: none; }
 .promo-page .bundle-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: center; position: relative; }
-.promo-page .bundle-inner .eyebrow { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-gold-soft); font-weight: 700; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 10px; }
+.promo-page .bundle-inner .eyebrow { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-gold-soft); font-weight: 700; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 10px; }
 .promo-page .bundle-inner .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--color-gold-soft); }
 .promo-page .bundle-inner h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 42px; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 16px; color: #fff; }
 .promo-page .bundle-inner h2 em { font-style: italic; color: var(--color-gold-soft); font-weight: 400; }
 .promo-page .bundle-inner p { color: #c2d9ac; font-size: 15.5px; line-height: 1.65; margin: 0; max-width: 520px; }
 .promo-page .bundle-cta-wrap { text-align: right; }
-.promo-page .bundle-cta { background: var(--color-cta-primary); color: #fff; padding: 18px 32px; border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 0; cursor: pointer; transition: background 0.15s; }
+.promo-page .bundle-cta { background: var(--color-cta-primary); color: #fff; padding: 18px 32px; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 0; cursor: pointer; transition: background 0.15s; }
 .promo-page .bundle-cta:hover { background: var(--color-cta-primary-hover); }
 
 /* ---------- EDUCATION ---------- */
 .promo-page .education { padding: 80px 24px; background: var(--color-bg-page); }
 .promo-page .edu-inner { max-width: 1180px; margin: 0 auto; }
 .promo-page .edu-head { text-align: center; max-width: 680px; margin: 0 auto 48px; }
-.promo-page .edu-head .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 14px; }
+.promo-page .edu-head .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 14px; }
 .promo-page .edu-head .eyebrow::before, .promo-page .edu-head .eyebrow::after { content: ""; width: 18px; height: 1px; background: var(--color-green-medium); }
 .promo-page .edu-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 36px; line-height: 1.15; letter-spacing: -0.015em; margin: 0; }
 .promo-page .edu-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
@@ -194,7 +194,7 @@
 .promo-page .faq { padding: 72px 24px; background: var(--color-bg-page); border-top: 1px solid var(--color-border); }
 .promo-page .faq-inner { max-width: 780px; margin: 0 auto; }
 .promo-page .faq-head { text-align: center; margin-bottom: 36px; }
-.promo-page .faq-head .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 14px; }
+.promo-page .faq-head .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 14px; }
 .promo-page .faq-head .eyebrow::before, .promo-page .faq-head .eyebrow::after { content: ""; width: 18px; height: 1px; background: var(--color-green-medium); }
 .promo-page .faq-head h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 34px; line-height: 1.15; letter-spacing: -0.015em; margin: 0; }
 .promo-page .faq-head h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }

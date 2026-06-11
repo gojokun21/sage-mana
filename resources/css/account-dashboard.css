@@ -26,7 +26,7 @@
   gap: 22px;
   min-width: 0;
   width: 100%;
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: var(--ink);
 }
 .account-dash *,
@@ -39,11 +39,11 @@
 .account-dash .hero .hc { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; }
 .account-dash .hero h1 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 44px; line-height: 1.05; letter-spacing: -0.02em; margin: 0; color: var(--ink); }
 .account-dash .hero h1 em { font-style: italic; color: var(--green); font-weight: 300; }
-.account-dash .hero .date { display: inline-flex; align-items: center; gap: 9px; font-family: 'Rubik', sans-serif; font-size: 14px; color: var(--ink-2); font-weight: 500; margin-top: 2px; flex-wrap: wrap; }
+.account-dash .hero .date { display: inline-flex; align-items: center; gap: 9px; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--ink-2); font-weight: 500; margin-top: 2px; flex-wrap: wrap; }
 .account-dash .hero .date svg { color: var(--green-2); }
 .account-dash .hero .date .dotsep { width: 4px; height: 4px; border-radius: 50%; background: var(--rule-2); }
 .account-dash .hero .date .weather { font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-3); font-size: 13px; font-weight: 400; }
-.account-dash .hero .profile-link { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 16px; background: #fff; color: var(--ink-2); border: 1px solid var(--rule); border-radius: 999px; font-family: 'Rubik', sans-serif; font-size: 12.5px; font-weight: 600; text-decoration: none; transition: all .15s; flex-shrink: 0; }
+.account-dash .hero .profile-link { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 16px; background: #fff; color: var(--ink-2); border: 1px solid var(--rule); border-radius: 999px; font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 600; text-decoration: none; transition: all .15s; flex-shrink: 0; }
 .account-dash .hero .profile-link:hover { border-color: var(--green); color: var(--green); }
 .account-dash .hero .profile-link svg { color: var(--ink-3); transition: color .15s; }
 .account-dash .hero .profile-link:hover svg { color: var(--green); }
@@ -53,14 +53,14 @@
 .account-dash .order-banner::before { content: ""; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(196, 98, 63, .15) 0%, transparent 70%); pointer-events: none; }
 .account-dash .ob-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; position: relative; z-index: 1; }
 .account-dash .ob-top .copy { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 240px; }
-.account-dash .ob-lbl { display: inline-flex; align-items: center; gap: 9px; font-family: 'Rubik', sans-serif; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--terra-deep); font-weight: 700; }
+.account-dash .ob-lbl { display: inline-flex; align-items: center; gap: 9px; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--terra-deep); font-weight: 700; }
 .account-dash .ob-lbl::before { content: ""; width: 18px; height: 1px; background: var(--terra-deep); }
 .account-dash .ob-top h2 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 26px; line-height: 1.2; letter-spacing: -0.015em; margin: 0; color: #5A2D14; }
 .account-dash .ob-top h2 em { font-style: italic; color: var(--terra-deep); font-weight: 400; }
 .account-dash .ob-top h2 .order-id { font-family: var(--mono); font-size: 18px; font-weight: 600; background: rgba(255, 255, 255, .6); padding: 2px 10px; border-radius: 6px; color: var(--terra-deep); letter-spacing: .02em; }
-.account-dash .ob-desc { font-family: 'Rubik', sans-serif; font-size: 13.5px; color: #5A2D14; line-height: 1.55; max-width: 600px; }
+.account-dash .ob-desc { font-family: 'Inter', sans-serif; font-size: 13.5px; color: #5A2D14; line-height: 1.55; max-width: 600px; }
 .account-dash .ob-desc strong { font-weight: 600; color: #3D1E0A; }
-.account-dash .ob-courier { display: inline-flex; align-items: center; gap: 7px; background: rgba(255, 255, 255, .7); padding: 6px 12px; border-radius: 999px; font-family: 'Rubik', sans-serif; font-size: 12px; font-weight: 600; color: #5A2D14; align-self: flex-start; margin-top: 2px; }
+.account-dash .ob-courier { display: inline-flex; align-items: center; gap: 7px; background: rgba(255, 255, 255, .7); padding: 6px 12px; border-radius: 999px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: #5A2D14; align-self: flex-start; margin-top: 2px; }
 .account-dash .ob-courier svg { color: var(--terra-deep); width: 12px; height: 12px; }
 
 .account-dash .ob-timeline { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; background: rgba(255, 255, 255, .5); border-radius: 14px; padding: 18px 22px; }
@@ -70,7 +70,7 @@
 .account-dash .tl-step.now .tl-dot { background: var(--terra); color: #fff; border-color: var(--terra); box-shadow: 0 0 0 0 rgba(196, 98, 63, .6); animation: dashPulse 2s infinite; }
 .account-dash .tl-step.future .tl-dot { background: #fff; color: var(--ink-3); border-color: var(--rule); }
 @keyframes dashPulse { 0% { box-shadow: 0 0 0 0 rgba(196, 98, 63, .6); } 70% { box-shadow: 0 0 0 14px rgba(196, 98, 63, 0); } 100% { box-shadow: 0 0 0 0 rgba(196, 98, 63, 0); } }
-.account-dash .tl-step .tl-lbl { font-family: 'Rubik', sans-serif; font-size: 11.5px; font-weight: 600; color: var(--ink-2); line-height: 1.2; letter-spacing: .02em; }
+.account-dash .tl-step .tl-lbl { font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 600; color: var(--ink-2); line-height: 1.2; letter-spacing: .02em; }
 .account-dash .tl-step.now .tl-lbl { color: var(--terra-deep); font-weight: 700; }
 .account-dash .tl-step.future .tl-lbl { color: var(--ink-3); font-weight: 500; }
 .account-dash .tl-step .tl-date { font-family: 'Fraunces', serif; font-style: italic; font-size: 11px; color: var(--ink-3); margin-top: 1px; }
@@ -78,7 +78,7 @@
 .account-dash .tl-line.done { background: var(--terra); }
 
 .account-dash .ob-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; position: relative; z-index: 1; }
-.account-dash .ob-btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; font-family: 'Rubik', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all .15s; }
+.account-dash .ob-btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all .15s; }
 .account-dash .ob-btn.primary { background: var(--green-deep); color: #fff; border: 0; }
 .account-dash .ob-btn.primary:hover { background: var(--green); }
 .account-dash .ob-btn.link { background: transparent; color: var(--terra-deep); border: 0; padding: 0; height: auto; text-decoration: underline; text-underline-offset: 3px; font-weight: 600; font-size: 13px; }
@@ -90,12 +90,12 @@
 .account-dash .metric-card:hover { border-color: var(--green-2); transform: translateY(-2px); box-shadow: 0 8px 22px -12px rgba(15, 42, 29, .15); }
 .account-dash .metric-card .mc-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .account-dash .metric-card .mc-ico { width: 36px; height: 36px; border-radius: 10px; background: var(--cream); color: var(--green); display: grid; place-items: center; flex-shrink: 0; }
-.account-dash .metric-card .mc-tag { font-family: 'Rubik', sans-serif; font-size: 10px; letter-spacing: .10em; text-transform: uppercase; color: var(--ink-3); font-weight: 700; }
+.account-dash .metric-card .mc-tag { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: .10em; text-transform: uppercase; color: var(--ink-3); font-weight: 700; }
 .account-dash .metric-card .mc-val { font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px; line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); display: flex; align-items: baseline; gap: 6px; }
 .account-dash .metric-card .mc-val .unit { font-size: 13px; color: var(--ink-3); font-style: italic; font-weight: 400; }
-.account-dash .metric-card .mc-sub { font-family: 'Rubik', sans-serif; font-size: 12.5px; color: var(--ink-2); font-weight: 500; line-height: 1.4; }
+.account-dash .metric-card .mc-sub { font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--ink-2); font-weight: 500; line-height: 1.4; }
 .account-dash .metric-card .mc-sub strong { color: var(--green-deep); font-weight: 600; font-family: var(--mono); font-size: 12px; }
-.account-dash .metric-card .mc-link { display: inline-flex; align-items: center; gap: 5px; font-family: 'Rubik', sans-serif; font-size: 12px; color: var(--green); font-weight: 600; text-decoration: none; margin-top: auto; padding-top: 6px; border-top: 1px solid var(--rule); }
+.account-dash .metric-card .mc-link { display: inline-flex; align-items: center; gap: 5px; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--green); font-weight: 600; text-decoration: none; margin-top: auto; padding-top: 6px; border-top: 1px solid var(--rule); }
 .account-dash .metric-card .mc-link:hover { color: var(--green-deep); }
 .account-dash .metric-card .mc-link svg { transition: transform .15s; }
 .account-dash .metric-card .mc-link:hover svg { transform: translateX(2px); }
@@ -108,7 +108,7 @@
 .account-dash .sec-head h2 em { font-style: italic; color: var(--green); font-weight: 400; }
 .account-dash .sec-head h2 .ico { width: 32px; height: 32px; border-radius: 9px; background: var(--cream); color: var(--green); display: grid; place-items: center; flex-shrink: 0; }
 .account-dash .sec-head .htxt { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; color: var(--ink-3); line-height: 1.5; max-width: 580px; margin: 0; padding-left: 42px; }
-.account-dash .sec-head .see-all { font-family: 'Rubik', sans-serif; font-size: 12.5px; color: var(--green); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.account-dash .sec-head .see-all { font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--green); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .account-dash .sec-head .see-all:hover { color: var(--green-deep); }
 
 .account-dash .reorder-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -120,7 +120,7 @@
 .account-dash .ro-thumb.t2 { background: linear-gradient(135deg, #6B8458 0%, #4A6B40 100%); }
 .account-dash .ro-thumb.t3 { background: linear-gradient(135deg, #C4623F 0%, #8E4426 100%); }
 .account-dash .ro-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-.account-dash .ro-info .nm { font-family: 'Rubik', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.account-dash .ro-info .nm { font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.3; }
 .account-dash .ro-info .pr { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; color: var(--green-deep); letter-spacing: -0.01em; line-height: 1.1; }
 .account-dash .ro-info .last { font-family: 'Fraunces', serif; font-style: italic; font-size: 11.5px; color: var(--ink-3); line-height: 1.4; }
 .account-dash .ro-add { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; background: var(--terra); color: #fff; border: 0; border-radius: 50%; cursor: pointer; transition: all .15s; }
@@ -133,9 +133,9 @@
 .account-dash .recco-notice { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: #fff; border: 1px dashed var(--rule); border-radius: 12px; flex-wrap: wrap; }
 .account-dash .recco-notice .ico { width: 38px; height: 38px; border-radius: 10px; background: var(--cream); color: var(--green); display: grid; place-items: center; flex-shrink: 0; }
 .account-dash .recco-notice .txt { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 2px; }
-.account-dash .recco-notice .txt .t { font-family: 'Rubik', sans-serif; font-size: 13.5px; color: var(--ink); font-weight: 600; }
+.account-dash .recco-notice .txt .t { font-family: 'Inter', sans-serif; font-size: 13.5px; color: var(--ink); font-weight: 600; }
 .account-dash .recco-notice .txt .s { font-family: 'Fraunces', serif; font-style: italic; font-size: 12.5px; color: var(--ink-3); line-height: 1.5; }
-.account-dash .recco-notice .cta { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 16px; background: transparent; color: var(--green); border: 1.5px solid var(--green); border-radius: 999px; font-family: 'Rubik', sans-serif; font-size: 12.5px; font-weight: 600; text-decoration: none; flex-shrink: 0; }
+.account-dash .recco-notice .cta { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 16px; background: transparent; color: var(--green); border: 1.5px solid var(--green); border-radius: 999px; font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 600; text-decoration: none; flex-shrink: 0; }
 .account-dash .recco-notice .cta:hover { background: var(--cream); }
 .account-dash .recco-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .account-dash .rc-card { background: #fff; border: 1px solid var(--rule); border-radius: 13px; padding: 16px; display: flex; flex-direction: column; gap: 10px; transition: all .15s; text-decoration: none; }
@@ -146,11 +146,11 @@
 .account-dash .rc-thumb.t3 { background: #fff; }
 .account-dash .rc-thumb svg { color: var(--ink-3); }
 .account-dash .rc-info { display: flex; flex-direction: column; gap: 3px; }
-.account-dash .rc-info .nm { font-family: 'Rubik', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.account-dash .rc-info .nm { font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.3; }
 .account-dash .rc-info .tagline { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--ink-3); line-height: 1.4; }
 .account-dash .rc-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--rule); }
 .account-dash .rc-foot .pr { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; color: var(--green-deep); letter-spacing: -0.01em; }
-.account-dash .rc-foot .see { display: inline-flex; align-items: center; gap: 5px; font-family: 'Rubik', sans-serif; font-size: 12px; color: var(--terra); font-weight: 600; text-decoration: none; }
+.account-dash .rc-foot .see { display: inline-flex; align-items: center; gap: 5px; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--terra); font-weight: 600; text-decoration: none; }
 .account-dash .rc-foot .see:hover { color: var(--terra-deep); }
 
 /* ===== D6 SHORTCUTS ===== */
@@ -160,12 +160,12 @@
 .account-dash .sc-card .sci { width: 38px; height: 38px; border-radius: 10px; background: var(--cream); color: var(--green); display: grid; place-items: center; flex-shrink: 0; transition: background .15s; }
 .account-dash .sc-card:hover .sci { background: #fff; }
 .account-dash .sc-card.danger .sci { background: #FCEFEF; color: #A33; }
-.account-dash .sc-card .scl { font-family: 'Rubik', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.3; flex: 1; min-width: 0; display: flex; align-items: center; }
+.account-dash .sc-card .scl { font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.3; flex: 1; min-width: 0; display: flex; align-items: center; }
 .account-dash .sc-card .scc { margin-left: auto; color: var(--ink-3); opacity: 0; transform: translateX(-4px); transition: all .2s; flex-shrink: 0; }
 .account-dash .sc-card:hover .scc { opacity: 1; transform: translateX(0); color: var(--green); }
 .account-dash .sc-card.danger:hover { border-color: #C44; background: #FCEFEF; }
 .account-dash .sc-card.danger:hover .scc { color: #A33; }
-.account-dash .sc-card .scchip { display: inline-flex; align-items: center; background: var(--cream-2); color: var(--green-deep); font-family: 'Rubik', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: .06em; padding: 2px 7px; border-radius: 999px; text-transform: uppercase; margin-left: 6px; flex-shrink: 0; }
+.account-dash .sc-card .scchip { display: inline-flex; align-items: center; background: var(--cream-2); color: var(--green-deep); font-family: 'Inter', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: .06em; padding: 2px 7px; border-radius: 999px; text-transform: uppercase; margin-left: 6px; flex-shrink: 0; }
 
 /* ===== D7 REVIEW ===== */
 .account-dash .review-card { background: var(--cream-2); border: 1px solid var(--rule); border-radius: 18px; padding: 22px 26px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
@@ -173,15 +173,15 @@
 .account-dash .review-card .rv-copy { flex: 1; min-width: 260px; }
 .account-dash .review-card .rv-copy h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; line-height: 1.25; margin: 0 0 4px; color: var(--ink); }
 .account-dash .review-card .rv-copy h3 em { font-style: italic; color: var(--green); font-weight: 400; }
-.account-dash .review-card .rv-copy p { font-family: 'Rubik', sans-serif; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin: 0; }
+.account-dash .review-card .rv-copy p { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin: 0; }
 .account-dash .review-card .rv-copy p strong { color: var(--ink); font-weight: 600; }
-.account-dash .review-card .rv-copy .points-hint { display: inline-flex; align-items: center; gap: 6px; font-family: 'Rubik', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--green-deep); background: rgba(46, 79, 55, .10); padding: 3px 9px; border-radius: 999px; text-transform: uppercase; margin-top: 8px; }
+.account-dash .review-card .rv-copy .points-hint { display: inline-flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--green-deep); background: rgba(46, 79, 55, .10); padding: 3px 9px; border-radius: 999px; text-transform: uppercase; margin-top: 8px; }
 .account-dash .review-card .rv-copy .points-hint svg { color: var(--green); width: 11px; height: 11px; }
-.account-dash .review-card .rv-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 20px; background: transparent; color: var(--terra-deep); border: 1.5px solid var(--terra); border-radius: 999px; font-family: 'Rubik', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; flex-shrink: 0; }
+.account-dash .review-card .rv-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 20px; background: transparent; color: var(--terra-deep); border: 1.5px solid var(--terra); border-radius: 999px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; flex-shrink: 0; }
 .account-dash .review-card .rv-btn:hover { background: var(--terra); color: #fff; }
 
 /* ===== D8 SUPPORT FOOTER ===== */
-.account-dash .support-foot { text-align: center; padding: 14px 4px 0; font-family: 'Rubik', sans-serif; font-size: 12.5px; color: var(--ink-3); line-height: 1.6; }
+.account-dash .support-foot { text-align: center; padding: 14px 4px 0; font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--ink-3); line-height: 1.6; }
 .account-dash .support-foot a { color: var(--green); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(46, 79, 55, .3); padding-bottom: 1px; }
 .account-dash .support-foot a:hover { border-bottom-color: var(--green); }
 

@@ -27,7 +27,7 @@
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -47,7 +47,7 @@
 /* shared eyebrow */
 .sub200-page .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
-  font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.18em;
+  font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--color-green-primary); font-weight: 700; margin-bottom: 18px;
 }
 .sub200-page .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-green-medium); }
@@ -63,11 +63,11 @@
 .sub200-page .filt-hero .lede { font-size: 16.5px; color: var(--color-text-muted); line-height: 1.7; max-width: 640px; margin: 0 0 16px; }
 .sub200-page .filt-hero .lede strong { color: var(--color-text-primary); font-weight: 600; }
 .sub200-page .filt-hero .cpd-line { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 14.5px; color: var(--color-text-faint); margin: 0 0 26px; line-height: 1.55; }
-.sub200-page .filt-hero .cpd-line strong { color: var(--color-text-primary); font-weight: 600; font-style: normal; font-family: var(--font-sans, 'Rubik', sans-serif); }
+.sub200-page .filt-hero .cpd-line strong { color: var(--color-text-primary); font-weight: 600; font-style: normal; font-family: var(--font-sans, 'Inter', sans-serif); }
 .sub200-page .filter-chips { display: flex; flex-wrap: wrap; gap: 10px; }
 .sub200-page .fc {
   display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid var(--color-border);
-  color: var(--color-text-primary); font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 13px;
+  color: var(--color-text-primary); font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13px;
   font-weight: 600; padding: 9px 16px; border-radius: 999px; cursor: pointer; transition: all 0.12s;
 }
 .sub200-page .fc:hover { border-color: var(--color-green-medium); }
@@ -88,7 +88,7 @@
 .sub200-page .ex-card h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 18px; font-weight: 500; line-height: 1.3; margin: 0; color: var(--color-text-primary); }
 .sub200-page .ex-card p { font-size: 14px; color: var(--color-text-muted); line-height: 1.65; margin: 0; }
 .sub200-page .ex-card p strong { color: var(--color-text-primary); font-weight: 600; }
-.sub200-page .ex-card .link { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 13px; font-weight: 600; color: var(--color-green-primary); text-decoration: underline; text-underline-offset: 3px; margin-top: auto; display: inline-flex; align-items: center; gap: 6px; }
+.sub200-page .ex-card .link { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13px; font-weight: 600; color: var(--color-green-primary); text-decoration: underline; text-underline-offset: 3px; margin-top: auto; display: inline-flex; align-items: center; gap: 6px; }
 
 /* ---------- PRODUCTS GRID ---------- */
 .sub200-page .products { padding: 80px 24px 56px; background: var(--color-bg-page); }
@@ -108,9 +108,9 @@
 .sub200-page .pcard .img .pcard-photo { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; transition: transform 0.25s; }
 .sub200-page .pcard:hover .img .pcard-photo { transform: scale(1.03); }
 .sub200-page .pcard .img .tags { position: absolute; top: 14px; left: 14px; display: flex; gap: 6px; flex-wrap: wrap; max-width: calc(100% - 28px); z-index: 2; }
-.sub200-page .pcard .img .tags .tg { display: inline-flex; align-items: center; gap: 5px; background: rgba(255, 255, 255, 0.95); color: var(--color-text-primary); font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 9px; border-radius: 6px; border: 1px solid var(--color-border); }
+.sub200-page .pcard .img .tags .tg { display: inline-flex; align-items: center; gap: 5px; background: rgba(255, 255, 255, 0.95); color: var(--color-text-primary); font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 9px; border-radius: 6px; border: 1px solid var(--color-border); }
 .sub200-page .pcard .img .tags .tg.vegan { background: var(--color-green-primary); color: #fff; border-color: var(--color-green-primary); }
-.sub200-page .pcard .img .cat { position: absolute; bottom: 14px; left: 14px; background: rgba(255, 255, 255, 0.92); color: var(--color-green-primary); font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--color-border); z-index: 2; }
+.sub200-page .pcard .img .cat { position: absolute; bottom: 14px; left: 14px; background: rgba(255, 255, 255, 0.92); color: var(--color-green-primary); font-family: var(--font-sans, 'Inter', sans-serif); font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--color-border); z-index: 2; }
 .sub200-page .pcard .body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .sub200-page .pcard h3 { font-family: var(--font-serif, 'Fraunces', serif); font-size: 22px; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; margin: 0; color: var(--color-text-primary); }
 .sub200-page .pcard h3 a { color: inherit; text-decoration: none; }
@@ -124,9 +124,9 @@
 .sub200-page .pcard .price-stack { display: flex; flex-direction: column; gap: 3px; }
 .sub200-page .pcard .price { font-family: var(--font-serif, 'Fraunces', serif); font-size: 28px; font-weight: 500; color: var(--color-text-primary); line-height: 1; letter-spacing: -0.01em; }
 .sub200-page .pcard .price del { font-size: 16px; color: var(--color-text-faint); font-weight: 400; margin-left: 6px; }
-.sub200-page .pcard .cpd { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11.5px; color: var(--color-text-faint); font-weight: 500; }
+.sub200-page .pcard .cpd { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11.5px; color: var(--color-text-faint); font-weight: 500; }
 .sub200-page .pcard .cpd strong { color: var(--color-text-muted); font-weight: 600; }
-.sub200-page .pcard .cta { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 13px; font-weight: 600; padding: 11px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: var(--color-cta-primary); color: #fff; border: 0; cursor: pointer; box-shadow: var(--shadow-cta); align-self: center; white-space: nowrap; transition: background 0.15s ease; }
+.sub200-page .pcard .cta { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13px; font-weight: 600; padding: 11px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: var(--color-cta-primary); color: #fff; border: 0; cursor: pointer; box-shadow: var(--shadow-cta); align-self: center; white-space: nowrap; transition: background 0.15s ease; }
 .sub200-page .pcard .cta:hover { background: var(--color-cta-primary-hover); }
 
 /* ---------- COST-PER-DAY TABLE ---------- */
@@ -139,7 +139,7 @@
 .sub200-page .cpd-head p { font-size: 14.5px; color: var(--color-text-muted); line-height: 1.7; margin: 0; max-width: 600px; }
 .sub200-page .cpd-table { background: #fff; border: 1px solid var(--color-border); border-radius: 14px; overflow: hidden; margin-top: 18px; }
 .sub200-page .cpd-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
-.sub200-page .cpd-table thead th { font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; text-align: left; padding: 14px 22px; background: var(--color-bg-page); border-bottom: 1px solid var(--color-border); }
+.sub200-page .cpd-table thead th { font-family: var(--font-sans, 'Inter', sans-serif); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); font-weight: 700; text-align: left; padding: 14px 22px; background: var(--color-bg-page); border-bottom: 1px solid var(--color-border); }
 .sub200-page .cpd-table thead th:last-child, .sub200-page .cpd-table tbody td:last-child { text-align: right; }
 .sub200-page .cpd-table thead th:nth-child(2), .sub200-page .cpd-table tbody td:nth-child(2),
 .sub200-page .cpd-table thead th:nth-child(3), .sub200-page .cpd-table tbody td:nth-child(3) { text-align: center; }
@@ -151,7 +151,7 @@
 .sub200-page .cpd-table tbody tr.best td { background: var(--color-green-soft-card); }
 .sub200-page .cpd-table tbody tr.best td.name::before { content: "✓ "; color: var(--color-green-primary); font-weight: 700; }
 .sub200-page .cpd-note { font-family: var(--font-serif, 'Fraunces', serif); font-style: italic; font-size: 13.5px; color: var(--color-text-muted); text-align: center; margin-top: 16px; line-height: 1.55; }
-.sub200-page .cpd-note strong { color: var(--color-text-primary); font-weight: 600; font-style: normal; font-family: var(--font-sans, 'Rubik', sans-serif); }
+.sub200-page .cpd-note strong { color: var(--color-text-primary); font-weight: 600; font-style: normal; font-family: var(--font-sans, 'Inter', sans-serif); }
 
 /* ---------- BRIDGE TO PACKS ---------- */
 .sub200-page .bridge { padding: 72px 24px; background: var(--color-bg-page); }
@@ -161,7 +161,7 @@
 .sub200-page .bridge-text h2 em { font-style: italic; color: var(--color-green-primary); font-weight: 300; }
 .sub200-page .bridge-text p { font-size: 14.5px; color: var(--color-text-muted); line-height: 1.7; margin: 0 0 20px; }
 .sub200-page .bridge-text p strong { color: var(--color-text-primary); font-weight: 600; }
-.sub200-page .bridge-text .all-link { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans, 'Rubik', sans-serif); font-size: 14px; font-weight: 600; color: var(--color-green-primary); text-decoration: underline; text-underline-offset: 3px; }
+.sub200-page .bridge-text .all-link { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 14px; font-weight: 600; color: var(--color-green-primary); text-decoration: underline; text-underline-offset: 3px; }
 .sub200-page .bridge-cards { display: flex; flex-direction: column; gap: 12px; }
 .sub200-page .bc { background: #fff; border: 1px solid var(--color-border); border-radius: 14px; padding: 18px 22px; display: grid; grid-template-columns: 48px 1fr auto; gap: 18px; align-items: center; text-decoration: none; color: inherit; transition: all 0.15s; }
 .sub200-page .bc:hover { border-color: var(--color-green-medium); box-shadow: 0 8px 16px -8px rgba(15, 42, 29, 0.1); }
@@ -194,7 +194,7 @@
 .sub200-page .cta-final h2 { font-family: var(--font-serif, 'Fraunces', serif); font-weight: 400; font-size: 36px; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 14px; color: #fff; }
 .sub200-page .cta-final h2 em { font-style: italic; color: var(--color-gold-soft); font-weight: 300; }
 .sub200-page .cta-final p { color: #C2D9AC; font-size: 15.5px; line-height: 1.65; margin: 0 0 28px; }
-.sub200-page .cta-final a.btn { display: inline-flex; align-items: center; gap: 12px; height: 58px; padding: 0 32px; background: var(--color-cta-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; font-size: 16px; text-decoration: none; box-shadow: var(--shadow-cta); transition: background 0.15s ease; }
+.sub200-page .cta-final a.btn { display: inline-flex; align-items: center; gap: 12px; height: 58px; padding: 0 32px; background: var(--color-cta-primary); color: #fff; border-radius: 999px; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; font-size: 16px; text-decoration: none; box-shadow: var(--shadow-cta); transition: background 0.15s ease; }
 .sub200-page .cta-final a.btn:hover { background: var(--color-cta-primary-hover); }
 
 /* ---------- empty state ---------- */

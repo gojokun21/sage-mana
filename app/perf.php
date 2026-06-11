@@ -4,7 +4,7 @@
  * Performance: resource hints for above-the-fold content.
  *
  * Emits <link rel="preload"> from wp_head for:
- *   - Primary webfont (Rubik regular, Latin range) — discovered late otherwise
+ *   - Primary webfont (Inter regular, Latin range) — discovered late otherwise
  *     because it's only referenced from inside app.css via @font-face.
  *   - First hero slide image on pages that render `partials/home/hero.blade.php`
  *     (detected via ACF `hero_section`). Separate media-gated hints for
@@ -26,7 +26,7 @@ function emit_preloads(): void
 function emit_font_preload(): void
 {
     try {
-        $url = Vite::asset('resources/fonts/rubik-latin.woff2');
+        $url = Vite::asset('resources/fonts/inter-latin.woff2');
     } catch (\Throwable $e) {
         return;
     }

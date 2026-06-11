@@ -123,7 +123,7 @@ body.natura-no-email-active .woocommerce-account-fields {
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -166,7 +166,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 12.5px;
   color: var(--color-text-faint);
   font-weight: 600;
@@ -227,12 +227,12 @@ body.natura-no-email-active .woocommerce-account-fields {
   color: var(--color-text-muted);
   margin: 0;
 }
-.checkout-page .co-hero .sub strong { color: var(--color-text-primary); font-style: normal; font-family: var(--font-sans, 'Rubik', sans-serif); font-weight: 600; }
+.checkout-page .co-hero .sub strong { color: var(--color-text-primary); font-style: normal; font-family: var(--font-sans, 'Inter', sans-serif); font-weight: 600; }
 .checkout-page .co-hero .secure-line {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 12.5px;
   color: var(--color-text-muted);
   font-weight: 500;
@@ -323,7 +323,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   background: transparent;
   border: 0;
   padding: 10px 16px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 13px;
   font-weight: 600;
   color: var(--color-text-muted);
@@ -356,7 +356,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   color: #fff;
   border: 0;
   border-radius: 999px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
@@ -402,7 +402,7 @@ body.natura-no-email-active .woocommerce-account-fields {
 .checkout-page .woocommerce-checkout label {
   display: block;
   margin: 0;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 11.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -438,7 +438,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   border: 1.5px solid var(--color-border);
   border-radius: 10px;
   padding: 0 14px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 14px;
   color: var(--color-text-primary);
   background: #fff;
@@ -563,7 +563,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   border: 0;
   cursor: pointer;
   text-align: left;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 .checkout-page .shipping-accordion__header:hover { background: var(--color-bg-page); }
 
@@ -615,7 +615,7 @@ body.natura-no-email-active .woocommerce-account-fields {
 /* ---------- Shipping methods ---------- */
 .checkout-page .checkout-shipping-wrapper { margin-top: 0; }
 .checkout-page .shipping_title {
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -738,7 +738,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   cursor: pointer;
   text-transform: none;
   letter-spacing: 0;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 14.5px;
   font-weight: 600;
   color: var(--color-text-primary);
@@ -776,7 +776,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   background: transparent;
   border: 0;
   cursor: pointer;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 13.5px;
   font-weight: 600;
   color: var(--color-text-primary);
@@ -796,7 +796,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   padding: 0 14px;
   border: 1.5px solid var(--color-border);
   border-radius: 10px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 13.5px;
   background: #fff;
   color: var(--color-text-primary);
@@ -812,7 +812,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   color: var(--color-green-primary);
   border: 1.5px solid var(--color-green-primary);
   border-radius: 999px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -877,7 +877,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   margin: 0;
   text-transform: none;
   letter-spacing: 0;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 13.5px;
   font-weight: 400;
   color: var(--color-text-primary);
@@ -911,7 +911,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   color: #fff;
   border: 0;
   border-radius: 999px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
@@ -958,7 +958,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   letter-spacing: -0.01em;
 }
 .checkout-page .summary .head-row .edit-link {
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 12px;
   color: var(--color-green-primary);
   text-decoration: underline;
@@ -984,7 +984,7 @@ body.natura-no-email-active .woocommerce-account-fields {
 }
 .checkout-page .summary .mini-item .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .checkout-page .summary .mini-item .name {
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 12.5px;
   color: var(--color-text-primary);
   font-weight: 500;
@@ -1025,7 +1025,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   font-size: 12.5px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 .checkout-page .summary .total-row {
   display: flex;
@@ -1036,7 +1036,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   border-top: 1px solid var(--color-border);
 }
 .checkout-page .summary .total-row .lbl {
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 14.5px;
   font-weight: 600;
   color: var(--color-text-primary);
@@ -1063,7 +1063,7 @@ body.natura-no-email-active .woocommerce-account-fields {
   display: flex;
   align-items: flex-start;
   gap: 9px;
-  font-family: var(--font-sans, 'Rubik', sans-serif);
+  font-family: var(--font-sans, 'Inter', sans-serif);
   font-size: 12px;
   color: var(--color-text-muted);
   line-height: 1.5;
