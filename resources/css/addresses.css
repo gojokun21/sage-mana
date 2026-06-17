@@ -4,18 +4,18 @@
 
 .addr-page,
 .addr-form-page {
-  --green: #2d6b3a;
-  --green-deep: #0f3a1c;
-  --green-2: #73a06a;
-  --terra: #c4623f;
-  --terra-deep: #ad5234;
-  --ink: #1a1f1c;
-  --ink-2: #5b6960;
-  --ink-3: #8a978d;
-  --cream: #fafaf6;
+  --green: #0c542f;
+  --green-deep: #073a1f;
+  --green-2: #428c62;
+  --terra: #b85a3c;
+  --terra-deep: #a04e33;
+  --ink: #0f2317;
+  --ink-2: #4a5e51;
+  --ink-3: #7b8c7f;
+  --cream: #f4f8f1;
   --cream-2: #f1f5ef;
-  --rule: #e5ebe2;
-  --rule-2: #d4ddcf;
+  --rule: #dce5d6;
+  --rule-2: #c7d4bd;
 
   display: flex;
   flex-direction: column;

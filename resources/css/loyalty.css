@@ -5,19 +5,19 @@
    ============================================================================ */
 
 .loyalty-tab {
-  --green: #2d6b3a;
-  --green-deep: #0f3a1c;
-  --green-2: #73a06a;
-  --terra: #c4623f;
-  --terra-deep: #ad5234;
-  --ink: #1a1f1c;
-  --ink-2: #5b6960;
-  --ink-3: #8a978d;
-  --cream: #fafaf6;
+  --green: #0c542f;
+  --green-deep: #073a1f;
+  --green-2: #428c62;
+  --terra: #b85a3c;
+  --terra-deep: #a04e33;
+  --ink: #0f2317;
+  --ink-2: #4a5e51;
+  --ink-3: #7b8c7f;
+  --cream: #f4f8f1;
   --cream-2: #f1f5ef;
-  --rule: #e5ebe2;
-  --rule-2: #d4ddcf;
-  --gold-soft: #e2c787;
+  --rule: #dce5d6;
+  --rule-2: #c7d4bd;
+  --gold-soft: #f0d99a;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   display: flex;
@@ -126,7 +126,7 @@
 
 /* Referral */
 .loyalty-tab .ref-card { position: relative; background: linear-gradient(135deg, #1F3D2E 0%, #2C5240 100%); border-radius: 20px; padding: 32px 34px; color: #fff; display: flex; flex-direction: column; gap: 20px; overflow: hidden; }
-.loyalty-tab .ref-card::before { content: ""; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(196,98,63,.18) 0%, transparent 70%); pointer-events: none; }
+.loyalty-tab .ref-card::before { content: ""; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(184,90,60,.18) 0%, transparent 70%); pointer-events: none; }
 .loyalty-tab .ref-head { display: flex; align-items: center; gap: 12px; position: relative; z-index: 1; }
 .loyalty-tab .ref-head .ico { width: 42px; height: 42px; border-radius: 11px; background: rgba(255,255,255,.10); color: #fff; display: grid; place-items: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,.15); }
 .loyalty-tab .ref-head h2 { font-family: var(--font-serif); font-weight: 400; font-size: 24px; line-height: 1.2; letter-spacing: -0.015em; margin: 0; color: #fff; }

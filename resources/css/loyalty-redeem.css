@@ -4,13 +4,13 @@
    ============================================================================ */
 
 .mn-loyalty-redeem {
-  --mlr-green: #2d6b3a;
-  --mlr-green-deep: #0f3a1c;
-  --mlr-terra: #c4623f;
-  --mlr-terra-deep: #ad5234;
-  --mlr-ink: #1a1f1c;
-  --mlr-ink-2: #5b6960;
-  --mlr-rule: #e5ebe2;
+  --mlr-green: #0c542f;
+  --mlr-green-deep: #073a1f;
+  --mlr-terra: #b85a3c;
+  --mlr-terra-deep: #a04e33;
+  --mlr-ink: #0f2317;
+  --mlr-ink-2: #4a5e51;
+  --mlr-rule: #dce5d6;
   --mlr-cream: #f3f7f3;
 
   background: #fff;

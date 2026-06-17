@@ -427,7 +427,10 @@ a {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 16px 36px;
-  padding: 4px 0;
+  /* Doar padding-top: spațiu sub separatorul header-ului. FĂRĂ padding-bottom —
+     ar crea o zonă moartă de hover între link și panoul mega (poziționat
+     top:100% pe container), iar panoul s-ar închide înainte să ajungi pe el. */
+  padding: 4px 0 0;
 }
 
 .navbar__menu__items.is-hidden {

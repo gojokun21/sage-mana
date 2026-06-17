@@ -102,24 +102,24 @@ body.natura-no-email-active .woocommerce-account-fields {
 
 .checkout-page {
   /* Paletă identică cu home.css / cart.css / pachete.css — scope local. */
-  --color-bg-page: #fafaf6;
+  --color-bg-page: #f4f8f1;
   --color-bg-card: #ffffff;
-  --color-text-primary: #1a1f1c;
-  --color-text-muted: #5b6960;
-  --color-text-faint: #8a978d;
-  --color-border: #e5ebe2;
-  --color-border-2: #d4ddcf;
-  --color-green-soft-card: #eaf2e4;
-  --color-green-mute: #c9dbbe;
-  --color-green-medium: #73a06a;
-  --color-green-primary: #2d6b3a;
-  --color-green-deep: #0f3a1c;
+  --color-text-primary: #0f2317;
+  --color-text-muted: #4a5e51;
+  --color-text-faint: #7b8c7f;
+  --color-border: #dce5d6;
+  --color-border-2: #c7d4bd;
+  --color-green-soft-card: #e6efe0;
+  --color-green-mute: #c5dba0;
+  --color-green-medium: #428c62;
+  --color-green-primary: #0c542f;
+  --color-green-deep: #073a1f;
   --color-gold: #caa44a;
-  --color-gold-soft: #e2c787;
+  --color-gold-soft: #f0d99a;
   /* CTA „Plasează comanda" — teracotă, ca în mockup. */
-  --color-cta-primary: #c4623f;
-  --color-cta-primary-hover: #ad5234;
-  --shadow-cta: 0 10px 20px -8px rgba(196, 98, 63, 0.45);
+  --color-cta-primary: #b85a3c;
+  --color-cta-primary-hover: #a04e33;
+  --shadow-cta: 0 10px 20px -8px rgba(184, 90, 60, 0.45);
 
   background: var(--color-bg-page);
   color: var(--color-text-primary);
@@ -505,9 +505,9 @@ body.natura-no-email-active .woocommerce-account-fields {
 .checkout-page .select2-container--default .select2-selection--single .select2-selection__arrow { right: 10px !important; height: 44px !important; }
 .select2-container--default.select2-container--open .select2-selection--single,
 .select2-container--default.select2-container--focus .select2-selection--single { border-color: var(--color-green-primary) !important; }
-.select2-dropdown { border-radius: 10px !important; border: 1px solid var(--color-border, #e5ebe2) !important; }
+.select2-dropdown { border-radius: 10px !important; border: 1px solid var(--color-border, #dce5d6) !important; }
 .select2-container--default .select2-results__option--highlighted[aria-selected],
-.select2-container--default .select2-results__option[aria-selected="true"] { background: var(--color-green-primary, #2d6b3a) !important; color: #fff !important; }
+.select2-container--default .select2-results__option[aria-selected="true"] { background: var(--color-green-primary, #0c542f) !important; color: #fff !important; }
 
 /* Țară — magazin RO, câmpul nu apare în mockup. Rândul e ascuns vizual;
    valoarea (RO, din country base) rămâne în DOM pentru cascada județ + livrare/taxe. */

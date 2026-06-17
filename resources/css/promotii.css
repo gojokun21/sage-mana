@@ -5,23 +5,23 @@
    ============================================================================ */
 
 .promo-page {
-  --color-bg-page: #fafaf6;
+  --color-bg-page: #f4f8f1;
   --color-bg-card: #ffffff;
-  --color-text-primary: #1a1f1c;
-  --color-text-muted: #5b6960;
-  --color-text-faint: #8a978d;
-  --color-border: #e5ebe2;
-  --color-border-2: #d4ddcf;
-  --color-green-soft-card: #eaf2e4;
-  --color-green-mute: #c9dbbe;
-  --color-green-medium: #73a06a;
-  --color-green-primary: #2d6b3a;
-  --color-green-deep: #0f3a1c;
-  --color-green-success: #2d6b3a;
+  --color-text-primary: #0f2317;
+  --color-text-muted: #4a5e51;
+  --color-text-faint: #7b8c7f;
+  --color-border: #dce5d6;
+  --color-border-2: #c7d4bd;
+  --color-green-soft-card: #e6efe0;
+  --color-green-mute: #c5dba0;
+  --color-green-medium: #428c62;
+  --color-green-primary: #0c542f;
+  --color-green-deep: #073a1f;
+  --color-green-success: #0c542f;
   --color-gold: #caa44a;
-  --color-gold-soft: #e2c787;
-  --color-cta-primary: #c4623f;
-  --color-cta-primary-hover: #ad5234;
+  --color-gold-soft: #f0d99a;
+  --color-cta-primary: #b85a3c;
+  --color-cta-primary-hover: #a04e33;
   --shadow-soft: 0 20px 40px -20px rgba(7, 58, 31, 0.25);
 
   background: var(--color-bg-page);

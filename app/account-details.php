@@ -35,6 +35,18 @@ add_action('woocommerce_save_account_details', function ($user_id) {
         $bday = sanitize_text_field(wp_unslash($_POST['account_bday']));
         if ($bday === '' || preg_match('/^\d{4}-\d{2}-\d{2}$/', $bday)) {
             update_user_meta($user_id, 'mn_birthday', $bday);
+
+            // Oglindește în meta-urile plugin-ului mn-loyalty ca bonusul „zi de
+            // naștere" să funcționeze din acest unic câmp nativ (câmpul duplicat
+            // injectat de plugin e dezactivat mai jos). `_mn_loyalty_bday_md` =
+            // m-d (folosit de cron-ul de zi de naștere).
+            if ($bday === '') {
+                delete_user_meta($user_id, '_mn_loyalty_birthday');
+                delete_user_meta($user_id, '_mn_loyalty_bday_md');
+            } else {
+                update_user_meta($user_id, '_mn_loyalty_birthday', $bday);
+                update_user_meta($user_id, '_mn_loyalty_bday_md', substr($bday, 5));
+            }
         }
     }
 
@@ -44,3 +56,17 @@ add_action('woocommerce_save_account_details', function ($user_id) {
         update_user_meta($user_id, 'mn_gender', in_array($gender, mn_account_genders(), true) ? $gender : '');
     }
 }, 10, 1);
+
+/**
+ * Dezactivează câmpul duplicat „Zi de naștere (pentru bonus Constant)" pe care
+ * plugin-ul mn-loyalty îl injectează în formularul de cont prin
+ * `woocommerce_edit_account_form`. Era nestilizat (clase WC default, nu modelul
+ * `.field-row` din reskin) și dubla câmpul nativ „Data nașterii". Bonusul de zi
+ * de naștere folosește acum câmpul nativ (vezi oglindirea în `_mn_loyalty_bday_md`
+ * de mai sus). Rulează pe `wp_loaded`, după ce plugin-ul și-a înregistrat hook-ul.
+ */
+add_action('wp_loaded', function () {
+    if (class_exists('MN_Loyalty_Earning')) {
+        remove_action('woocommerce_edit_account_form', ['MN_Loyalty_Earning', 'render_birthday_field']);
+    }
+});
