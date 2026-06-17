@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Cură detox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px;letter-spacing:.01em}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+  .announce .right .sparkle{color:var(--color-gold)}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* ====== HERO ====== */
+  .hero{padding:80px 64px 96px;background:var(--color-bg-page)}
+  .hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:64px;align-items:center}
+  .hero-left .eyebrow{margin-bottom:18px;display:inline-flex;align-items:center;gap:10px}
+  .hero-left .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .hero-left h1{font-family:var(--font-serif);font-weight:400;font-size:56px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 22px;color:var(--color-text-primary)}
+  .hero-left h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .hero-left p.lede{font-size:18px;line-height:1.7;color:var(--color-text-muted);max-width:580px;margin:0 0 28px}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+  .meta-chip{display:inline-flex;align-items:center;gap:8px;background:var(--color-green-soft-card);border:1px solid var(--color-border-2);color:var(--color-green-deep);padding:8px 14px;border-radius:999px;font-size:12.5px;font-weight:500}
+  .meta-chip svg{color:var(--color-green-primary);flex-shrink:0}
+
+  .hero-illu{aspect-ratio:1;border-radius:24px;background:var(--color-bg-card);border:1px solid var(--color-border);position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:var(--shadow-soft)}
+  .hero-illu::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,var(--color-green-soft-card) 0%,transparent 60%)}
+  .hero-illu svg{position:relative;width:60%;height:auto;color:var(--color-green-medium);opacity:.75}
+
+  /* ====== Section 2 — Definitie ====== */
+  .definitie{padding:80px 64px;background:var(--color-green-soft-card)}
+  .def-head{text-align:center;max-width:680px;margin:0 auto 48px}
+  .def-head h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.2;letter-spacing:-0.015em;margin:0}
+  .def-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .def-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .def-cell{background:#fff;border:1px solid var(--color-border);border-radius:18px;padding:28px 30px;display:flex;flex-direction:column;gap:14px}
+  .def-cell .ico{width:42px;height:42px;border-radius:12px;background:var(--color-green-soft-card);display:grid;place-items:center;color:var(--color-green-primary)}
+  .def-cell h3{font-family:var(--font-serif);font-size:18px;font-weight:500;margin:0;color:var(--color-text-primary)}
+  .def-cell p{font-size:14.5px;color:var(--color-text-muted);line-height:1.7;margin:0}
+
+  /* ====== Section 3 — 3 cauze ====== */
+  .cauze{padding:96px 64px;background:var(--color-bg-page)}
+  .cauze-head{margin-bottom:48px;max-width:680px}
+  .cauze-head h2{font-family:var(--font-serif);font-weight:400;font-size:42px;line-height:1.1;letter-spacing:-0.02em;margin:0}
+  .cauze-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .cauze-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .cauza-card{background:var(--color-bg-card);border:1px solid var(--color-border-2);border-radius:20px;padding:32px 32px 0;display:flex;flex-direction:column;overflow:hidden}
+  .cauza-card .num{font-family:var(--font-serif);font-size:54px;color:var(--color-green-primary);font-weight:300;line-height:1;letter-spacing:-0.025em;margin-bottom:8px}
+  .cauza-card h3{font-family:var(--font-serif);font-size:22px;font-weight:500;margin:0 0 14px;color:var(--color-text-primary)}
+  .cauza-card p{font-size:14.5px;color:var(--color-text-muted);line-height:1.75;margin:0 0 24px}
+  .cauza-foot{margin:0 -32px;padding:18px 32px;background:var(--color-green-soft-card);border-top:1px solid var(--color-border-2);font-size:13.5px;color:var(--color-text-primary);line-height:1.55}
+  .cauza-foot strong{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;display:block;margin-bottom:4px}
+
+  /* ====== Section 4 — Autotest ====== */
+  .autotest{padding:96px 64px;background:var(--color-green-soft-card)}
+  .auto-head{text-align:center;max-width:680px;margin:0 auto 48px}
+  .auto-head h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.2;letter-spacing:-0.015em;margin:0}
+  .auto-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .auto-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:920px;margin:0 auto 36px}
+  .auto-q{background:#fff;border:1px solid var(--color-border);border-radius:16px;padding:24px 28px}
+  .auto-q .q{font-family:var(--font-serif);font-size:17px;font-weight:500;line-height:1.4;color:var(--color-text-primary);margin:0 0 16px}
+  .auto-opts{display:flex;gap:8px}
+  .auto-opt{flex:1;padding:10px 14px;border:1.5px solid var(--color-border);border-radius:10px;background:#fff;font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--color-text-muted);text-align:center;cursor:pointer}
+  .auto-opt:hover{border-color:var(--color-green-medium);color:var(--color-green-primary)}
+  .auto-opt.selected{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+
+  .auto-result{max-width:920px;margin:0 auto;background:#fff;border:1.5px solid var(--color-green-medium);border-radius:18px;padding:28px 32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+  .auto-result .body p.lbl{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;color:var(--color-green-primary);font-weight:700;text-transform:uppercase;margin:0 0 6px}
+  .auto-result .body p.txt{font-size:15px;color:var(--color-text-primary);line-height:1.65;margin:0;max-width:560px}
+  .auto-result .body p.txt strong{font-weight:600}
+  .auto-result a.btn-q{display:inline-flex;align-items:center;gap:10px;padding:0 22px;height:48px;background:transparent;border:1.5px solid var(--color-green-primary);color:var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:13.5px;text-decoration:none;white-space:nowrap}
+  .auto-result a.btn-q:hover{background:var(--color-green-primary);color:#fff}
+
+  /* ====== Section 5 — Cand la medic ====== */
+  .medic{padding:96px 64px;background:var(--color-bg-page)}
+  .medic-card{max-width:880px;margin:0 auto;background:#fff;border:2px solid var(--color-green-primary);border-radius:24px;padding:48px 56px;text-align:center;position:relative}
+  .medic-card .ico{width:56px;height:56px;border-radius:50%;background:var(--color-green-soft-card);display:grid;place-items:center;color:var(--color-green-primary);margin:0 auto 22px}
+  .medic-card h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.2;letter-spacing:-0.015em;margin:0 0 16px;color:var(--color-text-primary)}
+  .medic-card p.lede{font-size:15.5px;color:var(--color-text-muted);line-height:1.7;margin:0 0 28px;max-width:600px;margin-left:auto;margin-right:auto}
+  .medic-list{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-direction:column;gap:14px;text-align:left;max-width:620px;margin-left:auto;margin-right:auto}
+  .medic-list li{display:flex;align-items:flex-start;gap:12px;font-size:14.5px;color:var(--color-text-primary);line-height:1.55}
+  .medic-list li .check{width:22px;height:22px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;flex-shrink:0;margin-top:2px}
+  .medic-foot{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-faint);background:var(--color-bg-page);padding:14px 20px;border-radius:10px;max-width:620px;margin:0 auto;text-align:center;line-height:1.55}
+
+  /* ====== Section 6 — 3 produse ====== */
+  .produse{padding:96px 64px;background:var(--color-bg-page)}
+  .prod-head{text-align:center;max-width:760px;margin:0 auto 48px}
+  .prod-head h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.2;letter-spacing:-0.015em;margin:0 0 14px}
+  .prod-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .prod-head p{font-family:var(--font-serif);font-style:italic;font-size:15px;color:var(--color-text-muted);margin:0}
+  .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:24px}
+
+  .prod-card{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+  .prod-card .opt-chip{position:absolute;top:18px;left:18px;background:var(--color-green-soft-card);color:var(--color-green-deep);font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:999px;z-index:2;border:1px solid var(--color-border-2)}
+  .prod-photo{aspect-ratio:1/.85;background:var(--color-green-soft-card);position:relative;display:grid;place-items:center;border-bottom:1px solid var(--color-border)}
+  .prod-photo .wash{position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,#D9E8D2 0%,transparent 60%)}
+
+  .mini-pack{position:relative;width:80px;height:130px;background:#fff;border:1px solid var(--color-border);border-radius:8px;box-shadow:0 18px 22px -10px rgba(7,58,31,.3);overflow:hidden;display:flex;flex-direction:column}
+  .mini-pack::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:var(--color-green-primary)}
+  .mini-pack .lbl{padding:18px 6px 8px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+  .mini-pack .lbl .b{font-family:var(--font-sans);font-size:6.5px;letter-spacing:.16em;color:var(--color-green-primary);font-weight:700}
+  .mini-pack .lbl .n{font-family:var(--font-serif);font-size:10px;color:var(--color-text-primary);font-weight:500;line-height:1.1}
+  .mini-pack .lbl .v{font-family:var(--font-sans);font-size:6.5px;color:var(--color-text-primary);letter-spacing:.12em;font-weight:600}
+  .mini-pack.b2::before{background:#7A5A2D}
+  .mini-pack.b3::before{background:var(--color-green-medium)}
+
+  .prod-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .prod-body .eyebrow-mini{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--color-green-primary);display:inline-flex;align-items:center;gap:6px}
+  .prod-body .eyebrow-mini::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--color-green-medium)}
+  .prod-body h3{font-family:var(--font-serif);font-size:22px;font-weight:500;line-height:1.2;margin:0;color:var(--color-text-primary)}
+  .prod-body .why{font-size:13.5px;color:var(--color-text-muted);line-height:1.65;margin:0}
+  .prod-body .rating-mini{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--color-text-muted)}
+  .prod-body .rating-mini .stars{color:var(--color-gold);display:flex;gap:1px}
+  .prod-body .rating-mini .stars svg{width:12px;height:12px}
+  .prod-body .rating-mini strong{color:var(--color-text-primary);font-weight:600}
+  .prod-body .price-row{display:flex;align-items:baseline;gap:10px;padding-top:14px;border-top:1px solid var(--color-border);margin-top:6px}
+  .prod-body .price-row .price{font-family:var(--font-serif);font-size:24px;font-weight:500;color:var(--color-text-primary);line-height:1}
+  .chip-loyalty{display:inline-flex;align-items:center;gap:6px;background:var(--color-gold);color:var(--color-text-primary);font-family:var(--font-sans);font-size:11px;font-weight:700;padding:5px 10px;border-radius:999px;letter-spacing:.02em;align-self:flex-start}
+  .chip-loyalty svg{color:var(--color-text-primary)}
+  .btn-terra{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 22px;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;box-shadow:var(--shadow-cta)}
+  .btn-terra:hover{background:var(--color-cta-primary-hover)}
+  .btn-secondary-g{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 22px;background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;cursor:pointer;text-decoration:none}
+  .btn-secondary-g:hover{background:var(--color-green-primary);color:#fff}
+
+  .prod-foot{text-align:center;font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-faint);max-width:680px;margin:0 auto;line-height:1.6}
+
+  /* ====== Section 7 — Mituri ====== */
+  .mituri{padding:96px 64px;background:var(--color-green-soft-card)}
+  .mit-head{text-align:center;max-width:680px;margin:0 auto 48px}
+  .mit-head h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.2;letter-spacing:-0.015em;margin:0}
+  .mit-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .mit-grid{display:flex;flex-direction:column;gap:18px;max-width:920px;margin:0 auto}
+  .mit-card{background:#fff;border:1px solid var(--color-border);border-radius:18px;padding:24px 28px;display:grid;grid-template-columns:1fr 1.4fr;gap:32px;align-items:center}
+  .mit-card .mit-side{padding-right:24px;border-right:1px solid var(--color-border)}
+  .mit-card .lbl{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.18em;color:var(--color-text-faint);font-weight:700;text-transform:uppercase;display:block;margin-bottom:6px}
+  .mit-card .mit-side .lbl{color:var(--color-cta-primary-hover)}
+  .mit-card .real-side .lbl{color:var(--color-green-primary)}
+  .mit-card .txt{font-family:var(--font-serif);font-style:italic;font-size:16px;color:var(--color-text-primary);line-height:1.5;margin:0}
+  .mit-card .real-side .txt{font-style:normal;font-family:var(--font-sans);font-size:14.5px;color:var(--color-text-primary);line-height:1.65}
+
+  /* ====== Section 8 — FAQ + Quiz ====== */
+  .end{padding:96px 64px;background:var(--color-bg-page)}
+  .end-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:flex-start;max-width:1200px;margin:0 auto}
+
+  .end-faq h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-0.015em;margin:14px 0 26px}
+  .end-faq h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .end-faq .faq-list{display:flex;flex-direction:column}
+  .faq-item{border-top:1px solid var(--color-border-2);padding:22px 0;cursor:pointer}
+  .faq-item:last-child{border-bottom:1px solid var(--color-border-2)}
+  .faq-q{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+  .faq-q h4{font-family:var(--font-serif);font-size:18px;font-weight:500;margin:0;flex:1;color:var(--color-text-primary)}
+  .faq-q .toggle{width:30px;height:30px;border-radius:50%;border:1px solid var(--color-border-2);display:grid;place-items:center;color:var(--color-text-muted);flex-shrink:0;background:#fff}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;border-color:var(--color-green-primary)}
+  .faq-a{margin-top:12px;color:var(--color-text-muted);font-size:14.5px;line-height:1.75;max-width:680px;display:none}
+  .faq-item.open .faq-a{display:block}
+
+  .end-quiz{background:var(--color-green-primary);color:#fff;border-radius:24px;padding:36px 32px;position:sticky;top:24px;overflow:hidden}
+  .end-quiz::before{content:"";position:absolute;right:-50px;top:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(202,164,74,.14),transparent 70%)}
+  .end-quiz .eyebrow-gold{color:var(--color-gold);font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:16px;display:block;position:relative}
+  .end-quiz p{font-family:var(--font-serif);font-size:21px;line-height:1.4;color:#fff;margin:0 0 26px;position:relative}
+  .end-quiz p em{font-style:italic;color:#C2D9AC;font-weight:300}
+  .end-quiz a.btn-terra{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 28px;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;box-shadow:var(--shadow-cta);width:100%;position:relative}
+  .end-quiz a.btn-terra:hover{background:var(--color-cta-primary-hover)}
+  .end-quiz .small{margin-top:12px;font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:#9AC0A8;position:relative;text-align:center}
+
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Pagina simptom: Cură detox">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span class="wa"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="#">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș (0)</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item active">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a>Acasă</a><span class="sep">›</span><a>După simptom</a><span class="sep">›</span><span class="here">Cură detox</span>
+  </div>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="eyebrow">După simptom</div>
+        <h1>Cură detox. Ce înseamnă cu adevărat <em>și când chiar ai nevoie.</em></h1>
+        <p class="lede">După sărbători, după un tratament cu antibiotice sau după o perioadă cu alcool și mese grele, corpul are nevoie de sprijin. Dar „detox" nu înseamnă curățare magică în 3 zile, înseamnă să dai ficatului, intestinului și rinichilor condițiile să își facă treaba.</p>
+        <div class="hero-meta">
+          <span class="meta-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>~70% caută detox post-sărbători</span>
+          <span class="meta-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C9 6 6 8 6 13a6 6 0 0 0 12 0c0-5-3-7-6-11z"/></svg>Ficatul se regenerează în 4–8 săptămâni</span>
+          <span class="meta-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Nu există „toxine" de eliminat instant</span>
+        </div>
+      </div>
+
+      <div class="hero-illu">
+        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M100 30 Q60 70 60 110 a40 40 0 0 0 80 0 Q140 70 100 30 Z" fill="currentColor" fill-opacity=".18"/>
+          <path d="M100 30 Q60 70 60 110 a40 40 0 0 0 80 0 Q140 70 100 30 Z"/>
+          <path d="M100 30 Q90 80 90 130"/>
+          <path d="M150 150 Q155 160 152 168 a8 8 0 0 1-15 0 Q134 160 145 150 Z" fill="currentColor" fill-opacity=".25"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Definitie ====== -->
+  <section class="definitie">
+    <div class="def-head">
+      <div class="eyebrow" style="margin-bottom:14px">Definiție simplă</div>
+      <h2>Detox-ul real e <em>muncă de fundal.</em></h2>
+    </div>
+    <div class="def-grid">
+      <div class="def-cell">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2C9 6 6 8 6 13a6 6 0 0 0 12 0c0-5-3-7-6-11z"/></svg></div>
+        <h3>Ficatul filtrează</h3>
+        <p>Toate substanțele trec prin ficat. După alcool, medicamente sau exces alimentar, are nevoie de 4–8 săptămâni să își refacă enzimele.</p>
+      </div>
+      <div class="def-cell">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.5" fill="currentColor"/><circle cx="14" cy="9" r="1.2" fill="currentColor"/><circle cx="13" cy="14" r="1.5" fill="currentColor"/></svg></div>
+        <h3>Microbiomul se reface</h3>
+        <p>Antibioticele șterg și bacteriile bune. Refacerea cere 2–6 luni cu probiotice și fibre, nu 7 zile.</p>
+      </div>
+      <div class="def-cell">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v6"/><path d="M12 22a6 6 0 0 0 6-6c0-4-6-12-6-12s-6 8-6 12a6 6 0 0 0 6 6z"/></svg></div>
+        <h3>Rinichii și intestinul evacuează</h3>
+        <p>Apa, fibrele și mișcarea fac 80% din „detox". Suplimentul susține, nu înlocuiește.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Trei situatii ====== -->
+  <section class="cauze">
+    <div class="cauze-head">
+      <div class="eyebrow" style="margin-bottom:14px">Când are sens o cură</div>
+      <h2>Trei situații <em>când chiar are sens.</em></h2>
+    </div>
+    <div class="cauze-grid">
+      <div class="cauza-card">
+        <div class="num">01</div>
+        <h3>După sărbători sau exces alimentar</h3>
+        <p>Mese grele consecutive solicită ficatul și vezica biliară. 2–4 săptămâni de cură ușoară ajută digestia să revină la ritm.</p>
+        <div class="cauza-foot">
+          <strong>Ce ajută de obicei</strong>
+          Mese mai mici, plante amare (anghinare, armurariu), hidratare.
+        </div>
+      </div>
+      <div class="cauza-card">
+        <div class="num">02</div>
+        <h3>După un tratament cu antibiotice</h3>
+        <p>Antibioticele șterg microbiomul intestinal. Refacerea cu probiotice și fibre prebiotice durează 2–3 luni.</p>
+        <div class="cauza-foot">
+          <strong>Ce ajută de obicei</strong>
+          Probiotice cu tulpini multiple, iaurt natur, fibre solubile.
+        </div>
+      </div>
+      <div class="cauza-card">
+        <div class="num">03</div>
+        <h3>După o perioadă cu alcool ocazional</h3>
+        <p>Alcoolul taxează ficatul direct. Pauza și sprijinul cu silimarină și antioxidanți reduc inflamația în 3–6 săptămâni.</p>
+        <div class="cauza-foot">
+          <strong>Ce ajută de obicei</strong>
+          Pauză minimă 14 zile, armurariu (silimarină), vitamina E, somn 7–8h.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Autotest ====== -->
+  <section class="autotest">
+    <div class="auto-head">
+      <div class="eyebrow" style="margin-bottom:14px">Verificare rapidă</div>
+      <h2>Răspunde la 4 întrebări, <em>vezi ce ți se potrivește.</em></h2>
+    </div>
+    <div class="auto-grid">
+      <div class="auto-q">
+        <p class="q">1. Ai trecut recent printr-o perioadă de exces (sărbători, vacanță, mese repetate)?</p>
+        <div class="auto-opts">
+          <div class="auto-opt selected">Da</div>
+          <div class="auto-opt">Uneori</div>
+          <div class="auto-opt">Nu</div>
+        </div>
+      </div>
+      <div class="auto-q">
+        <p class="q">2. Ai luat antibiotice în ultimele 3 luni?</p>
+        <div class="auto-opts">
+          <div class="auto-opt">Da</div>
+          <div class="auto-opt selected">Uneori</div>
+          <div class="auto-opt">Nu</div>
+        </div>
+      </div>
+      <div class="auto-q">
+        <p class="q">3. Consumi alcool mai mult de 2–3 ori pe săptămână?</p>
+        <div class="auto-opts">
+          <div class="auto-opt">Da</div>
+          <div class="auto-opt selected">Uneori</div>
+          <div class="auto-opt">Nu</div>
+        </div>
+      </div>
+      <div class="auto-q">
+        <p class="q">4. Te simți moleșit după mese grase, ai ten gălbui sau treziri la 2–3 noaptea?</p>
+        <div class="auto-opts">
+          <div class="auto-opt selected">Da</div>
+          <div class="auto-opt">Uneori</div>
+          <div class="auto-opt">Nu</div>
+        </div>
+      </div>
+    </div>
+    <div class="auto-result">
+      <div class="body">
+        <p class="lbl">Rezultat pe baza răspunsurilor</p>
+        <p class="txt"><strong>Răspunsurile sugerează că o cură ușoară de 4–6 săptămâni</strong> cu sprijin pentru ficat și microbiom ar avea sens. Începe cu hidratare, mese regulate și un protocol cu silimarină + probiotice.</p>
+      </div>
+      <a class="btn-q">Vezi quiz-ul complet (60 sec)
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ====== Cand la medic ====== -->
+  <section class="medic">
+    <div class="medic-card">
+      <div class="ico">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 12h6"/><path d="M12 9v6"/><circle cx="12" cy="12" r="10"/></svg>
+      </div>
+      <h2>Când detox-ul nu mai e <em>doar oboseală post-exces.</em></h2>
+      <p class="lede">Dacă oricare dintre semnele de mai jos apare, prioritar este să consulți un medic, nu un supliment.</p>
+      <ul class="medic-list">
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Icter (galben la piele sau albul ochiului).</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Durere persistentă în partea dreaptă sub coaste.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Urină foarte închisă la culoare mai mult de 2 zile.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Greață și vomă fără explicație clară.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Pierdere în greutate fără să-ți propui.</li>
+      </ul>
+      <div class="medic-foot">Menționarea unui medic aici nu e clauză legală. Este pur și simplu cel mai bun sfat pe care ți-l putem da în aceste situații.</div>
+    </div>
+  </section>
+
+  <!-- ====== Trei produse ====== -->
+  <section class="produse">
+    <div class="prod-head">
+      <div class="eyebrow" style="margin-bottom:14px">Dacă ai încercat schimbări de obicei și nu ajung</div>
+      <h2>Trei opțiuni, <em>în ordine logică.</em></h2>
+      <p>Începe cu prima. Dacă după 4 săptămâni nu vezi schimbare, treci la următoarea.</p>
+    </div>
+
+    <div class="prod-grid">
+
+      <div class="prod-card">
+        <span class="opt-chip">Opțiune 01</span>
+        <div class="prod-photo">
+          <div class="wash"></div>
+          <div class="mini-pack">
+            <div class="lbl">
+              <div class="b">Mâna Naturii</div>
+              <div class="n">Pachet<br/>Confort Digestiv</div>
+              <div class="v">2 SUPL · 120 ZILE</div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <span class="eyebrow-mini">Digestiv · probiotic</span>
+          <h3>Pachet Confort Digestiv</h3>
+          <p class="why">Probiotice și Detox Ficat, 2 suplimente vegan, 120 zile. Pentru balonare după mese, recuperare post-antibiotice, digestie greoaie a grăsimilor.</p>
+          <div class="rating-mini">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            </div>
+            <strong>4,7 / 5</strong>
+            <span>(204)</span>
+          </div>
+          <div class="price-row">
+            <span class="price">283 lei</span>
+          </div>
+          <a class="btn-terra" style="margin-top:14px">Vezi pachetul
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <span class="opt-chip">Opțiune 02</span>
+        <div class="prod-photo">
+          <div class="wash"></div>
+          <div class="mini-pack b2">
+            <div class="lbl">
+              <div class="b">Mâna Naturii</div>
+              <div class="n">Pachet<br/>Detox</div>
+              <div class="v">2 SUPL · 120 ZILE</div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <span class="eyebrow-mini">Detox · ficat</span>
+          <h3>Pachet Detox</h3>
+          <p class="why">2 suplimente vegan naturale, 120 zile. Pentru balonare cronică, oboseală fără cauză, ten gălbui, slăbit greoi după mese grase.</p>
+          <div class="rating-mini">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--color-border-2)"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            </div>
+            <strong>4,6 / 5</strong>
+            <span>(157)</span>
+          </div>
+          <div class="price-row">
+            <span class="price">283 lei</span>
+          </div>
+          <a class="btn-secondary-g" style="margin-top:14px">Vezi pachetul
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <span class="opt-chip">Opțiune 03</span>
+        <div class="prod-photo">
+          <div class="wash"></div>
+          <div class="mini-pack b3">
+            <div class="lbl">
+              <div class="b">Mâna Naturii</div>
+              <div class="n">Pachet<br/>Detox Plus</div>
+              <div class="v">3 SUPL · 120 ZILE</div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <span class="eyebrow-mini">Complet · 3 suplimente</span>
+          <h3>Pachet Detox Plus</h3>
+          <p class="why">Curățare profundă ficat și sistem digestiv, 3 suplimente vegan, 120 zile. Pentru recuperare post-antibiotice intensă, halenă matinală, sensibilitate la cofeină și medicamente.</p>
+          <div class="rating-mini">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            </div>
+            <strong>4,8 / 5</strong>
+            <span>(89)</span>
+          </div>
+          <div class="price-row">
+            <span class="price">457 lei</span>
+          </div>
+          <a class="btn-secondary-g" style="margin-top:14px">Vezi pachetul
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Mituri ====== -->
+  <section class="mituri">
+    <div class="mit-head">
+      <div class="eyebrow" style="margin-bottom:14px">Câteva lucruri pe care le auzim des</div>
+      <h2>Mituri despre detox, <em>calm onest.</em></h2>
+    </div>
+
+    <div class="mit-grid">
+      <div class="mit-card">
+        <div class="mit-side">
+          <span class="lbl">Mit</span>
+          <p class="txt">„Sucuri detox 3 zile curăță organismul."</p>
+        </div>
+        <div class="real-side">
+          <span class="lbl">Realitate</span>
+          <p class="txt">Ficatul și rinichii lucrează 24/7. Sucurile pot ajuta cu hidratarea și fibrele, dar nu „curăță" nimic suplimentar. Beneficiul real e că te oprești din mese grele câteva zile.</p>
+        </div>
+      </div>
+
+      <div class="mit-card">
+        <div class="mit-side">
+          <span class="lbl">Mit</span>
+          <p class="txt">„Dacă transpir mult la saună, elimin toxine."</p>
+        </div>
+        <div class="real-side">
+          <span class="lbl">Realitate</span>
+          <p class="txt">Transpirația conține 99% apă și electroliți. Eliminarea reală a substanțelor o face ficatul prin bilă și rinichii prin urină. Sauna ajută circulația, nu detox-ul.</p>
+        </div>
+      </div>
+
+      <div class="mit-card">
+        <div class="mit-side">
+          <span class="lbl">Mit</span>
+          <p class="txt">„Trebuie să fac detox de 2–3 ori pe an."</p>
+        </div>
+        <div class="real-side">
+          <span class="lbl">Realitate</span>
+          <p class="txt">Un corp sănătos cu mese echilibrate nu are nevoie de „cure" periodice. Detox-ul are sens situațional: după sărbători, antibiotice sau perioade de exces, nu pe calendar fix.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FAQ + Quiz ====== -->
+  <section class="end">
+    <div class="end-grid">
+      <div class="end-faq">
+        <div class="eyebrow">Despre detox</div>
+        <h2>Răspunsuri <em>scurte.</em></h2>
+        <div class="faq-list">
+          <div class="faq-item open">
+            <div class="faq-q">
+              <h4>Cât durează o cură de detox eficientă?</h4>
+              <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/></svg></div>
+            </div>
+            <div class="faq-a">
+              Minimum <strong>4 săptămâni</strong> pentru a observa schimbări reale, ideal 8–12 săptămâni pentru regenerarea enzimelor hepatice și refacerea microbiomului. Sub 14 zile e mai degrabă o pauză alimentară decât o cură. Dacă nu vezi nimic după 6 săptămâni, probabil cauza nu e ficatul.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              <h4>Pot să iau probiotice și silimarină în același timp?</h4>
+              <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              <h4>Detox-ul e potrivit în sarcină sau alăptare?</h4>
+              <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              <h4>Ce mănânc în timpul curei?</h4>
+              <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="end-quiz">
+        <span class="eyebrow-gold">Test de 60 secunde</span>
+        <p>Nu știi de unde să începi? Fă testul nostru și îți spunem <em>ce protocol ți se potrivește.</em></p>
+        <a class="btn-terra">Începe testul
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <div class="small">Folosit de 8.354 oameni în ultima lună.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 30 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678</div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

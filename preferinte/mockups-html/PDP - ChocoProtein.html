@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — ChocoProtein</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  .pdp-hero{padding:64px;background:#fff}
+  .pdp-hero-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+
+  .gallery .main-photo{aspect-ratio:1;background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:18px;position:relative;display:grid;place-items:center;padding:48px;overflow:hidden}
+  .gallery .lot-chip{position:absolute;top:18px;left:18px;display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--color-border);padding:6px 11px;border-radius:999px;font-family:var(--font-sans);font-size:11.5px;color:var(--color-green-deep);font-weight:600}
+  .gallery .lot-chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--color-green-success)}
+  .gallery .zoom{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid var(--color-border);display:grid;place-items:center;color:var(--color-text-muted)}
+  .gallery .caption{position:absolute;bottom:18px;left:18px;font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-muted)}
+  .bottle-svg{width:68%;height:auto;color:var(--color-green-primary);opacity:.9}
+
+  .gallery .thumbs{display:grid;grid-template-columns:repeat(4,60px);gap:10px;margin-top:14px}
+  .thumb{width:60px;height:60px;border-radius:8px;background:var(--color-bg-page);border:1px solid var(--color-border);display:grid;place-items:center;cursor:pointer}
+  .thumb.selected{border:2px solid var(--color-green-primary)}
+  .thumb svg{width:55%;height:55%;color:var(--color-green-primary);opacity:.6}
+
+  .pinfo{display:flex;flex-direction:column;gap:16px}
+  .pinfo .eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-cta-primary);font-weight:700}
+  .pinfo h1{font-family:var(--font-serif);font-weight:400;font-size:48px;line-height:1.05;letter-spacing:-0.02em;margin:0;color:var(--color-text-primary)}
+  .pinfo h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .pinfo .subline{font-family:var(--font-serif);font-style:italic;font-size:18px;color:var(--color-text-muted);margin:0}
+  .pinfo .rating{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--color-text-muted)}
+  .pinfo .rating .stars{color:var(--color-gold);letter-spacing:.05em}
+  .pinfo .desc{font-size:15px;color:var(--color-text-muted);line-height:1.7;margin:0}
+  .pinfo .desc strong{color:var(--color-text-primary);font-weight:600}
+
+  .price-box{background:var(--color-bg-page);border:1px solid var(--color-green-primary);border-radius:12px;padding:20px 22px}
+  .price-box .lbl{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted);font-weight:700;margin-bottom:4px;display:block}
+  .price-box .amount{font-family:var(--font-serif);font-weight:500;font-size:40px;color:var(--color-green-primary);line-height:1;letter-spacing:-0.02em}
+  .price-box .meta{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-faint);margin-top:8px;display:block}
+
+  .sub-options{display:flex;flex-direction:column;gap:10px}
+  .sub-card{display:grid;grid-template-columns:22px 1fr auto;gap:14px;padding:14px 18px;background:#fff;border:1.5px solid var(--color-border);border-radius:12px;cursor:pointer;align-items:center}
+  .sub-card.selected{border-color:var(--color-green-primary);background:var(--color-green-soft-card)}
+  .sub-card .radio{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--color-border-2);background:#fff;display:grid;place-items:center}
+  .sub-card.selected .radio{border-color:var(--color-green-primary);background:var(--color-green-primary)}
+  .sub-card.selected .radio::after{content:"";width:7px;height:7px;border-radius:50%;background:#fff}
+  .sub-card .body strong{display:block;font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--color-text-primary)}
+  .sub-card .body .top-eyebrow{font-family:var(--font-sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-cta-primary);font-weight:700;margin-bottom:3px;display:block}
+  .sub-card .body span.det{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-muted);margin-top:3px;display:block}
+  .sub-card .price{font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--color-text-primary);text-align:right;white-space:nowrap}
+  .sub-card .price small{display:block;font-family:var(--font-sans);font-size:10.5px;color:var(--color-text-faint);font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+
+  .qty-cta-row{display:flex;gap:12px;align-items:stretch;margin-top:4px}
+  .qty{display:flex;align-items:center;background:#fff;border:1.5px solid var(--color-border);border-radius:12px;padding:0 6px}
+  .qty button{width:34px;height:50px;border:0;background:transparent;font-size:18px;color:var(--color-text-primary);cursor:pointer}
+  .qty input{width:36px;border:0;background:transparent;text-align:center;font-family:var(--font-serif);font-size:17px;color:var(--color-text-primary);outline:none}
+  .add-cart{flex:1;height:54px;border:0;border-radius:999px;background:var(--color-cta-primary);color:#fff;font-family:var(--font-sans);font-weight:600;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:var(--shadow-cta)}
+  .add-cart:hover{background:var(--color-cta-primary-hover)}
+
+  .bulk-note{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-muted);text-align:center}
+
+  .trust-row{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;padding-top:8px}
+  .trust-row .item{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--color-text-muted);font-weight:500}
+  .trust-row .item svg{color:var(--color-green-primary);flex-shrink:0}
+
+  .ihl{padding:96px 64px;background:var(--color-bg-page)}
+  .ihl-inner{max-width:1180px;margin:0 auto}
+  .ihl .head{margin-bottom:36px;max-width:680px}
+  .ihl .eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px;display:block}
+  .ihl h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 10px}
+  .ihl h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .ihl-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start;margin-top:32px}
+  .ihl-art{aspect-ratio:1;background:var(--color-green-deep);color:#fff;border-radius:18px;padding:32px;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+  .ihl-art svg{width:75%;height:auto;color:var(--color-gold-soft);opacity:.85}
+  .ihl-art .cap{margin-top:auto;font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:#C2D9AC;text-align:center;line-height:1.4}
+  .ihl-prose{font-size:14.5px;color:var(--color-text-muted);line-height:1.7;margin:0 0 20px}
+  .ihl-prose strong{color:var(--color-text-primary);font-weight:600}
+  .ihl-table{display:flex;flex-direction:column}
+  .ihl-row{display:grid;grid-template-columns:35% 65%;gap:18px;padding:18px 0;border-bottom:1px solid var(--color-border)}
+  .ihl-row:first-child{border-top:1px solid var(--color-border)}
+  .ihl-row .lbl{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;line-height:1.4}
+  .ihl-row .val{font-family:var(--font-sans);font-size:14.5px;color:var(--color-text-primary)}
+  .ihl-row .val strong{font-weight:600;color:var(--color-green-primary)}
+
+  .how{padding:96px 64px;background:#fff}
+  .how-inner{max-width:1180px;margin:0 auto}
+  .how-head{margin-bottom:32px;max-width:680px}
+  .how-head .eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px;display:block}
+  .how-head h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 10px}
+  .how-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .how-head p{font-family:var(--font-serif);font-style:italic;font-size:16px;color:var(--color-text-muted);margin:0}
+  .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .how-card{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:8px;padding:24px;display:flex;flex-direction:column;gap:10px}
+  .how-card .step{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;color:var(--color-cta-primary);font-weight:700}
+  .how-card .when{font-family:var(--font-sans);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700}
+  .how-card h3{font-family:var(--font-serif);font-size:19px;font-weight:500;line-height:1.3;margin:0;color:var(--color-text-primary)}
+  .how-card p{font-size:13.5px;color:var(--color-text-muted);line-height:1.65;margin:0}
+
+  .pcine{padding:96px 64px;background:var(--color-bg-page)}
+  .pcine-inner{max-width:1180px;margin:0 auto}
+  .pcine-head{margin-bottom:32px;max-width:780px}
+  .pcine-head .eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px;display:block}
+  .pcine-head h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-0.015em;margin:0}
+  .pcine-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .pcine-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .pcine-col{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:28px 30px}
+  .pcine-col.yes h3{color:var(--color-green-primary)}
+  .pcine-col.no h3{color:var(--color-text-muted)}
+  .pcine-col h3{font-family:var(--font-serif);font-style:italic;font-weight:500;font-size:20px;margin:0 0 18px}
+  .pcine-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  .pcine-col li{display:flex;gap:10px;font-size:14px;color:var(--color-text-primary);line-height:1.5}
+  .pcine-col.yes li::before{content:"";width:16px;height:16px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230C542F' stroke-width='2.5'><path d='M20 6L9 17l-5-5'/></svg>");background-repeat:no-repeat;background-position:center;flex-shrink:0;margin-top:2px}
+  .pcine-col.no li::before{content:"×";color:var(--color-text-faint);font-weight:300;font-size:18px;line-height:1;flex-shrink:0;width:16px;text-align:center;margin-top:1px}
+
+  .stand{padding:96px 64px;background:#fff}
+  .stand-inner{max-width:1180px;margin:0 auto}
+  .stand-head{margin-bottom:32px;max-width:680px}
+  .stand-head .eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px;display:block}
+  .stand-head h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 10px}
+  .stand-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .stand-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .stand-card{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:12px}
+  .stand-card .ico{width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid var(--color-border);display:grid;place-items:center;color:var(--color-green-primary)}
+  .stand-card h4{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin:0}
+  .stand-card p{font-size:14px;color:var(--color-text-primary);line-height:1.6;margin:0;font-family:var(--font-serif);font-style:italic}
+
+  .stiva{padding:96px 64px;background:var(--color-bg-page)}
+  .stiva-inner{max-width:1180px;margin:0 auto}
+  .stiva-head{margin-bottom:28px;max-width:780px}
+  .stiva-head .eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px;display:block}
+  .stiva-head h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 10px}
+  .stiva-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .cross-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  .cross-card{background:#fff;border:1px solid var(--color-border);border-radius:12px;padding:18px 20px;display:grid;grid-template-columns:80px 1fr auto;gap:18px;align-items:center}
+  .cross-card .thumb{width:80px;height:80px;border-radius:10px;background:var(--color-green-deep);display:grid;place-items:center;color:var(--color-gold-soft)}
+  .cross-card .thumb svg{width:48%;height:48%}
+  .cross-card h4{font-family:var(--font-sans);font-size:14.5px;font-weight:600;color:var(--color-text-primary);margin:0 0 4px;line-height:1.3}
+  .cross-card .cap{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);margin:0}
+  .cross-card .right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+  .cross-card .pr{font-family:var(--font-serif);font-size:17px;font-weight:600;color:var(--color-green-primary)}
+  .pair-msg{font-family:var(--font-serif);font-style:italic;font-size:15px;color:var(--color-text-primary);text-align:center;margin:14px 0 18px}
+  .pack-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border:1.5px solid var(--color-green-primary);color:var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;text-decoration:none;background:transparent}
+  .pack-cta:hover{background:var(--color-green-soft-card)}
+  .pack-cta-wrap{text-align:center}
+
+  .rev{padding:96px 64px;background:#fff}
+  .rev-inner{max-width:1180px;margin:0 auto}
+  .rev-head{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;margin-bottom:36px}
+  .rev-head .eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px;display:block}
+  .rev-head h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 10px}
+  .rev-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .rev-head .score-box{text-align:right}
+  .rev-head .score-box .num{font-family:var(--font-serif);font-size:42px;font-weight:500;color:var(--color-text-primary);line-height:1;letter-spacing:-0.01em}
+  .rev-head .score-box .stars{color:var(--color-gold);font-size:18px;letter-spacing:.05em;margin-top:4px}
+  .rev-head .score-box .cnt{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);margin-top:4px}
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .rev-card{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:12px;padding:24px}
+  .rev-card .who{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .rev-card .avatar{width:36px;height:36px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;font-family:var(--font-serif);font-weight:500;font-size:15px;flex-shrink:0}
+  .rev-card .meta{flex:1;min-width:0}
+  .rev-card .name{font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--color-text-primary);line-height:1.2}
+  .rev-card .info{font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint)}
+  .rev-card .rating-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  .rev-card .stars{color:var(--color-gold);font-size:13px;letter-spacing:.05em}
+  .rev-card .verified{font-family:var(--font-sans);font-size:11px;color:var(--color-text-faint);background:#fff;border:1px solid var(--color-border);padding:3px 8px;border-radius:999px;display:inline-flex;align-items:center;gap:4px}
+  .rev-card .verified::before{content:"✓";color:var(--color-green-primary);font-weight:700}
+  .rev-card blockquote{font-family:var(--font-serif);font-style:italic;font-size:14.5px;line-height:1.65;color:var(--color-text-primary);margin:0}
+  .rev-demo{margin-top:18px;font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint);text-align:center}
+
+  .faq{padding:96px 64px;background:var(--color-bg-page)}
+  .faq-inner{max-width:1180px;margin:0 auto}
+  .faq-head{margin-bottom:32px;max-width:680px}
+  .faq-head .eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px;display:block}
+  .faq-head h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-0.015em;margin:0}
+  .faq-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .faq-list{display:flex;flex-direction:column;max-width:880px;border-top:1px solid var(--color-border)}
+  .faq-item{border-bottom:1px solid var(--color-border)}
+  .faq-q{padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--color-text-primary);line-height:1.35}
+  .faq-q .toggle{width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid var(--color-border);display:grid;place-items:center;color:var(--color-green-primary);flex-shrink:0;font-size:18px;line-height:1}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;transform:rotate(45deg)}
+  .faq-a{padding:0 0 22px;color:var(--color-text-muted);font-size:14.5px;line-height:1.7;max-width:780px;display:none}
+  .faq-item.open .faq-a{display:block}
+  .faq-a strong{color:var(--color-text-primary);font-weight:600}
+
+  .quiz-mini{padding:64px;background:#fff}
+  .quiz-card{max-width:600px;margin:0 auto;background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:32px;text-align:center}
+  .quiz-card .ico{width:42px;height:42px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;margin:0 auto 14px}
+  .quiz-card h3{font-family:var(--font-serif);font-weight:400;font-size:24px;line-height:1.25;letter-spacing:-0.015em;margin:0 0 10px}
+  .quiz-card h3 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .quiz-card p{font-size:14px;color:var(--color-text-muted);line-height:1.65;margin:0 0 20px}
+  .quiz-card a{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border:1.5px solid var(--color-green-primary);color:var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;text-decoration:none}
+  .quiz-card a:hover{background:var(--color-green-soft-card)}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="PDP ChocoProtein">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 299 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span class="wa"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="#">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș (0)</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item active">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a>Acasă</a><span class="sep">›</span><a>Suplimente</a><span class="sep">›</span><a>Performanță Sportivă</a><span class="sep">›</span><span class="here">ChocoProtein</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="pdp-hero">
+    <div class="pdp-hero-inner">
+      <div class="gallery">
+        <div class="main-photo">
+          <span class="lot-chip">Lot CHP-R24-153 · în stoc</span>
+          <span class="zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+          <svg class="bottle-svg" viewBox="0 0 240 280" fill="none" stroke="currentColor" stroke-width="1.8">
+            <!-- pudră jar with shaker side -->
+            <ellipse cx="100" cy="34" rx="56" ry="10" fill="currentColor" opacity=".5"/>
+            <path d="M44 34 L 44 246 Q 44 262 60 262 L 140 262 Q 156 262 156 246 L 156 34" fill="currentColor" opacity=".14"/>
+            <path d="M44 34 L 44 246 Q 44 262 60 262 L 140 262 Q 156 262 156 246 L 156 34" stroke="currentColor" stroke-width="2"/>
+            <ellipse cx="100" cy="34" rx="56" ry="10" stroke="currentColor" stroke-width="2"/>
+            <rect x="58" y="90" width="84" height="120" rx="4" fill="currentColor" opacity=".08"/>
+            <rect x="58" y="90" width="84" height="120" rx="4" stroke="currentColor" stroke-width="1"/>
+            <text x="100" y="118" text-anchor="middle" font-family="Fraunces" font-size="13" font-weight="500" fill="currentColor">Choco</text>
+            <text x="100" y="138" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="15" fill="currentColor">Protein</text>
+            <line x1="68" y1="150" x2="132" y2="150" stroke="currentColor" stroke-width=".8" opacity=".5"/>
+            <text x="100" y="166" text-anchor="middle" font-family="Inter" font-size="8" letter-spacing="2" fill="currentColor">1000 G · 33 PORȚII</text>
+            <text x="100" y="182" text-anchor="middle" font-family="Inter" font-size="7" letter-spacing="2" fill="currentColor" opacity=".55">VIVENS GENETICA</text>
+            <!-- scoop in foreground -->
+            <g transform="translate(170 220)" opacity=".75">
+              <ellipse cx="0" cy="0" rx="14" ry="6" fill="currentColor" opacity=".5"/>
+              <ellipse cx="0" cy="0" rx="14" ry="6" stroke="currentColor" stroke-width="1.4"/>
+              <line x1="14" y1="0" x2="40" y2="-12" stroke="currentColor" stroke-width="1.4"/>
+              <line x1="14" y1="-3" x2="40" y2="-15" stroke="currentColor" stroke-width="1.4"/>
+            </g>
+            <!-- cocoa beans -->
+            <g transform="translate(36 200)" opacity=".7">
+              <ellipse cx="0" cy="0" rx="6" ry="4" fill="currentColor"/>
+              <ellipse cx="10" cy="10" rx="6" ry="4" fill="currentColor"/>
+              <ellipse cx="-4" cy="20" rx="6" ry="4" fill="currentColor"/>
+            </g>
+          </svg>
+          <div class="caption">pudră ciocolată · linguriță inclusă · gust intens cacao</div>
+        </div>
+        <div class="thumbs">
+          <div class="thumb selected"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="6" rx="7" ry="1.5"/><path d="M5 6v13a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19V6"/></svg></div>
+          <div class="thumb"><svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="8" cy="10" rx="3" ry="2" transform="rotate(20 8 10)"/><ellipse cx="14" cy="13" rx="3" ry="2" transform="rotate(-30 14 13)"/><ellipse cx="10" cy="16" rx="3" ry="2" transform="rotate(45 10 16)"/></svg></div>
+          <div class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8v3l-2 13H10L8 7z"/></svg></div>
+          <div class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="6" width="14" height="12" rx="1"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg></div>
+        </div>
+      </div>
+
+      <div class="pinfo">
+        <span class="eyebrow">Pudră · performanță sportivă</span>
+        <h1>Choco<em>Protein.</em></h1>
+        <p class="subline">concentrat zer &gt;75% proteină · 1000 g · 33 porții · 30 g/zi · gust intens ciocolată.</p>
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span>4,8 / 5</span>
+          <span>· 8 recenzii verificate</span>
+        </div>
+        <p class="desc">Proteină din zer cu <strong>gust real de ciocolată</strong>. 33 porții într-un borcan. Pentru construcție musculară și refacere — fără zahăr adăugat.</p>
+
+        <div class="price-box">
+          <span class="lbl">Preț</span>
+          <span class="amount">219 lei</span>
+          <span class="meta">6,64 lei / doză · Stoc disponibil</span>
+        </div>
+
+        <div class="sub-options">
+          <div class="sub-card selected">
+            <span class="radio"></span>
+            <div class="body">
+              <span class="top-eyebrow">Avantaj loyalty · −15%</span>
+              <strong>Abonament lunar</strong>
+              <span class="det">Un borcan pe lună, oprești oricând din cont.</span>
+            </div>
+            <div class="price">186,15 lei<small>pe livrare</small></div>
+          </div>
+          <div class="sub-card">
+            <span class="radio"></span>
+            <div class="body">
+              <strong>O singură dată</strong>
+              <span class="det">Un borcan, fără reînnoire automată.</span>
+            </div>
+            <div class="price">219 lei<small>o singură dată</small></div>
+          </div>
+        </div>
+
+        <div class="qty-cta-row">
+          <div class="qty"><button>−</button><input value="1" /><button>+</button></div>
+          <button class="add-cart">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/></svg>
+            Adaugă în coș · 186 lei
+          </button>
+        </div>
+        <div class="bulk-note">Reduceri la cantitate: 3 buc −5% (208,05 lei/buc) · 5 buc −10% (197,10 lei/buc)</div>
+
+        <div class="trust-row">
+          <div class="item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Livrare gratuită peste 199 lei</div>
+          <div class="item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Livrare 24–48h</div>
+          <div class="item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Analize de lot publice</div>
+          <div class="item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Stoc disponibil</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INGREDIENT HIGHLIGHT -->
+  <section class="ihl">
+    <div class="ihl-inner">
+      <div class="head">
+        <span class="eyebrow">Ingredient · spus complet</span>
+        <h2>Concentrat de zer. <em>Plus ciocolată reală.</em></h2>
+      </div>
+      <div class="ihl-grid">
+        <div class="ihl-art">
+          <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2">
+            <!-- cocoa beans -->
+            <g fill="currentColor" opacity=".85">
+              <ellipse cx="50" cy="60" rx="14" ry="9" transform="rotate(20 50 60)"/>
+              <ellipse cx="95" cy="50" rx="14" ry="9" transform="rotate(-30 95 50)"/>
+              <ellipse cx="145" cy="65" rx="14" ry="9" transform="rotate(45 145 65)"/>
+              <ellipse cx="60" cy="115" rx="14" ry="9" transform="rotate(60 60 115)"/>
+              <ellipse cx="140" cy="120" rx="14" ry="9" transform="rotate(-40 140 120)"/>
+              <ellipse cx="100" cy="95" rx="14" ry="9" transform="rotate(10 100 95)"/>
+            </g>
+            <!-- molecule chain (proteins) -->
+            <g stroke-linecap="round" opacity=".75">
+              <line x1="40" y1="160" x2="70" y2="170"/>
+              <line x1="70" y1="170" x2="100" y2="160"/>
+              <line x1="100" y1="160" x2="130" y2="170"/>
+              <line x1="130" y1="170" x2="160" y2="160"/>
+            </g>
+            <g fill="currentColor" opacity=".85">
+              <circle cx="40" cy="160" r="4"/>
+              <circle cx="70" cy="170" r="4"/>
+              <circle cx="100" cy="160" r="4"/>
+              <circle cx="130" cy="170" r="4"/>
+              <circle cx="160" cy="160" r="4"/>
+            </g>
+          </svg>
+          <div class="cap">cacao real + concentrat zer &gt;75% proteină · profil complet aminoacizi</div>
+        </div>
+        <div>
+          <p class="ihl-prose">Concentratul de zer (<strong>whey concentrate</strong>) este cea mai populară formă de proteină din zer: <strong>peste 75% proteină</strong>, profil complet de aminoacizi esențiali, asimilare bună. Echilibrul ideal între puritate și preț.</p>
+          <p class="ihl-prose">Gustul de <strong>ciocolată provine din cacao real</strong>, fără zahăr adăugat. O șansă reală să iubești proteina din shake, nu doar să o tolerezi.</p>
+          <div class="ihl-table">
+            <div class="ihl-row">
+              <div class="lbl">Tip proteină</div>
+              <div class="val"><strong>Concentrat din zer</strong> (whey concentrate)</div>
+            </div>
+            <div class="ihl-row">
+              <div class="lbl">Proteină / 100g</div>
+              <div class="val"><strong>peste 75%</strong> proteină</div>
+            </div>
+            <div class="ihl-row">
+              <div class="lbl">Aminoacizi esențiali</div>
+              <div class="val">Profil complet (BCAA)</div>
+            </div>
+            <div class="ihl-row">
+              <div class="lbl">Aditivi</div>
+              <div class="val"><strong>0</strong> zahăr · fără îndulcitori artificiali</div>
+            </div>
+            <div class="ihl-row">
+              <div class="lbl">Alergeni</div>
+              <div class="val">Lapte, soia (lecitină)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="how">
+    <div class="how-inner">
+      <div class="how-head">
+        <span class="eyebrow">Cum îl folosești</span>
+        <h2>Trei pași, <em>onest și simplu</em>.</h2>
+        <p>O măsură (30g) în apă sau lapte. Bei imediat. Hidratezi în paralel. Atât.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card">
+          <span class="step">01</span>
+          <span class="when">Post-antrenament</span>
+          <h3>1 măsură (30g) în 300–400ml apă sau lapte vegetal.</h3>
+          <p>Agită bine, bei imediat. Fereastra optimă post-efort: 30–60 minute. Cele mai bune rezultate pe construcție musculară.</p>
+        </div>
+        <div class="how-card">
+          <span class="step">02</span>
+          <span class="when">Între mese</span>
+          <h3>Ca gustare bogată în proteină.</h3>
+          <p>Ideal la 2–3 ore între mesele principale. Susține aportul proteic constant pe parcursul zilei.</p>
+        </div>
+        <div class="how-card">
+          <span class="step">03</span>
+          <span class="when">Hidratare în paralel</span>
+          <h3>Minim 2 litri apă/zi.</h3>
+          <p>Proteina necesită apă pentru metabolizare. Fără hidratare suficientă, digestia se îngreunează inutil.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PCINE -->
+  <section class="pcine">
+    <div class="pcine-inner">
+      <div class="pcine-head">
+        <span class="eyebrow">Onestitate produs</span>
+        <h2>Pentru cine <em>merge bine</em>. Și pentru cine <em>nu merge (încă)</em>.</h2>
+      </div>
+      <div class="pcine-grid">
+        <div class="pcine-col yes">
+          <h3>Merge bine pentru...</h3>
+          <ul>
+            <li>Sportivi de forță și tonifiere</li>
+            <li>Persoane active care se antrenează regulat</li>
+            <li>Perioade de creștere musculară sau menținere</li>
+            <li>Cei cu nevoie crescută de proteină în dietă</li>
+          </ul>
+        </div>
+        <div class="pcine-col no">
+          <h3>Nu merge (încă) pentru...</h3>
+          <ul>
+            <li>Alergie la lapte (lactalbumină) sau soia</li>
+            <li>Intoleranță severă la lactoză</li>
+            <li>Vegani — există variante vegetale alternative</li>
+            <li>Minori sub 16 ani</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANDARDE -->
+  <section class="stand">
+    <div class="stand-inner">
+      <div class="stand-head">
+        <span class="eyebrow">Standarde de producție</span>
+        <h2>De ce <em>arată altfel</em> versiunea noastră.</h2>
+      </div>
+      <div class="stand-grid">
+        <div class="stand-card">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2 4 6v6c0 5 4 9 8 10 4-1 8-5 8-10V6z"/></svg></div>
+          <h4>Concentrat de zer premium</h4>
+          <p>Peste 75% proteină, profil complet de aminoacizi. Calitate consistentă în fiecare lot.</p>
+        </div>
+        <div class="stand-card">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+          <h4>Test de puritate pe fiecare lot</h4>
+          <p>Analize publice, lot tracker pe ambalaj. Conținut de proteină verificat în laborator.</p>
+        </div>
+        <div class="stand-card">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
+          <h4>Fabricat în UE</h4>
+          <p>Facilități certificate, fără adaos de zahăr sau coloranți. Cacao real, fără arome sintetice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STIVA -->
+  <section class="stiva">
+    <div class="stiva-inner">
+      <div class="stiva-head">
+        <span class="eyebrow">Combină inteligent</span>
+        <h2>Stiva clasică pentru <em>forță și volum</em>.</h2>
+      </div>
+      <div class="cross-grid">
+        <div class="cross-card">
+          <div class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="6" rx="7" ry="1.5"/><path d="M5 6v13a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19V6"/></svg></div>
+          <div>
+            <h4>Creatine Monohidrate Pro 1000g</h4>
+            <p class="cap">creatină pură pentru forță și putere musculară</p>
+          </div>
+          <div class="right">
+            <span class="pr">219 lei</span>
+          </div>
+        </div>
+        <div class="cross-card">
+          <div class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="6" rx="7" ry="1.5"/><path d="M5 6v13a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19V6"/></svg></div>
+          <div>
+            <h4>ChocoProtein 1000g</h4>
+            <p class="cap">concentrat zer pentru construcție musculară</p>
+          </div>
+          <div class="right">
+            <span class="pr">219 lei</span>
+          </div>
+        </div>
+      </div>
+      <p class="pair-msg">Proteină + creatină. <em>Două ingrediente, multă diferență.</em></p>
+      <div class="pack-cta-wrap">
+        <a class="pack-cta">Vezi pachetul
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="rev">
+    <div class="rev-inner">
+      <div class="rev-head">
+        <div>
+          <span class="eyebrow">Recenzii verificate</span>
+          <h2>Ce spun cei care îl iau de <em>cel puțin 3 luni</em>.</h2>
+        </div>
+        <div class="score-box">
+          <div class="num">4,8</div>
+          <div class="stars">★★★★★</div>
+          <div class="cnt">din 8 recenzii reale</div>
+        </div>
+      </div>
+      <div class="rev-grid">
+
+        <div class="rev-card">
+          <div class="who">
+            <div class="avatar">R</div>
+            <div class="meta">
+              <div class="name">Robert C.</div>
+              <div class="info">29 · București</div>
+            </div>
+          </div>
+          <div class="rating-row">
+            <span class="stars">★★★★★</span>
+            <span class="verified">Verificat · 3 luni</span>
+          </div>
+          <blockquote>„Cel mai bun gust de ciocolată din ce am încercat. Nu pare ciocolată artificială. Mă antrenez de 3 ori/săpt."</blockquote>
+        </div>
+
+        <div class="rev-card">
+          <div class="who">
+            <div class="avatar">A</div>
+            <div class="meta">
+              <div class="name">Andreea M.</div>
+              <div class="info">26 · Cluj</div>
+            </div>
+          </div>
+          <div class="rating-row">
+            <span class="stars">★★★★★</span>
+            <span class="verified">Verificat · 5 luni</span>
+          </div>
+          <blockquote>„Cremos, gustos, nu mă deranjează la stomac. O folosesc post-antrenament și uneori dimineața în smoothie."</blockquote>
+        </div>
+
+        <div class="rev-card">
+          <div class="who">
+            <div class="avatar">C</div>
+            <div class="meta">
+              <div class="name">Cristi L.</div>
+              <div class="info">33 · Iași</div>
+            </div>
+          </div>
+          <div class="rating-row">
+            <span class="stars">★★★★</span>
+            <span class="verified">Verificat · 6 luni</span>
+          </div>
+          <blockquote>„Bine pentru zile sala. Pentru cardio merg pe IceTea Whey care e mai ușor. Le am pe amândouă în rotație."</blockquote>
+        </div>
+
+      </div>
+      <p class="rev-demo">Recenzii demo pentru mockup design.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-inner">
+      <div class="faq-head">
+        <span class="eyebrow">Întrebări frecvente</span>
+        <h2>Ce ne întrebați despre <em>ChocoProtein</em>.</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <div class="faq-q">Care e diferența față de IceTea Whey Lemon?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>ChocoProtein</strong> e concentrat de zer, gust cremos de ciocolată — bine pentru sala. <strong>IceTea Whey</strong> e izolat (mai pur, lactoză redusă), gust clar de ceai rece cu lămâie — bine pentru cardio sau vara. Funcție similară, experiență diferită.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Conține zahăr?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>Nu.</strong> Fără zahăr adăugat, fără îndulcitori artificiali. Gustul de ciocolată vine din cacao real.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Pot să-l combin cu lapte?<span class="toggle">+</span></div>
+          <div class="faq-a">Da, în <strong>apă sau lapte</strong> (animal sau vegetal). Cu apă e mai ușor pe stomac, cu lapte mai cremos. Tu alegi.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Câte doze are un borcan?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>33 porții de 30g.</strong> Aproximativ 1 lună cu o porție/zi.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Pot să-l iau dacă nu mă antrenez intens?<span class="toggle">+</span></div>
+          <div class="faq-a">Da, ca <strong>sursă de proteină de calitate</strong>. Aportul proteic e important și pentru persoanele active fără sală — recuperare, menținere musculară, sațietate.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ MINI -->
+  <section class="quiz-mini">
+    <div class="quiz-card">
+      <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <h3>Nu știi dacă ChocoProtein <em>e pentru tine</em>?</h3>
+      <p>Fă testul de 60 sec — îți spunem onest dacă merge sau dacă IceTea Whey Lemon ar avea mai mult sens.</p>
+      <a>Mergi la test
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>FAQ</li><li>Contact</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="font-family:var(--font-serif);font-style:italic;color:#9FB3A2">Date statistice sunt demo, în scop de prezentare design.</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

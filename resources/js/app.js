@@ -386,6 +386,33 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 })();
 
+/* ==================== ⌘K / CTRL+K SEARCH SHORTCUT ==================== */
+(function () {
+  function openSearch() {
+    var desktopInput = document.querySelector('.custom-search .wc-search-input');
+    // offsetParent is null when the element (or an ancestor) is display:none —
+    // i.e. the desktop search is hidden on mobile, so fall back to the popup.
+    if (desktopInput && desktopInput.offsetParent !== null) {
+      desktopInput.focus();
+      desktopInput.select();
+      return;
+    }
+    var trigger = document.querySelector('.mobile-search-trigger');
+    if (trigger) trigger.click();
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+      e.preventDefault();
+      openSearch();
+    }
+  });
+
+  document.querySelectorAll('.wc-search-kbd').forEach(function (kbd) {
+    kbd.addEventListener('click', openSearch);
+  });
+})();
+
 /* ==================== COMPLIANZ CONSENT REOPEN ==================== */
 (function () {
   var link = document.querySelector('.open-consent');

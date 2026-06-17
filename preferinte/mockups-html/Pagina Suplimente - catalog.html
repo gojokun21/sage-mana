@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Catalog suplimente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px;letter-spacing:.01em}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* HERO */
+  .cat-hero{padding:56px 64px;background:var(--color-bg-page)}
+  .cat-hero .inner{max-width:1240px;margin:0 auto}
+  .cat-hero .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:18px}
+  .cat-hero .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .cat-hero h1{font-family:var(--font-serif);font-weight:400;font-size:48px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 16px;color:var(--color-text-primary);max-width:780px}
+  .cat-hero h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .cat-hero .lede{font-size:17px;color:var(--color-text-muted);line-height:1.65;max-width:620px;margin:0 0 24px}
+  .cat-hero .stats{display:flex;gap:10px 18px;flex-wrap:wrap;font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-faint)}
+  .cat-hero .stats .sep{opacity:.4;font-style:normal}
+  .cat-hero .stats .stars{color:var(--color-gold);font-style:normal}
+
+  /* Sticky toolbar */
+  .toolbar{position:sticky;top:0;background:#fff;border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);z-index:20;padding:14px 64px}
+  .toolbar-inner{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  .toolbar .count{font-size:13.5px;color:var(--color-text-muted)}
+  .toolbar .count strong{color:var(--color-text-primary);font-weight:600}
+  .toolbar .actions{display:flex;gap:14px;align-items:center}
+  .toolbar select{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary);background:#fff;border:1px solid var(--color-border);border-radius:8px;padding:8px 32px 8px 12px;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%23556' stroke-width='1.5'/></svg>");background-repeat:no-repeat;background-position:right 10px center}
+  .toolbar .view-toggle{display:flex;gap:2px;background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:8px;padding:2px}
+  .toolbar .view-toggle button{background:transparent;border:0;padding:6px 9px;display:grid;place-items:center;color:var(--color-text-muted);cursor:pointer;border-radius:6px}
+  .toolbar .view-toggle button.active{background:#fff;color:var(--color-green-primary);box-shadow:0 0 0 1px var(--color-border)}
+
+  /* Catalog layout */
+  .catalog{padding:32px 64px 64px;background:var(--color-bg-page)}
+  .catalog-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;gap:32px;align-items:start}
+
+  /* Sidebar */
+  .sidebar{position:sticky;top:80px;background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:14px;padding:22px;max-height:calc(100vh - 100px);overflow-y:auto}
+  .sidebar .sb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .sidebar .sb-head h3{font-family:var(--font-serif);font-weight:500;font-size:18px;margin:0;color:var(--color-text-primary)}
+  .sidebar .sb-head a{font-size:12px;color:var(--color-text-faint);text-decoration:underline;text-underline-offset:2px}
+  .sidebar .sb-head a:hover{color:var(--color-green-primary)}
+  .sidebar .block{padding:18px 0;border-top:1px solid var(--color-border)}
+  .sidebar .block:first-of-type{padding-top:14px}
+  .sidebar .block h4{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin:0 0 12px}
+  .sidebar .opt{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--color-text-primary);padding:5px 0;cursor:pointer}
+  .sidebar .opt .check{width:16px;height:16px;border:1.5px solid var(--color-border-2);border-radius:4px;background:#fff;flex-shrink:0;position:relative;display:grid;place-items:center}
+  .sidebar .opt.checked .check{background:var(--color-green-primary);border-color:var(--color-green-primary)}
+  .sidebar .opt.checked .check::after{content:"";width:9px;height:5px;border-left:1.6px solid #fff;border-bottom:1.6px solid #fff;transform:rotate(-45deg) translate(1px,-2px)}
+  .sidebar .opt .lbl{flex:1}
+  .sidebar .opt .ct{font-size:11px;color:var(--color-text-faint);font-variant-numeric:tabular-nums}
+  .sidebar .obj-link{display:block;font-size:13px;color:var(--color-text-primary);padding:6px 0;text-decoration:none;border-bottom:1px dashed transparent}
+  .sidebar .obj-link:hover{color:var(--color-green-primary);border-bottom-color:var(--color-green-medium)}
+  .sidebar .obj-extra{font-size:12px;color:var(--color-green-primary);font-weight:600;margin-top:8px;text-decoration:underline;text-underline-offset:3px;display:inline-block}
+  .price-slider{margin:8px 0 14px;height:6px;background:var(--color-bg-page);border-radius:3px;position:relative}
+  .price-slider .fill{position:absolute;left:14%;right:18%;top:0;bottom:0;background:var(--color-green-primary);border-radius:3px}
+  .price-slider .handle{width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--color-green-primary);position:absolute;top:-5px}
+  .price-slider .handle.h1{left:13%}
+  .price-slider .handle.h2{left:80%}
+  .price-inputs{display:flex;gap:8px;align-items:center;font-size:13px}
+  .price-inputs input{width:100%;font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary);background:#fff;border:1px solid var(--color-border);border-radius:6px;padding:7px 10px}
+  .price-inputs span{color:var(--color-text-faint)}
+  .feat-chips{display:flex;flex-wrap:wrap;gap:6px}
+  .feat-chips .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:#fff;border:1px solid var(--color-border);border-radius:999px;font-size:12px;color:var(--color-text-primary);cursor:pointer}
+  .feat-chips .chip:hover{border-color:var(--color-green-medium)}
+  .feat-chips .chip.active{background:var(--color-green-soft-card);border-color:var(--color-green-primary);color:var(--color-green-primary);font-weight:600}
+  .feat-chips .chip .dot{width:6px;height:6px;border-radius:50%;background:var(--color-border-2)}
+  .feat-chips .chip.active .dot{background:var(--color-green-primary)}
+
+  /* Grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .pcard{background:#fff;border:1px solid var(--color-border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .15s,box-shadow .15s}
+  .pcard:hover{transform:translateY(-2px);box-shadow:0 12px 24px -8px rgba(15,42,29,.10)}
+  .pcard .fav{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.92);border:0;display:grid;place-items:center;color:var(--color-text-faint);cursor:pointer;z-index:2}
+  .pcard .fav:hover{color:var(--color-cta-primary)}
+  .pcard .badge{position:absolute;top:12px;left:12px;background:var(--color-green-primary);color:#fff;font-family:var(--font-sans);font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:5px 9px;border-radius:6px;z-index:2}
+  .pcard .img{aspect-ratio:1;background:linear-gradient(135deg,var(--color-green-soft-card),var(--color-bg-page));display:grid;place-items:center;border-bottom:1px solid var(--color-border);position:relative;padding:32px}
+  .pcard .img .ph{font-family:var(--font-serif);font-style:italic;font-size:14px;text-align:center;color:var(--color-green-primary);line-height:1.25;font-weight:400;max-width:140px;opacity:.85}
+  .pcard .img .ph strong{display:block;font-style:normal;font-weight:500;font-size:18px;color:var(--color-text-primary);letter-spacing:-0.01em;margin-bottom:6px}
+  .pcard .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .pcard h3{font-family:var(--font-sans);font-weight:600;font-size:15px;color:var(--color-text-primary);margin:0;line-height:1.3}
+  .pcard ul{list-style:none;padding:0;margin:4px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+  .pcard ul li{font-size:12.5px;color:var(--color-text-muted);line-height:1.45;padding-left:12px;position:relative}
+  .pcard ul li::before{content:"◦";position:absolute;left:0;color:var(--color-green-medium)}
+  .pcard .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;padding-top:14px;border-top:1px solid var(--color-border)}
+  .pcard .price{font-family:var(--font-serif);font-size:22px;font-weight:600;color:var(--color-green-primary);line-height:1;letter-spacing:-0.01em}
+  .pcard .cta{font-family:var(--font-sans);font-size:12.5px;font-weight:600;padding:9px 14px;border-radius:999px;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--color-green-primary);color:var(--color-green-primary);background:#fff}
+  .pcard .cta:hover{background:var(--color-green-soft-card)}
+  .pcard.featured .cta{background:var(--color-cta-primary);color:#fff;border-color:var(--color-cta-primary)}
+  .pcard.featured .cta:hover{background:var(--color-cta-primary-hover);border-color:var(--color-cta-primary-hover)}
+
+  /* Pagination */
+  .pagination{margin-top:36px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+  .pagination .info{font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--color-text-muted)}
+  .pagination a{font-family:var(--font-sans);font-size:13.5px;font-weight:600;padding:10px 20px;border:1.5px solid var(--color-green-primary);color:var(--color-green-primary);border-radius:999px;text-decoration:none;background:#fff}
+  .pagination a:hover{background:var(--color-green-soft-card)}
+
+  /* Cross-sell band */
+  .cross{padding:64px;background:var(--color-green-deep);color:#fff;position:relative;overflow:hidden}
+  .cross::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 50%,rgba(202,164,74,.12),transparent 60%);pointer-events:none}
+  .cross-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr;gap:48px;align-items:center;position:relative}
+  .cross h2{font-family:var(--font-serif);font-weight:400;font-size:38px;line-height:1.1;letter-spacing:-0.02em;margin:0 0 14px;color:#fff}
+  .cross h2 em{font-style:italic;color:var(--color-gold-soft);font-weight:300}
+  .cross p{color:#C2D9AC;font-size:15.5px;line-height:1.65;margin:0;max-width:520px}
+  .cross-cta{justify-self:end;display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border:1.5px solid rgba(255,255,255,.9);color:#fff;border-radius:999px;text-decoration:none;font-family:var(--font-sans);font-weight:600;font-size:14.5px;background:transparent}
+  .cross-cta:hover{background:rgba(255,255,255,.08)}
+
+  /* Education */
+  .edu{padding:80px 64px;background:var(--color-bg-page)}
+  .edu-inner{max-width:880px;margin:0 auto;text-align:center}
+  .edu .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px}
+  .edu .eyebrow::before,.edu .eyebrow::after{content:"";width:18px;height:1px;background:var(--color-green-medium)}
+  .edu h2{font-family:var(--font-serif);font-weight:400;font-size:34px;line-height:1.15;letter-spacing:-0.02em;margin:0 0 18px;color:var(--color-text-primary)}
+  .edu h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .edu p{font-size:16px;color:var(--color-text-muted);line-height:1.75;margin:0 0 32px}
+  .edu p strong{color:var(--color-text-primary);font-weight:600}
+  .trust-badges{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px}
+  .tb{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:14px;padding:18px 16px;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .tb svg{color:var(--color-green-primary)}
+  .tb span{font-family:var(--font-sans);font-size:12.5px;font-weight:600;color:var(--color-text-primary);text-align:center;line-height:1.3}
+
+  /* FAQ */
+  .faq{padding:64px;background:var(--color-bg-card)}
+  .faq-inner{max-width:780px;margin:0 auto}
+  .faq h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 30px;text-align:center}
+  .faq h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .faq-list{display:flex;flex-direction:column;border-top:1px solid var(--color-border)}
+  .faq-item{border-bottom:1px solid var(--color-border)}
+  .faq-q{padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--color-text-primary);line-height:1.35}
+  .faq-q .toggle{width:28px;height:28px;border-radius:50%;background:var(--color-green-soft-card);display:grid;place-items:center;color:var(--color-green-primary);flex-shrink:0;font-size:18px;line-height:1}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;transform:rotate(45deg)}
+  .faq-a{padding:0 0 22px;color:var(--color-text-muted);font-size:14.5px;line-height:1.7;display:none}
+  .faq-item.open .faq-a{display:block}
+
+  footer.main .footer-bottom .edition{color:var(--color-gold);font-weight:600}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Catalog suplimente">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span class="wa"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="#">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș (0)</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item active">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a>Acasă</a><span class="sep">›</span><span class="here">Suplimente</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="cat-hero">
+    <div class="inner">
+      <div class="eyebrow">— Catalog complet</div>
+      <h1>20 de suplimente. O singură filozofie: doze <em>reale.</em></h1>
+      <p class="lede">Fără claim-uri vagi, fără ingrediente decorative. Doar formule funcționale, testate, fabricate în UE.</p>
+      <div class="stats">
+        <span>20 produse</span>
+        <span class="sep">·</span>
+        <span class="stars">★ 4,8</span>
+        <span>din 1.247 recenzii</span>
+        <span class="sep">·</span>
+        <span>90 zile garanție</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <div class="count">Afișez <strong>1–20</strong> din <strong>20</strong> de rezultate</div>
+      <div class="actions">
+        <select>
+          <option>Recomandate</option>
+          <option>Preț crescător</option>
+          <option>Preț descrescător</option>
+          <option>Cele mai vândute</option>
+          <option>Noutăți</option>
+        </select>
+        <div class="view-toggle">
+          <button class="active" title="Grid"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button>
+          <button title="Listă"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Catalog -->
+  <section class="catalog">
+    <div class="catalog-inner">
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sb-head">
+          <h3>Filtre</h3>
+          <a>Resetează</a>
+        </div>
+
+        <div class="block">
+          <h4>Categorie</h4>
+          <div class="opt"><span class="check"></span><span class="lbl">Stare de bine generală</span><span class="ct">16</span></div>
+          <div class="opt checked"><span class="check"></span><span class="lbl">Imunitate</span><span class="ct">11</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Sănătate intestinală</span><span class="ct">9</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Energie</span><span class="ct">5</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Oase și articulații</span><span class="ct">5</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Vitalitate &amp; anti-aging</span><span class="ct">5</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Sănătatea inimii</span><span class="ct">4</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Focus</span><span class="ct">3</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Performanță sportivă</span><span class="ct">3</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Detoxifiere</span><span class="ct">3</span></div>
+        </div>
+
+        <div class="block">
+          <h4>Pe obiectiv</h4>
+          <a class="obj-link">Mai multă energie zilnică</a>
+          <a class="obj-link">Imunitate puternică</a>
+          <a class="obj-link">Focus mental</a>
+          <a class="obj-link">Frumusețe</a>
+          <a class="obj-link">Detoxifiere</a>
+          <a class="obj-extra">+ vezi toate obiectivele</a>
+        </div>
+
+        <div class="block">
+          <h4>Format</h4>
+          <div class="opt"><span class="check"></span><span class="lbl">Capsule</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Lichid</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Pudră</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Jeleuri</span></div>
+        </div>
+
+        <div class="block">
+          <h4>Preț</h4>
+          <div class="price-slider">
+            <div class="fill"></div>
+            <div class="handle h1"></div>
+            <div class="handle h2"></div>
+          </div>
+          <div class="price-inputs">
+            <input value="124 lei" />
+            <span>—</span>
+            <input value="524 lei" />
+          </div>
+        </div>
+
+        <div class="block">
+          <h4>Caracteristici</h4>
+          <div class="feat-chips">
+            <span class="chip active"><span class="dot"></span>Vegan</span>
+            <span class="chip"><span class="dot"></span>Fără gluten</span>
+            <span class="chip"><span class="dot"></span>Fără lactoză</span>
+            <span class="chip"><span class="dot"></span>Fabricat în UE</span>
+            <span class="chip"><span class="dot"></span>Lab tested</span>
+          </div>
+        </div>
+
+        <div class="block">
+          <h4>Disponibilitate</h4>
+          <div class="opt checked"><span class="check"></span><span class="lbl">În stoc</span></div>
+          <div class="opt"><span class="check"></span><span class="lbl">Pachet economic</span></div>
+        </div>
+      </aside>
+
+      <!-- Grid -->
+      <div>
+        <div class="grid">
+
+          <!-- 1 Black Seed Elixir (FEATURED CTA) -->
+          <article class="pcard featured">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">240 caps · 120 zile</span>
+            <div class="img"><div class="ph"><strong>Black Seed</strong>Elixir</div></div>
+            <div class="body">
+              <h3>Black Seed Elixir</h3>
+              <ul>
+                <li>imunitate echilibrată</li>
+                <li>suport cardiovascular</li>
+                <li>echilibru metabolic</li>
+              </ul>
+              <div class="foot">
+                <span class="price">184 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2 ChocoProtein (FEATURED) -->
+          <article class="pcard featured">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">1000g · 33 porții</span>
+            <div class="img"><div class="ph"><strong>ChocoProtein</strong>1000g</div></div>
+            <div class="body">
+              <h3>ChocoProtein 1000g</h3>
+              <ul>
+                <li>masă musculară</li>
+                <li>refacere post-antrenament</li>
+                <li>aminoacizi esențiali</li>
+              </ul>
+              <div class="foot">
+                <span class="price">219 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3 Collagen Joint+ Berry (FEATURED) -->
+          <article class="pcard featured">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">500 ml · 33 zile</span>
+            <div class="img"><div class="ph"><strong>Collagen</strong>Joint+ Berry</div></div>
+            <div class="body">
+              <h3>Collagen Joint+ Berry</h3>
+              <ul>
+                <li>articulații și mobilitate</li>
+                <li>elasticitate cutanată</li>
+                <li>sinteză colagen propriu</li>
+              </ul>
+              <div class="foot">
+                <span class="price">184 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4 Creatine Monohidrate Pro -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">1000g · 200 porții</span>
+            <div class="img"><div class="ph"><strong>Creatine</strong>Monohidrate Pro</div></div>
+            <div class="body">
+              <h3>Creatine Monohidrate Pro 1000g</h3>
+              <ul>
+                <li>forță și putere musculară</li>
+                <li>volum și recuperare</li>
+                <li>monohidrat micronizat</li>
+              </ul>
+              <div class="foot">
+                <span class="price">219 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5 D-Tox Ficat -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">120 caps · 120 zile</span>
+            <div class="img"><div class="ph"><strong>D-Tox</strong>Ficat</div></div>
+            <div class="body">
+              <h3>D-Tox Ficat</h3>
+              <ul>
+                <li>regenerare hepatică</li>
+                <li>silimarină standardizată</li>
+                <li>detox post-sărbători</li>
+              </ul>
+              <div class="foot">
+                <span class="price">139 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6 IceTea Whey Lemon -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">500g · 16 porții</span>
+            <div class="img"><div class="ph"><strong>IceTea Whey</strong>Lemon 500g</div></div>
+            <div class="body">
+              <h3>IceTea Whey Lemon 500g</h3>
+              <ul>
+                <li>proteină răcoritoare</li>
+                <li>fără lactoză suplimentară</li>
+                <li>perfectă vara</li>
+              </ul>
+              <div class="foot">
+                <span class="price">219 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 7 LionFocus B6 -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">60 jeleuri · 30 zile</span>
+            <div class="img"><div class="ph"><strong>LionFocus</strong>B6</div></div>
+            <div class="body">
+              <h3>LionFocus B6</h3>
+              <ul>
+                <li>concentrare și claritate</li>
+                <li>memorie de lucru</li>
+                <li>gust afine, ușor de luat</li>
+              </ul>
+              <div class="foot">
+                <span class="price">124 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 8 Microflora+ Lemon Shots -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">500 ml · 33 zile</span>
+            <div class="img"><div class="ph"><strong>Microflora+</strong>Lemon Shots</div></div>
+            <div class="body">
+              <h3>Microflora+ Lemon Shots</h3>
+              <ul>
+                <li>probiotice microîncapsulate</li>
+                <li>echilibru intestinal</li>
+                <li>recuperare post-antibiotic</li>
+              </ul>
+              <div class="foot">
+                <span class="price">159 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 9 Vita Complete+ Vegan Shots -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">500 ml · 50 zile</span>
+            <div class="img"><div class="ph"><strong>Vita Complete+</strong>Vegan Shots</div></div>
+            <div class="body">
+              <h3>Vita Complete+ Vegan Shots</h3>
+              <ul>
+                <li>complex de bază vegan</li>
+                <li>energie și imunitate</li>
+                <li>52 nutrienți activi</li>
+              </ul>
+              <div class="foot">
+                <span class="price">184 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 10 Pachet Complex Sănătate 40+ -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 120 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet Complex</strong>Sănătate 40+</div></div>
+            <div class="body">
+              <h3>Pachet Complex Sănătate 40+</h3>
+              <ul>
+                <li>imunitate matură</li>
+                <li>energie după 40</li>
+                <li>protecție celulară</li>
+              </ul>
+              <div class="foot">
+                <span class="price">499 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 11 Pachet Confort Digestiv -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 120 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet Confort</strong>Digestiv</div></div>
+            <div class="body">
+              <h3>Pachet Confort Digestiv</h3>
+              <ul>
+                <li>balonare redusă</li>
+                <li>tranzit regulat</li>
+                <li>probiotice + ficat</li>
+              </ul>
+              <div class="foot">
+                <span class="price">283 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 12 Pachet Detox -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 120 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet</strong>Detox</div></div>
+            <div class="body">
+              <h3>Pachet Detox</h3>
+              <ul>
+                <li>curățare echilibrată</li>
+                <li>ficat și intestin</li>
+                <li>fără regim sever</li>
+              </ul>
+              <div class="foot">
+                <span class="price">283 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 13 Pachet Detox Plus -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 120 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet</strong>Detox Plus</div></div>
+            <div class="body">
+              <h3>Pachet Detox Plus</h3>
+              <ul>
+                <li>cură profundă 3 suplimente</li>
+                <li>regenerare hepatică</li>
+                <li>recuperare post-excese</li>
+              </ul>
+              <div class="foot">
+                <span class="price">457 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 14 Pachet Echilibru -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 33 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet</strong>Echilibru</div></div>
+            <div class="body">
+              <h3>Pachet Echilibru</h3>
+              <ul>
+                <li>intestin și colagen</li>
+                <li>frumusețe și digestie</li>
+                <li>cură scurtă, eficientă</li>
+              </ul>
+              <div class="foot">
+                <span class="price">325 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 15 Pachet Energie -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 120 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet</strong>Energie</div></div>
+            <div class="body">
+              <h3>Pachet Energie</h3>
+              <ul>
+                <li>B-complex și magneziu</li>
+                <li>adaptogeni vegan</li>
+                <li>dimineți reale, nu cafele</li>
+              </ul>
+              <div class="foot">
+                <span class="price">306 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 16 Pachet Focus -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 50 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet</strong>Focus</div></div>
+            <div class="body">
+              <h3>Pachet Focus</h3>
+              <ul>
+                <li>Lion's Mane, B12, omega-3</li>
+                <li>fără cafeină</li>
+                <li>sesiuni cognitive lungi</li>
+              </ul>
+              <div class="foot">
+                <span class="price">292 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 17 Pachet Frumusețe -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 50 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet</strong>Frumusețe</div></div>
+            <div class="body">
+              <h3>Pachet Frumusețe</h3>
+              <ul>
+                <li>piele, păr, unghii</li>
+                <li>colagen + biotină + Zn</li>
+                <li>rezultat la 6–8 săpt.</li>
+              </ul>
+              <div class="foot">
+                <span class="price">349 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 18 Pachet Imunitate -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 120 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet</strong>Imunitate</div></div>
+            <div class="body">
+              <h3>Pachet Imunitate</h3>
+              <ul>
+                <li>Vit C 250% + zinc + D3</li>
+                <li>blindaj pentru sezonul rece</li>
+                <li>cură 4 luni</li>
+              </ul>
+              <div class="foot">
+                <span class="price">349 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 19 Pachet Regenerare Celulară -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 120 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet Regenerare</strong>Celulară</div></div>
+            <div class="body">
+              <h3>Pachet Regenerare Celulară</h3>
+              <ul>
+                <li>colagen 1+2+3 + Black Seed</li>
+                <li>piele, articulații, păr</li>
+                <li>cura lungă completă</li>
+              </ul>
+              <div class="foot">
+                <span class="price">524 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 20 Pachet Vitalitate -->
+          <article class="pcard">
+            <button class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <span class="badge">Pachet · 50 zile</span>
+            <div class="img"><div class="ph"><strong>Pachet</strong>Vitalitate</div></div>
+            <div class="body">
+              <h3>Pachet Vitalitate</h3>
+              <ul>
+                <li>frumusețe + energie</li>
+                <li>echilibru general</li>
+                <li>cură concentrată</li>
+              </ul>
+              <div class="foot">
+                <span class="price">499 lei</span>
+                <a class="cta">Adaugă în coș</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="pagination">
+          <span class="info">20 din 20 afișate</span>
+          <a>Vezi catalogul complet</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-sell band -->
+  <section class="cross">
+    <div class="cross-inner">
+      <div>
+        <h2>Nu știi <em>exact</em> ce să alegi?</h2>
+        <p>Pleacă de la obiectivul tău, nu de la ingrediente. Îți recomandăm produsul potrivit în două click-uri.</p>
+      </div>
+      <a class="cross-cta">Mergi la După obiectiv
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="edu">
+    <div class="edu-inner">
+      <div class="eyebrow">Doze reale</div>
+      <h2>Ce înseamnă <em>doze reale</em>?</h2>
+      <p>Toate produsele sunt formulate în Uniunea Europeană, cu <strong>dozaje active conforme studiilor clinice</strong>, nu doze decorative pentru etichetă. Fiecare lot trece prin testare independentă, iar materiile prime au certificate de origine. Fără ingrediente puse pentru a face lista mai impresionantă.</p>
+      <div class="trust-badges">
+        <div class="tb">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 11h6M12 8v6M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16l-7-3-7 3z"/></svg>
+          <span>Lab tested<br/>independent</span>
+        </div>
+        <div class="tb">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+          <span>Vegan<br/>options</span>
+        </div>
+        <div class="tb">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>Fabricat<br/>în UE</span>
+        </div>
+        <div class="tb">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>90 zile<br/>garanție</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-inner">
+      <h2>Răspunsuri <em>scurte</em></h2>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <div class="faq-q">Cât durează livrarea?<span class="toggle">+</span></div>
+          <div class="faq-a">Livrăm în 24–48h pentru toate comenzile plasate până la 14:00. Curieri Sameday și DPD pentru București/Cluj/Iași, Fan Courier pentru restul țării. Transport gratuit la comenzi peste 199 lei, plata ramburs disponibilă.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Pot returna un produs deschis?<span class="toggle">+</span></div>
+          <div class="faq-a">Da. Ai 14 zile retur pentru produsele desigilate și 90 zile garanție de satisfacție pentru pachetele de cură. Dacă nu funcționează pentru tine, banii înapoi, fără explicații lungi.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Am abonament cu reducere?<span class="toggle">+</span></div>
+          <div class="faq-a">Da, abonament lunar sau bilunar cu 15% reducere permanentă, transport gratuit la fiecare livrare și posibilitatea de a sări o lună sau a anula oricând. Nu cerem card pentru cel puțin 3 luni.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 14 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="font-family:var(--font-serif);font-style:italic;color:#9FB3A2">Date statistice sunt demo, în scop de prezentare design.</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

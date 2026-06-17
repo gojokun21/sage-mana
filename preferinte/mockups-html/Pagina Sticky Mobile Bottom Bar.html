@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Sticky Mobile Bottom Bar, Mâna Naturii</title>
+<meta name="description" content="Componentă sticky bottom bar pentru mobil. Acces rapid la Acasă, Căutare, Test 60 sec, Coș." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  body{background:var(--cream)}
+
+  /* Simple header */
+  .top-bar{padding:18px 64px;background:#fff;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center}
+  .top-bar .logo-a{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+  .top-bar .logo-mark-a{width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center}
+  .top-bar .stack-a{display:flex;flex-direction:column;line-height:1.05}
+  .top-bar .stack-a .name{font-family:"Fraunces",serif;font-weight:500;font-size:18px;color:var(--ink);letter-spacing:-0.01em}
+  .top-bar .stack-a small{font-family:"Fraunces",serif;font-style:italic;font-size:11px;color:var(--ink-3);font-weight:400;margin-top:1px}
+  .top-bar .back-link{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink-2);font-weight:500;text-decoration:none;padding:8px 14px;border-radius:999px}
+  .top-bar .back-link:hover{color:var(--green);background:var(--cream)}
+  .top-bar .back-link svg{color:var(--ink-3)}
+
+  /* HERO */
+  .demo-hero{padding:56px 24px 32px;text-align:center;background:var(--cream)}
+  .demo-hero .eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--green-2);font-weight:700;margin-bottom:16px}
+  .demo-hero .eyebrow::before,.demo-hero .eyebrow::after{content:"";width:24px;height:1px;background:var(--green-2)}
+  .demo-hero h1{font-family:"Fraunces",serif;font-weight:400;font-size:44px;line-height:1.05;letter-spacing:-0.025em;margin:0 0 14px;color:var(--ink)}
+  .demo-hero h1 em{font-style:italic;color:var(--green);font-weight:300}
+  .demo-hero .sub{font-family:"Fraunces",serif;font-style:italic;font-size:16px;color:var(--ink-2);max-width:620px;margin:0 auto;line-height:1.65}
+  .demo-hero .sub strong{color:var(--ink);font-style:normal;font-family:"Inter",sans-serif;font-weight:600}
+
+  /* Section scaffold */
+  .section{padding:64px 24px;border-top:1px solid var(--rule);background:#fff}
+  .section.alt{background:var(--cream)}
+  .section-inner{max-width:1080px;margin:0 auto}
+  .section-head{margin-bottom:32px;text-align:center}
+  .section-head .eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--green-2);font-weight:700;margin-bottom:12px}
+  .section-head .eyebrow::before,.section-head .eyebrow::after{content:"";width:18px;height:1px;background:var(--green-2)}
+  .section-head h2{font-family:"Fraunces",serif;font-weight:400;font-size:32px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 8px;color:var(--ink)}
+  .section-head h2 em{font-style:italic;color:var(--green);font-weight:300}
+  .section-head p{font-family:"Fraunces",serif;font-style:italic;font-size:14.5px;color:var(--ink-2);margin:0;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.65}
+
+  /* ===== MOBILE FRAME DEMO ===== */
+  .device-stage{display:flex;justify-content:center;padding:24px 0;background:linear-gradient(180deg,var(--cream) 0%,#E8E0D2 100%);border-radius:24px;position:relative;overflow:hidden}
+  .device-stage::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.5),transparent 60%);pointer-events:none}
+  .device-frame{width:380px;height:720px;background:#000;border-radius:42px;padding:10px;box-shadow:0 24px 60px -20px rgba(15,42,29,.35),inset 0 0 0 2px #2a2a2a;position:relative}
+  .device-frame::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:120px;height:28px;background:#000;border-radius:18px;z-index:5}
+  .device-screen{width:100%;height:100%;background:#fff;border-radius:32px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+
+  /* Status bar */
+  .stat-bar{height:42px;padding:0 22px 0 28px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;background:#fff;color:#000;font-family:"Inter",sans-serif;font-size:13px;font-weight:600}
+  .stat-bar .time{font-family:-apple-system,sans-serif;font-weight:600}
+  .stat-bar .right{display:flex;align-items:center;gap:5px}
+
+  /* Browser chrome */
+  .browser-chrome{padding:8px 16px;background:#F2F2F7;border-bottom:1px solid #E5E5EA;display:flex;align-items:center;gap:8px;font-family:-apple-system,sans-serif;font-size:13px;color:#666}
+  .browser-chrome .url{flex:1;background:#fff;border-radius:8px;padding:6px 12px;display:flex;align-items:center;gap:6px;font-size:12px;color:#000;font-weight:500}
+  .browser-chrome .url svg{color:#666;flex-shrink:0}
+
+  /* Page content (catalog mock) */
+  .page-content{flex:1;overflow-y:auto;padding:14px 14px 90px;background:var(--cream);scrollbar-width:none}
+  .page-content::-webkit-scrollbar{display:none}
+  .mock-hero{padding:18px 6px 14px}
+  .mock-hero h2{font-family:"Fraunces",serif;font-weight:400;font-size:24px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 6px;color:var(--ink)}
+  .mock-hero h2 em{font-style:italic;color:var(--green);font-weight:300}
+  .mock-hero p{font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:var(--ink-3);margin:0}
+  .mock-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .mock-card{background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .mock-card .img{aspect-ratio:1;display:grid;place-items:center;padding:14px}
+  .mock-card .img.t1{background:linear-gradient(160deg,#F0E5D0,#E0D2B4)}
+  .mock-card .img.t2{background:linear-gradient(160deg,#D9E8D2,#A8C39A)}
+  .mock-card .img.t3{background:linear-gradient(160deg,#E5D6B8,#C9B68A)}
+  .mock-card .img.t4{background:linear-gradient(160deg,#EFD9C9,#D9B69A)}
+  .mock-card .img::after{content:"";width:24px;height:46px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:3px 3px 5px 5px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.25))}
+  .mock-card .img.t2::after{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .mock-card .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px}
+  .mock-card .cat{font-family:"Inter",sans-serif;font-size:9px;letter-spacing:.10em;text-transform:uppercase;color:var(--green);font-weight:700}
+  .mock-card .name{font-family:"Fraunces",serif;font-size:13px;font-weight:500;line-height:1.25;color:var(--ink);letter-spacing:-0.005em}
+  .mock-card .price{font-family:"Fraunces",serif;font-size:15px;font-weight:500;color:var(--ink);margin-top:4px}
+  .mock-card .price small{font-family:"Inter",sans-serif;font-size:10px;color:var(--ink-3);font-weight:500;display:block;margin-top:1px}
+
+  /* STICKY BOTTOM BAR (the actual component) */
+  .sticky-bar{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--rule);padding:8px 12px;padding-bottom:calc(8px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-around;gap:4px;box-shadow:0 -6px 16px -8px rgba(15,42,29,.10);z-index:10}
+  .sticky-bar .nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:64px;min-height:56px;padding:6px 4px;text-decoration:none;color:var(--ink-3);position:relative;border-radius:10px;transition:color .15s;font-family:"Inter",sans-serif}
+  .sticky-bar .nav-item:active{background:var(--cream)}
+  .sticky-bar .nav-item .icon{width:24px;height:24px;display:grid;place-items:center;color:currentColor}
+  .sticky-bar .nav-item .label{font-size:10px;font-weight:600;letter-spacing:.02em;line-height:1}
+  .sticky-bar .nav-item.active{color:var(--green-deep)}
+  .sticky-bar .nav-item.active::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:32px;height:3px;background:var(--terra);border-radius:0 0 3px 3px}
+  .sticky-bar .nav-item.active .icon svg{stroke-width:2.2;color:var(--green)}
+  .sticky-bar .nav-item .badge{position:absolute;top:0;right:8px;min-width:18px;height:18px;background:var(--terra);color:#fff;border-radius:50%;display:grid;place-items:center;font-family:"Inter",sans-serif;font-size:10px;font-weight:700;padding:0 5px;box-shadow:0 0 0 2px #fff;letter-spacing:0}
+
+  /* Spec callout under device */
+  .spec-callout{margin-top:24px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+  .spec-chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--rule);padding:9px 14px;border-radius:999px;font-family:"Inter",sans-serif;font-size:12px;color:var(--ink-2);font-weight:500}
+  .spec-chip strong{color:var(--ink);font-weight:600}
+  .spec-chip svg{color:var(--green);flex-shrink:0}
+
+  /* ===== BREAKDOWN CARDS ===== */
+  .breakdown-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .b-card{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:24px 26px;display:flex;flex-direction:column;gap:12px}
+  .b-card .num{width:34px;height:34px;border-radius:50%;background:var(--cream);color:var(--green);display:grid;place-items:center;font-family:"Fraunces",serif;font-weight:500;font-size:15px;border:1.5px solid var(--green-2)}
+  .b-card h3{font-family:"Fraunces",serif;font-size:18px;font-weight:500;line-height:1.3;margin:0;color:var(--ink)}
+  .b-card h3 em{font-style:italic;color:var(--green);font-weight:300}
+  .b-card p{font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink-2);line-height:1.65;margin:0}
+  .b-card p strong{color:var(--ink);font-weight:600}
+  .b-card .spec-list{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+  .b-card .spec-list .row{display:flex;justify-content:space-between;align-items:baseline;font-family:"JetBrains Mono",monospace;font-size:11.5px;padding:5px 0;border-bottom:1px dashed var(--rule)}
+  .b-card .spec-list .row:last-child{border-bottom:0}
+  .b-card .spec-list .k{color:var(--ink-3);font-weight:500}
+  .b-card .spec-list .v{color:var(--ink);font-weight:600}
+  .b-card .spec-list .v.green{color:var(--green)}
+  .b-card .spec-list .v.terra{color:var(--terra-deep)}
+
+  /* ===== CODE BLOCK ===== */
+  .code-stack{display:flex;flex-direction:column;gap:14px}
+  .code-card{background:#0F2A1D;border-radius:14px;overflow:hidden;border:1px solid #1A4030}
+  .code-head{padding:12px 18px;background:#0a1f15;border-bottom:1px solid #1A4030;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .code-head .lbl{display:inline-flex;align-items:center;gap:10px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9FC0A8;font-weight:700}
+  .code-head .lbl .lang{background:rgba(202,164,74,.15);color:#CAA44A;padding:3px 10px;border-radius:6px;font-weight:700;letter-spacing:.06em;font-size:10.5px}
+  .code-head .copy-btn{background:transparent;border:1px solid rgba(255,255,255,.20);color:#C2D9AC;padding:6px 12px;border-radius:8px;font-family:"Inter",sans-serif;font-size:11px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+  .code-head .copy-btn:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.35);color:#fff}
+  .code-body{padding:20px 24px;overflow-x:auto;background:#0F2A1D}
+  .code-body pre{margin:0;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.7;color:#E0EFD6;white-space:pre;tab-size:2}
+  .code-body .tag{color:#92C9E5}
+  .code-body .attr{color:#CAA44A}
+  .code-body .str{color:#A4D49B}
+  .code-body .com{color:#6B8B73;font-style:italic}
+  .code-body .key{color:#E5A4A4}
+  .code-body .num{color:#D4B873}
+  .code-body .sel{color:#92C9E5}
+  .code-body .prop{color:#CAA44A}
+  .code-body .val{color:#A4D49B}
+
+  /* Notes block */
+  .notes-card{background:var(--cream);border:1.5px solid var(--rule);border-left:5px solid var(--green);border-radius:12px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+  .notes-card .lbl{font-family:"Inter",sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--green-deep);font-weight:700;display:inline-flex;align-items:center;gap:8px}
+  .notes-card ul{margin:6px 0 0;padding:0 0 0 18px;display:flex;flex-direction:column;gap:6px}
+  .notes-card li{font-family:"Inter",sans-serif;font-size:13px;color:var(--ink-2);line-height:1.6}
+  .notes-card li strong{color:var(--ink);font-weight:600}
+  .notes-card li code{font-family:"JetBrains Mono",monospace;font-size:12px;background:#fff;padding:1px 6px;border-radius:4px;color:var(--green-deep);border:1px solid var(--rule)}
+
+  /* Footer minimal */
+  .auth-footer{padding:28px 24px 36px;background:#fff;text-align:center;border-top:1px solid var(--rule)}
+  .auth-footer .copyright{font-family:"Fraunces",serif;font-style:italic;font-size:11.5px;color:var(--ink-3);line-height:1.5}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Sticky Mobile Bottom Bar">
+
+  <header class="top-bar">
+    <a class="logo-a" href="Mana Naturii - Homepage.html">
+      <span class="logo-mark-a"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+      <span class="stack-a"><span class="name">mâna naturii</span><small>by vivens genetica</small></span>
+    </a>
+    <a class="back-link" href="Mana Naturii - Homepage.html">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+      Înapoi la magazin
+    </a>
+  </header>
+
+  <!-- HERO -->
+  <section class="demo-hero">
+    <div class="eyebrow">Componentă UI · Mobile</div>
+    <h1>Sticky Mobile <em>Bottom Bar.</em></h1>
+    <p class="sub">Componentă persistentă pe mobil, pentru acces rapid la <strong>Acasă, Caută, Test 60 sec, Coș</strong>, fără a obtura conținutul.</p>
+  </section>
+
+  <!-- SECTION 1: VISUAL DEMO -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="eyebrow">Secțiunea 1, Demo vizual</div>
+        <h2>Cum arată <em>pe device.</em></h2>
+        <p>Mockup mobile 380×720px cu safari frame, browser chrome și catalog placeholder. Bara apare pe orice pagină mobile, sub conținut, peste pătura de jos a paginii.</p>
+      </div>
+
+      <div class="device-stage">
+        <div class="device-frame">
+          <div class="device-screen">
+
+            <!-- iOS status bar mock -->
+            <div class="stat-bar">
+              <span class="time">9:41</span>
+              <span class="right">
+                <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M1 7a1 1 0 0 1 1-1h1v4H2a1 1 0 0 1-1-1V7zm4-2a1 1 0 0 1 1-1h1v6H6a1 1 0 0 1-1-1V5zm4-2a1 1 0 0 1 1-1h1v8h-1a1 1 0 0 1-1-1V3zm4-2a1 1 0 0 1 1-1h1v10h-1a1 1 0 0 1-1-1V1z"/></svg>
+                <svg width="14" height="11" viewBox="0 0 14 11" fill="currentColor"><path d="M7 1.5a8 8 0 0 1 6.5 3l-1.1 1.1A6.5 6.5 0 0 0 7 3 6.5 6.5 0 0 0 1.6 5.6L.5 4.5A8 8 0 0 1 7 1.5zM7 5a4.5 4.5 0 0 1 3.5 1.7l-1.1 1.1A3 3 0 0 0 7 6.5a3 3 0 0 0-2.4 1.3L3.5 6.7A4.5 4.5 0 0 1 7 5zm0 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                <svg width="24" height="11" viewBox="0 0 24 11" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="1" width="20" height="9" rx="2"/><rect x="3" y="3" width="16" height="5" rx="1" fill="currentColor"/><rect x="22" y="4" width="1" height="3" fill="currentColor"/></svg>
+              </span>
+            </div>
+
+            <!-- Browser chrome -->
+            <div class="browser-chrome">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+              <div class="url"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>mananaturii.ro/suplimente</div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+
+            <!-- Page content -->
+            <div class="page-content">
+              <div class="mock-hero">
+                <h2>Catalog <em>suplimente.</em></h2>
+                <p>20 de produse, 11 pachete, alese cu grijă.</p>
+              </div>
+              <div class="mock-grid">
+                <div class="mock-card">
+                  <div class="img t1"></div>
+                  <div class="body"><span class="cat">Digestie</span><span class="name">Microflora+ Lemon</span><span class="price">159 lei<small>4,82 lei/zi</small></span></div>
+                </div>
+                <div class="mock-card">
+                  <div class="img t2"></div>
+                  <div class="body"><span class="cat">Detox</span><span class="name">D-Tox Ficat</span><span class="price">139 lei<small>1,16 lei/zi</small></span></div>
+                </div>
+                <div class="mock-card">
+                  <div class="img t3"></div>
+                  <div class="body"><span class="cat">Imunitate</span><span class="name">Black Seed Elixir</span><span class="price">184 lei<small>1,53 lei/zi</small></span></div>
+                </div>
+                <div class="mock-card">
+                  <div class="img t4"></div>
+                  <div class="body"><span class="cat">Articulații</span><span class="name">Collagen Joint+</span><span class="price">184 lei<small>5,58 lei/zi</small></span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STICKY BOTTOM BAR -->
+            <nav class="sticky-bar" aria-label="Navigare principală mobile">
+              <a class="nav-item active" href="#">
+                <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4v-7h-6v7H5a2 2 0 0 1-2-2z"/></svg></span>
+                <span class="label">Acasă</span>
+              </a>
+              <a class="nav-item" href="#">
+                <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+                <span class="label">Caută</span>
+              </a>
+              <a class="nav-item" href="#">
+                <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 2v6.4a4 4 0 0 1-.4 1.8L4 18a2 2 0 0 0 1.8 2.8h12.4a2 2 0 0 0 1.8-2.8l-4.6-7.8a4 4 0 0 1-.4-1.8V2"/><path d="M8 2h8M9 14h6"/></svg></span>
+                <span class="label">Test 60s</span>
+              </a>
+              <a class="nav-item" href="#">
+                <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></span>
+                <span class="badge">2</span>
+                <span class="label">Coș</span>
+              </a>
+            </nav>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-callout">
+        <span class="spec-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>Vizibil <strong>doar pe mobil</strong> (max-width 768px)</span>
+        <span class="spec-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/></svg>Safe area <strong>iPhone notch</strong> respectat</span>
+        <span class="spec-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>Tap target <strong>64×64px</strong>, WCAG AAA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: BREAKDOWN -->
+  <section class="section alt">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="eyebrow">Secțiunea 2, Specificații</div>
+        <h2>Breakdown <em>design.</em></h2>
+        <p>Patru carduri cu specificațiile fiecărui aspect, dimensiuni, behavior, accesibilitate.</p>
+      </div>
+
+      <div class="breakdown-grid">
+
+        <div class="b-card">
+          <div class="num">01</div>
+          <h3>Dimensiuni <em>și breakpoint.</em></h3>
+          <p>Bara apare doar pe ecrane mici. Pe desktop e <strong>ascunsă complet</strong> (există deja header și footer). Padding extra jos pentru a respecta safe-area-inset-bottom pe iPhone-uri cu notch sau home indicator.</p>
+          <div class="spec-list">
+            <div class="row"><span class="k">Înălțime container</span><span class="v">64px</span></div>
+            <div class="row"><span class="k">Padding</span><span class="v">8px 16px</span></div>
+            <div class="row"><span class="k">Breakpoint vizibil</span><span class="v green">max 768px</span></div>
+            <div class="row"><span class="k">Safe area bottom</span><span class="v">env(safe-area-inset-bottom)</span></div>
+            <div class="row"><span class="k">Z-index</span><span class="v">10 (peste conținut)</span></div>
+          </div>
+        </div>
+
+        <div class="b-card">
+          <div class="num">02</div>
+          <h3>Items <em>și tap target.</em></h3>
+          <p>Patru iconuri în row distribuite cu <code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--cream);padding:1px 6px;border-radius:4px;color:var(--green-deep)">space-around</code>, fiecare cu icon SVG 24px și label text dedesubt. Tap target minim <strong>64×64px</strong> (recomandare WCAG, mai mare decât minimul Apple HIG de 44pt).</p>
+          <div class="spec-list">
+            <div class="row"><span class="k">Icon size</span><span class="v">24×24px</span></div>
+            <div class="row"><span class="k">Label font</span><span class="v">Inter 10px / 600</span></div>
+            <div class="row"><span class="k">Tap target</span><span class="v green">64×64px min</span></div>
+            <div class="row"><span class="k">Gap între items</span><span class="v">4px (space-around)</span></div>
+            <div class="row"><span class="k">Stroke width SVG</span><span class="v">1.8 (active 2.2)</span></div>
+          </div>
+        </div>
+
+        <div class="b-card">
+          <div class="num">03</div>
+          <h3>Active state.</h3>
+          <p>Itemul activ are <strong>bară terracotta 3px sus</strong> (centrată, 32px lățime) și icon-ul devine forest green cu stroke 2.2. Text-ul devine green-deep, font-weight 600. Detection pe baza <code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--cream);padding:1px 6px;border-radius:4px;color:var(--green-deep)">window.location.pathname</code>.</p>
+          <div class="spec-list">
+            <div class="row"><span class="k">Indicator</span><span class="v terra">3px terracotta sus</span></div>
+            <div class="row"><span class="k">Lățime indicator</span><span class="v">32px, centrat</span></div>
+            <div class="row"><span class="k">Color icon active</span><span class="v green">var(--green)</span></div>
+            <div class="row"><span class="k">Color text active</span><span class="v green">var(--green-deep)</span></div>
+            <div class="row"><span class="k">Tranziție</span><span class="v">color 150ms</span></div>
+          </div>
+        </div>
+
+        <div class="b-card">
+          <div class="num">04</div>
+          <h3>Badge <em>coș.</em></h3>
+          <p>Cifra în cerc terracotta 18px diametru, plasată în <strong>top-right</strong> al icon-ului Coș. Border alb 2px pentru contrast pe orice fundal. Cifra dispare dacă valoarea e zero (logic JS, nu CSS).</p>
+          <div class="spec-list">
+            <div class="row"><span class="k">Dimensiune badge</span><span class="v">min 18×18px</span></div>
+            <div class="row"><span class="k">Background</span><span class="v terra">var(--terra)</span></div>
+            <div class="row"><span class="k">Border</span><span class="v">2px alb (#fff)</span></div>
+            <div class="row"><span class="k">Font cifră</span><span class="v">Inter 10px / 700</span></div>
+            <div class="row"><span class="k">Poziție</span><span class="v">top 0, right 8px</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: CODE -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="eyebrow">Secțiunea 3, Integrare</div>
+        <h2>Cod gata <em>de copy-paste.</em></h2>
+        <p>HTML, CSS și JavaScript minimal pentru a integra bara în orice pagină existentă. Adaugi snippet-ul înainte de <code style="font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--cream);padding:1px 6px;border-radius:4px;color:var(--green-deep)">&lt;/body&gt;</code> și se afișează doar pe mobil.</p>
+      </div>
+
+      <div class="code-stack">
+
+        <!-- HTML -->
+        <div class="code-card">
+          <div class="code-head">
+            <span class="lbl"><span class="lang">HTML</span>Structura barei</span>
+            <button class="copy-btn" type="button"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază</button>
+          </div>
+          <div class="code-body"><pre><span class="com">&lt;!-- Adaugă înainte de &lt;/body&gt; pe orice pagină --&gt;</span>
+<span class="tag">&lt;nav</span> <span class="attr">class</span>=<span class="str">"sticky-mobile-bar"</span> <span class="attr">aria-label</span>=<span class="str">"Navigare principală mobile"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">class</span>=<span class="str">"smb-item"</span> <span class="attr">href</span>=<span class="str">"/"</span> <span class="attr">data-route</span>=<span class="str">"home"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"smb-icon"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;svg</span> <span class="attr">width</span>=<span class="str">"22"</span> <span class="attr">height</span>=<span class="str">"22"</span> <span class="attr">viewBox</span>=<span class="str">"0 0 24 24"</span> <span class="attr">fill</span>=<span class="str">"none"</span> <span class="attr">stroke</span>=<span class="str">"currentColor"</span> <span class="attr">stroke-width</span>=<span class="str">"1.8"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;path</span> <span class="attr">d</span>=<span class="str">"M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4v-7h-6v7H5a2 2 0 0 1-2-2z"</span><span class="tag">/&gt;</span>
+      <span class="tag">&lt;/svg&gt;</span>
+    <span class="tag">&lt;/span&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"smb-label"</span><span class="tag">&gt;</span>Acasă<span class="tag">&lt;/span&gt;</span>
+  <span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">class</span>=<span class="str">"smb-item"</span> <span class="attr">href</span>=<span class="str">"/suplimente/"</span> <span class="attr">data-route</span>=<span class="str">"catalog"</span><span class="tag">&gt;</span> <span class="com">... Caută ...</span> <span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">class</span>=<span class="str">"smb-item"</span> <span class="attr">href</span>=<span class="str">"/test-60-sec/"</span> <span class="attr">data-route</span>=<span class="str">"quiz"</span><span class="tag">&gt;</span> <span class="com">... Test 60s ...</span> <span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">class</span>=<span class="str">"smb-item"</span> <span class="attr">href</span>=<span class="str">"/cos/"</span> <span class="attr">data-route</span>=<span class="str">"cart"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"smb-icon"</span><span class="tag">&gt;</span> <span class="com">cart svg</span> <span class="tag">&lt;/span&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"smb-badge"</span> <span class="attr">data-count</span>=<span class="str">"2"</span><span class="tag">&gt;</span>2<span class="tag">&lt;/span&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"smb-label"</span><span class="tag">&gt;</span>Coș<span class="tag">&lt;/span&gt;</span>
+  <span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;/nav&gt;</span></pre></div>
+        </div>
+
+        <!-- CSS -->
+        <div class="code-card">
+          <div class="code-head">
+            <span class="lbl"><span class="lang">CSS</span>Stilizare și breakpoint</span>
+            <button class="copy-btn" type="button"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază</button>
+          </div>
+          <div class="code-body"><pre><span class="sel">.sticky-mobile-bar</span> {
+  <span class="prop">display</span>: <span class="val">none</span>; <span class="com">/* ascuns pe desktop */</span>
+  <span class="prop">position</span>: <span class="val">fixed</span>;
+  <span class="prop">bottom</span>: <span class="num">0</span>; <span class="prop">left</span>: <span class="num">0</span>; <span class="prop">right</span>: <span class="num">0</span>;
+  <span class="prop">background</span>: <span class="val">#fff</span>;
+  <span class="prop">border-top</span>: <span class="num">1px</span> <span class="val">solid</span> <span class="val">#E8E0D2</span>;
+  <span class="prop">padding</span>: <span class="num">8px</span> <span class="num">16px</span>;
+  <span class="prop">padding-bottom</span>: <span class="val">calc</span>(<span class="num">8px</span> + <span class="val">env</span>(<span class="val">safe-area-inset-bottom</span>));
+  <span class="prop">z-index</span>: <span class="num">100</span>;
+  <span class="prop">box-shadow</span>: <span class="num">0</span> -<span class="num">6px</span> <span class="num">16px</span> -<span class="num">8px</span> <span class="val">rgba</span>(<span class="num">15</span>,<span class="num">42</span>,<span class="num">29</span>,<span class="num">.10</span>);
+}
+
+<span class="key">@media</span> (<span class="prop">max-width</span>: <span class="num">768px</span>) {
+  <span class="sel">.sticky-mobile-bar</span> { <span class="prop">display</span>: <span class="val">flex</span>; <span class="prop">justify-content</span>: <span class="val">space-around</span>; }
+  <span class="com">/* extra padding pe body ca să nu acopere conținutul */</span>
+  <span class="sel">body</span> { <span class="prop">padding-bottom</span>: <span class="val">calc</span>(<span class="num">72px</span> + <span class="val">env</span>(<span class="val">safe-area-inset-bottom</span>)); }
+}
+
+<span class="sel">.smb-item</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>; <span class="prop">flex-direction</span>: <span class="val">column</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>; <span class="prop">justify-content</span>: <span class="val">center</span>;
+  <span class="prop">gap</span>: <span class="num">4px</span>;
+  <span class="prop">min-width</span>: <span class="num">64px</span>; <span class="prop">min-height</span>: <span class="num">56px</span>; <span class="com">/* WCAG tap target */</span>
+  <span class="prop">color</span>: <span class="val">#9B9B8A</span>;
+  <span class="prop">text-decoration</span>: <span class="val">none</span>;
+  <span class="prop">position</span>: <span class="val">relative</span>;
+  <span class="prop">font-family</span>: <span class="val">"Inter"</span>, <span class="val">sans-serif</span>;
+}
+
+<span class="sel">.smb-item.active</span> { <span class="prop">color</span>: <span class="val">#0F5132</span>; <span class="prop">font-weight</span>: <span class="num">600</span>; }
+<span class="sel">.smb-item.active::before</span> {
+  <span class="prop">content</span>: <span class="str">""</span>;
+  <span class="prop">position</span>: <span class="val">absolute</span>; <span class="prop">top</span>: <span class="num">0</span>; <span class="prop">left</span>: <span class="num">50%</span>;
+  <span class="prop">transform</span>: <span class="val">translateX</span>(-<span class="num">50%</span>);
+  <span class="prop">width</span>: <span class="num">32px</span>; <span class="prop">height</span>: <span class="num">3px</span>;
+  <span class="prop">background</span>: <span class="val">#C4623F</span>;
+  <span class="prop">border-radius</span>: <span class="num">0</span> <span class="num">0</span> <span class="num">3px</span> <span class="num">3px</span>;
+}
+
+<span class="sel">.smb-label</span> { <span class="prop">font-size</span>: <span class="num">10px</span>; <span class="prop">font-weight</span>: <span class="num">600</span>; <span class="prop">letter-spacing</span>: <span class="num">.02em</span>; }
+
+<span class="sel">.smb-badge</span> {
+  <span class="prop">position</span>: <span class="val">absolute</span>; <span class="prop">top</span>: <span class="num">0</span>; <span class="prop">right</span>: <span class="num">8px</span>;
+  <span class="prop">min-width</span>: <span class="num">18px</span>; <span class="prop">height</span>: <span class="num">18px</span>;
+  <span class="prop">background</span>: <span class="val">#C4623F</span>; <span class="prop">color</span>: <span class="val">#fff</span>;
+  <span class="prop">border-radius</span>: <span class="num">50%</span>;
+  <span class="prop">box-shadow</span>: <span class="num">0</span> <span class="num">0</span> <span class="num">0</span> <span class="num">2px</span> <span class="val">#fff</span>;
+  <span class="prop">font-size</span>: <span class="num">10px</span>; <span class="prop">font-weight</span>: <span class="num">700</span>;
+  <span class="prop">display</span>: <span class="val">grid</span>; <span class="prop">place-items</span>: <span class="val">center</span>;
+}
+<span class="sel">.smb-badge[data-count="0"]</span> { <span class="prop">display</span>: <span class="val">none</span>; } <span class="com">/* ascunde la coș gol */</span></pre></div>
+        </div>
+
+        <!-- JS -->
+        <div class="code-card">
+          <div class="code-head">
+            <span class="lbl"><span class="lang">JS</span>Detecție rută activă</span>
+            <button class="copy-btn" type="button"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază</button>
+          </div>
+          <div class="code-body"><pre>(<span class="key">function</span>() {
+  <span class="key">var</span> path = <span class="val">window</span>.<span class="prop">location</span>.<span class="prop">pathname</span>;
+  <span class="key">var</span> routeMap = {
+    <span class="str">'home'</span>: <span class="key">function</span>(p) { <span class="key">return</span> p === <span class="str">'/'</span> || p === <span class="str">'/acasa/'</span>; },
+    <span class="str">'catalog'</span>: <span class="key">function</span>(p) { <span class="key">return</span> p.<span class="prop">indexOf</span>(<span class="str">'/suplimente'</span>) === <span class="num">0</span>; },
+    <span class="str">'quiz'</span>: <span class="key">function</span>(p) { <span class="key">return</span> p.<span class="prop">indexOf</span>(<span class="str">'/test-60'</span>) === <span class="num">0</span>; },
+    <span class="str">'cart'</span>: <span class="key">function</span>(p) { <span class="key">return</span> p.<span class="prop">indexOf</span>(<span class="str">'/cos'</span>) === <span class="num">0</span>; }
+  };
+  <span class="val">document</span>.<span class="prop">querySelectorAll</span>(<span class="str">'.smb-item'</span>).<span class="prop">forEach</span>(<span class="key">function</span>(item) {
+    <span class="key">var</span> route = item.<span class="prop">dataset</span>.<span class="prop">route</span>;
+    <span class="key">if</span> (routeMap[route] &amp;&amp; routeMap[route](path)) {
+      item.<span class="prop">classList</span>.<span class="prop">add</span>(<span class="str">'active'</span>);
+    }
+  });
+
+  <span class="com">/* Actualizare badge coș dintr-un cart store (localStorage sau global) */</span>
+  <span class="key">var</span> count = <span class="val">parseInt</span>(<span class="val">localStorage</span>.<span class="prop">getItem</span>(<span class="str">'cart_count'</span>) || <span class="str">'0'</span>, <span class="num">10</span>);
+  <span class="key">var</span> badge = <span class="val">document</span>.<span class="prop">querySelector</span>(<span class="str">'.smb-badge'</span>);
+  <span class="key">if</span> (badge) {
+    badge.<span class="prop">setAttribute</span>(<span class="str">'data-count'</span>, count);
+    badge.<span class="prop">textContent</span> = count;
+  }
+})();</pre></div>
+        </div>
+
+        <!-- Notes -->
+        <div class="notes-card">
+          <span class="lbl">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            Note implementare
+          </span>
+          <ul>
+            <li><strong>Ordine de adăugare</strong> pe pagină: nav-ul se pune <strong>înainte de <code>&lt;/body&gt;</code></strong>, nu în header. CSS-ul de la <code>body { padding-bottom: ... }</code> previne acoperirea conținutului.</li>
+            <li><strong>Cart badge sync</strong>: actualizează <code>data-count</code> la fiecare modificare coș (add/remove/clear). Cifra dispare automat când <code>data-count="0"</code> via CSS.</li>
+            <li><strong>Accesibilitate</strong>: tap target minim <strong>64×64px</strong> (depășește 44pt Apple HIG), aria-label pe nav, focus visible în Tab navigation.</li>
+            <li><strong>iPhone notch</strong>: <code>env(safe-area-inset-bottom)</code> rezolvă automat. Testează pe device real (devtools mobile emulator nu redă safe-area corect).</li>
+            <li><strong>Z-index</strong>: 100, ca să stea peste orice element din pagină (modale dă-le z-index 1000+).</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="auth-footer">
+    <div class="copyright">© 2026 Mâna Naturii, by Vivens Genetica · Componentă UI</div>
+  </footer>
+
+</div>
+</body>
+</html>

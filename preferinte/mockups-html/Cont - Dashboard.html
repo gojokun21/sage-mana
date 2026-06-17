@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii: Contul meu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .breadcrumb{padding:18px 64px;font-size:13px;color:var(--ink-3);display:flex;align-items:center;gap:10px;background:#fff;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:20}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--ink);font-weight:600}
+
+  /* Layout */
+  .account-wrap{display:grid;grid-template-columns:280px 1fr;gap:32px;padding:32px 64px 80px;background:var(--cream);min-height:600px;align-items:flex-start}
+
+  /* SIDEBAR identic, cu Dashboard adăugat ca prim item */
+  .sidebar{position:sticky;top:84px;background:#fff;border:1px solid var(--rule);border-radius:20px;overflow:hidden}
+  .sb-profile{padding:24px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--rule)}
+  .sb-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;display:grid;place-items:center;font-family:"Fraunces",serif;font-size:19px;font-weight:500;letter-spacing:-0.01em;flex-shrink:0}
+  .sb-profile .who{display:flex;flex-direction:column;min-width:0}
+  .sb-profile .who .n{font-family:"Inter",sans-serif;font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.2}
+  .sb-profile .who .e{font-size:12px;color:var(--ink-3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sb-nav{padding:14px 12px;display:flex;flex-direction:column;gap:2px}
+  .sb-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink-2);font-weight:500;cursor:pointer;position:relative;text-decoration:none}
+  .sb-item:hover{background:var(--cream)}
+  .sb-item svg{width:16px;height:16px;color:var(--ink-3);flex-shrink:0}
+  .sb-item.active{background:var(--cream);color:var(--green-deep);font-weight:600}
+  .sb-item.active svg{color:var(--green)}
+  .sb-item.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--terra);border-radius:0 3px 3px 0}
+  .sb-item .chip-level{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:var(--cream-2);color:var(--green-deep);font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:999px;text-transform:uppercase}
+  .sb-item .chip-level::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green-2)}
+  .sb-sep{height:1px;background:var(--rule);margin:8px 16px}
+  .sb-logout{display:flex;align-items:center;gap:10px;padding:14px 26px;font-size:12.5px;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+  /* Main */
+  .main-col{display:flex;flex-direction:column;gap:22px;min-width:0}
+
+  /* ===== D1 HERO ===== */
+  .hero{position:relative;background:linear-gradient(135deg, var(--cream-2) 0%, #FAF6EE 100%);border:1px solid var(--rule);border-radius:20px;padding:32px 36px;display:flex;align-items:flex-start;justify-content:space-between;gap:22px;overflow:hidden;flex-wrap:wrap}
+  .hero::before{content:"";position:absolute;top:-60px;right:-30px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle, rgba(46,79,55,.05) 0%, transparent 70%);pointer-events:none}
+  .hero .hc{position:relative;z-index:1;display:flex;flex-direction:column;gap:8px;min-width:0;flex:1}
+  .hero h1{font-family:"Fraunces",serif;font-weight:400;font-size:44px;line-height:1.05;letter-spacing:-0.02em;margin:0;color:var(--ink)}
+  .hero h1 em{font-style:italic;color:var(--green);font-weight:300}
+  .hero .date{display:inline-flex;align-items:center;gap:9px;font-family:"Inter",sans-serif;font-size:14px;color:var(--ink-2);font-weight:500;margin-top:2px}
+  .hero .date svg{color:var(--green-2)}
+  .hero .date .dotsep{width:4px;height:4px;border-radius:50%;background:var(--rule-2)}
+  .hero .date .weather{font-family:"Fraunces",serif;font-style:italic;color:var(--ink-3);font-size:13px;font-weight:400}
+  .hero .profile-link{position:relative;z-index:1;display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 16px;background:#fff;color:var(--ink-2);border:1px solid var(--rule);border-radius:999px;font-family:"Inter",sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;transition:all .15s;flex-shrink:0}
+  .hero .profile-link:hover{border-color:var(--green);color:var(--green)}
+  .hero .profile-link svg{color:var(--ink-3);transition:color .15s}
+  .hero .profile-link:hover svg{color:var(--green)}
+
+  /* ===== D2 ORDER BANNER ===== */
+  .order-banner{position:relative;background:linear-gradient(135deg, #FBEAE0 0%, #F8DCC8 100%);border:1px solid #E6BFA0;border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:20px;overflow:hidden}
+  .order-banner::before{content:"";position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle, rgba(196,98,63,.15) 0%, transparent 70%);pointer-events:none}
+  .ob-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;position:relative;z-index:1}
+  .ob-top .copy{display:flex;flex-direction:column;gap:8px;flex:1;min-width:240px}
+  .ob-top .ob-lbl{display:inline-flex;align-items:center;gap:9px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-deep);font-weight:700}
+  .ob-top .ob-lbl::before{content:"";width:18px;height:1px;background:var(--terra-deep)}
+  .ob-top h2{font-family:"Fraunces",serif;font-weight:400;font-size:26px;line-height:1.2;letter-spacing:-0.015em;margin:0;color:#5A2D14}
+  .ob-top h2 em{font-style:italic;color:var(--terra-deep);font-weight:400}
+  .ob-top h2 .order-id{font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:600;background:rgba(255,255,255,.6);padding:2px 10px;border-radius:6px;color:var(--terra-deep);letter-spacing:.02em}
+  .ob-top .ob-desc{font-family:"Inter",sans-serif;font-size:13.5px;color:#5A2D14;line-height:1.55;max-width:600px}
+  .ob-top .ob-desc strong{font-weight:600;color:#3D1E0A}
+  .ob-top .ob-courier{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.7);padding:6px 12px;border-radius:999px;font-family:"Inter",sans-serif;font-size:12px;font-weight:600;color:#5A2D14;align-self:flex-start;margin-top:2px}
+  .ob-top .ob-courier svg{color:var(--terra-deep);width:12px;height:12px}
+
+  /* Timeline */
+  .ob-timeline{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:6px;background:rgba(255,255,255,.5);border-radius:14px;padding:18px 22px;backdrop-filter:blur(4px)}
+  .tl-step{display:flex;flex-direction:column;align-items:center;gap:8px;flex:0 0 auto;text-align:center;position:relative;z-index:2}
+  .tl-step .tl-dot{width:32px;height:32px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--ink-3);border:2px solid var(--rule);flex-shrink:0;transition:all .25s}
+  .tl-step.done .tl-dot{background:var(--terra);color:#fff;border-color:var(--terra)}
+  .tl-step.now .tl-dot{background:var(--terra);color:#fff;border-color:var(--terra);box-shadow:0 0 0 0 rgba(196,98,63,.6);animation:pulse 2s infinite}
+  .tl-step.future .tl-dot{background:#fff;color:var(--ink-3);border-color:var(--rule)}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(196,98,63,.6)}
+    70%{box-shadow:0 0 0 14px rgba(196,98,63,0)}
+    100%{box-shadow:0 0 0 0 rgba(196,98,63,0)}
+  }
+  .tl-step .tl-lbl{font-family:"Inter",sans-serif;font-size:11.5px;font-weight:600;color:var(--ink-2);line-height:1.2;letter-spacing:.02em}
+  .tl-step.now .tl-lbl{color:var(--terra-deep);font-weight:700}
+  .tl-step.future .tl-lbl{color:var(--ink-3);font-weight:500}
+  .tl-step .tl-date{font-family:"Fraunces",serif;font-style:italic;font-size:11px;color:var(--ink-3);margin-top:1px}
+  .tl-line{flex:1;height:2px;background:var(--rule);position:relative;margin:0 -8px;align-self:flex-start;margin-top:15px;border-radius:1px;z-index:1}
+  .tl-line.done{background:var(--terra)}
+
+  .ob-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;position:relative;z-index:1}
+  .ob-btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .15s}
+  .ob-btn.primary{background:var(--green-deep);color:#fff;border:0}
+  .ob-btn.primary:hover{background:var(--green)}
+  .ob-btn.link{background:transparent;color:var(--terra-deep);border:0;padding:0;height:auto;text-decoration:underline;text-underline-offset:3px;font-weight:600;font-size:13px}
+  .ob-btn.link:hover{color:#5A2D14}
+
+  /* ===== D3 METRICS GRID ===== */
+  .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media (max-width:1080px){.metrics-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.metrics-grid{grid-template-columns:1fr}}
+  .metric-card{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;transition:all .15s}
+  .metric-card:hover{border-color:var(--green-2);transform:translateY(-2px);box-shadow:0 8px 22px -12px rgba(15,42,29,.15)}
+  .metric-card .mc-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .metric-card .mc-ico{width:36px;height:36px;border-radius:10px;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+  .metric-card .mc-tag{font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  .metric-card .mc-val{font-family:"Fraunces",serif;font-weight:400;font-size:32px;line-height:1.05;letter-spacing:-0.02em;color:var(--ink);display:flex;align-items:baseline;gap:6px}
+  .metric-card .mc-val .unit{font-size:13px;color:var(--ink-3);font-style:italic;font-weight:400}
+  .metric-card .mc-sub{font-family:"Inter",sans-serif;font-size:12.5px;color:var(--ink-2);font-weight:500;line-height:1.4}
+  .metric-card .mc-sub strong{color:var(--green-deep);font-weight:600;font-family:"JetBrains Mono",monospace;font-size:12px}
+  .metric-card .mc-link{display:inline-flex;align-items:center;gap:5px;font-family:"Inter",sans-serif;font-size:12px;color:var(--green);font-weight:600;text-decoration:none;margin-top:auto;padding-top:6px;border-top:1px solid var(--rule)}
+  .metric-card .mc-link:hover{color:var(--green-deep)}
+  .metric-card .mc-link svg{transition:transform .15s}
+  .metric-card .mc-link:hover svg{transform:translateX(2px)}
+
+  /* ===== D4 REORDER ===== */
+  .section-card{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:26px 28px;display:flex;flex-direction:column;gap:18px}
+  .section-card.cream{background:var(--cream-2)}
+  .sec-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .sec-head .ht{display:flex;flex-direction:column;gap:5px;flex:1;min-width:200px}
+  .sec-head h2{font-family:"Fraunces",serif;font-weight:500;font-size:21px;line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--ink);display:flex;align-items:center;gap:10px}
+  .sec-head h2 em{font-style:italic;color:var(--green);font-weight:400}
+  .sec-head h2 .ico{width:32px;height:32px;border-radius:9px;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+  .sec-head .htxt{font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:var(--ink-3);line-height:1.5;max-width:580px;margin:0;padding-left:42px}
+  .sec-head .see-all{font-family:"Inter",sans-serif;font-size:12.5px;color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+  .sec-head .see-all:hover{color:var(--green-deep)}
+
+  .reorder-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:880px){.reorder-grid{grid-template-columns:1fr}}
+  .ro-card{display:flex;gap:14px;align-items:center;background:var(--cream);border:1px solid var(--rule);border-radius:13px;padding:14px;transition:all .15s}
+  .ro-card:hover{border-color:var(--green-2);background:#fff}
+  .ro-thumb{width:64px;height:64px;border-radius:10px;background:linear-gradient(135deg, var(--green) 0%, var(--green-deep) 100%);display:grid;place-items:center;flex-shrink:0;position:relative;overflow:hidden}
+  .ro-thumb svg{color:rgba(255,255,255,.85);opacity:.7}
+  .ro-thumb.t2{background:linear-gradient(135deg, #6B8458 0%, #4A6B40 100%)}
+  .ro-thumb.t3{background:linear-gradient(135deg, #C4623F 0%, #8E4426 100%)}
+  .ro-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+  .ro-info .nm{font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.3}
+  .ro-info .pr{font-family:"Fraunces",serif;font-size:16px;font-weight:500;color:var(--green-deep);letter-spacing:-0.01em;line-height:1.1}
+  .ro-info .last{font-family:"Fraunces",serif;font-style:italic;font-size:11.5px;color:var(--ink-3);line-height:1.4}
+  .ro-add{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:var(--terra);color:#fff;border:0;border-radius:50%;cursor:pointer;transition:all .15s}
+  .ro-add:hover{background:var(--terra-deep);transform:scale(1.05)}
+  .ro-add.added{background:var(--green);transform:scale(1.05)}
+
+  /* ===== D5 RECOMMENDATIONS ALT ===== */
+  .recco-wrap{background:var(--cream-2);border:1px solid var(--rule);border-radius:18px;padding:26px 28px;display:flex;flex-direction:column;gap:22px}
+  .recco-notice{display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border:1px dashed var(--rule);border-radius:12px;flex-wrap:wrap}
+  .recco-notice .ico{width:38px;height:38px;border-radius:10px;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+  .recco-notice .txt{flex:1;min-width:220px;display:flex;flex-direction:column;gap:2px}
+  .recco-notice .txt .t{font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink);font-weight:600}
+  .recco-notice .txt .s{font-family:"Fraunces",serif;font-style:italic;font-size:12.5px;color:var(--ink-3);line-height:1.5}
+  .recco-notice .cta{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 16px;background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:999px;font-family:"Inter",sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;flex-shrink:0}
+  .recco-notice .cta:hover{background:var(--cream)}
+
+  .recco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:880px){.recco-grid{grid-template-columns:1fr}}
+  .rc-card{background:#fff;border:1px solid var(--rule);border-radius:13px;padding:16px;display:flex;flex-direction:column;gap:10px;transition:all .15s}
+  .rc-card:hover{border-color:var(--green-2);transform:translateY(-2px);box-shadow:0 6px 18px -10px rgba(15,42,29,.15)}
+  .rc-thumb{height:90px;border-radius:10px;display:grid;place-items:center;position:relative;overflow:hidden}
+  .rc-thumb.t1{background:linear-gradient(135deg, #2C3E2F 0%, #4A6B40 100%)}
+  .rc-thumb.t2{background:linear-gradient(135deg, #C4623F 0%, #E89668 100%)}
+  .rc-thumb.t3{background:linear-gradient(135deg, #6B8458 0%, #87A270 100%)}
+  .rc-thumb svg{color:rgba(255,255,255,.75)}
+  .rc-info{display:flex;flex-direction:column;gap:3px}
+  .rc-info .nm{font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.3}
+  .rc-info .tagline{font-family:"Fraunces",serif;font-style:italic;font-size:12px;color:var(--ink-3);line-height:1.4}
+  .rc-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px;border-top:1px solid var(--rule)}
+  .rc-foot .pr{font-family:"Fraunces",serif;font-size:18px;font-weight:500;color:var(--green-deep);letter-spacing:-0.01em}
+  .rc-foot .see{display:inline-flex;align-items:center;gap:5px;font-family:"Inter",sans-serif;font-size:12px;color:var(--terra);font-weight:600;text-decoration:none}
+  .rc-foot .see:hover{color:var(--terra-deep)}
+
+  /* ===== D6 SHORTCUTS ===== */
+  .shortcuts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media (max-width:880px){.shortcuts-grid{grid-template-columns:repeat(2,1fr)}}
+  .sc-card{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--rule);border-radius:13px;padding:14px 16px;text-decoration:none;transition:all .15s;position:relative;overflow:hidden}
+  .sc-card:hover{border-color:var(--green);background:var(--cream);transform:translateX(2px)}
+  .sc-card .sci{width:38px;height:38px;border-radius:10px;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0;transition:background .15s}
+  .sc-card:hover .sci{background:#fff}
+  .sc-card.danger .sci{background:#FCEFEF;color:#A33}
+  .sc-card .scl{font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.3;flex:1;min-width:0}
+  .sc-card .scc{margin-left:auto;color:var(--ink-3);opacity:0;transform:translateX(-4px);transition:all .2s;flex-shrink:0}
+  .sc-card:hover .scc{opacity:1;transform:translateX(0);color:var(--green)}
+  .sc-card.danger:hover{border-color:#C44;background:#FCEFEF}
+  .sc-card.danger:hover .scc{color:#A33}
+  .sc-card .scchip{display:inline-flex;align-items:center;background:var(--cream-2);color:var(--green-deep);font-family:"Inter",sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:999px;text-transform:uppercase;margin-left:6px;flex-shrink:0}
+
+  /* ===== D7 REVIEW CARD ===== */
+  .review-card{background:var(--cream-2);border:1px solid var(--rule);border-radius:18px;padding:22px 26px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .review-card .rv-ico{width:48px;height:48px;border-radius:13px;background:#fff;color:var(--terra);display:grid;place-items:center;flex-shrink:0;border:1px solid var(--rule)}
+  .review-card .rv-copy{flex:1;min-width:260px}
+  .review-card .rv-copy h3{font-family:"Fraunces",serif;font-weight:500;font-size:18px;line-height:1.25;margin:0 0 4px;color:var(--ink)}
+  .review-card .rv-copy h3 em{font-style:italic;color:var(--green);font-weight:400}
+  .review-card .rv-copy p{font-family:"Inter",sans-serif;font-size:13px;color:var(--ink-2);line-height:1.55;margin:0}
+  .review-card .rv-copy p strong{color:var(--ink);font-weight:600}
+  .review-card .rv-copy .points-hint{display:inline-flex;align-items:center;gap:6px;font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--green-deep);background:rgba(46,79,55,.10);padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-top:8px}
+  .review-card .rv-copy .points-hint svg{color:var(--green);width:11px;height:11px}
+  .review-card .rv-btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 20px;background:transparent;color:var(--terra-deep);border:1.5px solid var(--terra);border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;flex-shrink:0}
+  .review-card .rv-btn:hover{background:var(--terra);color:#fff}
+
+  /* ===== D8 SUPPORT FOOTER ===== */
+  .support-foot{text-align:center;padding:14px 4px 0;font-family:"Inter",sans-serif;font-size:12.5px;color:var(--ink-3);line-height:1.6}
+  .support-foot a{color:var(--green);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(46,79,55,.3);padding-bottom:1px}
+  .support-foot a:hover{border-bottom-color:var(--green)}
+
+  /* Toast */
+  .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green-deep);color:#fff;padding:12px 22px;border-radius:999px;font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;box-shadow:0 14px 30px -10px rgba(15,42,29,.45);display:inline-flex;align-items:center;gap:10px;opacity:0;pointer-events:none;transition:all .25s ease;z-index:200}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast svg{color:#A4D49B}
+
+  /* Cart bump anim */
+  @keyframes cartBump{
+    0%{transform:scale(1)}
+    40%{transform:scale(1.35)}
+    100%{transform:scale(1)}
+  }
+  .cart-bumping{animation:cartBump .5s ease}
+
+  @media (max-width:980px){
+    .account-wrap{grid-template-columns:1fr;padding:24px 24px 60px}
+    .sidebar{position:static}
+    .breadcrumb{padding:16px 24px}
+    .hero h1{font-size:32px}
+    .ob-timeline{padding:14px 14px;flex-wrap:wrap}
+  }
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Cont · Dashboard">
+
+  <!-- HEADER GLOBAL identic -->
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 250 lei</span><span class="dot"></span>
+        <span>Livrare 1–3 zile</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--ink-3)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Salut, Andreea</span></div>
+        <div class="icon-stack" id="cartIcon" style="position:relative"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș</span><span id="cartCount" style="position:absolute;top:-4px;right:-2px;background:var(--terra);color:#fff;font-family:Inter,sans-serif;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 5px;line-height:1">0</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><span class="here">Contul meu</span></div>
+
+  <section class="account-wrap">
+
+    <!-- SIDEBAR (Dashboard ACTIV, primul item; alte fișiere INTACTE) -->
+    <aside class="sidebar">
+      <div class="sb-profile">
+        <div class="sb-avatar">AP</div>
+        <div class="who">
+          <span class="n">Andreea Popescu</span>
+          <span class="e">andreea.popescu@gmail.c...</span>
+        </div>
+      </div>
+      <nav class="sb-nav">
+        <a class="sb-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+        <a class="sb-item" href="Cont - Comenzile mele.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Comenzi</a>
+        <a class="sb-item" href="Cont - Gestionare Abonament.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Abonamente</a>
+        <a class="sb-item" href="Cont - Adrese de livrare.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Adrese de livrare</a>
+        <a class="sb-item" href="Cont - Date personale.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Date personale</a>
+        <a class="sb-item" href="Cont - Carduri salvate.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Carduri salvate</a>
+        <a class="sb-item" href="Cont - Cod fidelitate.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Cod fidelitate<span class="chip-level">CONSTANT</span></a>
+        <a class="sb-item" href="Cont - Notificari.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notificări</a>
+      </nav>
+      <div class="sb-sep"></div>
+      <a class="sb-logout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Ieși din cont</a>
+    </aside>
+
+    <!-- MAIN COL -->
+    <div class="main-col">
+
+      <!-- D1: HERO -->
+      <div class="hero">
+        <div class="hc">
+          <h1>Bună, <em>Andreea.</em></h1>
+          <span class="date">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Astăzi e marți, 24 noiembrie 2026
+            <span class="dotsep"></span>
+            <span class="weather">o zi bună de îngrijit de tine</span>
+          </span>
+        </div>
+        <a class="profile-link" href="Cont - Date personale.html">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Vezi profil complet
+        </a>
+      </div>
+
+      <!-- D2: ORDER BANNER -->
+      <div class="order-banner">
+        <div class="ob-top">
+          <div class="copy">
+            <span class="ob-lbl">Comandă în curs</span>
+            <h2>Comanda <span class="order-id">MN-2026-0142</span> e <em>în drum.</em></h2>
+            <p class="ob-desc"><strong>Microflora+ Lemon Shots</strong> și <strong>ChocoProtein 1000g</strong>. Expediată ieri, estimat livrată mâine miercuri 25 noiembrie 2026, între 10:00 și 16:00.</p>
+            <span class="ob-courier">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+              Curier FanCourier, AWB 9921 4456 1102
+            </span>
+          </div>
+        </div>
+
+        <div class="ob-timeline">
+          <div class="tl-step done">
+            <div class="tl-dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="tl-lbl">Plasată</span>
+            <span class="tl-date">22 noi</span>
+          </div>
+          <div class="tl-line done"></div>
+          <div class="tl-step done">
+            <div class="tl-dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="tl-lbl">Expediată</span>
+            <span class="tl-date">23 noi</span>
+          </div>
+          <div class="tl-line done"></div>
+          <div class="tl-step now">
+            <div class="tl-dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/></svg></div>
+            <span class="tl-lbl">În drum</span>
+            <span class="tl-date">acum</span>
+          </div>
+          <div class="tl-line"></div>
+          <div class="tl-step future">
+            <div class="tl-dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg></div>
+            <span class="tl-lbl">Livrată</span>
+            <span class="tl-date">25 noi</span>
+          </div>
+        </div>
+
+        <div class="ob-actions">
+          <a class="ob-btn primary" href="#" data-toast="Deschidem track AWB la FanCourier">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Urmărește coletul
+          </a>
+          <a class="ob-btn link" href="Cont - Comenzile mele.html">Vezi detalii comandă</a>
+        </div>
+      </div>
+
+      <!-- D3: METRICS -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="mc-top">
+            <div class="mc-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></div>
+            <span class="mc-tag">Comenzi totale</span>
+          </div>
+          <div class="mc-val">12<span class="unit">comenzi</span></div>
+          <div class="mc-sub"><strong>1.847 lei</strong> cheltuiți</div>
+          <a class="mc-link" href="Cont - Comenzile mele.html">Vezi istoric <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+
+        <div class="metric-card">
+          <div class="mc-top">
+            <div class="mc-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C12 2 8 6 8 12C8 16 10 19 12 22C14 19 16 16 16 12C16 6 12 2 12 2Z"/></svg></div>
+            <span class="mc-tag">Puncte Constant</span>
+          </div>
+          <div class="mc-val">1.247<span class="unit">puncte</span></div>
+          <div class="mc-sub">echivalent <strong>124,70 lei</strong></div>
+          <a class="mc-link" href="Pagina Cos - Cart.html">Folosește-le <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+
+        <div class="metric-card">
+          <div class="mc-top">
+            <div class="mc-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 3-6.7L3 9"/></svg></div>
+            <span class="mc-tag">Retururi</span>
+          </div>
+          <div class="mc-val">0<span class="unit">retururi</span></div>
+          <div class="mc-sub">toate alegerile, la țintă</div>
+          <a class="mc-link" href="Pagina Retur RMA.html">Cum cer retur <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+
+        <div class="metric-card">
+          <div class="mc-top">
+            <div class="mc-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <span class="mc-tag">Referrals</span>
+          </div>
+          <div class="mc-val">3<span class="unit">prieteni</span></div>
+          <div class="mc-sub"><strong>600 puncte</strong> câștigate</div>
+          <a class="mc-link" href="Cont - Cod fidelitate.html">Invită prieteni <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- D4: REORDER -->
+      <div class="section-card">
+        <div class="sec-head">
+          <div class="ht">
+            <h2><span class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg></span>Comandă <em>din nou.</em></h2>
+            <p class="htxt">Produse pe care le-ai cumpărat înainte. Click pe «+» le adaugă în coș.</p>
+          </div>
+          <a class="see-all" href="Cont - Comenzile mele.html">Vezi toate (12)</a>
+        </div>
+
+        <div class="reorder-grid">
+
+          <div class="ro-card">
+            <div class="ro-thumb">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 21h8M12 17v4M5 3h14l-2 12H7L5 3zM5 3L4 1"/></svg>
+            </div>
+            <div class="ro-info">
+              <span class="nm">Microflora+</span>
+              <span class="pr">76 lei</span>
+              <span class="last">Ultima dată: 18 noiembrie</span>
+            </div>
+            <button class="ro-add" data-product="Microflora+" aria-label="Adaugă în coș"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+
+          <div class="ro-card">
+            <div class="ro-thumb t2">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+            </div>
+            <div class="ro-info">
+              <span class="nm">D-Tox plus</span>
+              <span class="pr">159 lei</span>
+              <span class="last">Ultima dată: 12 octombrie</span>
+            </div>
+            <button class="ro-add" data-product="D-Tox plus" aria-label="Adaugă în coș"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+
+          <div class="ro-card">
+            <div class="ro-thumb t3">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3h8l1 4-3 3H10L7 7l1-4zM7 10v11h10V10"/></svg>
+            </div>
+            <div class="ro-info">
+              <span class="nm">Collagen Joint+</span>
+              <span class="pr">184 lei</span>
+              <span class="last">Ultima dată: 28 septembrie</span>
+            </div>
+            <button class="ro-add" data-product="Collagen Joint+" aria-label="Adaugă în coș"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- D5: RECOMMENDATIONS ALT (consent OFF) -->
+      <div class="recco-wrap">
+        <div class="sec-head" style="margin:0">
+          <div class="ht">
+            <h2><span class="ico" style="background:#fff;border:1px solid var(--rule)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L9 8l-6 1 4.5 4.5L6 20l6-3 6 3-1.5-6.5L21 9l-6-1z"/></svg></span>Vrei sugestii <em>personalizate?</em></h2>
+            <p class="htxt">Recomandările bazate pe istoric sunt dezactivate. Le poți activa oricând din Date personale, secțiunea Consimțăminte GDPR.</p>
+          </div>
+        </div>
+
+        <div class="recco-notice">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <div class="txt">
+            <span class="t">Recomandări pe baza istoricului tău</span>
+            <span class="s">Dezactivate momentan. Între timp, ți-am pregătit câteva sugestii generale.</span>
+          </div>
+          <a class="cta" href="Cont - Date personale.html">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Activează recomandările
+          </a>
+        </div>
+
+        <div class="recco-grid">
+
+          <div class="rc-card">
+            <div class="rc-thumb t1">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 21h6M12 17v4M8 3h8l-1 6H9L8 3zM6 9h12l-2 8H8L6 9z"/></svg>
+            </div>
+            <div class="rc-info">
+              <span class="nm">Black Seed Elixir</span>
+              <span class="tagline">Imunitate și tonus</span>
+            </div>
+            <div class="rc-foot">
+              <span class="pr">89 lei</span>
+              <a class="see" href="#">Vezi <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+
+          <div class="rc-card">
+            <div class="rc-thumb t2">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="13" r="5"/><path d="M12 8V3M8 8L5 5M16 8l3-3"/></svg>
+            </div>
+            <div class="rc-info">
+              <span class="nm">Lemon Shots imunitate</span>
+              <span class="tagline">Shot zilnic cu vitamina C naturală</span>
+            </div>
+            <div class="rc-foot">
+              <span class="pr">67 lei</span>
+              <a class="see" href="#">Vezi <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+
+          <div class="rc-card">
+            <div class="rc-thumb t3">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2C12 2 8 6 8 12C8 16 10 19 12 22C14 19 16 16 16 12C16 6 12 2 12 2Z"/><path d="M8 12c-2 0-4-1-4-3"/><path d="M16 12c2 0 4-1 4-3"/></svg>
+            </div>
+            <div class="rc-info">
+              <span class="nm">Tinctură Roiniță</span>
+              <span class="tagline">Somn liniştit, calm. By Vivens Genetica.</span>
+            </div>
+            <div class="rc-foot">
+              <span class="pr">49 lei</span>
+              <a class="see" href="#">Vezi <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- D6: SHORTCUTS -->
+      <div class="section-card">
+        <div class="sec-head">
+          <div class="ht">
+            <h2><span class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>Scurtături <em>rapide.</em></h2>
+          </div>
+        </div>
+
+        <div class="shortcuts-grid">
+          <a class="sc-card" href="Cont - Comenzile mele.html">
+            <span class="sci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+            <span class="scl">Comenzi</span>
+            <span class="scc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+          </a>
+          <a class="sc-card" href="Cont - Gestionare Abonament.html">
+            <span class="sci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg></span>
+            <span class="scl">Abonamente</span>
+            <span class="scc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+          </a>
+          <a class="sc-card" href="Cont - Adrese de livrare.html">
+            <span class="sci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <span class="scl">Adrese livrare</span>
+            <span class="scc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+          </a>
+          <a class="sc-card" href="Cont - Date personale.html">
+            <span class="sci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            <span class="scl">Date personale</span>
+            <span class="scc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+          </a>
+          <a class="sc-card" href="Cont - Carduri salvate.html">
+            <span class="sci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg></span>
+            <span class="scl">Carduri</span>
+            <span class="scc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+          </a>
+          <a class="sc-card" href="Cont - Cod fidelitate.html">
+            <span class="sci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+            <span class="scl">Cod fidelitate <span class="scchip">CONSTANT</span></span>
+            <span class="scc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+          </a>
+          <a class="sc-card" href="Cont - Notificari.html">
+            <span class="sci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>
+            <span class="scl">Notificări</span>
+            <span class="scc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+          </a>
+          <a class="sc-card danger" href="#" data-toast="Te deconectăm și revii la pagina de autentificare">
+            <span class="sci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+            <span class="scl">Ieși din cont</span>
+            <span class="scc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- D7: REVIEW REMINDER -->
+      <div class="review-card">
+        <div class="rv-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+        <div class="rv-copy">
+          <h3>Ne ajută <em>review-urile tale.</em></h3>
+          <p>Ai lăsat <strong>2 review-uri</strong> din 12 produse cumpărate. Mai sunt <strong>10 produse</strong> care așteaptă părerea ta.</p>
+          <span class="points-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2C12 2 8 6 8 12C8 16 10 19 12 22C14 19 16 16 16 12C16 6 12 2 12 2Z"/></svg>
+            50 puncte Constant per review verificat
+          </span>
+        </div>
+        <a class="rv-btn" href="Cont - Comenzile mele.html">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="m18.5 2.5 3 3L12 15l-4 1 1-4z"/></svg>
+          Lasă un review
+        </a>
+      </div>
+
+      <!-- D8: SUPPORT FOOTER -->
+      <div class="support-foot">
+        Ai nevoie de ajutor? Scrie-ne pe WhatsApp <a href="https://wa.me/40749492794">+40 749 492 794</a> sau pe <a href="mailto:suport@mananaturii.ro">suport@mananaturii.ro</a>.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+    <span id="toastMsg">Salvat</span>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  // Toast
+  var toast = document.getElementById('toast');
+  var toastMsg = document.getElementById('toastMsg');
+  var toastT;
+  function showToast(msg){
+    toastMsg.textContent = msg || 'Salvat';
+    toast.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(function(){ toast.classList.remove('show'); }, 2000);
+  }
+  document.querySelectorAll('[data-toast]').forEach(function(b){
+    b.addEventListener('click', function(e){
+      if(b.tagName === 'A' && b.getAttribute('href') === '#') e.preventDefault();
+      showToast(b.dataset.toast);
+    });
+  });
+
+  // Cart count + bump
+  var cartCount = 0;
+  var cartEl = document.getElementById('cartCount');
+  var cartIcon = document.getElementById('cartIcon');
+
+  function bumpCart(name){
+    cartCount += 1;
+    cartEl.textContent = cartCount;
+    cartEl.style.display = 'inline-flex';
+    cartIcon.classList.remove('cart-bumping');
+    void cartIcon.offsetWidth;
+    cartIcon.classList.add('cart-bumping');
+    showToast(name + ' adăugat în coș');
+  }
+
+  document.querySelectorAll('.ro-add').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var name = btn.dataset.product || 'Produs';
+      bumpCart(name);
+      btn.classList.add('added');
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>';
+      setTimeout(function(){
+        btn.classList.remove('added');
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>';
+      }, 1400);
+    });
+  });
+})();
+</script>
+</body>
+</html>

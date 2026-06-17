@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Răceli frecvente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px;letter-spacing:.01em}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+  .announce .right .sparkle{color:var(--color-gold)}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* ====== HERO ====== */
+  .hero{padding:80px 64px 96px;background:var(--color-bg-page)}
+  .hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:64px;align-items:center}
+  .hero-left .eyebrow{margin-bottom:18px;display:inline-flex;align-items:center;gap:10px}
+  .hero-left .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .hero-left h1{font-family:var(--font-serif);font-weight:400;font-size:56px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 22px;color:var(--color-text-primary)}
+  .hero-left h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .hero-left p.lede{font-size:18px;line-height:1.7;color:var(--color-text-muted);max-width:580px;margin:0 0 28px}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+  .meta-chip{display:inline-flex;align-items:center;gap:8px;background:var(--color-green-soft-card);border:1px solid var(--color-border-2);color:var(--color-green-deep);padding:8px 14px;border-radius:999px;font-size:12.5px;font-weight:500}
+  .meta-chip svg{color:var(--color-green-primary);flex-shrink:0}
+
+  .hero-illu{aspect-ratio:1;border-radius:24px;background:var(--color-bg-card);border:1px solid var(--color-border);position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:var(--shadow-soft)}
+  .hero-illu::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,var(--color-green-soft-card) 0%,transparent 60%)}
+  .hero-illu svg{position:relative;width:62%;height:auto;color:var(--color-green-medium);opacity:.75}
+
+  /* ====== Section 2 — Definitie ====== */
+  .definitie{padding:80px 64px;background:var(--color-green-soft-card)}
+  .def-head{text-align:center;max-width:680px;margin:0 auto 48px}
+  .def-head h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.2;letter-spacing:-0.015em;margin:0}
+  .def-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .def-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .def-cell{background:#fff;border:1px solid var(--color-border);border-radius:18px;padding:28px 30px;display:flex;flex-direction:column;gap:14px}
+  .def-cell .ico{width:42px;height:42px;border-radius:12px;background:var(--color-green-soft-card);display:grid;place-items:center;color:var(--color-green-primary)}
+  .def-cell h3{font-family:var(--font-serif);font-size:18px;font-weight:500;margin:0;color:var(--color-text-primary)}
+  .def-cell p{font-size:14.5px;color:var(--color-text-muted);line-height:1.7;margin:0}
+
+  /* ====== Section 3 — 3 cauze ====== */
+  .cauze{padding:96px 64px;background:var(--color-bg-page)}
+  .cauze-head{margin-bottom:48px;max-width:680px}
+  .cauze-head h2{font-family:var(--font-serif);font-weight:400;font-size:42px;line-height:1.1;letter-spacing:-0.02em;margin:0}
+  .cauze-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .cauze-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .cauza-card{background:var(--color-bg-card);border:1px solid var(--color-border-2);border-radius:20px;padding:32px 32px 0;display:flex;flex-direction:column;overflow:hidden}
+  .cauza-card .num{font-family:var(--font-serif);font-size:54px;color:var(--color-green-primary);font-weight:300;line-height:1;letter-spacing:-0.025em;margin-bottom:8px}
+  .cauza-card h3{font-family:var(--font-serif);font-size:22px;font-weight:500;margin:0 0 14px;color:var(--color-text-primary)}
+  .cauza-card p{font-size:14.5px;color:var(--color-text-muted);line-height:1.75;margin:0 0 24px}
+  .cauza-foot{margin:0 -32px;padding:18px 32px;background:var(--color-green-soft-card);border-top:1px solid var(--color-border-2);font-size:13.5px;color:var(--color-text-primary);line-height:1.55}
+  .cauza-foot strong{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;display:block;margin-bottom:4px}
+
+  /* ====== Section 4 — Autotest ====== */
+  .autotest{padding:96px 64px;background:var(--color-green-soft-card)}
+  .auto-head{text-align:center;max-width:680px;margin:0 auto 48px}
+  .auto-head h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.2;letter-spacing:-0.015em;margin:0}
+  .auto-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .auto-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:920px;margin:0 auto 36px}
+  .auto-q{background:#fff;border:1px solid var(--color-border);border-radius:16px;padding:24px 28px}
+  .auto-q .q{font-family:var(--font-serif);font-size:17px;font-weight:500;line-height:1.4;color:var(--color-text-primary);margin:0 0 16px}
+  .auto-opts{display:flex;gap:8px}
+  .auto-opt{flex:1;padding:10px 14px;border:1.5px solid var(--color-border);border-radius:10px;background:#fff;font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--color-text-muted);text-align:center;cursor:pointer}
+  .auto-opt:hover{border-color:var(--color-green-medium);color:var(--color-green-primary)}
+  .auto-opt.selected{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+
+  .auto-result{max-width:920px;margin:0 auto;background:#fff;border:1.5px solid var(--color-green-medium);border-radius:18px;padding:28px 32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+  .auto-result .body p.lbl{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;color:var(--color-green-primary);font-weight:700;text-transform:uppercase;margin:0 0 6px}
+  .auto-result .body p.txt{font-size:15px;color:var(--color-text-primary);line-height:1.65;margin:0;max-width:560px}
+  .auto-result .body p.txt strong{font-weight:600}
+  .auto-result a.btn-q{display:inline-flex;align-items:center;gap:10px;padding:0 22px;height:48px;background:transparent;border:1.5px solid var(--color-green-primary);color:var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:13.5px;text-decoration:none;white-space:nowrap}
+  .auto-result a.btn-q:hover{background:var(--color-green-primary);color:#fff}
+
+  /* ====== Section 5 — Cand la medic ====== */
+  .medic{padding:96px 64px;background:var(--color-bg-page)}
+  .medic-card{max-width:880px;margin:0 auto;background:#fff;border:2px solid var(--color-green-primary);border-radius:24px;padding:48px 56px;text-align:center;position:relative}
+  .medic-card .ico{width:56px;height:56px;border-radius:50%;background:var(--color-green-soft-card);display:grid;place-items:center;color:var(--color-green-primary);margin:0 auto 22px}
+  .medic-card h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.2;letter-spacing:-0.015em;margin:0 0 16px;color:var(--color-text-primary)}
+  .medic-card p.lede{font-size:15.5px;color:var(--color-text-muted);line-height:1.7;margin:0 0 28px;max-width:600px;margin-left:auto;margin-right:auto}
+  .medic-list{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-direction:column;gap:14px;text-align:left;max-width:620px;margin-left:auto;margin-right:auto}
+  .medic-list li{display:flex;align-items:flex-start;gap:12px;font-size:14.5px;color:var(--color-text-primary);line-height:1.55}
+  .medic-list li .check{width:22px;height:22px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;flex-shrink:0;margin-top:2px}
+  .medic-foot{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-faint);background:var(--color-bg-page);padding:14px 20px;border-radius:10px;max-width:620px;margin:0 auto;text-align:center;line-height:1.55}
+
+  /* ====== Section 6 — 3 produse ====== */
+  .produse{padding:96px 64px;background:var(--color-bg-page)}
+  .prod-head{text-align:center;max-width:760px;margin:0 auto 48px}
+  .prod-head h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.2;letter-spacing:-0.015em;margin:0 0 14px}
+  .prod-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .prod-head p{font-family:var(--font-serif);font-style:italic;font-size:15px;color:var(--color-text-muted);margin:0}
+  .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:24px}
+
+  .prod-card{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+  .prod-card .opt-chip{position:absolute;top:18px;left:18px;background:var(--color-green-soft-card);color:var(--color-green-deep);font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:999px;z-index:2;border:1px solid var(--color-border-2)}
+  .prod-photo{aspect-ratio:1/.85;background:var(--color-green-soft-card);position:relative;display:grid;place-items:center;border-bottom:1px solid var(--color-border)}
+  .prod-photo .wash{position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,#D9E8D2 0%,transparent 60%)}
+
+  .mini-pack{position:relative;width:80px;height:130px;background:#fff;border:1px solid var(--color-border);border-radius:8px;box-shadow:0 18px 22px -10px rgba(7,58,31,.3);overflow:hidden;display:flex;flex-direction:column}
+  .mini-pack::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:var(--color-green-primary)}
+  .mini-pack .lbl{padding:18px 6px 8px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+  .mini-pack .lbl .b{font-family:var(--font-sans);font-size:6.5px;letter-spacing:.16em;color:var(--color-green-primary);font-weight:700}
+  .mini-pack .lbl .n{font-family:var(--font-serif);font-size:10px;color:var(--color-text-primary);font-weight:500;line-height:1.1}
+  .mini-pack .lbl .v{font-family:var(--font-sans);font-size:6.5px;color:var(--color-text-primary);letter-spacing:.12em;font-weight:600}
+  .mini-pack.b2::before{background:#7A5A2D}
+  .mini-pack.b3::before{background:var(--color-green-medium)}
+
+  .prod-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .prod-body .eyebrow-mini{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--color-green-primary);display:inline-flex;align-items:center;gap:6px}
+  .prod-body .eyebrow-mini::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--color-green-medium)}
+  .prod-body h3{font-family:var(--font-serif);font-size:22px;font-weight:500;line-height:1.2;margin:0;color:var(--color-text-primary)}
+  .prod-body .why{font-size:13.5px;color:var(--color-text-muted);line-height:1.65;margin:0}
+  .prod-body .rating-mini{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--color-text-muted)}
+  .prod-body .rating-mini .stars{color:var(--color-gold);display:flex;gap:1px}
+  .prod-body .rating-mini .stars svg{width:12px;height:12px}
+  .prod-body .rating-mini strong{color:var(--color-text-primary);font-weight:600}
+  .prod-body .price-row{display:flex;align-items:baseline;gap:10px;padding-top:14px;border-top:1px solid var(--color-border);margin-top:6px}
+  .prod-body .price-row .price{font-family:var(--font-serif);font-size:24px;font-weight:500;color:var(--color-text-primary);line-height:1}
+  .btn-terra{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 22px;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;box-shadow:var(--shadow-cta)}
+  .btn-terra:hover{background:var(--color-cta-primary-hover)}
+  .btn-secondary-g{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 22px;background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;cursor:pointer;text-decoration:none}
+  .btn-secondary-g:hover{background:var(--color-green-primary);color:#fff}
+
+  .prod-foot{text-align:center;font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-faint);max-width:680px;margin:0 auto;line-height:1.6}
+
+  /* ====== Section 7 — Mituri ====== */
+  .mituri{padding:96px 64px;background:var(--color-green-soft-card)}
+  .mit-head{text-align:center;max-width:680px;margin:0 auto 48px}
+  .mit-head h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.2;letter-spacing:-0.015em;margin:0}
+  .mit-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .mit-grid{display:flex;flex-direction:column;gap:18px;max-width:920px;margin:0 auto}
+  .mit-card{background:#fff;border:1px solid var(--color-border);border-radius:18px;padding:24px 28px;display:grid;grid-template-columns:1fr 1.4fr;gap:32px;align-items:center}
+  .mit-card .mit-side{padding-right:24px;border-right:1px solid var(--color-border)}
+  .mit-card .lbl{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.18em;color:var(--color-text-faint);font-weight:700;text-transform:uppercase;display:block;margin-bottom:6px}
+  .mit-card .mit-side .lbl{color:var(--color-cta-primary-hover)}
+  .mit-card .real-side .lbl{color:var(--color-green-primary)}
+  .mit-card .txt{font-family:var(--font-serif);font-style:italic;font-size:16px;color:var(--color-text-primary);line-height:1.5;margin:0}
+  .mit-card .real-side .txt{font-style:normal;font-family:var(--font-sans);font-size:14.5px;color:var(--color-text-primary);line-height:1.65}
+
+  /* ====== Section 8 — FAQ + Quiz ====== */
+  .end{padding:96px 64px;background:var(--color-bg-page)}
+  .end-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:flex-start;max-width:1200px;margin:0 auto}
+
+  .end-faq h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-0.015em;margin:14px 0 26px}
+  .end-faq h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .end-faq .faq-list{display:flex;flex-direction:column}
+  .faq-item{border-top:1px solid var(--color-border-2);padding:22px 0;cursor:pointer}
+  .faq-item:last-child{border-bottom:1px solid var(--color-border-2)}
+  .faq-q{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+  .faq-q h4{font-family:var(--font-serif);font-size:18px;font-weight:500;margin:0;flex:1;color:var(--color-text-primary)}
+  .faq-q .toggle{width:30px;height:30px;border-radius:50%;border:1px solid var(--color-border-2);display:grid;place-items:center;color:var(--color-text-muted);flex-shrink:0;background:#fff}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;border-color:var(--color-green-primary)}
+  .faq-a{margin-top:12px;color:var(--color-text-muted);font-size:14.5px;line-height:1.75;max-width:680px;display:none}
+  .faq-item.open .faq-a{display:block}
+
+  .end-quiz{background:var(--color-green-primary);color:#fff;border-radius:24px;padding:36px 32px;position:sticky;top:24px;overflow:hidden}
+  .end-quiz::before{content:"";position:absolute;right:-50px;top:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(202,164,74,.14),transparent 70%)}
+  .end-quiz .eyebrow-gold{color:var(--color-gold);font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:16px;display:block;position:relative}
+  .end-quiz p{font-family:var(--font-serif);font-size:21px;line-height:1.4;color:#fff;margin:0 0 26px;position:relative}
+  .end-quiz p em{font-style:italic;color:#C2D9AC;font-weight:300}
+  .end-quiz a.btn-terra{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 28px;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;box-shadow:var(--shadow-cta);width:100%;position:relative}
+  .end-quiz a.btn-terra:hover{background:var(--color-cta-primary-hover)}
+  .end-quiz .small{margin-top:12px;font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:#9AC0A8;position:relative;text-align:center}
+
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Pagina simptom: Răceli frecvente">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span class="wa"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="#">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș (0)</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item active">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a>Acasă</a><span class="sep">›</span><a>După simptom</a><span class="sep">›</span><span class="here">Răceli frecvente</span>
+  </div>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="eyebrow">După simptom</div>
+        <h1>Răceli peste răceli. <em>Sistemul imunitar</em> îți spune ceva.</h1>
+        <p class="lede">Dacă răcești de 4–5 ori pe an, dacă virozele durează mai mult de o săptămână, dacă te vindeci greu, nu e ghinion. Imunitatea se construiește zilnic prin somn, mișcare, hrană și micronutrienți. Când unul lipsește, sistemul devine vulnerabil.</p>
+        <div class="hero-meta">
+          <span class="meta-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Adulții fac în medie 2–3 răceli/an</span>
+          <span class="meta-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Imunitatea cere 4–8 săptămâni pentru reglare</span>
+          <span class="meta-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Vit D3 + Zinc sunt cele mai des deficitare</span>
+        </div>
+      </div>
+
+      <div class="hero-illu">
+        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M100 28 L160 56 V108 C160 138 132 162 100 174 C68 162 40 138 40 108 V56 Z" fill="currentColor" fill-opacity=".15"/>
+          <path d="M100 28 L160 56 V108 C160 138 132 162 100 174 C68 162 40 138 40 108 V56 Z"/>
+          <path d="M76 102 L94 120 L128 86" stroke-width="2.6"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Definitie ====== -->
+  <section class="definitie">
+    <div class="def-head">
+      <div class="eyebrow" style="margin-bottom:14px">Definiție simplă</div>
+      <h2>Imunitatea e <em>un sistem, nu un produs.</em></h2>
+    </div>
+    <div class="def-grid">
+      <div class="def-cell">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="5"/><g stroke-width="2"><path d="M12 1v3M12 20v3M4 12H1M23 12h-3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></g></svg></div>
+        <h3>Vitamina D3 reglează imunitatea</h3>
+        <p>Iarna, când nu vezi soarele, nivelul scade dramatic. 80% din români au deficit în lunile reci.</p>
+      </div>
+      <div class="def-cell">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2 L20 6 V12 C20 18 16 22 12 22 C8 22 4 18 4 12 V6 Z"/></svg></div>
+        <h3>Zincul accelerează răspunsul</h3>
+        <p>Participă în crearea celulelor imunitare. Deficitul de zinc prelungește virozele.</p>
+      </div>
+      <div class="def-cell">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg></div>
+        <h3>Vitamina C susține, nu vindecă</h3>
+        <p>Nu oprește răceala, dar scurtează durata cu 1–2 zile dacă e luată constant, nu doar când ești deja bolnav.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Trei semne ====== -->
+  <section class="cauze">
+    <div class="cauze-head">
+      <div class="eyebrow" style="margin-bottom:14px">Cum se vede de obicei</div>
+      <h2>Trei semne <em>că imunitatea cere ajutor.</em></h2>
+    </div>
+    <div class="cauze-grid">
+      <div class="cauza-card">
+        <div class="num">01</div>
+        <h3>Răceli mai des de 3 ori pe an</h3>
+        <p>Frecvența indică un sistem suprasolicitat. Stresul cronic, somnul slab și deficitele subclinice cresc vulnerabilitatea.</p>
+        <div class="cauza-foot">
+          <strong>Ce ajută de obicei</strong>
+          Somn 7–8h, vitamina D3 5000 UI iarna, reducerea zahărului.
+        </div>
+      </div>
+      <div class="cauza-card">
+        <div class="num">02</div>
+        <h3>Vindecare lentă după virus</h3>
+        <p>Tuse care ține 3 săptămâni după răceală, oboseală persistentă. Indică rezerve epuizate.</p>
+        <div class="cauza-foot">
+          <strong>Ce ajută de obicei</strong>
+          Zinc 15–25 mg, repaus real, hidratare cu electroliți, evitarea efortului intens.
+        </div>
+      </div>
+      <div class="cauza-card">
+        <div class="num">03</div>
+        <h3>Alergii sezoniere care nu cedează</h3>
+        <p>Reacții la praf, polen, anumite alimente. Imunitatea care reacționează disproporționat sau confuz.</p>
+        <div class="cauza-foot">
+          <strong>Ce ajută de obicei</strong>
+          Quercetină, omega-3, microbiom echilibrat (probiotice).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Autotest ====== -->
+  <section class="autotest">
+    <div class="auto-head">
+      <div class="eyebrow" style="margin-bottom:14px">Verificare rapidă</div>
+      <h2>Răspunde la 4 întrebări, <em>vezi ce ți se potrivește.</em></h2>
+    </div>
+    <div class="auto-grid">
+      <div class="auto-q">
+        <p class="q">1. Ai răcit de mai mult de 3 ori în ultimul an?</p>
+        <div class="auto-opts">
+          <div class="auto-opt selected">Da</div>
+          <div class="auto-opt">Uneori</div>
+          <div class="auto-opt">Nu</div>
+        </div>
+      </div>
+      <div class="auto-q">
+        <p class="q">2. Te vindeci greu după viroze (peste 7–10 zile)?</p>
+        <div class="auto-opts">
+          <div class="auto-opt selected">Da</div>
+          <div class="auto-opt">Uneori</div>
+          <div class="auto-opt">Nu</div>
+        </div>
+      </div>
+      <div class="auto-q">
+        <p class="q">3. Dormi sub 7 ore pe noapte în mod regulat?</p>
+        <div class="auto-opts">
+          <div class="auto-opt">Da</div>
+          <div class="auto-opt selected">Uneori</div>
+          <div class="auto-opt">Nu</div>
+        </div>
+      </div>
+      <div class="auto-q">
+        <p class="q">4. Ți s-a măsurat vreodată vitamina D în sânge în ultimii 2 ani?</p>
+        <div class="auto-opts">
+          <div class="auto-opt">Da</div>
+          <div class="auto-opt">Uneori</div>
+          <div class="auto-opt selected">Nu</div>
+        </div>
+      </div>
+    </div>
+    <div class="auto-result">
+      <div class="body">
+        <p class="lbl">Rezultat pe baza răspunsurilor</p>
+        <p class="txt"><strong>Răspunsurile sugerează că sistemul imunitar e suprasolicitat.</strong> Începe cu somn, vitamina D3 și zinc în sezonul rece. Dacă după 6–8 săptămâni nu vezi schimbare, măsoară-ți analizele.</p>
+      </div>
+      <a class="btn-q">Vezi quiz-ul complet (60 sec)
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ====== Cand la medic ====== -->
+  <section class="medic">
+    <div class="medic-card">
+      <div class="ico">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 12h6"/><path d="M12 9v6"/><circle cx="12" cy="12" r="10"/></svg>
+      </div>
+      <h2>Când răcelile nu mai sunt <em>doar răceli.</em></h2>
+      <p class="lede">Dacă oricare dintre semnele de mai jos apare, prioritar este să consulți un medic, nu să încerci suplimentele singur.</p>
+      <ul class="medic-list">
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Febră peste 38°C mai mult de 3 zile.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Dureri toracice sau respirație dificilă.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Tuse cu sânge sau secreții verzi/galbene dense.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Pierdere în greutate inexplicabilă.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Infecții repetate (mai mult de 4 pe an cu antibiotice).</li>
+      </ul>
+      <div class="medic-foot">Menționarea unui medic aici nu e clauză legală. Infecțiile repetate merită investigații dincolo de suplimente.</div>
+    </div>
+  </section>
+
+  <!-- ====== Trei produse ====== -->
+  <section class="produse">
+    <div class="prod-head">
+      <div class="eyebrow" style="margin-bottom:14px">Dacă ai încercat schimbări de obicei și nu ajung</div>
+      <h2>Trei opțiuni, <em>în ordine logică.</em></h2>
+      <p>Începe cu prima. Dacă după 6 săptămâni nu vezi schimbare, treci la următoarea.</p>
+    </div>
+
+    <div class="prod-grid">
+
+      <div class="prod-card">
+        <span class="opt-chip">Opțiune 01</span>
+        <div class="prod-photo">
+          <div class="wash"></div>
+          <div class="mini-pack">
+            <div class="lbl">
+              <div class="b">Mâna Naturii</div>
+              <div class="n">Pachet<br/>Imunitate</div>
+              <div class="v">2 SUPL · 120 ZILE</div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <span class="eyebrow-mini">Imunitate · complet</span>
+          <h3>Pachet Imunitate</h3>
+          <p class="why">Vitamina C + Vitamina E, vegan, 120 zile. Pentru răceli frecvente, alergii, imunitate slabă, vindecare lentă. Vit C 250% + Zinc + D3 + timoquinonă.</p>
+          <div class="rating-mini">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            </div>
+            <strong>4,9 / 5</strong>
+            <span>(218)</span>
+          </div>
+          <div class="price-row">
+            <span class="price">349 lei</span>
+          </div>
+          <a class="btn-terra" style="margin-top:14px">Vezi pachetul
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <span class="opt-chip">Opțiune 02</span>
+        <div class="prod-photo">
+          <div class="wash"></div>
+          <div class="mini-pack b2">
+            <div class="lbl">
+              <div class="b">Mâna Naturii</div>
+              <div class="n">Black Seed<br/>Elixir</div>
+              <div class="v">240 CPS · 120 DOZE</div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <span class="eyebrow-mini">Metabolic · imunitate</span>
+          <h3>Black Seed Elixir</h3>
+          <p class="why">Ulei chimen negru egiptean și vitamina E, 240 capsule vegane, 120 doze. Pentru protecție imunitară zilnică și echilibru metabolic natural.</p>
+          <div class="rating-mini">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            </div>
+            <strong>4,8 / 5</strong>
+            <span>(187)</span>
+          </div>
+          <div class="price-row">
+            <span class="price">184 lei</span>
+          </div>
+          <a class="btn-secondary-g" style="margin-top:14px">Vezi produsul
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <span class="opt-chip">Opțiune 03</span>
+        <div class="prod-photo">
+          <div class="wash"></div>
+          <div class="mini-pack b3">
+            <div class="lbl">
+              <div class="b">Mâna Naturii</div>
+              <div class="n">Pachet<br/>Complex 40+</div>
+              <div class="v">3 SUPL · 120 ZILE</div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-body">
+          <span class="eyebrow-mini">Complet · 40+</span>
+          <h3>Pachet Complex Sănătate 40+</h3>
+          <p class="why">Energie, imunitate, protecție celulară, 120 zile. Pentru cei după 40 cu răceli frecvente, oboseală cronică și metabolism încetinit, abordare completă.</p>
+          <div class="rating-mini">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            </div>
+            <strong>4,7 / 5</strong>
+            <span>(112)</span>
+          </div>
+          <div class="price-row">
+            <span class="price">499 lei</span>
+          </div>
+          <a class="btn-secondary-g" style="margin-top:14px">Vezi pachetul
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Mituri ====== -->
+  <section class="mituri">
+    <div class="mit-head">
+      <div class="eyebrow" style="margin-bottom:14px">Câteva lucruri pe care le auzim des</div>
+      <h2>Mituri despre imunitate, <em>calm onest.</em></h2>
+    </div>
+
+    <div class="mit-grid">
+      <div class="mit-card">
+        <div class="mit-side">
+          <span class="lbl">Mit</span>
+          <p class="txt">„Vitamina C în doze mari oprește răceala."</p>
+        </div>
+        <div class="real-side">
+          <span class="lbl">Realitate</span>
+          <p class="txt">Studiile arată că vitamina C luată constant scurtează durata cu 1–2 zile. Megadozele (peste 2000 mg) nu opresc răceala și pot da disconfort digestiv. Constant, nu reactiv.</p>
+        </div>
+      </div>
+
+      <div class="mit-card">
+        <div class="mit-side">
+          <span class="lbl">Mit</span>
+          <p class="txt">„Dacă mă îmbrac gros, nu răcesc."</p>
+        </div>
+        <div class="real-side">
+          <span class="lbl">Realitate</span>
+          <p class="txt">Răcelile sunt virale, nu cauzate de frig direct. Frigul scade imunitatea locală în mucoase, dar virusurile sunt sursa. Îmbracă-te corect, dar nu uita de somn, D3 și zinc.</p>
+        </div>
+      </div>
+
+      <div class="mit-card">
+        <div class="mit-side">
+          <span class="lbl">Mit</span>
+          <p class="txt">„Antibioticele ajută la răceală."</p>
+        </div>
+        <div class="real-side">
+          <span class="lbl">Realitate</span>
+          <p class="txt">Antibioticele nu funcționează pe viruși. Luate inutil, distrug microbiomul și slăbesc imunitatea în viitor. Răcelile cer repaus, hidratare și timp.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FAQ + Quiz ====== -->
+  <section class="end">
+    <div class="end-grid">
+      <div class="end-faq">
+        <div class="eyebrow">Despre imunitate</div>
+        <h2>Răspunsuri <em>scurte.</em></h2>
+        <div class="faq-list">
+          <div class="faq-item open">
+            <div class="faq-q">
+              <h4>Când încep să iau vitamina D3?</h4>
+              <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/></svg></div>
+            </div>
+            <div class="faq-a">
+              Din <strong>octombrie până în aprilie</strong>, zilnic. În restul anului, doar dacă nu te expui la soare minim 20 min/zi. Ideal: măsoară-ți nivelul înainte.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              <h4>Pot lua zinc și vitamina C împreună?</h4>
+              <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+            </div>
+            <div class="faq-a">
+              Da, sunt complementare. Zincul acționează pe celulele imunitare, vitamina C susține bariera. Combinația e standard în protocoalele de sezon.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              <h4>Am copii, le pot da aceleași suplimente?</h4>
+              <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+            </div>
+            <div class="faq-a">
+              Nu înainte de a consulta pediatrul. Dozele pentru copii sunt diferite și unele suplimente nu sunt indicate sub 12 ani.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              <h4>Cât timp durează până văd schimbare?</h4>
+              <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+            </div>
+            <div class="faq-a">
+              Primele efecte în 2–4 săptămâni, reducerea frecvenței răcelilor se vede pe un sezon întreg (3–4 luni).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="end-quiz">
+        <span class="eyebrow-gold">Test de 60 secunde</span>
+        <p>Nu știi de unde să începi? Fă testul nostru și îți spunem <em>ce protocol ți se potrivește.</em></p>
+        <a class="btn-terra">Începe testul
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <div class="small">Folosit de 8.354 oameni în ultima lună.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 30 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678</div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

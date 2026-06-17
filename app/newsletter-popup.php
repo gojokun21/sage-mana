@@ -85,12 +85,19 @@ function newsletter_popup_subscribe_handler(): void
     $name = isset($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : '';
     $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
 
-    if ($name === '' || $email === '') {
-        wp_send_json_error(['message' => __('Te rugăm să completezi prenumele și emailul.', 'sage')]);
+    if ($email === '') {
+        wp_send_json_error(['message' => __('Te rugăm să completezi emailul.', 'sage')]);
     }
 
     if (! is_email($email)) {
         wp_send_json_error(['message' => __('Adresa de email nu pare validă.', 'sage')]);
+    }
+
+    // The homepage newsletter strip collects only an email (no name field).
+    // Derive a display name from the email local-part so TheMarketer always
+    // receives a non-empty name. The popup still posts a real name.
+    if ($name === '') {
+        $name = ucfirst(strstr($email, '@', true) ?: $email);
     }
 
     newsletter_popup_push_to_themarketer($email, $name);

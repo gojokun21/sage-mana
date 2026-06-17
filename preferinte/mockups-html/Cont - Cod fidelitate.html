@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii: Cod fidelitate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .breadcrumb{padding:18px 64px;font-size:13px;color:var(--ink-3);display:flex;align-items:center;gap:10px;background:#fff;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:20}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--ink);font-weight:600}
+
+  /* Layout (identic) */
+  .account-wrap{display:grid;grid-template-columns:280px 1fr;gap:32px;padding:32px 64px 80px;background:var(--cream);min-height:600px;align-items:flex-start}
+
+  /* SIDEBAR identic */
+  .sidebar{position:sticky;top:84px;background:#fff;border:1px solid var(--rule);border-radius:20px;overflow:hidden}
+  .sb-profile{padding:24px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--rule)}
+  .sb-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;display:grid;place-items:center;font-family:"Fraunces",serif;font-size:19px;font-weight:500;letter-spacing:-0.01em;flex-shrink:0}
+  .sb-profile .who{display:flex;flex-direction:column;min-width:0}
+  .sb-profile .who .n{font-family:"Inter",sans-serif;font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.2}
+  .sb-profile .who .e{font-size:12px;color:var(--ink-3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sb-nav{padding:14px 12px;display:flex;flex-direction:column;gap:2px}
+  .sb-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink-2);font-weight:500;cursor:pointer;position:relative;text-decoration:none}
+  .sb-item:hover{background:var(--cream)}
+  .sb-item svg{width:16px;height:16px;color:var(--ink-3);flex-shrink:0}
+  .sb-item.active{background:var(--cream);color:var(--green-deep);font-weight:600}
+  .sb-item.active svg{color:var(--green)}
+  .sb-item.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--terra);border-radius:0 3px 3px 0}
+  .sb-item .chip-level{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:var(--cream-2);color:var(--green-deep);font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:999px;text-transform:uppercase}
+  .sb-item .chip-level::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green-2)}
+  .sb-sep{height:1px;background:var(--rule);margin:8px 16px}
+  .sb-logout{display:flex;align-items:center;gap:10px;padding:14px 26px;font-size:12.5px;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+  /* Main column */
+  .main-col{display:flex;flex-direction:column;gap:22px;min-width:0}
+
+  .page-head{padding:0 4px}
+  .page-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--green-2);font-weight:600;margin-bottom:14px}
+  .page-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--green-2)}
+  .page-head h1{font-family:"Fraunces",serif;font-weight:400;font-size:36px;line-height:1.1;letter-spacing:-0.015em;margin:0 0 12px}
+  .page-head h1 em{font-style:italic;color:var(--green);font-weight:300}
+  .page-head p{font-size:14.5px;color:var(--ink-2);line-height:1.6;max-width:680px;margin:0}
+
+  /* ===== HERO POINTS CARD ===== */
+  .points-card{position:relative;background:#fff;border:1px solid var(--rule);border-radius:20px;padding:38px 36px;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
+  .points-card::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at top, rgba(46,79,55,.06) 0%, transparent 60%);pointer-events:none}
+  .points-card::after{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg, var(--green) 0%, var(--green-2) 50%, var(--green) 100%);opacity:.85}
+  .pc-leaf{position:absolute;color:var(--green);opacity:.06;pointer-events:none}
+  .pc-leaf.l1{top:24px;left:30px;transform:rotate(-20deg)}
+  .pc-leaf.l2{bottom:30px;right:34px;transform:rotate(150deg)}
+
+  .points-card .label{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--green-2);font-weight:600}
+  .points-card .label::before,.points-card .label::after{content:"";width:18px;height:1px;background:var(--green-2);opacity:.5}
+  .points-card .big{position:relative;z-index:1;font-family:"Fraunces",serif;font-weight:300;font-size:88px;line-height:1;letter-spacing:-0.04em;color:var(--green-deep);margin:0;display:flex;align-items:baseline;gap:14px;justify-content:center;flex-wrap:wrap}
+  .points-card .big .unit{font-size:24px;font-weight:400;font-style:italic;color:var(--green);letter-spacing:-0.01em}
+  .points-card .equiv{position:relative;z-index:1;font-family:"Inter",sans-serif;font-size:15px;color:var(--ink-2);font-weight:500;display:inline-flex;align-items:center;gap:9px}
+  .points-card .equiv strong{color:var(--ink);font-weight:600;font-size:16px}
+  .points-card .equiv .eq-dot{width:4px;height:4px;border-radius:50%;background:var(--rule-2)}
+  .points-card .helper{position:relative;z-index:1;font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:var(--ink-3);line-height:1.6;max-width:540px;margin:0}
+  .points-card .helper strong{color:var(--ink-2);font-weight:600;font-style:normal;font-family:"Inter",sans-serif;font-size:12.5px}
+  .points-card .cta{position:relative;z-index:1;display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 24px;background:var(--terra);color:#fff;border:0;border-radius:999px;font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s;margin-top:4px}
+  .points-card .cta:hover{background:var(--terra-deep)}
+
+  /* ===== TIER CARD ===== */
+  .tier-card{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:28px 30px;display:flex;flex-direction:column;gap:22px}
+  .tier-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .tier-head .current{display:flex;align-items:center;gap:14px}
+  .tier-head .leaf-ico{width:46px;height:46px;border-radius:12px;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0;border:1px solid var(--rule)}
+  .tier-head .ti-text{display:flex;flex-direction:column;gap:2px}
+  .tier-head .ti-text .stage{font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  .tier-head .ti-text h2{font-family:"Fraunces",serif;font-weight:500;font-size:22px;line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--ink)}
+  .tier-head .ti-text h2 em{font-style:italic;color:var(--green);font-weight:400}
+  .tier-head .to-next{text-align:right;font-family:"Inter",sans-serif;font-size:13px;color:var(--ink-2);line-height:1.4}
+  .tier-head .to-next strong{font-family:"Fraunces",serif;font-weight:500;color:var(--green-deep);font-size:18px;display:block;line-height:1.2;margin-bottom:2px}
+  .tier-head .to-next span{font-family:"Fraunces",serif;font-style:italic;font-size:12.5px;color:var(--ink-3)}
+
+  .tier-progress{position:relative;height:14px;background:var(--cream);border-radius:999px;overflow:hidden;border:1px solid var(--rule)}
+  .tier-progress .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg, var(--green) 0%, var(--green-2) 100%);border-radius:999px;transition:width .8s ease}
+  .tier-progress .ticks{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;padding:0 6px;pointer-events:none}
+  .tier-progress .ticks span{width:2px;height:6px;background:rgba(255,255,255,.5);border-radius:1px}
+  .tier-progress-meta{display:flex;justify-content:space-between;font-family:"Inter",sans-serif;font-size:11.5px;color:var(--ink-3);font-weight:500;margin-top:-12px;padding:0 2px}
+  .tier-progress-meta strong{font-family:"JetBrains Mono",monospace;color:var(--ink-2);font-weight:600}
+
+  .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px}
+  @media (max-width:880px){.tier-grid{grid-template-columns:1fr}}
+  .tier-pill{position:relative;background:var(--cream);border:1.5px solid var(--rule);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:all .2s}
+  .tier-pill.current{border-color:var(--green);background:linear-gradient(135deg, rgba(46,79,55,.04) 0%, rgba(46,79,55,.08) 100%);box-shadow:0 4px 16px -8px rgba(46,79,55,.25)}
+  .tier-pill.locked{opacity:.88}
+  .tp-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .tp-head .name-row{display:flex;align-items:center;gap:9px}
+  .tp-head .ti-leaf{width:32px;height:32px;border-radius:9px;background:#fff;border:1px solid var(--rule);display:grid;place-items:center;flex-shrink:0;color:var(--green)}
+  .tier-pill.current .tp-head .ti-leaf{background:var(--green);color:#fff;border-color:var(--green)}
+  .tp-head .nm{font-family:"Fraunces",serif;font-weight:500;font-size:16px;color:var(--ink);letter-spacing:-0.01em;line-height:1.2}
+  .tp-head .nm small{display:block;font-family:"Inter",sans-serif;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-top:2px;font-style:normal}
+  .tp-head .pin{font-family:"Inter",sans-serif;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--green-deep);background:#fff;border:1px solid var(--green);padding:3px 8px;border-radius:999px;font-weight:700}
+  .tp-range{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3);font-weight:600;letter-spacing:.02em}
+  .tp-benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+  .tp-benefits li{display:flex;gap:8px;align-items:flex-start;font-family:"Inter",sans-serif;font-size:12.5px;color:var(--ink-2);line-height:1.45}
+  .tp-benefits li svg{color:var(--green);flex-shrink:0;margin-top:2px}
+  .tier-pill.current .tp-benefits li{color:var(--ink)}
+
+  /* ===== EARN POINTS ===== */
+  .section-head{padding:0 4px;display:flex;flex-direction:column;gap:4px}
+  .section-head h2{font-family:"Fraunces",serif;font-weight:500;font-size:22px;line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--ink)}
+  .section-head h2 em{font-style:italic;color:var(--green);font-weight:400}
+  .section-head p{font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:var(--ink-3);line-height:1.55;margin:0;max-width:580px}
+
+  .earn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media (max-width:980px){.earn-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.earn-grid{grid-template-columns:1fr}}
+  .earn-card{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:all .15s}
+  .earn-card:hover{border-color:var(--green-2);transform:translateY(-2px);box-shadow:0 8px 22px -12px rgba(15,42,29,.18)}
+  .earn-card .ei{width:38px;height:38px;border-radius:10px;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+  .earn-card .et{font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.3}
+  .earn-card .ep{font-family:"Fraunces",serif;font-style:italic;font-size:18px;color:var(--green-deep);font-weight:500;letter-spacing:-0.01em;line-height:1.1}
+  .earn-card .ep .pts{font-size:13.5px;color:var(--ink-3);font-style:normal;font-family:"Inter",sans-serif;font-weight:500;letter-spacing:0;margin-left:3px}
+  .earn-card .ed{font-family:"Fraunces",serif;font-style:italic;font-size:12.5px;color:var(--ink-3);line-height:1.5}
+
+  /* ===== REFERRAL CARD ===== */
+  .ref-card{position:relative;background:linear-gradient(135deg, #1F3D2E 0%, #2C5240 100%);border-radius:20px;padding:32px 34px;color:#fff;display:flex;flex-direction:column;gap:20px;overflow:hidden}
+  .ref-card::before{content:"";position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle, rgba(196,98,63,.18) 0%, transparent 70%);pointer-events:none}
+  .ref-card::after{content:"";position:absolute;bottom:-80px;left:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,.06) 0%, transparent 70%);pointer-events:none}
+  .ref-head{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+  .ref-head .ico{width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.10);color:#fff;display:grid;place-items:center;flex-shrink:0;border:1px solid rgba(255,255,255,.15)}
+  .ref-head h2{font-family:"Fraunces",serif;font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.015em;margin:0}
+  .ref-head h2 em{font-style:italic;color:#E8B89D;font-weight:300}
+  .ref-card .lead{font-family:"Inter",sans-serif;font-size:14px;line-height:1.6;color:rgba(255,255,255,.85);margin:0;max-width:560px;position:relative;z-index:1}
+  .ref-card .lead strong{color:#fff;font-weight:600}
+
+  .ref-code-box{background:rgba(255,255,255,.96);border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:14px;position:relative;z-index:1;flex-wrap:wrap}
+  .ref-code-box .lbl{font-family:"Inter",sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700;display:block;margin-bottom:4px}
+  .ref-code-box .col{display:flex;flex-direction:column;min-width:0;flex:1}
+  .ref-code-box .code{font-family:"JetBrains Mono",monospace;font-size:24px;font-weight:700;color:var(--green-deep);letter-spacing:.04em;line-height:1.1}
+  .ref-code-box .link-text{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--ink-2);font-weight:500;letter-spacing:.01em;line-height:1.3;word-break:break-all;margin-top:3px}
+  .ref-copy-btn{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;background:var(--green);color:#fff;border:0;border-radius:999px;font-family:"Inter",sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;flex-shrink:0;transition:all .15s}
+  .ref-copy-btn:hover{background:var(--green-deep)}
+  .ref-copy-btn.outline{background:transparent;color:var(--green-deep);border:1.5px solid var(--rule)}
+  .ref-copy-btn.outline:hover{border-color:var(--green);color:var(--green)}
+
+  .ref-share-row{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+  .share-btn{display:inline-flex;align-items:center;gap:9px;height:42px;padding:0 18px;border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .15s;border:1.5px solid rgba(255,255,255,.18)}
+  .share-btn.wa{background:#25D366;color:#fff;border-color:#25D366}
+  .share-btn.wa:hover{background:#1FBA58}
+  .share-btn.em{background:rgba(255,255,255,.10);color:#fff;border-color:rgba(255,255,255,.25)}
+  .share-btn.em:hover{background:rgba(255,255,255,.16)}
+  .share-btn.cp{background:rgba(255,255,255,.05);color:#fff;border-color:rgba(255,255,255,.20)}
+  .share-btn.cp:hover{background:rgba(255,255,255,.12)}
+
+  .ref-stats{display:flex;align-items:center;gap:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);position:relative;z-index:1;flex-wrap:wrap}
+  .ref-stats .stat-block{display:flex;align-items:baseline;gap:8px;font-family:"Inter",sans-serif}
+  .ref-stats .stat-block .n{font-family:"Fraunces",serif;font-weight:400;font-size:28px;color:#fff;letter-spacing:-0.02em;line-height:1}
+  .ref-stats .stat-block .t{font-size:12.5px;color:rgba(255,255,255,.7);font-weight:500}
+  .ref-stats .stat-sep{width:1px;height:24px;background:rgba(255,255,255,.18)}
+
+  /* ===== HISTORY TABLE ===== */
+  .history-card{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:0;overflow:hidden}
+  .history-head{padding:22px 26px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+  .history-head h2{font-family:"Fraunces",serif;font-weight:500;font-size:20px;line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--ink);display:flex;align-items:center;gap:10px}
+  .history-head h2 em{font-style:italic;color:var(--green);font-weight:400}
+  .history-head h2 .ico{width:32px;height:32px;border-radius:9px;background:var(--cream);color:var(--green);display:grid;place-items:center}
+  .history-head .sub{font-family:"Fraunces",serif;font-style:italic;font-size:12.5px;color:var(--ink-3)}
+  .history-table{width:100%;border-collapse:collapse;font-family:"Inter",sans-serif}
+  .history-table thead th{font-size:10.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-3);font-weight:700;text-align:left;padding:11px 26px;border-bottom:1px solid var(--rule);background:var(--cream-2)}
+  .history-table tbody td{font-size:13px;color:var(--ink);padding:13px 26px;border-bottom:1px solid var(--rule);line-height:1.4;vertical-align:middle}
+  .history-table tbody tr:last-child td{border-bottom:0}
+  .history-table tbody tr:hover{background:var(--cream)}
+  .ht-date{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-3);font-weight:600;white-space:nowrap}
+  .ht-desc{color:var(--ink);font-weight:500}
+  .ht-desc .order-link{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--green-deep);background:var(--cream);padding:1px 7px;border-radius:4px;font-weight:600;letter-spacing:.02em;margin-left:4px}
+  .ht-desc .amt{color:var(--ink-3);font-family:"Inter",sans-serif;font-weight:500;font-size:12px;margin-left:6px}
+  .ht-pts{font-family:"JetBrains Mono",monospace;font-weight:700;text-align:right;white-space:nowrap}
+  .ht-pts.plus{color:#2E8B57}
+  .ht-pts.minus{color:#A33}
+  .ht-pts.zero{color:var(--ink-3)}
+  .ht-bal{font-family:"JetBrains Mono",monospace;font-weight:600;color:var(--ink-2);text-align:right;white-space:nowrap}
+  .history-foot{padding:14px 26px;border-top:1px solid var(--rule);display:flex;justify-content:center;background:var(--cream-2)}
+  .history-foot a{font-family:"Inter",sans-serif;font-size:13px;color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:3px;display:inline-flex;align-items:center;gap:6px}
+  .history-foot a:hover{color:var(--green-deep)}
+
+  /* ===== FAQ ACCORDION ===== */
+  .faq-card{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:24px 28px;display:flex;flex-direction:column;gap:6px}
+  .faq-card .fh{display:flex;align-items:center;gap:11px;margin-bottom:8px}
+  .faq-card .fh .ico{width:32px;height:32px;border-radius:9px;background:var(--cream);color:var(--green);display:grid;place-items:center}
+  .faq-card .fh h2{font-family:"Fraunces",serif;font-weight:500;font-size:19px;line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--ink)}
+  .faq-card .fh h2 em{font-style:italic;color:var(--green);font-weight:400}
+
+  .faq-item{border-bottom:1px solid var(--rule)}
+  .faq-item:last-of-type{border-bottom:0}
+  .faq-q{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 0;cursor:pointer;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;color:var(--ink);line-height:1.4}
+  .faq-q .qchev{width:24px;height:24px;border-radius:50%;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0;transition:transform .25s}
+  .faq-item.open .qchev{transform:rotate(180deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease, padding .3s ease;font-family:"Fraunces",serif;font-style:italic;font-size:13.5px;color:var(--ink-2);line-height:1.6;padding:0;}
+  .faq-item.open .faq-a{max-height:200px;padding:0 0 16px}
+
+  .faq-link{padding:0 4px;font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:var(--ink-3);line-height:1.55;text-align:center}
+  .faq-link a{color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:3px;font-style:normal;font-family:"Inter",sans-serif;font-size:13px}
+
+  /* Toast */
+  .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green-deep);color:#fff;padding:12px 22px;border-radius:999px;font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;box-shadow:0 14px 30px -10px rgba(15,42,29,.45);display:inline-flex;align-items:center;gap:10px;opacity:0;pointer-events:none;transition:all .25s ease;z-index:200}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast svg{color:#A4D49B}
+
+  @media (max-width:980px){
+    .account-wrap{grid-template-columns:1fr;padding:24px 24px 60px}
+    .sidebar{position:static}
+    .breadcrumb{padding:16px 24px}
+    .points-card .big{font-size:64px}
+    .history-table thead th,.history-table tbody td{padding:11px 18px}
+  }
+  @media (max-width:560px){
+    .history-table thead{display:none}
+    .history-table tbody tr{display:flex;flex-direction:column;padding:14px 18px;border-bottom:1px solid var(--rule);gap:5px}
+    .history-table tbody td{padding:0;border:0}
+    .ht-pts,.ht-bal{text-align:left}
+  }
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Cont · Cod fidelitate">
+
+  <!-- HEADER GLOBAL -->
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 250 lei</span><span class="dot"></span>
+        <span>Livrare 1–3 zile</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--ink-3)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Salut, Andreea</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><a>Contul meu</a><span class="sep">›</span><span class="here">Cod fidelitate</span></div>
+
+  <section class="account-wrap">
+
+    <!-- SIDEBAR (Cod fidelitate ACTIV) -->
+    <aside class="sidebar">
+      <div class="sb-profile">
+        <div class="sb-avatar">AP</div>
+        <div class="who">
+          <span class="n">Andreea Popescu</span>
+          <span class="e">andreea.popescu@gmail.c...</span>
+        </div>
+      </div>
+      <nav class="sb-nav">
+        <a class="sb-item" href="Cont - Comenzile mele.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Comenzi</a>
+        <a class="sb-item" href="Cont - Gestionare Abonament.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Abonamente</a>
+        <a class="sb-item" href="Cont - Adrese de livrare.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Adrese de livrare</a>
+        <a class="sb-item" href="Cont - Date personale.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Date personale</a>
+        <a class="sb-item" href="Cont - Carduri salvate.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Carduri salvate</a>
+        <a class="sb-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Cod fidelitate<span class="chip-level">CONSTANT</span></a>
+        <a class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notificări</a>
+      </nav>
+      <div class="sb-sep"></div>
+      <a class="sb-logout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Ieși din cont</a>
+    </aside>
+
+    <!-- MAIN COL -->
+    <div class="main-col">
+
+      <div class="page-head">
+        <div class="eyebrow">Cont · Constant (programul de fidelitate)</div>
+        <h1>Constant: câștigi <em>liber.</em></h1>
+        <p>Fără trucuri, fără expirare la 30 zile, fără condiții ascunse. Acumulezi puncte, le folosești când vrei.</p>
+      </div>
+
+      <!-- D2: PUNCTELE MELE -->
+      <div class="points-card">
+        <svg class="pc-leaf l1" width="120" height="120" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C12 2 8 6 8 12C8 16 10 19 12 22C14 19 16 16 16 12C16 6 12 2 12 2Z"/></svg>
+        <svg class="pc-leaf l2" width="100" height="100" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C12 2 8 6 8 12C8 16 10 19 12 22C14 19 16 16 16 12C16 6 12 2 12 2Z"/></svg>
+        <span class="label">Soldul tău Constant</span>
+        <h2 class="big">1.247<span class="unit">puncte</span></h2>
+        <div class="equiv">
+          <span>Echivalent</span>
+          <strong>124,70 lei</strong>
+          <span class="eq-dot"></span>
+          <span>la următoarea comandă</span>
+        </div>
+        <p class="helper"><strong>1 punct = 0,10 lei.</strong> Folosești minim 100 puncte (10 lei) per comandă. Maxim 30% din valoarea coșului poate fi plătit cu puncte.</p>
+        <a class="cta" href="Pagina Cos - Cart.html">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+          Folosește punctele la următoarea comandă
+        </a>
+      </div>
+
+      <!-- D3: TIER -->
+      <div class="tier-card">
+        <div class="tier-head">
+          <div class="current">
+            <div class="leaf-ico">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C12 2 8 6 8 12C8 16 10 19 12 22C14 19 16 16 16 12C16 6 12 2 12 2Z" fill="currentColor" fill-opacity=".15"/><path d="M12 2C12 2 8 6 8 12C8 16 10 19 12 22C14 19 16 16 16 12C16 6 12 2 12 2Z"/><path d="M12 6v16"/></svg>
+            </div>
+            <div class="ti-text">
+              <span class="stage">Tier actual</span>
+              <h2>Verde, <em>începutul drumului.</em></h2>
+            </div>
+          </div>
+          <div class="to-next">
+            <strong>1.753 puncte</strong>
+            <span>până la tier Mat</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="tier-progress">
+            <div class="fill" style="width:41.5%"></div>
+            <div class="ticks"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="tier-progress-meta">
+            <span><strong>1.247</strong> puncte acumulate</span>
+            <span>până la <strong>3.000</strong></span>
+          </div>
+        </div>
+
+        <div class="tier-grid">
+
+          <div class="tier-pill current">
+            <div class="tp-head">
+              <div class="name-row">
+                <div class="ti-leaf"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C12 2 8 6 8 12C8 16 10 19 12 22C14 19 16 16 16 12C16 6 12 2 12 2Z" fill="currentColor" fill-opacity=".2"/><path d="M12 2C12 2 8 6 8 12C8 16 10 19 12 22C14 19 16 16 16 12C16 6 12 2 12 2Z"/></svg></div>
+                <div class="nm">Verde<small>începutul drumului</small></div>
+              </div>
+              <span class="pin">Aici ești</span>
+            </div>
+            <div class="tp-range">0–2.999 puncte acumulate</div>
+            <ul class="tp-benefits">
+              <li><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span><strong style="font-family:Inter;font-weight:600;color:var(--ink)">1 punct</strong> per 1 leu cheltuit</span></li>
+              <li><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span>Transport gratuit peste 250 lei</span></li>
+            </ul>
+          </div>
+
+          <div class="tier-pill locked">
+            <div class="tp-head">
+              <div class="name-row">
+                <div class="ti-leaf"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C12 2 6 5 6 12C6 16 8 19 12 22C16 19 18 16 18 12C18 5 12 2 12 2Z" fill="currentColor" fill-opacity=".15"/><path d="M12 2C12 2 6 5 6 12C6 16 8 19 12 22C16 19 18 16 18 12C18 5 12 2 12 2Z"/><path d="M9 11l3 3 3-3"/></svg></div>
+                <div class="nm">Mat<small>regular client</small></div>
+              </div>
+            </div>
+            <div class="tp-range">3.000–9.999 puncte acumulate</div>
+            <ul class="tp-benefits">
+              <li><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span><strong style="font-family:Inter;font-weight:600;color:var(--ink)">1,2 puncte</strong> per leu cheltuit</span></li>
+              <li><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span>Transport gratuit peste 150 lei</span></li>
+              <li><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span>Acces noutăți cu 7 zile înainte</span></li>
+            </ul>
+          </div>
+
+          <div class="tier-pill locked">
+            <div class="tp-head">
+              <div class="name-row">
+                <div class="ti-leaf"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22V12M12 12C8 10 4 10 4 6C4 4 6 3 8 4C10 5 12 8 12 12M12 12C16 10 20 10 20 6C20 4 18 3 16 4C14 5 12 8 12 12"/><path d="M9 22h6"/></svg></div>
+                <div class="nm">Stejar<small>core community</small></div>
+              </div>
+            </div>
+            <div class="tp-range">10.000+ puncte acumulate</div>
+            <ul class="tp-benefits">
+              <li><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span><strong style="font-family:Inter;font-weight:600;color:var(--ink)">1,5 puncte</strong> per leu cheltuit</span></li>
+              <li><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span>Transport gratuit întotdeauna</span></li>
+              <li><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span>Consultanță 1x pe an cu specialist plante</span></li>
+              <li><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span>Cadou la zi de naștere</span></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- D4: EARN POINTS -->
+      <div class="section-head">
+        <h2>Cum câștigi <em>puncte.</em></h2>
+        <p>4 căi simple, fără cerințe ascunse.</p>
+      </div>
+      <div class="earn-grid">
+
+        <div class="earn-card">
+          <div class="ei"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></div>
+          <div class="et">Cumperi un produs</div>
+          <div class="ep">1 punct<span class="pts">per 1 leu</span></div>
+          <div class="ed">Calculat din valoarea produselor, fără transport.</div>
+        </div>
+
+        <div class="earn-card">
+          <div class="ei"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg></div>
+          <div class="et">Lași un review verificat</div>
+          <div class="ep">50 puncte<span class="pts">per produs</span></div>
+          <div class="ed">Pentru produsele cumpărate și evaluate.</div>
+        </div>
+
+        <div class="earn-card">
+          <div class="ei"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="et">Recomanzi unui prieten</div>
+          <div class="ep">200 + 100<span class="pts">puncte</span></div>
+          <div class="ed">200 tu, 100 el, la prima lui comandă.</div>
+        </div>
+
+        <div class="earn-card">
+          <div class="ei"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div>
+          <div class="et">Ziua ta de naștere</div>
+          <div class="ep">100 puncte<span class="pts">cadou</span></div>
+          <div class="ed">Dacă ai setat data în Date personale.</div>
+        </div>
+
+      </div>
+
+      <!-- D5: REFERRAL -->
+      <div class="ref-card">
+        <div class="ref-head">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h2>Codul tău <em>referral.</em></h2>
+        </div>
+        <p class="lead">Trimite codul prietenilor. <strong>Tu primești 200 puncte (20 lei)</strong>, ei primesc <strong>100 puncte (10 lei)</strong> la prima lor comandă.</p>
+
+        <div class="ref-code-box">
+          <div class="col" style="min-width:160px">
+            <span class="lbl">Cod personal</span>
+            <span class="code" id="refCode">ANDREEA-2025</span>
+          </div>
+          <button class="ref-copy-btn" data-copy="ANDREEA-2025" data-toast="Cod copiat în clipboard">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiază cod
+          </button>
+        </div>
+
+        <div class="ref-code-box">
+          <div class="col" style="min-width:180px">
+            <span class="lbl">Link complet de partajat</span>
+            <span class="link-text" id="refLink">mananaturii.ro/?ref=ANDREEA-2025</span>
+          </div>
+          <button class="ref-copy-btn outline" data-copy="https://mananaturii.ro/?ref=ANDREEA-2025" data-toast="Link copiat în clipboard">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            Copiază link
+          </button>
+        </div>
+
+        <div class="ref-share-row">
+          <a class="share-btn wa" id="shareWa" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2C6.5 2 2 6.5 2 12c0 1.7.5 3.4 1.3 4.9L2 22l5.3-1.3c1.4.7 3 1.1 4.7 1.1 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+            WhatsApp
+          </a>
+          <a class="share-btn em" id="shareEm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+          <button class="share-btn cp" id="shareMsg">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Copiază mesaj prefabricat
+          </button>
+        </div>
+
+        <div class="ref-stats">
+          <div class="stat-block"><span class="n">3</span><span class="t">prieteni au folosit codul tău</span></div>
+          <span class="stat-sep"></span>
+          <div class="stat-block"><span class="n">600</span><span class="t">puncte câștigate din referral</span></div>
+        </div>
+      </div>
+
+      <!-- D6: HISTORY TABLE -->
+      <div class="history-card">
+        <div class="history-head">
+          <h2><span class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>Istoric <em>puncte.</em></h2>
+          <span class="sub">Ultimele 10 mișcări</span>
+        </div>
+        <table class="history-table">
+          <thead>
+            <tr><th>Data</th><th>Descriere</th><th style="text-align:right">Puncte</th><th style="text-align:right">Sold</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ht-date">18 noi 2026</td>
+              <td class="ht-desc">Comandă<span class="order-link">MN-2026-0142</span><span class="amt">(176,90 lei)</span></td>
+              <td class="ht-pts plus">+177</td>
+              <td class="ht-bal">1.247</td>
+            </tr>
+            <tr>
+              <td class="ht-date">12 noi 2026</td>
+              <td class="ht-desc">Review verificat: Microflora+</td>
+              <td class="ht-pts plus">+50</td>
+              <td class="ht-bal">1.070</td>
+            </tr>
+            <tr>
+              <td class="ht-date">05 noi 2026</td>
+              <td class="ht-desc">Referral Maria P., prima comandă</td>
+              <td class="ht-pts plus">+200</td>
+              <td class="ht-bal">1.020</td>
+            </tr>
+            <tr>
+              <td class="ht-date">02 noi 2026</td>
+              <td class="ht-desc">Comandă<span class="order-link">MN-2026-0128</span><span class="amt">(178 lei)</span></td>
+              <td class="ht-pts plus">+178</td>
+              <td class="ht-bal">820</td>
+            </tr>
+            <tr>
+              <td class="ht-date">12 oct 2026</td>
+              <td class="ht-desc">Comandă<span class="order-link">MN-2026-0103</span><span class="amt">(234 lei)</span></td>
+              <td class="ht-pts plus">+234</td>
+              <td class="ht-bal">642</td>
+            </tr>
+            <tr>
+              <td class="ht-date">28 sep 2026</td>
+              <td class="ht-desc">Comandă<span class="order-link">MN-2026-0089</span><span class="amt">(184 lei)</span></td>
+              <td class="ht-pts plus">+184</td>
+              <td class="ht-bal">408</td>
+            </tr>
+            <tr>
+              <td class="ht-date">15 aug 2026</td>
+              <td class="ht-desc">Folosite la comandă<span class="order-link">MN-2026-0067</span></td>
+              <td class="ht-pts minus">-100</td>
+              <td class="ht-bal">224</td>
+            </tr>
+            <tr>
+              <td class="ht-date">22 iul 2026</td>
+              <td class="ht-desc">Comandă<span class="order-link">MN-2026-0051</span><span class="amt">(152 lei)</span></td>
+              <td class="ht-pts plus">+152</td>
+              <td class="ht-bal">324</td>
+            </tr>
+            <tr>
+              <td class="ht-date">05 mai 2026</td>
+              <td class="ht-desc">Comandă<span class="order-link">MN-2026-0032</span><span class="amt">(198 lei)</span></td>
+              <td class="ht-pts plus">+172</td>
+              <td class="ht-bal">172</td>
+            </tr>
+            <tr>
+              <td class="ht-date">12 mar 2026</td>
+              <td class="ht-desc">Prima comandă, bonus de bun venit</td>
+              <td class="ht-pts zero">+0</td>
+              <td class="ht-bal">0</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="history-foot">
+          <a href="Cont - Comenzile mele.html">Vezi istoric complet <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- D7: FAQ MINI -->
+      <div class="faq-card">
+        <div class="fh">
+          <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+          <h2>Câteva întrebări <em>frecvente.</em></h2>
+        </div>
+
+        <div class="faq-item" data-faq>
+          <div class="faq-q">Punctele expiră vreodată?<span class="qchev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg></span></div>
+          <div class="faq-a">Nu. Le folosești când vrei tu. Nu există termen de expirare, nici dacă nu intri pe site luni întregi. Singurul caz în care dispar: dacă ștergi contul.</div>
+        </div>
+
+        <div class="faq-item" data-faq>
+          <div class="faq-q">Pot transfera punctele către altcineva?<span class="qchev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg></span></div>
+          <div class="faq-a">Nu. Punctele sunt legate de contul tău personal. În schimb, dacă vrei să faci un cadou, poți cumpăra produsele și le trimiți direct la adresa prietenului.</div>
+        </div>
+
+        <div class="faq-item" data-faq>
+          <div class="faq-q">Ce se întâmplă cu punctele dacă returnez o comandă?<span class="qchev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg></span></div>
+          <div class="faq-a">Punctele câștigate la acea comandă se scad proporțional cu suma returnată. Dacă ai folosit puncte la comandă, ți le returnăm în cont când procesăm retur (3 zile lucrătoare).</div>
+        </div>
+      </div>
+
+      <div class="faq-link">Alte întrebări? Vezi <a href="Pagina FAQ.html">FAQ complet</a>, secțiunea Cont și fidelitate.</div>
+
+    </div>
+  </section>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+    <span id="toastMsg">Salvat</span>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  // Toast
+  var toast = document.getElementById('toast');
+  var toastMsg = document.getElementById('toastMsg');
+  var toastT;
+  function showToast(msg){
+    toastMsg.textContent = msg || 'Salvat';
+    toast.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(function(){ toast.classList.remove('show'); }, 2000);
+  }
+
+  // Copy buttons
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var txt = b.dataset.copy;
+      var msg = b.dataset.toast || 'Copiat';
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(txt).then(function(){ showToast(msg); }, function(){ showToast(msg); });
+      } else {
+        var t = document.createElement('textarea');
+        t.value = txt; document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); } catch(e){}
+        document.body.removeChild(t);
+        showToast(msg);
+      }
+    });
+  });
+
+  // Prefabricated message
+  var prefMsg = 'Hei, eu folosesc Mâna Naturii pentru suplimente naturale. Folosește codul ANDREEA-2025 și primești 10 lei reducere la prima ta comandă: https://mananaturii.ro/?ref=ANDREEA-2025';
+
+  // WhatsApp share
+  var wa = document.getElementById('shareWa');
+  wa.href = 'https://wa.me/?text=' + encodeURIComponent(prefMsg);
+
+  // Email share
+  var em = document.getElementById('shareEm');
+  em.href = 'mailto:?subject=' + encodeURIComponent('10 lei reducere la Mâna Naturii') + '&body=' + encodeURIComponent(prefMsg);
+
+  // Copy prefab message
+  document.getElementById('shareMsg').addEventListener('click', function(){
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(prefMsg).then(function(){ showToast('Mesaj copiat în clipboard'); });
+    } else {
+      var t = document.createElement('textarea');
+      t.value = prefMsg; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); } catch(e){}
+      document.body.removeChild(t);
+      showToast('Mesaj copiat în clipboard');
+    }
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('[data-faq]').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      item.classList.toggle('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

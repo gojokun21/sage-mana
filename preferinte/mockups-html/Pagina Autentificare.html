@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Autentificare sau cont nou, Mâna Naturii</title>
+<meta name="description" content="Intră în contul Mâna Naturii sau creează unul nou în sub un minut. Sau cumpără ca invitat, fără cont obligatoriu." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  body{background:var(--color-bg-page)}
+
+  /* Simple header (no full nav) */
+  .auth-header{padding:18px 64px;background:#fff;border-bottom:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+  .auth-header .logo-a{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+  .auth-header .logo-mark-a{width:34px;height:34px;border-radius:50%;background:var(--color-green-primary);color:#fff;display:grid;place-items:center;flex-shrink:0}
+  .auth-header .stack-a{display:flex;flex-direction:column;line-height:1.05}
+  .auth-header .stack-a .name{font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--color-text-primary);letter-spacing:-0.01em}
+  .auth-header .stack-a small{font-family:var(--font-serif);font-style:italic;font-size:11px;color:var(--color-text-faint);font-weight:400;margin-top:1px}
+  .auth-header .back-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:13.5px;color:var(--color-text-muted);font-weight:500;text-decoration:none;padding:8px 14px;border-radius:999px}
+  .auth-header .back-link:hover{color:var(--color-green-primary);background:var(--color-green-soft-card)}
+  .auth-header .back-link svg{color:var(--color-text-faint)}
+  .auth-header .back-link:hover svg{color:var(--color-green-primary)}
+
+  /* HERO */
+  .auth-hero{padding:56px 24px 24px;text-align:center;background:var(--color-bg-page)}
+  .auth-hero h1{font-family:var(--font-serif);font-weight:400;font-size:42px;line-height:1.1;letter-spacing:-0.02em;margin:0 0 10px;color:var(--color-text-primary)}
+  .auth-hero h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .auth-hero .sub{font-family:var(--font-serif);font-style:italic;font-size:16px;color:var(--color-text-muted);margin:0;line-height:1.5}
+
+  /* MAIN CARD */
+  .auth-wrap{padding:24px 24px 48px;background:var(--color-bg-page);display:flex;flex-direction:column;align-items:center;gap:18px}
+  .auth-card{width:100%;max-width:480px;background:#fff;border:1px solid var(--color-border);border-radius:18px;box-shadow:0 4px 24px rgba(31,61,46,.08);overflow:hidden}
+
+  /* Tabs */
+  .tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--color-border)}
+  .tab-btn{background:transparent;border:0;padding:18px 0 16px;font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--color-text-faint);cursor:pointer;position:relative;letter-spacing:.01em}
+  .tab-btn:hover{color:var(--color-text-muted)}
+  .tab-btn.active{color:var(--color-green-primary)}
+  .tab-btn.active::after{content:"";position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);width:60%;height:3px;background:var(--color-cta-primary);border-radius:3px 3px 0 0}
+
+  /* Card body */
+  .card-body{padding:28px 32px 26px}
+
+  /* SSO */
+  .sso-label{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700;margin-bottom:12px;text-align:center}
+  .sso-stack{display:flex;flex-direction:column;gap:9px}
+  .sso-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:48px;width:100%;background:#fff;border:1.5px solid var(--color-border);border-radius:10px;font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--color-text-primary);cursor:pointer;text-decoration:none;transition:all .12s}
+  .sso-btn:hover{border-color:var(--color-green-medium);background:var(--color-bg-page)}
+  .sso-btn svg{flex-shrink:0}
+
+  .sso-consent{font-family:var(--font-serif);font-style:italic;font-size:11.5px;color:var(--color-text-faint);text-align:center;line-height:1.5;margin-top:12px}
+  .sso-consent a{color:var(--color-green-primary);text-decoration:underline;text-underline-offset:3px;font-weight:600}
+
+  /* Separator */
+  .or-sep{display:flex;align-items:center;gap:12px;margin:22px 0 20px}
+  .or-sep::before,.or-sep::after{content:"";flex:1;height:1px;background:var(--color-border)}
+  .or-sep span{font-family:var(--font-sans);font-size:11px;color:var(--color-text-faint);letter-spacing:.08em;font-weight:600;text-transform:uppercase}
+
+  /* Forms */
+  .auth-form{display:flex;flex-direction:column;gap:14px}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-family:var(--font-sans);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-muted);font-weight:600}
+  .field label .opt{font-family:var(--font-serif);font-style:italic;font-weight:400;color:var(--color-text-faint);text-transform:none;letter-spacing:0;font-size:12px;margin-left:6px}
+  .field-wrap{position:relative}
+  .field input{height:48px;width:100%;border:1.5px solid var(--color-border);border-radius:10px;padding:0 14px;font-family:var(--font-sans);font-size:14.5px;color:var(--color-text-primary);background:#fff;outline:none;box-sizing:border-box;transition:all .12s}
+  .field input:focus{border-color:var(--color-green-primary);box-shadow:0 0 0 3px rgba(12,84,47,.10)}
+  .field input::placeholder{color:var(--color-text-faint)}
+  .field-wrap.with-icon input{padding-right:48px}
+  .toggle-pw{position:absolute;top:50%;right:12px;transform:translateY(-50%);width:32px;height:32px;border:0;background:transparent;display:grid;place-items:center;color:var(--color-text-muted);cursor:pointer;border-radius:7px}
+  .toggle-pw:hover{color:var(--color-green-primary);background:var(--color-bg-page)}
+  .helper{font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint);line-height:1.45;margin-top:2px}
+
+  /* Strength meter */
+  .pw-strength{display:flex;gap:5px;margin-top:6px}
+  .pw-strength .bar{flex:1;height:5px;border-radius:3px;background:var(--color-border)}
+  .pw-strength.weak .bar:nth-child(1){background:#C4623F}
+  .pw-strength.medium .bar:nth-child(1),.pw-strength.medium .bar:nth-child(2){background:#CAA44A}
+  .pw-strength.strong .bar{background:var(--color-green-primary)}
+
+  /* Row: remember + forgot */
+  .row-between{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:2px}
+  .check-inline{display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary);font-weight:500}
+  .check-inline .cb{width:18px;height:18px;border:1.5px solid var(--color-border-2);border-radius:5px;background:#fff;display:grid;place-items:center;flex-shrink:0;color:transparent;transition:all .12s}
+  .check-inline.checked .cb{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+  .forgot-link{font-family:var(--font-sans);font-size:13px;color:var(--color-cta-primary);font-weight:600;text-decoration:none}
+  .forgot-link:hover{text-decoration:underline;text-underline-offset:3px}
+
+  /* Consent rows (signup) */
+  .consent-row{display:flex;align-items:flex-start;gap:11px;cursor:pointer;padding:2px 0}
+  .consent-row .cb{width:20px;height:20px;border:1.5px solid var(--color-border-2);border-radius:5px;background:#fff;display:grid;place-items:center;flex-shrink:0;margin-top:1px;color:transparent;transition:all .12s}
+  .consent-row.checked .cb{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+  .consent-row .txt{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary);line-height:1.55}
+  .consent-row .txt a{color:var(--color-cta-primary);text-decoration:underline;text-underline-offset:3px;font-weight:600}
+  .consent-row.required .txt::after{content:"*";color:var(--color-cta-primary);margin-left:3px;font-weight:700}
+
+  /* Submit */
+  .submit-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;width:100%;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;box-shadow:var(--shadow-cta);margin-top:6px;transition:all .12s}
+  .submit-btn:hover:not(:disabled){background:var(--color-cta-primary-hover)}
+  .submit-btn:disabled{background:var(--color-text-faint);cursor:not-allowed;box-shadow:none;opacity:.6}
+
+  .alt-line{font-family:var(--font-sans);font-size:13px;color:var(--color-text-muted);text-align:center;margin:14px 0 0}
+  .alt-line a{color:var(--color-green-primary);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+  /* Pane switching */
+  .pane{display:none;animation:fadeIn .2s ease}
+  .pane.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+  /* Guest escape card */
+  .guest-card{width:100%;max-width:480px;background:var(--color-bg-card);border:1.5px solid var(--color-green-mute);border-radius:14px;padding:22px 26px;display:flex;flex-direction:column;gap:14px;text-align:center}
+  .guest-card .ico{width:38px;height:38px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;margin:0 auto}
+  .guest-card h3{font-family:var(--font-serif);font-size:18px;font-weight:500;line-height:1.3;margin:0;color:var(--color-text-primary)}
+  .guest-card h3 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .guest-card p{font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-muted);line-height:1.6;margin:0}
+  .guest-card a{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:46px;padding:0 22px;background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;text-decoration:none;align-self:center}
+  .guest-card a:hover{background:#fff}
+
+  /* Trust signals row */
+  .trust-row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:14px;max-width:560px}
+  .trust-item{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:11.5px;color:var(--color-text-faint);font-weight:500}
+  .trust-item svg{color:var(--color-green-medium);flex-shrink:0}
+
+  /* Footer minimal */
+  .auth-footer{padding:28px 24px 36px;background:var(--color-bg-page);text-align:center;border-top:1px solid var(--color-border);margin-top:24px}
+  .auth-footer .links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 18px;margin-bottom:10px;font-family:var(--font-sans);font-size:12.5px}
+  .auth-footer .links a{color:var(--color-text-muted);text-decoration:none}
+  .auth-footer .links a:hover{color:var(--color-green-primary)}
+  .auth-footer .links .sep{color:var(--color-text-faint);opacity:.5}
+  .auth-footer .copyright{font-family:var(--font-serif);font-style:italic;font-size:11.5px;color:var(--color-text-faint);line-height:1.5}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Autentificare">
+
+  <!-- Simple header -->
+  <header class="auth-header">
+    <a class="logo-a" href="Mana Naturii - Homepage.html">
+      <span class="logo-mark-a"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+      <span class="stack-a"><span class="name">mâna naturii</span><small>by vivens genetica</small></span>
+    </a>
+    <a class="back-link" href="Mana Naturii - Homepage.html">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+      Înapoi la magazin
+    </a>
+  </header>
+
+  <!-- HERO -->
+  <section class="auth-hero">
+    <h1>Bun venit <em>înapoi.</em></h1>
+    <p class="sub">Intră în cont sau creează unul nou în sub un minut.</p>
+  </section>
+
+  <!-- AUTH WRAP -->
+  <section class="auth-wrap">
+
+    <div class="auth-card">
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="login" type="button">Autentificare</button>
+        <button class="tab-btn" data-tab="signup" type="button">Cont nou</button>
+      </div>
+
+      <div class="card-body">
+
+        <!-- SSO (same on both panes) -->
+        <div class="sso-label">Intră rapid cu</div>
+        <div class="sso-stack">
+          <button class="sso-btn" type="button">
+            <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+            Continuă cu Google
+          </button>
+          <button class="sso-btn" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Continuă cu Facebook
+          </button>
+          <button class="sso-btn" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#000"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            Continuă cu Apple
+          </button>
+        </div>
+
+        <p class="sso-consent">Făcând login cu Google, Facebook sau Apple, accepți <a>Termenii</a> și <a>Politica de confidențialitate</a>.</p>
+
+        <div class="or-sep"><span>sau cu email</span></div>
+
+        <!-- PANE LOGIN -->
+        <div class="pane active" id="pane-login">
+          <form class="auth-form" onsubmit="return false">
+            <div class="field">
+              <label for="loginEmail">Email</label>
+              <div class="field-wrap">
+                <input type="email" id="loginEmail" placeholder="nume@email.ro" required autocomplete="email" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="loginPw">Parolă</label>
+              <div class="field-wrap with-icon">
+                <input type="password" id="loginPw" placeholder="••••••••" required autocomplete="current-password" />
+                <button class="toggle-pw" type="button" data-target="loginPw" aria-label="Arată parola">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="eye-on"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="eye-off" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-10-7-10-7a18.45 18.45 0 0 1 3.05-4.36"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 10 7 10 7a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="row-between">
+              <label class="check-inline" id="rememberMe">
+                <span class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>
+                Ține-mă conectat
+              </label>
+              <a class="forgot-link">Am uitat parola</a>
+            </div>
+            <button class="submit-btn" type="submit">
+              Intră în cont
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+            <p class="alt-line">Nu ai cont? <a data-switch="signup">Creează unul.</a></p>
+          </form>
+        </div>
+
+        <!-- PANE SIGNUP -->
+        <div class="pane" id="pane-signup">
+          <form class="auth-form" onsubmit="return false">
+            <div class="field">
+              <label for="signName">Nume complet <span class="opt">(opțional)</span></label>
+              <div class="field-wrap">
+                <input type="text" id="signName" placeholder="Maria Popescu" autocomplete="name" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="signEmail">Email</label>
+              <div class="field-wrap">
+                <input type="email" id="signEmail" placeholder="nume@email.ro" required autocomplete="email" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="signPw">Parolă</label>
+              <div class="field-wrap with-icon">
+                <input type="password" id="signPw" placeholder="Cel puțin 8 caractere" required autocomplete="new-password" />
+                <button class="toggle-pw" type="button" data-target="signPw" aria-label="Arată parola">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="eye-on"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="eye-off" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-10-7-10-7a18.45 18.45 0 0 1 3.05-4.36"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 10 7 10 7a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+              <div class="pw-strength" id="pwStrength"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+              <p class="helper">Minim 8 caractere, cu litere și cifre.</p>
+            </div>
+
+            <label class="consent-row required" id="termsRow">
+              <span class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <span class="txt">Am citit și sunt de acord cu <a>Termenii și Condițiile</a> și <a>Politica de confidențialitate</a>.</span>
+            </label>
+            <label class="consent-row" id="newsRow">
+              <span class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <span class="txt">Vreau să primesc sfaturi despre sănătate naturală și oferte. Poți dezabona oricând.</span>
+            </label>
+
+            <button class="submit-btn" id="signupBtn" type="submit" disabled>
+              Creează cont
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+            <p class="alt-line">Ai deja cont? <a data-switch="login">Intră.</a></p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Guest escape -->
+    <div class="guest-card">
+      <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></div>
+      <h3>Preferi <em>fără cont?</em></h3>
+      <p>Poți cumpăra și ca invitat, fără să-ți faci cont. Primim comanda, livrăm, gata.</p>
+      <a href="Pagina Cos - Cart.html">
+        Mergi la coș ca invitat
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- Trust signals -->
+    <div class="trust-row">
+      <span class="trust-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Conexiune securizată SSL
+      </span>
+      <span class="trust-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Date stocate în UE, conform GDPR
+      </span>
+      <span class="trust-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
+        Fără spam, niciodată
+      </span>
+    </div>
+
+  </section>
+
+  <!-- Minimal footer -->
+  <footer class="auth-footer">
+    <div class="links">
+      <a>Termeni</a><span class="sep">·</span>
+      <a>Confidențialitate</a><span class="sep">·</span>
+      <a>Cookies</a><span class="sep">·</span>
+      <a href="Pagina Contact.html">Contact</a><span class="sep">·</span>
+      <a href="Pagina FAQ.html">FAQ</a>
+    </div>
+    <div class="copyright">© 2026 Mâna Naturii, by Vivens Genetica</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  // Tab switching
+  var tabs = document.querySelectorAll('.tab-btn');
+  var panes = document.querySelectorAll('.pane');
+  function activate(name){
+    tabs.forEach(function(t){ t.classList.toggle('active', t.dataset.tab === name); });
+    panes.forEach(function(p){ p.classList.toggle('active', p.id === 'pane-' + name); });
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ activate(t.dataset.tab); }); });
+  document.querySelectorAll('[data-switch]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); activate(a.dataset.switch); });
+  });
+
+  // Password visibility toggle
+  document.querySelectorAll('.toggle-pw').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var input = document.getElementById(btn.dataset.target);
+      if(!input) return;
+      var isPw = input.type === 'password';
+      input.type = isPw ? 'text' : 'password';
+      btn.querySelector('.eye-on').style.display = isPw ? 'none' : '';
+      btn.querySelector('.eye-off').style.display = isPw ? '' : 'none';
+    });
+  });
+
+  // Inline checkbox toggle
+  function bindCheckable(el){
+    el.addEventListener('click', function(){ el.classList.toggle('checked'); checkSignupState(); });
+  }
+  bindCheckable(document.getElementById('rememberMe'));
+  bindCheckable(document.getElementById('termsRow'));
+  bindCheckable(document.getElementById('newsRow'));
+
+  // Password strength
+  var pwInput = document.getElementById('signPw');
+  var meter = document.getElementById('pwStrength');
+  function evalStrength(v){
+    if(v.length < 8) return 'weak';
+    var hasLetter = /[a-zA-ZăâîșțĂÂÎȘȚ]/.test(v);
+    var hasDigit = /\d/.test(v);
+    if(hasLetter && hasDigit) return 'strong';
+    if(hasLetter || hasDigit) return 'medium';
+    return 'weak';
+  }
+  pwInput.addEventListener('input', function(){
+    meter.classList.remove('weak','medium','strong');
+    if(pwInput.value.length > 0) meter.classList.add(evalStrength(pwInput.value));
+    checkSignupState();
+  });
+
+  // Enable signup button only when terms is checked
+  var signupBtn = document.getElementById('signupBtn');
+  var termsRow = document.getElementById('termsRow');
+  function checkSignupState(){
+    signupBtn.disabled = !termsRow.classList.contains('checked');
+  }
+  checkSignupState();
+})();
+</script>
+</body>
+</html>

@@ -224,12 +224,13 @@
 
       {{-- Desktop Search --}}
       <div class="custom-search" role="search">
-        <input type="text" class="wc-search-input" placeholder="Caută un produs..." autocomplete="off" aria-label="Caută un produs" aria-autocomplete="list" aria-controls="wc-desktop-results">
         <button aria-label="Căutare produs" class="wc-search-btn">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.2878 12.2878C12.9236 11.6521 13.4279 10.8973 13.772 10.0667C14.1161 9.23601 14.2931 8.34572 14.2931 7.44662C14.2931 6.54752 14.1161 5.65723 13.772 4.82657C13.4279 3.99591 12.9236 3.24116 12.2878 2.6054C11.6521 1.96964 10.8973 1.46533 10.0667 1.12126C9.23601 0.777188 8.34572 0.600098 7.44662 0.600098C6.54752 0.600098 5.65723 0.777188 4.82657 1.12126C3.99591 1.46533 3.24116 1.96964 2.6054 2.6054C1.32143 3.88937 0.600098 5.63081 0.600098 7.44662C0.600098 9.26243 1.32143 11.0039 2.6054 12.2878C3.88937 13.5718 5.63081 14.2931 7.44662 14.2931C9.26243 14.2931 11.0039 13.5718 12.2878 12.2878ZM12.2878 12.2878L16.6001 16.6001" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.2878 12.2878C12.9236 11.6521 13.4279 10.8973 13.772 10.0667C14.1161 9.23601 14.2931 8.34572 14.2931 7.44662C14.2931 6.54752 14.1161 5.65723 13.772 4.82657C13.4279 3.99591 12.9236 3.24116 12.2878 2.6054C11.6521 1.96964 10.8973 1.46533 10.0667 1.12126C9.23601 0.777188 8.34572 0.600098 7.44662 0.600098C6.54752 0.600098 5.65723 0.777188 4.82657 1.12126C3.99591 1.46533 3.24116 1.96964 2.6054 2.6054C1.32143 3.88937 0.600098 5.63081 0.600098 7.44662C0.600098 9.26243 1.32143 11.0039 2.6054 12.2878C3.88937 13.5718 5.63081 14.2931 7.44662 14.2931C9.26243 14.2931 11.0039 13.5718 12.2878 12.2878ZM12.2878 12.2878L16.6001 16.6001" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
+        <input type="text" class="wc-search-input" placeholder="Caută după obiectiv, simptom sau produs..." autocomplete="off" aria-label="Caută un produs" aria-autocomplete="list" aria-controls="wc-desktop-results">
+        <span class="wc-search-kbd" aria-hidden="true" title="{{ esc_attr__('Apasă ⌘K / Ctrl+K pentru căutare', 'sage') }}">⌘ K</span>
         <div class="wc-search-results" id="wc-desktop-results" aria-live="polite"></div>
       </div>
 
@@ -421,7 +422,7 @@
           <input type="text" class="wc-search-input" placeholder="Caută un produs..." autocomplete="off" aria-label="Caută un produs" aria-autocomplete="list" aria-controls="wc-popup-results">
           <button aria-label="Căutare produs" class="wc-search-btn">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12.2878 12.2878C12.9236 11.6521 13.4279 10.8973 13.772 10.0667C14.1161 9.23601 14.2931 8.34572 14.2931 7.44662C14.2931 6.54752 14.1161 5.65723 13.772 4.82657C13.4279 3.99591 12.9236 3.24116 12.2878 2.6054C11.6521 1.96964 10.8973 1.46533 10.0667 1.12126C9.23601 0.777188 8.34572 0.600098 7.44662 0.600098C6.54752 0.600098 5.65723 0.777188 4.82657 1.12126C3.99591 1.46533 3.24116 1.96964 2.6054 2.6054C1.32143 3.88937 0.600098 5.63081 0.600098 7.44662C0.600098 9.26243 1.32143 11.0039 2.6054 12.2878C3.88937 13.5718 5.63081 14.2931 7.44662 14.2931C9.26243 14.2931 11.0039 13.5718 12.2878 12.2878ZM12.2878 12.2878L16.6001 16.6001" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12.2878 12.2878C12.9236 11.6521 13.4279 10.8973 13.772 10.0667C14.1161 9.23601 14.2931 8.34572 14.2931 7.44662C14.2931 6.54752 14.1161 5.65723 13.772 4.82657C13.4279 3.99591 12.9236 3.24116 12.2878 2.6054C11.6521 1.96964 10.8973 1.46533 10.0667 1.12126C9.23601 0.777188 8.34572 0.600098 7.44662 0.600098C6.54752 0.600098 5.65723 0.777188 4.82657 1.12126C3.99591 1.46533 3.24116 1.96964 2.6054 2.6054C1.32143 3.88937 0.600098 5.63081 0.600098 7.44662C0.600098 9.26243 1.32143 11.0039 2.6054 12.2878C3.88937 13.5718 5.63081 14.2931 7.44662 14.2931C9.26243 14.2931 11.0039 13.5718 12.2878 12.2878ZM12.2878 12.2878L16.6001 16.6001" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
           <div class="wc-search-results" id="wc-popup-results" aria-live="polite"></div>

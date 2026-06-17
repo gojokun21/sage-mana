@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Retur și rambursare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* HERO */
+  .rma-hero{padding:64px 64px 32px;background:var(--color-bg-page)}
+  .rma-hero-inner{max-width:1180px;margin:0 auto}
+  .rma-hero .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:16px}
+  .rma-hero .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .rma-hero h1{font-family:var(--font-serif);font-weight:400;font-size:48px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 12px;color:var(--color-text-primary);max-width:760px}
+  .rma-hero h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .rma-hero .sub{font-family:var(--font-serif);font-style:italic;font-size:17px;color:var(--color-text-muted);max-width:620px;margin:0;line-height:1.6}
+  .rma-hero .sub strong{color:var(--color-text-primary);font-style:normal;font-family:var(--font-sans);font-weight:600}
+
+  /* Honest alert */
+  .honest-alert{margin:32px 64px 0;background:var(--color-gold-soft);border:1.5px solid var(--color-gold);border-left:5px solid var(--color-cta-primary);border-radius:0 14px 14px 0;padding:22px 26px 22px 60px;position:relative}
+  .honest-alert-inner{max-width:1116px;margin:0 auto;position:relative}
+  .honest-alert::before{content:"";position:absolute;left:22px;top:24px;width:30px;height:30px;border-radius:50%;background:var(--color-cta-primary);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.5'><path d='M12 9v4M12 17h.01'/><circle cx='12' cy='12' r='10'/></svg>");background-size:18px;background-position:center;background-repeat:no-repeat}
+  .honest-alert h2{font-family:var(--font-serif);font-size:20px;font-weight:500;line-height:1.3;margin:0 0 8px;color:#5A3A1A;letter-spacing:-0.01em}
+  .honest-alert h2 em{font-style:italic;color:var(--color-cta-primary);font-weight:400}
+  .honest-alert p{font-family:var(--font-serif);font-style:italic;font-size:14.5px;color:#5A3A1A;line-height:1.65;margin:0}
+  .honest-alert p strong{font-family:var(--font-sans);font-style:normal;font-weight:600;color:#3A2510}
+  .honest-alert a.see-exc{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-family:var(--font-sans);font-size:13px;font-weight:600;color:#7A5530;text-decoration:underline;text-underline-offset:3px}
+
+  /* When can return — 3 cards */
+  .when-section{padding:64px;background:var(--color-bg-page)}
+  .when-inner{max-width:1180px;margin:0 auto}
+  .when-head{margin-bottom:32px;max-width:680px}
+  .when-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px}
+  .when-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .when-head h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0}
+  .when-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .when-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .case-card{background:#fff;border:1px solid var(--color-border);border-radius:16px;padding:26px 28px;display:flex;flex-direction:column;gap:14px;border-top:4px solid transparent}
+  .case-card.ok{border-top-color:var(--color-green-primary)}
+  .case-card.warn{border-top-color:var(--color-gold)}
+  .case-card.no{border-top-color:var(--color-cta-primary)}
+  .case-card .stamp{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+  .case-card.ok .stamp{color:var(--color-green-primary)}
+  .case-card.warn .stamp{color:#7A5530}
+  .case-card.no .stamp{color:var(--color-cta-primary)}
+  .case-card .stamp .ico{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;flex-shrink:0}
+  .case-card.ok .stamp .ico{background:var(--color-green-primary)}
+  .case-card.warn .stamp .ico{background:var(--color-gold);color:#3A2510}
+  .case-card.no .stamp .ico{background:var(--color-cta-primary)}
+  .case-card h3{font-family:var(--font-serif);font-size:20px;font-weight:500;line-height:1.25;margin:0;color:var(--color-text-primary);letter-spacing:-0.01em}
+  .case-card h3 em{font-style:italic;font-weight:400}
+  .case-card.ok h3 em{color:var(--color-green-primary)}
+  .case-card.warn h3 em{color:#7A5530}
+  .case-card.no h3 em{color:var(--color-cta-primary)}
+  .case-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+  .case-card ul li{font-size:13.5px;color:var(--color-text-primary);line-height:1.55;display:flex;gap:9px;align-items:flex-start}
+  .case-card ul li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--color-green-medium);flex-shrink:0;margin-top:8px}
+  .case-card.warn ul li::before{background:var(--color-gold)}
+  .case-card.no ul li::before{background:var(--color-cta-primary)}
+  .case-card .meta-row{display:flex;flex-direction:column;gap:5px;padding:12px 14px;background:var(--color-bg-page);border-radius:10px;font-size:12.5px;line-height:1.5}
+  .case-card .meta-row .k{font-family:var(--font-sans);font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700}
+  .case-card .meta-row .v{color:var(--color-text-primary);font-weight:500}
+  .case-card .meta-row .v strong{color:var(--color-green-primary);font-weight:600}
+  .case-card .legal-ref{font-family:var(--font-serif);font-style:italic;font-size:11.5px;color:var(--color-text-faint);line-height:1.5;padding-top:8px;border-top:1px dashed var(--color-border)}
+
+  /* Steps timeline */
+  .steps-section{padding:64px;background:var(--color-bg-card);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
+  .steps-inner{max-width:1180px;margin:0 auto}
+  .steps-head{margin-bottom:36px;max-width:680px}
+  .steps-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px}
+  .steps-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .steps-head h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0}
+  .steps-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;position:relative}
+  .steps-grid::before{content:"";position:absolute;top:30px;left:12.5%;right:12.5%;height:2px;background:repeating-linear-gradient(to right,var(--color-green-medium) 0 6px,transparent 6px 12px);opacity:.4;z-index:0}
+  .step-card{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
+  .step-card .num{width:42px;height:42px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;font-family:var(--font-serif);font-weight:500;font-size:18px;letter-spacing:-0.01em;border:2px solid var(--color-green-medium)}
+  .step-card .when{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700}
+  .step-card h3{font-family:var(--font-serif);font-size:17px;font-weight:500;line-height:1.3;margin:0;color:var(--color-text-primary)}
+  .step-card p{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);line-height:1.55;margin:0}
+  .step-card p strong{font-family:var(--font-sans);font-style:normal;font-weight:600;color:var(--color-text-primary)}
+
+  /* FORM */
+  .form-section{padding:80px 64px;background:var(--color-bg-page)}
+  .form-inner{max-width:1180px;margin:0 auto}
+  .form-head{margin-bottom:32px;max-width:680px}
+  .form-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px}
+  .form-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .form-head h2{font-family:var(--font-serif);font-weight:400;font-size:34px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 8px}
+  .form-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .form-head p{font-family:var(--font-serif);font-style:italic;font-size:14.5px;color:var(--color-text-muted);margin:0;line-height:1.65}
+  .form-grid-cols{display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start}
+
+  .form-block{background:#fff;border:1px solid var(--color-border);border-radius:18px;padding:28px 30px;display:flex;flex-direction:column;gap:20px}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-family:var(--font-sans);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-muted);font-weight:600}
+  .field label .req{color:var(--color-cta-primary);font-weight:700;margin-left:3px}
+  .field label .opt{font-family:var(--font-serif);font-style:italic;font-weight:400;color:var(--color-text-faint);text-transform:none;letter-spacing:0;font-size:12px;margin-left:6px}
+  .field input,.field select,.field textarea{height:46px;border:1.5px solid var(--color-border);border-radius:10px;padding:0 14px;font-family:var(--font-sans);font-size:14px;color:var(--color-text-primary);background:#fff;outline:none;width:100%;box-sizing:border-box}
+  .field textarea{height:auto;min-height:80px;padding:12px 14px;line-height:1.5;resize:vertical;font-family:var(--font-sans)}
+  .field input::placeholder,.field textarea::placeholder{color:var(--color-text-faint)}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--color-green-primary)}
+  .field .hint{font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint);line-height:1.4;margin-top:2px}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+  .field-row .field.full{grid-column:1/-1}
+
+  .group-title{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;display:flex;align-items:center;gap:10px;padding-top:8px;border-top:1px solid var(--color-border)}
+  .group-title:first-child{padding-top:0;border:0}
+
+  /* Products checkbox list */
+  .prod-list{display:flex;flex-direction:column;gap:9px}
+  .prod-check{display:grid;grid-template-columns:42px 22px 1fr auto;gap:14px;padding:12px 14px;border:1.5px solid var(--color-border);border-radius:10px;cursor:pointer;background:#fff;align-items:center}
+  .prod-check:hover{border-color:var(--color-green-medium)}
+  .prod-check.checked{border-color:var(--color-green-primary);background:var(--color-green-soft-card)}
+  .prod-check .ph{width:42px;height:42px;border-radius:8px;display:grid;place-items:center;position:relative;overflow:hidden}
+  .prod-check .ph.t-dig{background:linear-gradient(160deg,#F0E5D0,#E0D2B4)}
+  .prod-check .ph.t-detox{background:linear-gradient(160deg,var(--color-green-soft-card),#D9E8D2)}
+  .prod-check .ph.t-imun{background:linear-gradient(160deg,#E5D6B8,#C9B68A)}
+  .prod-check .ph::after{content:"";width:11px;height:22px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:1.5px 1.5px 3px 3px}
+  .prod-check .ph.t-dig::after{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .prod-check .cb{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--color-border-2);background:#fff;display:grid;place-items:center;flex-shrink:0;color:transparent}
+  .prod-check.checked .cb{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+  .prod-check .info .name{font-family:var(--font-sans);font-size:13.5px;color:var(--color-text-primary);font-weight:600}
+  .prod-check .info .qty{font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint);display:block;margin-top:1px}
+  .prod-check .v{font-family:var(--font-serif);font-size:14px;font-weight:500;color:var(--color-text-primary);white-space:nowrap}
+
+  /* Radio reason */
+  .reason-list{display:flex;flex-direction:column;gap:8px}
+  .reason-opt{display:grid;grid-template-columns:22px 1fr;gap:14px;padding:12px 16px;border:1.5px solid var(--color-border);border-radius:10px;cursor:pointer;background:#fff;align-items:center}
+  .reason-opt:hover{border-color:var(--color-green-medium)}
+  .reason-opt.selected{border-color:var(--color-green-primary);background:var(--color-green-soft-card)}
+  .reason-opt .rd{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--color-border-2);background:#fff;display:grid;place-items:center;flex-shrink:0}
+  .reason-opt.selected .rd{border-color:var(--color-green-primary);background:var(--color-green-primary)}
+  .reason-opt.selected .rd::after{content:"";width:7px;height:7px;border-radius:50%;background:#fff}
+  .reason-opt .l{font-family:var(--font-sans);font-size:14px;color:var(--color-text-primary);font-weight:500;line-height:1.4}
+
+  /* Consent */
+  .consent-row{display:flex;align-items:flex-start;gap:12px;cursor:pointer;padding:6px 0}
+  .consent-row .cb{width:22px;height:22px;border:1.5px solid var(--color-border-2);border-radius:6px;background:#fff;display:grid;place-items:center;flex-shrink:0;margin-top:1px;color:transparent}
+  .consent-row.checked .cb{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+  .consent-row .text{font-family:var(--font-sans);font-size:13.5px;color:var(--color-text-primary);line-height:1.55}
+  .consent-row .text strong{color:var(--color-text-primary);font-weight:600}
+
+  .submit-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:56px;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;box-shadow:var(--shadow-cta);width:100%}
+  .submit-btn:hover{background:var(--color-cta-primary-hover)}
+
+  /* Form sidebar */
+  .form-side{display:flex;flex-direction:column;gap:14px;position:sticky;top:24px}
+  .side-card{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+  .side-card h4{font-family:var(--font-serif);font-size:16px;font-weight:500;line-height:1.3;margin:0;color:var(--color-text-primary)}
+  .side-card h4 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .side-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+  .side-card ul li{font-size:13px;color:var(--color-text-primary);line-height:1.5;display:flex;gap:9px;align-items:flex-start}
+  .side-card ul li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--color-green-medium);flex-shrink:0;margin-top:8px}
+  .side-card .addr{font-family:var(--font-serif);font-size:13.5px;color:var(--color-text-primary);line-height:1.6;background:var(--color-bg-page);padding:12px 14px;border-radius:8px}
+  .side-card .addr strong{font-family:var(--font-sans);font-weight:600;display:block}
+  .side-card .warn-rma{font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-cta-primary);margin-top:6px;font-weight:500;background:var(--color-gold-soft);padding:8px 12px;border-radius:7px;border-left:3px solid var(--color-cta-primary)}
+  .side-card .warn-rma strong{font-family:var(--font-sans);font-style:normal;font-weight:700;letter-spacing:.04em;font-size:10px;color:var(--color-cta-primary);text-transform:uppercase;display:block;margin-bottom:2px}
+  .side-card .contacts{display:flex;flex-direction:column;gap:8px}
+  .side-card .contacts a{display:flex;align-items:center;gap:9px;font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary);font-weight:500;text-decoration:none}
+  .side-card .contacts a svg{color:var(--color-green-primary);flex-shrink:0}
+
+  /* Post-submit state — HIDDEN */
+  .post-submit-hidden{display:none}
+  .post-submit{padding:64px;background:var(--color-bg-card)}
+  .post-inner{max-width:780px;margin:0 auto;background:#fff;border:2px solid var(--color-green-primary);border-radius:20px;padding:40px 44px;text-align:center}
+  .post-inner .ok-stamp{width:72px;height:72px;border-radius:50%;background:var(--color-green-primary);color:#fff;display:grid;place-items:center;margin:0 auto 20px}
+  .post-inner h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 12px;color:var(--color-text-primary)}
+  .post-inner h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .post-inner .rma-num{display:inline-flex;align-items:center;gap:14px;background:var(--color-green-soft-card);border:1px solid var(--color-green-mute);border-radius:12px;padding:12px 22px;margin:0 0 18px}
+  .post-inner .rma-num .lbl{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700}
+  .post-inner .rma-num .num{font-family:var(--font-serif);font-size:22px;font-weight:500;color:var(--color-text-primary)}
+  .post-inner p{font-family:var(--font-serif);font-style:italic;font-size:14.5px;color:var(--color-text-muted);line-height:1.6;margin:0 0 20px}
+  .post-inner p strong{color:var(--color-text-primary);font-style:normal;font-family:var(--font-sans);font-weight:600}
+  .post-inner .ret-addr{background:var(--color-bg-page);border:1px dashed var(--color-border-2);border-radius:12px;padding:16px 20px;margin:0 0 22px;text-align:left}
+  .post-inner .ret-addr .lbl{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700;margin-bottom:6px}
+  .post-inner .ret-addr .addr{font-family:var(--font-serif);font-size:14px;color:var(--color-text-primary);line-height:1.6}
+  .post-inner .download-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 24px;background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;text-decoration:none;cursor:pointer}
+  .post-inner .download-btn:hover{background:var(--color-green-soft-card)}
+
+  /* FAQ */
+  .faq{padding:64px;background:var(--color-bg-page)}
+  .faq-inner{max-width:780px;margin:0 auto}
+  .faq h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 28px;text-align:center}
+  .faq h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .faq-list{display:flex;flex-direction:column;border-top:1px solid var(--color-border)}
+  .faq-item{border-bottom:1px solid var(--color-border)}
+  .faq-q{padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--color-text-primary);line-height:1.3}
+  .faq-q .toggle{width:28px;height:28px;border-radius:50%;background:var(--color-green-soft-card);display:grid;place-items:center;color:var(--color-green-primary);flex-shrink:0;font-size:18px;line-height:1}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;transform:rotate(45deg)}
+  .faq-a{padding:0 0 22px;color:var(--color-text-muted);font-size:14.5px;line-height:1.7;display:none;max-width:680px}
+  .faq-item.open .faq-a{display:block}
+  .faq-a strong{color:var(--color-text-primary);font-weight:600}
+
+  /* Special situations */
+  .special{padding:64px;background:var(--color-green-deep);color:#fff;position:relative;overflow:hidden}
+  .special::before{content:"";position:absolute;right:-100px;top:-100px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(202,164,74,.10),transparent 70%)}
+  .special-inner{max-width:880px;margin:0 auto;position:relative}
+  .special-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center}
+  .special .eyebrow-gold{font-family:var(--font-sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-gold);font-weight:700;margin-bottom:14px;display:inline-flex;align-items:center;gap:10px}
+  .special .eyebrow-gold::before{content:"";width:24px;height:1px;background:var(--color-gold)}
+  .special h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.1;letter-spacing:-0.02em;margin:0 0 14px;color:#fff}
+  .special h2 em{font-style:italic;color:#C2D9AC;font-weight:300}
+  .special p{color:#C2D9AC;font-size:15px;line-height:1.7;margin:0}
+  .special p strong{color:#fff;font-weight:600}
+  .special-side{display:flex;flex-direction:column;gap:11px}
+  .special-side a{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:13px 16px;color:#fff;text-decoration:none;font-family:var(--font-sans);font-size:13px;font-weight:500;line-height:1.4}
+  .special-side a:hover{background:rgba(255,255,255,.12)}
+  .special-side a svg{color:var(--color-gold);flex-shrink:0}
+  .special-side a strong{display:block;font-weight:600;font-size:13.5px}
+  .special-side a small{font-family:var(--font-serif);font-style:italic;font-size:11.5px;color:#C2D9AC;font-weight:400;display:block;margin-top:2px}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Retur si rambursare">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><a>Suport</a><span class="sep">›</span><span class="here">Retur și rambursare</span></div>
+
+  <!-- HERO -->
+  <section class="rma-hero">
+    <div class="rma-hero-inner">
+      <div class="eyebrow">Politica de retur</div>
+      <h1>Retur și <em>rambursare.</em></h1>
+      <p class="sub">Ai <strong>14 zile calendaristice</strong> să returnezi produsele <strong>sigilate</strong>. Condiții clare, fără surprize.</p>
+    </div>
+  </section>
+
+  <!-- HONEST ALERT -->
+  <div class="honest-alert">
+    <div class="honest-alert-inner">
+      <h2>Important: suplimentele <em>desigilate</em> nu se pot returna.</h2>
+      <p>Conform legii (<strong>OUG 34/2014, art. 16 lit. e</strong>), suplimentele alimentare desigilate nu se pot returna din motive de igienă și protecție a sănătății. Dacă ai deschis produsul, <strong>contactează-ne direct</strong> — căutăm o soluție caz cu caz.</p>
+      <a class="see-exc" href="#special-cases">Vezi excepții și situații speciale
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- 3 CASES -->
+  <section class="when-section">
+    <div class="when-inner">
+      <div class="when-head">
+        <div class="eyebrow">Trei scenarii clare</div>
+        <h2>În ce cazuri <em>se poate returna.</em></h2>
+      </div>
+      <div class="when-grid">
+
+        <!-- Case 1: SIGILAT in 14 zile -->
+        <div class="case-card ok">
+          <div class="stamp">
+            <span class="ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></span>
+            Da, se returnează
+          </div>
+          <h3>Produs <em>sigilat</em>, în 14 zile.</h3>
+          <ul>
+            <li>Ambalaj original <strong>sigilat și integru</strong></li>
+            <li>Maxim 14 zile calendaristice de la primire</li>
+            <li>Cu factură sau bon fiscal anexat</li>
+          </ul>
+          <div class="meta-row">
+            <span class="k">Cost transport retur</span>
+            <span class="v">Plătit de <strong>consumator</strong> (10–20 lei)</span>
+          </div>
+          <div class="meta-row">
+            <span class="k">Rambursare</span>
+            <span class="v">Maxim <strong>14 zile</strong> de la primirea coletului</span>
+          </div>
+          <p class="legal-ref">Conform OUG 34/2014, art. 9 (dreptul de retragere).</p>
+        </div>
+
+        <!-- Case 2: DEFECT sau EXPIRAT -->
+        <div class="case-card warn">
+          <div class="stamp">
+            <span class="ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></span>
+            Da, condiții diferite
+          </div>
+          <h3>Produs <em>defect</em> sau expirat.</h3>
+          <ul>
+            <li>Primit <strong>deteriorat</strong>, cu sigiliul rupt, expirat sau cu lot defect</li>
+            <li>Anunți în <strong>maximum 48h</strong> de la primire, cu poză</li>
+            <li>Inclusiv pentru produse deschise dacă defectul e de fabricație</li>
+          </ul>
+          <div class="meta-row">
+            <span class="k">Cost transport retur</span>
+            <span class="v"><strong>Suportăm noi</strong> — primești AWB prepaid</span>
+          </div>
+          <div class="meta-row">
+            <span class="k">Soluție</span>
+            <span class="v"><strong>Înlocuire imediată</strong> sau rambursare integrală, la alegerea ta</span>
+          </div>
+          <p class="legal-ref">Conform Legii 449/2003 (garanție 2 ani pentru defecte de conformitate).</p>
+        </div>
+
+        <!-- Case 3: DESIGILAT -->
+        <div class="case-card no">
+          <div class="stamp">
+            <span class="ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+            Nu se returnează
+          </div>
+          <h3>Produs <em>desigilat</em> (deschis).</h3>
+          <ul>
+            <li>Suplimentele alimentare desigilate <strong>nu fac obiectul retragerii</strong></li>
+            <li>Motiv: protecția sănătății și igiena consumatorului</li>
+            <li>Excepție: defect de fabricație → vezi cazul 2</li>
+          </ul>
+          <div class="meta-row" style="background:var(--color-gold-soft);border-left:3px solid var(--color-cta-primary)">
+            <span class="k" style="color:#7A5530">Dar dacă ai o problemă reală...</span>
+            <span class="v" style="color:#5A3A1A;font-style:italic;font-family:var(--font-serif);font-weight:400">Scrie-ne la <strong style="font-family:var(--font-sans);font-style:normal">office@mananaturii.ro</strong>. Pentru intoleranță, reacție sau gust pe care nu îl suporți, căutăm o soluție — credit produs sau schimb. <em>Nu garantăm, dar încercăm.</em></span>
+          </div>
+          <p class="legal-ref">Conform OUG 34/2014, art. 16 lit. e (excepție de la dreptul de retragere).</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="steps-section">
+    <div class="steps-inner">
+      <div class="steps-head">
+        <div class="eyebrow">Procesul în 4 pași</div>
+        <h2>Cum returnezi <em>în 4 pași.</em></h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="num">1</div>
+          <span class="when">Ziua 0</span>
+          <h3>Completezi formularul de mai jos.</h3>
+          <p>Durează <strong>2 minute</strong>. Primești pe email numărul RMA și adresa de retur tipărită PDF.</p>
+        </div>
+        <div class="step-card">
+          <div class="num">2</div>
+          <span class="when">Ziua 1–2</span>
+          <h3>Împachetezi produsul sigilat.</h3>
+          <p>Cu <strong>ambalaj original + factură</strong>. Notezi numărul RMA vizibil pe colet.</p>
+        </div>
+        <div class="step-card">
+          <div class="num">3</div>
+          <span class="when">Ziua 2–7</span>
+          <h3>Trimiți coletul prin curier.</h3>
+          <p>Sameday, FAN sau curierul tău preferat. <strong>Păstrezi AWB-ul</strong> ca dovadă.</p>
+        </div>
+        <div class="step-card">
+          <div class="num">4</div>
+          <span class="when">Ziua 5–14</span>
+          <h3>Primești banii înapoi.</h3>
+          <p>Pe <strong>aceeași metodă de plată</strong>. Maxim 14 zile de la primirea coletului la noi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM -->
+  <section class="form-section">
+    <div class="form-inner">
+      <div class="form-head">
+        <div class="eyebrow">Formular cerere retur</div>
+        <h2>Cere returul <em>comenzii tale.</em></h2>
+        <p>Completezi datele de mai jos, primești pe email numărul RMA și adresa de retur în maximum 5 minute.</p>
+      </div>
+
+      <div class="form-grid-cols">
+
+        <div class="form-block">
+
+          <div class="group-title">1 · Date comandă</div>
+          <div class="field-row">
+            <div class="field">
+              <label for="order-num">Număr comandă <span class="req">*</span></label>
+              <input type="text" id="order-num" placeholder="Ex: MN-2026-04827" />
+            </div>
+            <div class="field">
+              <label for="order-email">Email comandă <span class="req">*</span></label>
+              <input type="email" id="order-email" placeholder="email@exemplu.ro" />
+              <p class="hint">Aici trimitem RMA-ul și adresa de retur.</p>
+            </div>
+            <div class="field full">
+              <label for="phone">Telefon <span class="opt">(opțional, pentru cazuri urgente)</span></label>
+              <input type="tel" id="phone" placeholder="07XX XXX XXX" />
+            </div>
+          </div>
+
+          <div class="group-title">2 · Produse de returnat</div>
+          <div class="prod-list">
+            <label class="prod-check">
+              <div class="ph t-dig"></div>
+              <div class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <div class="info"><span class="name">Microflora+ Lemon Shots</span><span class="qty">cantitate × 1 · 500 ml</span></div>
+              <span class="v">159 lei</span>
+            </label>
+            <label class="prod-check">
+              <div class="ph t-detox"></div>
+              <div class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <div class="info"><span class="name">Pachet Confort Digestiv</span><span class="qty">cantitate × 1 · 2 suplimente</span></div>
+              <span class="v">283 lei</span>
+            </label>
+            <label class="prod-check">
+              <div class="ph t-imun"></div>
+              <div class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <div class="info"><span class="name">Black Seed Elixir</span><span class="qty">cantitate × 2 · 240 capsule</span></div>
+              <span class="v">368 lei</span>
+            </label>
+          </div>
+
+          <div class="group-title">3 · Motiv retur</div>
+          <div class="reason-list">
+            <label class="reason-opt selected"><div class="rd"></div><span class="l">Nu mi se potrivește / nu mi-a plăcut</span></label>
+            <label class="reason-opt"><div class="rd"></div><span class="l">Am greșit comanda</span></label>
+            <label class="reason-opt"><div class="rd"></div><span class="l">Produs deteriorat la primire</span></label>
+            <label class="reason-opt"><div class="rd"></div><span class="l">Produs expirat / lot defect</span></label>
+            <label class="reason-opt"><div class="rd"></div><span class="l">Altul (specifică mai jos)</span></label>
+          </div>
+          <div class="field">
+            <label for="details">Detalii <span class="opt">(opțional, max 200 caractere)</span></label>
+            <textarea id="details" placeholder="Scurt — ce ar fi util să știm pentru a procesa returul mai rapid." maxlength="200"></textarea>
+          </div>
+
+          <div class="group-title">4 · Confirmări</div>
+          <label class="consent-row" onclick="this.classList.toggle('checked')">
+            <div class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="text">Confirm că produsul/produsele sunt <strong>sigilate</strong> și ambalajul original este <strong>integru</strong>. <em>(Sau marchez „produs deteriorat" ca motiv.)</em></span>
+          </label>
+          <label class="consent-row" onclick="this.classList.toggle('checked')">
+            <div class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="text">Am citit <a style="color:var(--color-green-primary);text-decoration:underline;text-underline-offset:3px;font-weight:600">condițiile de retur</a> și înțeleg că <strong>transportul revine în sarcina mea</strong>, cu excepția produselor deteriorate sau expirate.</span>
+          </label>
+
+          <button class="submit-btn" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+            Trimite cererea de retur
+          </button>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="form-side">
+          <div class="side-card">
+            <h4>Ce primești <em>după trimitere.</em></h4>
+            <ul>
+              <li>Email cu numărul RMA <strong>#RT-XXXXX</strong> în maxim 5 minute</li>
+              <li>Adresa de retur tipărită în <strong>PDF descărcabil</strong></li>
+              <li>Instrucțiuni pas-cu-pas pentru împachetare</li>
+            </ul>
+          </div>
+
+          <div class="side-card">
+            <h4>Adresa <em>de retur.</em></h4>
+            <div class="addr">
+              <strong>Mâna Naturii / Vivens Genetica SRL</strong>
+              Str. Exemplu nr. 12<br/>
+              București, Sector 2<br/>
+              Cod poștal: 010001
+            </div>
+            <div class="warn-rma">
+              <strong>Atenție</strong>
+              Menționează numărul <strong style="font-style:normal;font-family:var(--font-sans);color:#5A3A1A;font-weight:700">RMA</strong> vizibil pe colet. Coletele fără RMA nu pot fi procesate.
+            </div>
+          </div>
+
+          <div class="side-card">
+            <h4>Ai nevoie de <em>ajutor înainte?</em></h4>
+            <div class="contacts">
+              <a href="#"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg><span><strong>WhatsApp</strong>0712 345 678</span></a>
+              <a href="#"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg><span><strong>Email</strong>office@mananaturii.ro</span></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- POST-SUBMIT (hidden by default) -->
+  <section class="post-submit post-submit-hidden">
+    <div class="post-inner">
+      <div class="ok-stamp">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h2>Cererea ta de retur <em>a fost înregistrată.</em></h2>
+      <div class="rma-num">
+        <span class="lbl">Număr RMA</span>
+        <span class="num">#RT-2026-00427</span>
+      </div>
+      <p>Îți trimitem pe email la <strong>maria.popescu@exemplu.ro</strong> instrucțiunile complete și PDF-ul cu adresa de retur în maxim 5 minute. Verifică și folderul SPAM.</p>
+      <div class="ret-addr">
+        <div class="lbl">Adresa de retur pe care o vei folosi</div>
+        <div class="addr"><strong>Mâna Naturii / Vivens Genetica SRL</strong><br/>Str. Exemplu nr. 12, București, Sector 2<br/>Cod poștal: 010001 · RMA: #RT-2026-00427</div>
+      </div>
+      <a class="download-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descarcă PDF cu RMA
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-inner">
+      <h2>Întrebări <em>frecvente.</em></h2>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <div class="faq-q">Pot returna după 14 zile?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>Nu</strong> pentru dreptul de retragere standard (OUG 34/2014). Există <strong>o excepție</strong>: dacă produsul are defect de fabricație (sigilare ruptă din fabrică, lot expirat, contaminare), Legea 449/2003 îți dă <strong>garanție 2 ani</strong> pentru defecte de conformitate. Scrie-ne și verificăm caz cu caz.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Cine plătește transportul retur?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>Consumatorul</strong>, conform OUG 34/2014 art. 13(3). Cost estimat: 10–20 lei prin Sameday/FAN. <strong>EXCEPȚIE</strong>: pentru produse primite deteriorate, expirate sau cu defect de fabricație, transportul îl <strong>suportăm noi</strong> — primești AWB prepaid prin email.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Când primesc banii înapoi?<span class="toggle">+</span></div>
+          <div class="faq-a">În <strong>maxim 14 zile</strong> de la primirea coletului la noi, pe aceeași metodă de plată folosită la comandă. Card → același card; ramburs → cont bancar (îți cerem IBAN-ul); transfer → cont bancar de origine. Procesarea durează 1–3 zile lucrătoare după rambursare.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Pot returna un pachet dacă am început un singur produs?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>Nu integral</strong>, conform regulii produselor desigilate. Dar putem face <strong>credit produs</strong> pentru valoarea produselor rămase sigilate din pachet — scrie-ne pe WhatsApp cu numărul comenzii și o poză a produselor încă închise. Procesăm caz cu caz, în 24–48h.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Pot anula returul dacă m-am răzgândit?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>Da</strong>, scrie-ne până când coletul ajunge la noi. Dacă ai trimis deja coletul, îl primim înapoi și îți cerem confirmare — fie continuăm cu rambursarea, fie ți-l retrimitem (transport recuperare suportat de tine).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIAL CASES -->
+  <section class="special" id="special-cases">
+    <div class="special-inner">
+      <div class="special-grid">
+        <div>
+          <div class="eyebrow-gold">Situații speciale</div>
+          <h2>Ai produsul deschis, <em>dar o problemă reală?</em></h2>
+          <p>Dacă produsul este desigilat dar ai o problemă reală — <strong>intoleranță, reacție, gust pe care nu îl suporți</strong> — scrie-ne. Căutăm o soluție caz cu caz: credit produs, schimb cu alt supliment, sau soluție individuală. <em>Nu garantăm, dar încercăm întotdeauna.</em></p>
+        </div>
+        <div class="special-side">
+          <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg><span><strong>WhatsApp 0712 345 678</strong><small>răspuns în câteva minute, 9–21</small></span></a>
+          <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg><span><strong>office@mananaturii.ro</strong><small>răspuns în 24h lucrătoare</small></span></a>
+          <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg><span><strong>021 XXX XX XX</strong><small>luni–vineri, 9–17</small></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 14 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="color:var(--color-gold);font-weight:600">Ediția de toamnă, Octombrie 2025</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

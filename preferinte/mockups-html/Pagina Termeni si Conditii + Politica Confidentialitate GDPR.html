@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii: Termeni, Confidențialitate, Cookies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .breadcrumb{padding:18px 64px;font-size:13px;color:var(--ink-3);display:flex;align-items:center;gap:10px;background:#fff;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:20}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--ink);font-weight:600}
+
+  /* HERO compact */
+  .legal-hero{padding:32px 64px;background:var(--cream);border-bottom:1px solid var(--rule);display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .legal-hero .hc{flex:1;min-width:260px;display:flex;flex-direction:column;gap:8px}
+  .legal-hero .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--green-2);font-weight:600}
+  .legal-hero .eyebrow::before{content:"";width:24px;height:1px;background:var(--green-2)}
+  .legal-hero h1{font-family:"Fraunces",serif;font-weight:400;font-size:38px;line-height:1.1;letter-spacing:-0.02em;margin:0;color:var(--ink)}
+  .legal-hero h1 em{font-style:italic;color:var(--green);font-weight:300}
+  .legal-hero .sub{font-family:"Inter",sans-serif;font-size:14.5px;color:var(--ink-2);line-height:1.55;margin:0;max-width:620px}
+  .legal-hero .sub strong{color:var(--ink);font-weight:600}
+  .pdf-btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 20px;background:#fff;color:var(--green);border:1.5px solid var(--green);border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .15s;flex-shrink:0}
+  .pdf-btn:hover{background:var(--cream-2)}
+  .pdf-btn svg{flex-shrink:0}
+
+  /* Layout 2 col */
+  .legal-wrap{display:grid;grid-template-columns:280px 1fr;gap:48px;padding:32px 64px 80px;background:#fff;align-items:flex-start}
+
+  /* TOC sticky */
+  .toc{position:sticky;top:76px;display:flex;flex-direction:column;gap:18px;max-height:calc(100vh - 100px);overflow-y:auto;padding-right:8px}
+  .toc-group{display:flex;flex-direction:column;gap:4px}
+  .toc-group .gh{font-family:"Inter",sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:6px 12px;margin-bottom:4px;display:flex;align-items:center;gap:9px}
+  .toc-group .gh::before{content:"";width:14px;height:1px;background:var(--ink-3)}
+  .toc a{font-family:"Inter",sans-serif;font-size:13px;color:var(--ink-2);text-decoration:none;padding:7px 12px;border-radius:8px;display:flex;align-items:center;gap:9px;line-height:1.4;border-left:2px solid transparent;transition:all .12s;position:relative}
+  .toc a:hover{background:var(--cream);color:var(--ink)}
+  .toc a.active{background:var(--cream);color:var(--green-deep);font-weight:600;border-left-color:var(--terra)}
+  .toc a .num{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3);font-weight:600;flex-shrink:0;min-width:30px}
+  .toc a.active .num{color:var(--green)}
+
+  .toc-mobile-btn{display:none}
+
+  /* Content */
+  .content{display:flex;flex-direction:column;gap:48px;max-width:780px;font-family:"Inter",sans-serif;font-size:15.5px;line-height:1.7;color:var(--ink-2)}
+  .content h2{font-family:"Fraunces",serif;font-weight:500;font-size:30px;line-height:1.15;letter-spacing:-0.02em;color:var(--ink);margin:0 0 6px;display:flex;align-items:center;gap:14px;position:relative;scroll-margin-top:90px}
+  .content h2 em{font-style:italic;color:var(--green);font-weight:400}
+  .content h2 .num{font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--green-2);font-weight:600;background:var(--cream);padding:4px 11px;border-radius:8px;letter-spacing:.02em}
+  .content h2 .anchor{opacity:0;transition:opacity .15s;color:var(--ink-3);text-decoration:none;font-size:18px;margin-left:auto}
+  .content section:hover h2 .anchor{opacity:.5}
+  .content section:hover h2 .anchor:hover{opacity:1;color:var(--green)}
+
+  .content section{scroll-margin-top:80px;display:flex;flex-direction:column;gap:14px}
+  .content section.group-start{border-top:1px solid var(--rule);padding-top:36px;margin-top:0}
+  .content section.group-start:first-of-type{border-top:0;padding-top:0}
+
+  .group-header{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+  .group-header .ge{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-deep);display:inline-flex;align-items:center;gap:9px}
+  .group-header .ge::before{content:"";width:18px;height:1px;background:var(--terra-deep)}
+  .group-header h1{font-family:"Fraunces",serif;font-weight:300;font-size:42px;line-height:1.05;letter-spacing:-0.025em;color:var(--ink);margin:0}
+  .group-header h1 em{font-style:italic;color:var(--green);font-weight:300}
+  .group-header .gd{font-family:"Fraunces",serif;font-style:italic;font-size:15px;color:var(--ink-3);line-height:1.55;margin:0;max-width:600px}
+
+  .content p{margin:0;color:var(--ink-2)}
+  .content p strong{color:var(--ink);font-weight:600}
+  .content p a{color:var(--green);font-weight:500;text-decoration:underline;text-underline-offset:3px}
+  .content p a:hover{color:var(--green-deep)}
+  .content ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .content ul li{display:flex;gap:11px;align-items:flex-start;padding-left:0;color:var(--ink-2);font-size:15px;line-height:1.6}
+  .content ul li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:11px}
+  .content ul li strong{color:var(--ink);font-weight:600}
+  .content ul li.minus::before{background:#A33}
+  .content ul li.plus::before{background:#2E8B57}
+
+  /* TL;DR box */
+  .tldr{background:var(--cream);border:1px solid var(--rule);border-left:3px solid var(--green);border-radius:10px;padding:14px 18px;display:flex;gap:13px;align-items:flex-start;font-family:"Inter",sans-serif;font-size:14px;line-height:1.6;color:var(--ink-2)}
+  .tldr .tag{display:inline-flex;align-items:center;gap:5px;background:var(--green);color:#fff;font-family:"Inter",sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:5px;text-transform:uppercase;flex-shrink:0;line-height:1;margin-top:2px}
+  .tldr .txt{flex:1}
+  .tldr .txt strong{color:var(--ink);font-weight:600}
+
+  /* Legal callout (law reference) */
+  .law-ref{display:inline-flex;align-items:center;gap:5px;background:var(--cream-2);color:var(--green-deep);font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:5px;border:1px solid var(--rule);letter-spacing:.02em;white-space:nowrap}
+  .law-ref svg{width:10px;height:10px;color:var(--green)}
+
+  /* Company facts table */
+  .facts{background:var(--cream-2);border:1px solid var(--rule);border-radius:12px;padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:9px 18px;font-family:"Inter",sans-serif;font-size:14px}
+  .facts dt{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:700;align-self:center}
+  .facts dd{margin:0;color:var(--ink);font-weight:500;font-family:"JetBrains Mono",monospace;font-size:13.5px}
+  .facts dd.regular{font-family:"Inter",sans-serif;font-weight:500}
+  .facts dd a{color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+  /* Data table */
+  .data-table{width:100%;border-collapse:collapse;font-family:"Inter",sans-serif;font-size:13.5px;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+  .data-table th{background:var(--cream-2);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding:11px 14px;text-align:left;border-bottom:1px solid var(--rule)}
+  .data-table td{padding:13px 14px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.5;color:var(--ink-2)}
+  .data-table tr:last-child td{border-bottom:0}
+  .data-table td strong{color:var(--ink);font-weight:600}
+  .data-table td .badge{display:inline-flex;align-items:center;background:var(--cream-2);color:var(--green-deep);font-size:10px;font-weight:700;letter-spacing:.05em;padding:2px 7px;border-radius:4px;text-transform:uppercase;border:1px solid var(--rule);font-family:"Inter",sans-serif}
+  .data-table td .badge.req{background:rgba(46,79,55,.10);color:var(--green-deep);border-color:rgba(46,79,55,.20)}
+  .data-table td .badge.opt{background:#F5E8D8;color:#8A6A0F;border-color:#E5D5B5}
+
+  /* DPO contact card */
+  .dpo-card{background:var(--cream);border:1px solid var(--rule);border-radius:18px;padding:28px 32px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:36px}
+  .dpo-card .ico-big{width:48px;height:48px;border-radius:12px;background:#fff;color:var(--green);display:grid;place-items:center;flex-shrink:0;border:1px solid var(--rule)}
+  .dpo-card .copy{flex:1;min-width:260px}
+  .dpo-card h2{font-family:"Fraunces",serif;font-weight:500;font-size:22px;line-height:1.2;margin:0 0 5px;color:var(--ink);letter-spacing:-0.01em}
+  .dpo-card h2 em{font-style:italic;color:var(--green);font-weight:400}
+  .dpo-card p{font-family:"Inter",sans-serif;font-size:14px;color:var(--ink-2);line-height:1.6;margin:0}
+  .dpo-card p strong{color:var(--ink);font-weight:600}
+  .dpo-card p .em-tag{font-family:"JetBrains Mono",monospace;font-size:13px;background:#fff;padding:2px 8px;border-radius:5px;color:var(--green-deep);font-weight:600;border:1px solid var(--rule)}
+  .dpo-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .dpo-actions .b-primary{height:42px;padding:0 20px;background:var(--terra);color:#fff;border:0;border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+  .dpo-actions .b-primary:hover{background:var(--terra-deep)}
+  .dpo-actions .b-outline{height:42px;padding:0 20px;background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+  .dpo-actions .b-outline:hover{background:var(--cream-2)}
+
+  /* Back to top */
+  .to-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:var(--green-deep);color:#fff;border:0;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 8px 22px -8px rgba(15,42,29,.4);z-index:30;transition:all .2s}
+  .to-top:hover{background:var(--green);transform:translateY(-2px)}
+  .to-top.show{display:flex}
+
+  /* Footer */
+  .legal-footer{padding:36px 64px;background:var(--cream);border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:14px}
+  .footer-row{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .footer-row .logo-foot{display:flex;align-items:center;gap:11px;font-family:"Fraunces",serif;font-size:17px;font-weight:500;color:var(--ink);text-decoration:none}
+  .footer-row .logo-foot .lm{width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center}
+  .footer-row .links{display:flex;gap:22px;font-family:"Inter",sans-serif;font-size:13px;flex-wrap:wrap}
+  .footer-row .links a{color:var(--ink-2);text-decoration:none;font-weight:500}
+  .footer-row .links a:hover{color:var(--green)}
+  .footer-copy{padding-top:14px;border-top:1px solid var(--rule);font-family:"Inter",sans-serif;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .footer-copy span{font-family:"Fraunces",serif;font-style:italic;font-weight:400}
+
+  @media (max-width:980px){
+    .legal-hero,.breadcrumb,.legal-wrap,.legal-footer{padding-left:24px;padding-right:24px}
+    .legal-wrap{grid-template-columns:1fr;gap:0}
+    .toc{position:static;max-height:none;overflow:visible;padding-right:0;padding-bottom:18px;margin-bottom:24px;border-bottom:1px solid var(--rule);display:none}
+    .toc.open{display:flex}
+    .toc-mobile-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;background:var(--cream);border:1px solid var(--rule);border-radius:12px;padding:14px 18px;font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;margin-bottom:18px}
+    .toc-mobile-btn svg{transition:transform .25s}
+    .toc-mobile-btn.open svg{transform:rotate(180deg)}
+    .group-header h1{font-size:32px}
+    .content h2{font-size:24px}
+    .content h2 .anchor{display:none}
+  }
+
+  /* Print */
+  @media print{
+    .breadcrumb,.toc,.toc-mobile-btn,.pdf-btn,.to-top,.dpo-actions,.legal-footer .links,.announce,header.main,nav.primary{display:none !important}
+    body{background:#fff;color:#000}
+    .legal-wrap{grid-template-columns:1fr;padding:0;gap:0}
+    .legal-hero{padding:0 0 16px;background:#fff;border-bottom:1px solid #000}
+    .content{max-width:none}
+    .content h2{break-after:avoid;page-break-after:avoid}
+    .tldr,.facts,.data-table,.dpo-card{break-inside:avoid;page-break-inside:avoid}
+    .content section{break-inside:auto}
+    .content section.group-start{page-break-before:always;border:0;padding-top:24px}
+    .content section.group-start:first-of-type{page-break-before:auto}
+    .group-header h1{font-size:28px}
+    .content h2{font-size:18px}
+  }
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Legal · Termeni și Politici">
+
+  <!-- HEADER GLOBAL -->
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 250 lei</span><span class="dot"></span>
+        <span>Livrare 1–3 zile</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--ink-3)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><a>Legal</a><span class="sep">›</span><span class="here">Termeni și Politici</span></div>
+
+  <!-- HERO -->
+  <section class="legal-hero">
+    <div class="hc">
+      <span class="eyebrow">Legal, lizibil</span>
+      <h1>Termeni, Confidențialitate, <em>Cookies.</em></h1>
+      <p class="sub">Legal, dar lizibil. Onest, dar complet. Ultima actualizare: <strong>1 noiembrie 2026</strong>.</p>
+    </div>
+    <button class="pdf-btn" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Descarcă versiune PDF
+    </button>
+  </section>
+
+  <!-- LAYOUT -->
+  <section class="legal-wrap">
+
+    <!-- TOC mobile button -->
+    <button class="toc-mobile-btn" id="tocMobileBtn" style="display:none">
+      <span>Sări la secțiune</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+
+    <!-- TOC -->
+    <aside class="toc" id="toc">
+
+      <div class="toc-group">
+        <span class="gh">1, Termeni și Condiții</span>
+        <a href="#s-1-1"><span class="num">1.1</span>Despre noi</a>
+        <a href="#s-1-2"><span class="num">1.2</span>Definiții</a>
+        <a href="#s-1-3"><span class="num">1.3</span>Comandă și contract</a>
+        <a href="#s-1-4"><span class="num">1.4</span>Prețuri, taxe, plată</a>
+        <a href="#s-1-5"><span class="num">1.5</span>Livrare</a>
+        <a href="#s-1-6"><span class="num">1.6</span>Dreptul de retragere</a>
+        <a href="#s-1-7"><span class="num">1.7</span>Garanție produs</a>
+        <a href="#s-1-8"><span class="num">1.8</span>Răspundere, limite</a>
+        <a href="#s-1-9"><span class="num">1.9</span>Cont utilizator</a>
+        <a href="#s-1-10"><span class="num">1.10</span>Program Constant</a>
+        <a href="#s-1-11"><span class="num">1.11</span>Forță majoră</a>
+        <a href="#s-1-12"><span class="num">1.12</span>Litigii, ANPC, SOL</a>
+      </div>
+
+      <div class="toc-group">
+        <span class="gh">2, Confidențialitate</span>
+        <a href="#s-2-1"><span class="num">2.1</span>Operatorul de date</a>
+        <a href="#s-2-2"><span class="num">2.2</span>Ce date colectăm</a>
+        <a href="#s-2-3"><span class="num">2.3</span>Scopul colectării</a>
+        <a href="#s-2-4"><span class="num">2.4</span>Temei legal</a>
+        <a href="#s-2-5"><span class="num">2.5</span>Cu cine partajăm</a>
+        <a href="#s-2-6"><span class="num">2.6</span>Cât păstrăm</a>
+        <a href="#s-2-7"><span class="num">2.7</span>Drepturile tale</a>
+        <a href="#s-2-8"><span class="num">2.8</span>Cum exerciți drepturile</a>
+        <a href="#s-2-9"><span class="num">2.9</span>Securitate</a>
+        <a href="#s-2-10"><span class="num">2.10</span>Transferuri în afara UE</a>
+        <a href="#s-2-11"><span class="num">2.11</span>Date copii</a>
+      </div>
+
+      <div class="toc-group">
+        <span class="gh">3, Cookies</span>
+        <a href="#s-3-1"><span class="num">3.1</span>Ce sunt cookies</a>
+        <a href="#s-3-2"><span class="num">3.2</span>Tipuri folosite</a>
+        <a href="#s-3-3"><span class="num">3.3</span>Cum dezactivezi</a>
+        <a href="#s-3-4"><span class="num">3.4</span>Terți (Stripe, GA, Meta)</a>
+      </div>
+
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <!-- ============ GRUP 1: TERMENI ============ -->
+      <section class="group-start" id="grup-1">
+        <div class="group-header">
+          <span class="ge">Partea 1</span>
+          <h1>Termeni și <em>Condiții</em></h1>
+          <p class="gd">Reguli clare pentru cum cumperi, returnezi și folosești site-ul. Inclusiv drepturile tale ca consumator conform legii române.</p>
+        </div>
+
+        <!-- 1.1 -->
+        <section id="s-1-1">
+          <h2><span class="num">1.1</span>Despre noi<a class="anchor" href="#s-1-1" aria-label="Link direct">#</a></h2>
+          <div class="tldr"><span class="tag">TL;DR</span><span class="txt">Site-ul mananaturii.ro e operat de <strong>Vivens Genetica SRL</strong>, firmă românească. Iată datele complete de contact.</span></div>
+          <p>Site-ul <strong>mananaturii.ro</strong> este magazinul online al brandului Mâna Naturii, deținut și operat de Vivens Genetica SRL, firmă înregistrată în România. Vindem suplimente alimentare naturale produse intern, în conformitate cu legislația aplicabilă.</p>
+          <dl class="facts">
+            <dt>Denumire</dt><dd class="regular">Vivens Genetica SRL</dd>
+            <dt>CUI</dt><dd>RO XXXXXXXX</dd>
+            <dt>Reg. Com.</dt><dd>J40/XXXXX/2024</dd>
+            <dt>Sediu</dt><dd class="regular">Str. (de completat), București, România</dd>
+            <dt>Telefon</dt><dd>+40 749 492 794</dd>
+            <dt>Email</dt><dd><a href="mailto:suport@mananaturii.ro">suport@mananaturii.ro</a></dd>
+            <dt>Notificare</dt><dd class="regular">ANSVSA, pentru suplimente alimentare</dd>
+          </dl>
+        </section>
+
+        <!-- 1.2 -->
+        <section id="s-1-2">
+          <h2><span class="num">1.2</span>Definiții<a class="anchor" href="#s-1-2">#</a></h2>
+          <ul>
+            <li><strong>Vânzător:</strong> Vivens Genetica SRL, definit la 1.1.</li>
+            <li><strong>Cumpărător sau Tu:</strong> persoană fizică sau juridică ce plasează o comandă pe site.</li>
+            <li><strong>Consumator:</strong> persoană fizică ce achiziționează în afara activității comerciale, conform Legii 363/2007.</li>
+            <li><strong>Produs:</strong> orice supliment alimentar, pachet sau articol listat pe site.</li>
+            <li><strong>Comandă:</strong> formularea ofertei de cumpărare prin completarea coșului și apăsarea butonului Plasează comanda.</li>
+            <li><strong>Contract la distanță:</strong> contractul încheiat între Vânzător și Cumpărător prin mijloace electronice, reglementat de OUG 34/2014.</li>
+          </ul>
+        </section>
+
+        <!-- 1.3 -->
+        <section id="s-1-3">
+          <h2><span class="num">1.3</span>Comandă și contract<a class="anchor" href="#s-1-3">#</a></h2>
+          <div class="tldr"><span class="tag">TL;DR</span><span class="txt">Contractul se încheie când îți confirmăm comanda pe email. Până atunci, oferta noastră (prețul, stocul) e indicativă.</span></div>
+          <p>Pentru a plasa o comandă, adaugi produsele în coș, completezi datele de livrare și apeși <strong>Plasează comanda</strong>. Vei primi imediat un email cu detaliile comenzii și un cod unic (ex. <code style="font-family:'JetBrains Mono',monospace;background:var(--cream);padding:1px 6px;border-radius:4px;font-size:13px">MN-2026-0142</code>).</p>
+          <p>Contractul de vânzare se consideră încheiat în momentul în care primești de la noi al doilea email, de <strong>confirmare a comenzii</strong> (după verificarea stocului și a datelor). Până la acel moment, ne rezervăm dreptul de a refuza comanda dacă produsul nu mai e în stoc sau dacă există suspiciuni de fraudă.</p>
+          <p>Anularea comenzii înainte de expediere se poate face <strong>gratuit</strong> prin contul tău sau scriind la suport@mananaturii.ro.</p>
+        </section>
+
+        <!-- 1.4 -->
+        <section id="s-1-4">
+          <h2><span class="num">1.4</span>Prețuri, taxe, plată<a class="anchor" href="#s-1-4">#</a></h2>
+          <div class="tldr"><span class="tag">TL;DR</span><span class="txt">Prețurile afișate includ TVA 19%. Acceptăm card (Stripe), ramburs și transfer bancar. Cardul tău nu trece niciodată prin serverele noastre.</span></div>
+          <p>Toate prețurile afișate pe site sunt exprimate în <strong>lei (RON)</strong> și includ TVA 19% conform Codului Fiscal. Costul livrării apare separat la pasul Checkout, înainte de plata efectivă.</p>
+          <p>Metode de plată acceptate:</p>
+          <ul>
+            <li><strong>Card de credit sau debit</strong> (Visa, Mastercard) procesat prin Stripe. Datele cardului sunt tokenizate (PCI DSS Level 1) și nu ajung la noi.</li>
+            <li><strong>Apple Pay și Google Pay</strong>, prin Stripe.</li>
+            <li><strong>Plată ramburs</strong> la curier, cash sau card POS, în funcție de curier.</li>
+            <li><strong>Transfer bancar (OP)</strong>, pentru persoane juridice.</li>
+          </ul>
+          <p>Factura fiscală e generată automat după confirmarea plății și e trimisă pe email. Pentru factură pe firmă, completezi datele juridice (CUI, RegCom) la Checkout sau în secțiunea Adrese de livrare a contului.</p>
+        </section>
+
+        <!-- 1.5 -->
+        <section id="s-1-5">
+          <h2><span class="num">1.5</span>Livrare<a class="anchor" href="#s-1-5">#</a></h2>
+          <div class="tldr"><span class="tag">TL;DR</span><span class="txt">Livrăm prin FanCourier, Sameday și DPD în 1–3 zile lucrătoare. Gratuit peste 250 lei.</span></div>
+          <p>Livrăm în <strong>toată România</strong>, prin curierii FanCourier, Sameday sau DPD. Termenul standard este de <strong>1–3 zile lucrătoare</strong> de la confirmarea plății, pentru orașele mari. Pentru zone izolate sau în perioade aglomerate (sărbători), termenul poate ajunge la 5 zile lucrătoare.</p>
+          <p>Costuri livrare:</p>
+          <ul>
+            <li class="plus"><strong>Gratuit</strong> pentru comenzi peste 250 lei.</li>
+            <li>19 lei pentru comenzi sub 250 lei, plata în avans card.</li>
+            <li>23 lei pentru ramburs, taxă curier inclusă.</li>
+          </ul>
+          <p>Riscul pierderii sau deteriorării trece la tine în momentul în care primești coletul (sau o persoană desemnată de tine). Verifică integritatea coletului în prezența curierului; refuză coletul dacă e vizibil deteriorat.</p>
+        </section>
+
+        <!-- 1.6 -->
+        <section id="s-1-6">
+          <h2><span class="num">1.6</span>Dreptul de retragere (retur 14 zile)<a class="anchor" href="#s-1-6">#</a></h2>
+          <div class="tldr"><span class="tag">TL;DR</span><span class="txt">Ai 14 zile calendaristice să returnezi produsele <strong>sigilate</strong>, fără să spui de ce. Suplimentele desigilate nu pot fi returnate, din motive de igienă (excepție legală).</span></div>
+          <p>Conform <span class="law-ref"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>OUG 34/2014 art. 9</span>, ai dreptul să te retragi din contract în termen de <strong>14 zile calendaristice</strong> de la data primirii ultimului produs din comandă, fără să justifici motivul.</p>
+          <p><strong>Excepții (produse care NU pot fi returnate),</strong> conform OUG 34/2014 art. 16 lit. e:</p>
+          <ul>
+            <li class="minus">Suplimente alimentare cu sigiliul rupt sau desigilate, din motive de protecție a sănătății și igienă.</li>
+            <li class="minus">Produse perisabile cu termen de valabilitate sub 30 zile.</li>
+            <li class="minus">Produse personalizate (ex. pachete configurate prin Quiz cu compoziție unică).</li>
+          </ul>
+          <p><strong>Cum returnezi:</strong> deschizi cererea de retur din contul tău, secțiunea <a href="Pagina Retur RMA.html">Retur RMA</a>. Generăm AWB. Costul transportului retur îl suporți tu, dacă nu e vorba de produs defect sau livrare greșită.</p>
+          <p><strong>Rambursarea</strong> sumei se face în <strong>14 zile</strong> de la primirea retur-ului, prin aceeași metodă cu care ai plătit, conform OUG 34/2014 art. 13.</p>
+        </section>
+
+        <!-- 1.7 -->
+        <section id="s-1-7">
+          <h2><span class="num">1.7</span>Garanție produs<a class="anchor" href="#s-1-7">#</a></h2>
+          <div class="tldr"><span class="tag">TL;DR</span><span class="txt">Garantăm produsele sigilate și conforme la livrare. Dacă primești ceva defect sau greșit, înlocuim sau rambursăm gratuit.</span></div>
+          <p>Beneficiezi de garanția legală de conformitate conform <span class="law-ref"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>Legii 449/2003</span> pentru defecte materiale de fabricație, sigiliu deteriorat la livrare sau produs greșit. Garanția nu se aplică în caz de utilizare necorespunzătoare, depozitare improprie sau depășire termen de valabilitate.</p>
+          <p>Pentru suplimentele alimentare, termenul de valabilitate (data de expirare) e marcat pe ambalaj. Garantăm minim <strong>6 luni</strong> de valabilitate la momentul livrării.</p>
+        </section>
+
+        <!-- 1.8 -->
+        <section id="s-1-8">
+          <h2><span class="num">1.8</span>Răspundere, limite<a class="anchor" href="#s-1-8">#</a></h2>
+          <p>Suplimentele alimentare <strong>nu înlocuiesc tratamentul medical</strong> și nu sunt destinate diagnosticării, tratării sau vindecării vreunei boli. Înainte de utilizare, citește eticheta și consultă medicul dacă ești însărcinată, alăptezi, iei medicamente sau ai o afecțiune cronică.</p>
+          <p>Nu răspundem pentru:</p>
+          <ul>
+            <li>Reacții alergice la ingrediente declarate explicit pe etichetă.</li>
+            <li>Folosire necorespunzătoare sau în doze peste cele recomandate.</li>
+            <li>Întârzieri de livrare cauzate de curier, condiții meteo extreme sau adresă incorectă.</li>
+            <li>Daune indirecte (pierdere profit, oportunitate) rezultate din utilizarea sau lipsa de disponibilitate a site-ului.</li>
+          </ul>
+          <p>Răspunderea noastră totală e limitată la valoarea comenzii respective, exceptând cazurile prevăzute imperativ de lege.</p>
+        </section>
+
+        <!-- 1.9 -->
+        <section id="s-1-9">
+          <h2><span class="num">1.9</span>Cont utilizator<a class="anchor" href="#s-1-9">#</a></h2>
+          <p>Crearea unui cont e opțională (poți comanda și ca guest). Contul îți permite să vezi istoricul comenzilor, să gestionezi adrese, abonamente și carduri salvate (vezi <a href="Cont - Dashboard.html">contul tău</a>).</p>
+          <p>Ești responsabilă pentru păstrarea parolei în siguranță. Anunță-ne imediat la suport@mananaturii.ro dacă suspectezi că cineva are acces neautorizat. Putem suspenda conturile cu activitate suspectă (frauda, abuz cod referral, încălcare termeni).</p>
+        </section>
+
+        <!-- 1.10 -->
+        <section id="s-1-10">
+          <h2><span class="num">1.10</span>Program fidelitate <em>Constant</em><a class="anchor" href="#s-1-10">#</a></h2>
+          <p>Programul <strong>Constant</strong> îți oferă puncte la fiecare comandă, reviews și referrals. Regulile complete sunt descrise în pagina <a href="Cont - Cod fidelitate.html">Cod fidelitate</a>.</p>
+          <ul>
+            <li>1 punct per 1 leu cheltuit (excluzând transport).</li>
+            <li>1 punct = 0,10 lei la următoarea comandă.</li>
+            <li>Punctele nu expiră.</li>
+            <li>Punctele nu sunt transferabile între conturi.</li>
+            <li>Pentru retururi, punctele câștigate la comandă se scad proporțional cu suma returnată.</li>
+          </ul>
+          <p>Ne rezervăm dreptul să modificăm regulile programului cu preaviz <strong>30 de zile</strong> prin notificare pe email și pe site.</p>
+        </section>
+
+        <!-- 1.11 -->
+        <section id="s-1-11">
+          <h2><span class="num">1.11</span>Forță majoră<a class="anchor" href="#s-1-11">#</a></h2>
+          <p>Nu răspundem pentru întârzieri sau neexecutare cauzate de evenimente de forță majoră (calamități, război, restricții guvernamentale, întreruperi mari de servicii la furnizori) conform <span class="law-ref">Codului Civil art. 1351</span>. Te anunțăm pe email în maxim 5 zile lucrătoare și îți restituim contravaloarea dacă livrarea nu se mai poate face.</p>
+        </section>
+
+        <!-- 1.12 -->
+        <section id="s-1-12">
+          <h2><span class="num">1.12</span>Litigii, ANPC, SOL<a class="anchor" href="#s-1-12">#</a></h2>
+          <div class="tldr"><span class="tag">TL;DR</span><span class="txt">Vrem să rezolvăm tot direct. Dacă nu reușim, ai dreptul să te adresezi <strong>ANPC</strong> sau platformei <strong>SOL</strong> a UE.</span></div>
+          <p>În caz de neînțelegeri, te rugăm să ne contactezi mai întâi pe <a href="mailto:suport@mananaturii.ro">suport@mananaturii.ro</a>. Răspundem în maxim 30 zile calendaristice, de regulă în 2 zile lucrătoare.</p>
+          <p>Dacă nu ajungem la o soluție, te poți adresa:</p>
+          <ul>
+            <li><strong>ANPC</strong> (Autoritatea Națională pentru Protecția Consumatorilor), <a href="https://anpc.ro" target="_blank" rel="noopener">anpc.ro</a> sau la oficiile județene.</li>
+            <li><strong>Platforma SOL</strong> (Soluționare Online a Litigiilor) a UE, <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>.</li>
+            <li>Instanțele de judecată române competente (sediul nostru).</li>
+          </ul>
+          <p>Legea aplicabilă: legea română.</p>
+        </section>
+      </section>
+
+      <!-- ============ GRUP 2: CONFIDENȚIALITATE ============ -->
+      <section class="group-start" id="grup-2">
+        <div class="group-header">
+          <span class="ge">Partea 2</span>
+          <h1>Politică <em>Confidențialitate</em></h1>
+          <p class="gd">Cum tratăm datele tale personale, conform Regulamentului UE 2016/679 (GDPR). Onest, granular, cu drepturi clare.</p>
+        </div>
+
+        <!-- 2.1 -->
+        <section id="s-2-1">
+          <h2><span class="num">2.1</span>Cine suntem, operatorul de date<a class="anchor" href="#s-2-1">#</a></h2>
+          <p>Operatorul datelor tale personale este <strong>Vivens Genetica SRL</strong> (datele complete la <a href="#s-1-1">1.1</a>). Am desemnat un Responsabil cu Protecția Datelor (DPO) la care te poți adresa direct:</p>
+          <dl class="facts">
+            <dt>DPO Email</dt><dd><a href="mailto:dpo@mananaturii.ro">dpo@mananaturii.ro</a></dd>
+            <dt>Timp răspuns</dt><dd class="regular">Sub 5 zile lucrătoare (legal maxim 30 zile)</dd>
+          </dl>
+        </section>
+
+        <!-- 2.2 -->
+        <section id="s-2-2">
+          <h2><span class="num">2.2</span>Ce date colectăm<a class="anchor" href="#s-2-2">#</a></h2>
+          <div class="tldr"><span class="tag">TL;DR</span><span class="txt">Date contact, comandă și navigare. <strong>Nu</strong> stocăm numărul complet al cardului bancar, doar tokenul Stripe și ultimele 4 cifre.</span></div>
+          <table class="data-table">
+            <thead><tr><th>Categorie</th><th>Detalii</th><th>Sursa</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Identificare</strong> <span class="badge req">Obligatoriu</span></td><td>Nume, prenume, email, telefon</td><td>Tu, la cont sau checkout</td></tr>
+              <tr><td><strong>Livrare</strong> <span class="badge req">Obligatoriu</span></td><td>Adresă, oraș, județ, cod poștal, instrucțiuni curier</td><td>Tu, la checkout</td></tr>
+              <tr><td><strong>Factură juridică</strong> <span class="badge opt">Opțional</span></td><td>Denumire firmă, CUI, RegCom, IBAN</td><td>Tu, dacă vrei factură PJ</td></tr>
+              <tr><td><strong>Plată</strong></td><td><strong>Doar</strong> tokenul Stripe, brand card (Visa/MC), ultimele 4 cifre, expirare. <strong>Niciodată</strong> CVV sau număr complet</td><td>Stripe, tokenizat</td></tr>
+              <tr><td><strong>Comenzi</strong></td><td>Produse, sume, dată, adresă livrare</td><td>Site, automat</td></tr>
+              <tr><td><strong>Cont</strong></td><td>Parolă criptată (hash bcrypt), data nașterii (opțional), gen (opțional), preferințe notificări</td><td>Tu, în cont</td></tr>
+              <tr><td><strong>Navigare</strong></td><td>IP, browser, sistem operare, pagini vizitate, timp pe pagină</td><td>Automat, prin cookies</td></tr>
+              <tr><td><strong>Comunicare</strong></td><td>Conținutul emailurilor și mesajelor WhatsApp către suport</td><td>Tu, la fiecare interacțiune</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 2.3 -->
+        <section id="s-2-3">
+          <h2><span class="num">2.3</span>De ce le colectăm (scop)<a class="anchor" href="#s-2-3">#</a></h2>
+          <ul>
+            <li><strong>Executarea comenzii:</strong> procesare, plată, livrare, factură, suport.</li>
+            <li><strong>Crearea și administrarea contului:</strong> autentificare, istoric comenzi, preferințe.</li>
+            <li><strong>Obligații legale:</strong> emitere factură, evidență contabilă, raportare ANAF, ANSVSA.</li>
+            <li><strong>Comunicare tranzacțională:</strong> confirmări comandă, status livrare, retur, securitate (login nou, schimbare parolă).</li>
+            <li><strong>Comunicare marketing</strong> (doar cu consimțământ explicit): newsletter sfaturi și oferte.</li>
+            <li><strong>Recomandări personalizate</strong> (doar cu consimțământ): sugestii produse pe baza istoricului.</li>
+            <li><strong>Securitate:</strong> detectare fraudă, prevenire abuz, păstrare integritate cont.</li>
+          </ul>
+        </section>
+
+        <!-- 2.4 -->
+        <section id="s-2-4">
+          <h2><span class="num">2.4</span>Temei legal pentru prelucrare<a class="anchor" href="#s-2-4">#</a></h2>
+          <p>Conform <span class="law-ref">GDPR art. 6</span>, prelucrăm datele tale în baza:</p>
+          <table class="data-table">
+            <thead><tr><th>Temei</th><th>Pentru ce</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Executare contract</strong> art. 6(1)(b)</td><td>Comandă, livrare, plată, suport, retur, garanție.</td></tr>
+              <tr><td><strong>Obligație legală</strong> art. 6(1)(c)</td><td>Factură, evidență contabilă (10 ani), raportare ANAF, ANSVSA.</td></tr>
+              <tr><td><strong>Consimțământ</strong> art. 6(1)(a)</td><td>Newsletter, recomandări personalizate, cookies analytics și marketing.</td></tr>
+              <tr><td><strong>Interes legitim</strong> art. 6(1)(f)</td><td>Securitate cont, detectare fraudă, îmbunătățire site (date agregate, fără identificare).</td></tr>
+            </tbody>
+          </table>
+          <p>Pentru prelucrările pe bază de consimțământ, poți retrage acordul oricând, fără să afecteze legalitatea prelucrării anterioare retragerii.</p>
+        </section>
+
+        <!-- 2.5 -->
+        <section id="s-2-5">
+          <h2><span class="num">2.5</span>Cu cine partajăm datele<a class="anchor" href="#s-2-5">#</a></h2>
+          <div class="tldr"><span class="tag">TL;DR</span><span class="txt">Doar cu cine e <strong>necesar</strong> să livrăm și să facturăm. <strong>Nu vindem</strong> date la firme de marketing terțe.</span></div>
+          <table class="data-table">
+            <thead><tr><th>Cu cine</th><th>Ce primește</th><th>De ce</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Stripe</strong> (Irlanda, US)</td><td>Date card tokenizate, email, sumă</td><td>Procesare plată card</td></tr>
+              <tr><td><strong>FanCourier / Sameday / DPD</strong></td><td>Nume, telefon, adresă</td><td>Livrare colet</td></tr>
+              <tr><td><strong>ANAF</strong> (România)</td><td>Date factură (CUI, sumă, conținut)</td><td>Obligație legală fiscală</td></tr>
+              <tr><td><strong>Furnizor hosting</strong> (Hetzner, UE)</td><td>Toate datele site, criptate</td><td>Servere și backup</td></tr>
+              <tr><td><strong>Furnizor email</strong> (SendGrid, US)</td><td>Email, conținut email</td><td>Trimitere emailuri tranzacționale și newsletter</td></tr>
+              <tr><td><strong>Google Analytics 4</strong> (consimțământ)</td><td>IP anonimizat, evenimente navigare</td><td>Statistici utilizare site</td></tr>
+              <tr><td><strong>Meta Pixel</strong> (consimțământ)</td><td>Evenimente conversie, ID anonim</td><td>Retargeting publicitate</td></tr>
+            </tbody>
+          </table>
+          <p>Toți partenerii noștri sunt persoane împuternicite (data processors) și au semnat acorduri GDPR (Data Processing Agreement). <strong>Nu vindem datele tale</strong> către firme de marketing terțe.</p>
+        </section>
+
+        <!-- 2.6 -->
+        <section id="s-2-6">
+          <h2><span class="num">2.6</span>Cât păstrăm datele<a class="anchor" href="#s-2-6">#</a></h2>
+          <table class="data-table">
+            <thead><tr><th>Categorie</th><th>Perioadă</th><th>De ce</th></tr></thead>
+            <tbody>
+              <tr><td>Date cont activ</td><td>Pe perioada existenței contului</td><td>Funcționare cont</td></tr>
+              <tr><td>Date cont după ștergere</td><td>30 zile (backup), apoi ștergere definitivă</td><td>Recuperare accidentală</td></tr>
+              <tr><td>Facturi și evidență contabilă</td><td><strong>10 ani</strong></td><td>OUG 28/1999, obligație legală</td></tr>
+              <tr><td>Logs securitate (login, schimbări sensibile)</td><td>12 luni</td><td>Investigare incidente</td></tr>
+              <tr><td>Cookies analytics (GA4)</td><td>26 luni</td><td>Standard Google, plus retragere consimțământ</td></tr>
+              <tr><td>Cookies marketing (Meta)</td><td>180 zile</td><td>Standard Meta, plus retragere consimțământ</td></tr>
+              <tr><td>Emailuri suport</td><td>3 ani după ultima interacțiune</td><td>Suport ulterior, garanție</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 2.7 -->
+        <section id="s-2-7">
+          <h2><span class="num">2.7</span>Drepturile tale GDPR<a class="anchor" href="#s-2-7">#</a></h2>
+          <div class="tldr"><span class="tag">TL;DR</span><span class="txt">Ai 8 drepturi clare, garantate prin lege. Le poți exercita oricând, gratuit, la <strong>dpo@mananaturii.ro</strong>.</span></div>
+          <ul>
+            <li><strong>Acces</strong> (art. 15): să afli ce date avem despre tine și să primești o copie.</li>
+            <li><strong>Rectificare</strong> (art. 16): să corectezi date inexacte sau incomplete.</li>
+            <li><strong>Ştergere</strong> (art. 17, dreptul „de a fi uitat"): să ceri ștergerea datelor, cu excepția celor pe care legea ne obligă să le păstrăm (facturi 10 ani).</li>
+            <li><strong>Restricționare</strong> (art. 18): să ceri să blocăm prelucrarea în anumite situații.</li>
+            <li><strong>Portabilitate</strong> (art. 20): să primești datele într-un format structurat (JSON sau CSV) și să le transferi altcuiva.</li>
+            <li><strong>Opoziție</strong> (art. 21): să te opui prelucrării pe bază de interes legitim sau pentru marketing direct.</li>
+            <li><strong>Retragere consimțământ</strong> (art. 7): oricând, pentru prelucrările bazate pe consimțământ.</li>
+            <li><strong>Plângere la ANSPDCP</strong>: la Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal, <a href="https://www.dataprotection.ro" target="_blank" rel="noopener">dataprotection.ro</a>.</li>
+          </ul>
+        </section>
+
+        <!-- 2.8 -->
+        <section id="s-2-8">
+          <h2><span class="num">2.8</span>Cum exerciți drepturile<a class="anchor" href="#s-2-8">#</a></h2>
+          <p>Trimite cererea pe email la <a href="mailto:dpo@mananaturii.ro">dpo@mananaturii.ro</a>, cu subiectul „Cerere GDPR" și menționează tipul de drept invocat.</p>
+          <p>Pentru securitate, putem cere verificare identitate (ex. confirmare prin emailul asociat contului). Răspundem în <strong>maxim 30 zile</strong> (de regulă sub 5 zile lucrătoare). Dacă cererea e complexă, te anunțăm și termenul se poate extinde cu încă 60 de zile.</p>
+          <p>Exercitarea drepturilor e <strong>gratuită</strong>, exceptând cererile vădit nefondate sau excesive (situație în care putem cere o taxă rezonabilă sau refuza).</p>
+        </section>
+
+        <!-- 2.9 -->
+        <section id="s-2-9">
+          <h2><span class="num">2.9</span>Securitate<a class="anchor" href="#s-2-9">#</a></h2>
+          <p>Aplicăm măsuri tehnice și organizatorice corespunzătoare pentru a proteja datele tale:</p>
+          <ul>
+            <li>Conexiuni criptate HTTPS / TLS 1.3 pe tot site-ul.</li>
+            <li>Parole stocate cu algoritm hash bcrypt (nu citim parole în clar, nici noi).</li>
+            <li>Tokenizare Stripe (PCI DSS Level 1) pentru carduri.</li>
+            <li>Acces la baza de date doar pentru personalul autorizat, cu autentificare 2FA.</li>
+            <li>Logs și monitorizare incidente securitate, 24/7.</li>
+            <li>Audit anual de securitate, intern și extern.</li>
+            <li>Plan de notificare a încălcărilor (data breach) în 72 ore către ANSPDCP, conform GDPR art. 33.</li>
+          </ul>
+        </section>
+
+        <!-- 2.10 -->
+        <section id="s-2-10">
+          <h2><span class="num">2.10</span>Transferuri în afara UE<a class="anchor" href="#s-2-10">#</a></h2>
+          <p>Unii dintre furnizorii noștri (Stripe, SendGrid, Google, Meta) au servere și în <strong>Statele Unite</strong>. Transferul de date către aceștia se face pe baza:</p>
+          <ul>
+            <li>Clauzelor Contractuale Standard (SCC) aprobate de Comisia Europeană.</li>
+            <li>Cadrului UE-US Data Privacy Framework, după caz.</li>
+            <li>Garanțiilor suplimentare (criptare, pseudonimizare) acolo unde e necesar.</li>
+          </ul>
+        </section>
+
+        <!-- 2.11 -->
+        <section id="s-2-11">
+          <h2><span class="num">2.11</span>Date despre copii<a class="anchor" href="#s-2-11">#</a></h2>
+          <p>Site-ul nostru se adresează persoanelor de <strong>peste 16 ani</strong>. Nu colectăm intenționat date de la copii sub această vârstă. Dacă afli că un minor sub 16 ani ne-a furnizat date, scrie la <a href="mailto:dpo@mananaturii.ro">dpo@mananaturii.ro</a> și ștergem datele imediat.</p>
+        </section>
+      </section>
+
+      <!-- ============ GRUP 3: COOKIES ============ -->
+      <section class="group-start" id="grup-3">
+        <div class="group-header">
+          <span class="ge">Partea 3</span>
+          <h1>Politică <em>Cookies</em></h1>
+          <p class="gd">Ce cookies folosim, de ce și cum le dezactivezi. Conform Legii 506/2004 și ePrivacy.</p>
+        </div>
+
+        <!-- 3.1 -->
+        <section id="s-3-1">
+          <h2><span class="num">3.1</span>Ce sunt cookies<a class="anchor" href="#s-3-1">#</a></h2>
+          <p>Cookies sunt fișiere mici de text salvate pe dispozitivul tău (telefon, laptop) când vizitezi un site. Ne ajută să recunoaștem dispozitivul la următoarea vizită, să menținem coșul plin, să te ținem logată sau să măsurăm cum funcționează site-ul.</p>
+          <p>Folosim cookies <strong>proprii</strong> (de pe mananaturii.ro) și cookies <strong>de la terți</strong> (Stripe, Google Analytics, Meta).</p>
+        </section>
+
+        <!-- 3.2 -->
+        <section id="s-3-2">
+          <h2><span class="num">3.2</span>Tipuri pe care le folosim<a class="anchor" href="#s-3-2">#</a></h2>
+          <table class="data-table">
+            <thead><tr><th>Tip</th><th>Exemple</th><th>Durată</th><th>Consimțământ</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Esențiale</strong> <span class="badge req">Necesare</span></td><td>session, csrf, cookie_consent, cart</td><td>Sesiune sau 30 zile</td><td>Nu, fără ele site-ul nu funcționează</td></tr>
+              <tr><td><strong>Preferințe</strong> <span class="badge opt">Funcționale</span></td><td>limba, regiune, ultima adresă livrare</td><td>1 an</td><td>Implicit la creare cont</td></tr>
+              <tr><td><strong>Analytics</strong> <span class="badge opt">Opțional</span></td><td>Google Analytics 4 (_ga, _ga_*)</td><td>26 luni</td><td><strong>Opt-in</strong> explicit, banner cookies</td></tr>
+              <tr><td><strong>Marketing</strong> <span class="badge opt">Opțional</span></td><td>Meta Pixel (_fbp, _fbc)</td><td>180 zile</td><td><strong>Opt-in</strong> explicit, banner cookies</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 3.3 -->
+        <section id="s-3-3">
+          <h2><span class="num">3.3</span>Cum dezactivezi cookies<a class="anchor" href="#s-3-3">#</a></h2>
+          <p>Ai 3 căi:</p>
+          <ul>
+            <li><strong>Bannerul cookies</strong> de la prima vizită îți permite să accepți toate, doar esențiale sau să personalizezi pe categorii.</li>
+            <li><strong>Setări browser:</strong> Chrome, Firefox, Safari și Edge îți permit să blochezi cookies. Atenție: blocarea celor esențiale poate face site-ul nefuncțional.</li>
+            <li><strong>Pagina Preferințe cookies:</strong> click pe link-ul „Gestionează cookies" din footer pentru a revizita alegerile.</li>
+          </ul>
+        </section>
+
+        <!-- 3.4 -->
+        <section id="s-3-4">
+          <h2><span class="num">3.4</span>Cookies de la terți<a class="anchor" href="#s-3-4">#</a></h2>
+          <p>Câțiva furnizori setează cookies independent de noi:</p>
+          <ul>
+            <li><strong>Stripe</strong> (procesator plată): cookies pentru detectare fraudă și sesiune securizată la pasul de plată. Detalii: <a href="https://stripe.com/privacy" target="_blank" rel="noopener">stripe.com/privacy</a>.</li>
+            <li><strong>Google Analytics 4</strong>: măsurători agregate de utilizare, IP anonimizat. Detalii: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</li>
+            <li><strong>Meta Pixel</strong> (Facebook, Instagram): retargeting publicitar. Detalii: <a href="https://www.facebook.com/policies/cookies" target="_blank" rel="noopener">facebook.com/policies/cookies</a>.</li>
+          </ul>
+          <p>Pentru analytics și marketing, plasarea cookies-urilor are loc <strong>numai după consimțământul tău explicit</strong> prin bannerul de cookies.</p>
+        </section>
+
+      </section>
+
+      <!-- DPO CARD -->
+      <div class="dpo-card">
+        <div class="ico-big"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="copy">
+          <h2>Ai întrebări despre <em>datele tale?</em></h2>
+          <p>Scrie-ne la <span class="em-tag">dpo@mananaturii.ro</span> și răspundem în <strong>sub 30 zile</strong> (de regulă sub 5 zile lucrătoare).</p>
+        </div>
+        <div class="dpo-actions">
+          <a class="b-primary" href="mailto:dpo@mananaturii.ro?subject=Cerere%20GDPR">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Trimite email DPO
+          </a>
+          <a class="b-outline" href="Pagina FAQ.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+            Vezi FAQ
+          </a>
+        </div>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- Back to top -->
+  <button class="to-top" id="toTop" aria-label="Înapoi sus">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <!-- FOOTER -->
+  <footer class="legal-footer">
+    <div class="footer-row">
+      <a class="logo-foot" href="Mana Naturii - Homepage.html">
+        <span class="lm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        mâna naturii
+      </a>
+      <div class="links">
+        <a href="Pagina Despre.html">Despre</a>
+        <a href="Pagina FAQ.html">FAQ</a>
+        <a href="Pagina Contact.html">Contact</a>
+        <a href="Pagina Retur RMA.html">Retur</a>
+        <a href="#grup-1">Termeni</a>
+        <a href="#grup-2">Confidențialitate</a>
+        <a href="#grup-3">Cookies</a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      <span>© 2026 Vivens Genetica SRL, toate drepturile rezervate.</span>
+      <span>Ultima actualizare a acestor documente: 1 noiembrie 2026.</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  // ===== Smooth scroll for TOC =====
+  document.querySelectorAll('.toc a, .footer-row .links a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var href = a.getAttribute('href');
+      if(href && href.charAt(0) === '#'){
+        var t = document.querySelector(href);
+        if(t){
+          e.preventDefault();
+          var rect = t.getBoundingClientRect();
+          window.scrollTo({ top: window.scrollY + rect.top - 80, behavior:'smooth' });
+          // Close mobile TOC after click
+          var toc = document.getElementById('toc');
+          if(toc.classList.contains('open')){
+            toc.classList.remove('open');
+            document.getElementById('tocMobileBtn').classList.remove('open');
+          }
+        }
+      }
+    });
+  });
+
+  // ===== Scroll-spy =====
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc a[href^="#s-"]'));
+  var sections = tocLinks.map(function(a){
+    var id = a.getAttribute('href').substring(1);
+    return { id:id, el:document.getElementById(id), link:a };
+  }).filter(function(x){ return x.el; });
+
+  function updateActive(){
+    var scrollY = window.scrollY;
+    var current = sections[0];
+    for(var i = 0; i < sections.length; i++){
+      var top = sections[i].el.getBoundingClientRect().top + scrollY;
+      if(top - 120 <= scrollY){
+        current = sections[i];
+      } else {
+        break;
+      }
+    }
+    tocLinks.forEach(function(a){ a.classList.remove('active'); });
+    if(current && current.link) current.link.classList.add('active');
+  }
+
+  var spyTick;
+  window.addEventListener('scroll', function(){
+    if(spyTick) return;
+    spyTick = window.requestAnimationFrame(function(){
+      updateActive();
+      // Back to top visibility
+      var btt = document.getElementById('toTop');
+      if(window.scrollY > 800) btt.classList.add('show');
+      else btt.classList.remove('show');
+      spyTick = null;
+    });
+  });
+  updateActive();
+
+  // ===== Back to top =====
+  document.getElementById('toTop').addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
+
+  // ===== Mobile TOC toggle =====
+  var tocMobileBtn = document.getElementById('tocMobileBtn');
+  function checkMobile(){
+    if(window.innerWidth <= 980){
+      tocMobileBtn.style.display = 'flex';
+    } else {
+      tocMobileBtn.style.display = 'none';
+      document.getElementById('toc').classList.remove('open');
+      tocMobileBtn.classList.remove('open');
+    }
+  }
+  tocMobileBtn.addEventListener('click', function(){
+    var toc = document.getElementById('toc');
+    toc.classList.toggle('open');
+    tocMobileBtn.classList.toggle('open');
+  });
+  window.addEventListener('resize', checkMobile);
+  checkMobile();
+})();
+</script>
+</body>
+</html>

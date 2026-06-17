@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Pachet Imunitate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  /* ===== Announcement bar ===== */
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+  .announce .right .sparkle{color:var(--color-gold)}
+
+  /* ===== Breadcrumb ===== */
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* ===== HERO ===== */
+  .hero{padding:56px 64px 80px;background:var(--color-bg-page)}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:flex-start;max-width:1280px;margin:0 auto}
+
+  /* Gallery */
+  .gallery{display:flex;flex-direction:column;gap:14px}
+  .gal-main{aspect-ratio:1;border-radius:24px;background:linear-gradient(160deg,var(--color-green-soft-card) 0%,var(--color-green-pale) 60%,var(--color-green-mute) 100%);position:relative;overflow:hidden;box-shadow:var(--shadow-soft)}
+  .gal-main::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 22%,rgba(255,255,255,.45),transparent 55%)}
+  .gal-seal{position:absolute;top:22px;right:22px;display:inline-flex;align-items:center;gap:8px;background:var(--color-gold);color:var(--color-text-primary);padding:8px 14px;border-radius:999px;font-family:var(--font-sans);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;box-shadow:var(--shadow-gold)}
+  .gal-seal svg{color:var(--color-text-primary)}
+  .pair{position:absolute;left:0;right:0;bottom:0;top:0;display:flex;align-items:center;justify-content:center;gap:24px}
+  .bottle{position:relative;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 30px 30px rgba(7,58,31,.25))}
+  .bottle .cap{width:46px;height:18px;background:linear-gradient(180deg,#2c1b08,#1A0C04);border-radius:3px 3px 1px 1px}
+  .bottle .neck{width:36px;height:14px;background:linear-gradient(180deg,#1A0C04,#0a0502)}
+  .bottle .body{width:138px;height:280px;border-radius:14px 14px 26px 26px;position:relative;box-shadow:inset -10px -12px 22px rgba(0,0,0,.45),inset 10px 10px 22px rgba(255,255,255,.06)}
+  .bottle.amber .body{background:linear-gradient(180deg,#3A2110,#1A0C04)}
+  .bottle.matte .body{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .bottle.matte .cap,.bottle.matte .neck{background:linear-gradient(180deg,#0a2418,#051209)}
+  .bottle .label{position:absolute;left:9%;right:9%;top:28%;bottom:13%;background:linear-gradient(180deg,#F5EAD0,#E5D4A8);border-radius:5px;padding:14px 8px;display:flex;flex-direction:column;justify-content:space-between;text-align:center}
+  .bottle.matte .label{background:linear-gradient(180deg,#F4F1E5,#D9D2BD)}
+  .bottle .label .brand{font-family:var(--font-serif);font-size:7px;letter-spacing:.18em;color:#7A5530;font-weight:600;text-transform:uppercase}
+  .bottle.matte .label .brand{color:#2E5040}
+  .bottle .label .seal{width:24px;height:24px;border-radius:50%;background:var(--color-gold);color:var(--color-text-primary);margin:0 auto;display:grid;place-items:center;font-family:var(--font-serif);font-size:10px;font-weight:600}
+  .bottle .label .name{font-family:var(--font-serif);font-size:13px;color:#3A2510;font-weight:500;line-height:1.15}
+  .bottle.matte .label .name{color:#0F2A1D}
+  .bottle .label .vol{font-family:var(--font-sans);font-size:7px;color:#3A2510;letter-spacing:.12em;font-weight:600}
+  .bottle.matte .label .vol{color:#0F2A1D}
+  .bottle.b1{transform:rotate(-3deg)}
+  .bottle.b2{transform:translateY(-10px) rotate(3deg)}
+  .bottle.b2 .body{height:300px}
+  .gal-caption{position:absolute;bottom:22px;left:22px;font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-primary);background:rgba(255,255,255,.85);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px)}
+
+  .gal-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .gal-thumb{aspect-ratio:1;border-radius:14px;background:var(--color-green-soft-card);border:1px solid var(--color-border);position:relative;cursor:pointer}
+  .gal-thumb.active{border-color:var(--color-green-primary);border-width:2px}
+  .gal-thumb::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:42px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:3px 3px 6px 6px;box-shadow:0 6px 10px -4px rgba(0,0,0,.4)}
+  .gal-thumb.t2::after{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .gal-thumb.t3{background:var(--color-green-mute)}
+  .gal-thumb.t3::after{display:none}
+  .gal-thumb.t3 .pair-mini{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:4px}
+  .gal-thumb.t3 .pair-mini span{width:18px;height:36px;border-radius:3px;background:linear-gradient(180deg,#3A2110,#1A0C04)}
+  .gal-thumb.t3 .pair-mini span:last-child{background:linear-gradient(180deg,#1E4530,#0a2418);height:40px}
+
+  /* Info column */
+  .info{display:flex;flex-direction:column;gap:18px}
+  .info .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.18em}
+  .info .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .info h1{font-family:var(--font-serif);font-size:42px;line-height:1.08;letter-spacing:-0.02em;font-weight:400;margin:0;color:var(--color-text-primary)}
+  .info h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .info .subline{font-size:15.5px;color:var(--color-text-muted);line-height:1.65;max-width:520px}
+  .info .subline strong{color:var(--color-text-primary);font-weight:600}
+
+  .rating{display:flex;align-items:center;gap:14px;padding:6px 0}
+  .rating .stars svg{width:15px;height:15px;color:var(--color-gold)}
+  .rating .score{font-weight:600;color:var(--color-text-primary);font-size:14px}
+  .rating .count{color:var(--color-text-faint);font-size:13.5px}
+
+  /* Products in bundle list */
+  .bundle-list{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:0}
+  .bundle-line{display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;padding:12px 4px}
+  .bundle-line+.bundle-line{border-top:1px solid var(--color-border)}
+  .bundle-line .mini-ph{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;position:relative;overflow:hidden}
+  .bundle-line .mini-ph.a{background:linear-gradient(160deg,var(--color-green-pale),var(--color-green-mute))}
+  .bundle-line .mini-ph.b{background:linear-gradient(160deg,var(--color-green-soft-card),var(--color-green-pale))}
+  .bundle-line .mini-ph::after{content:"";width:14px;height:26px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:2px 2px 4px 4px}
+  .bundle-line .mini-ph.b::after{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .bundle-line .b-name{font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--color-text-primary);line-height:1.3}
+  .bundle-line .b-meta{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-faint);margin-top:2px}
+  .bundle-line .b-price{font-family:var(--font-serif);font-size:15px;font-weight:500;color:var(--color-text-primary)}
+
+  /* Price block */
+  .price-block{background:var(--color-bg-card);border:1.5px solid var(--color-border);border-radius:18px;padding:22px 24px;display:flex;flex-direction:column;gap:10px;position:relative}
+  .price-block .row{display:flex;align-items:baseline;justify-content:space-between}
+  .price-block .row .lbl{font-size:13px;color:var(--color-text-muted);font-weight:500}
+  .price-block .row .lbl.muted{color:var(--color-text-faint)}
+  .price-block .old-total{font-family:var(--font-serif);font-size:15px;color:var(--color-text-faint);text-decoration:line-through}
+  .price-block .now-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .price-block .now-price{font-family:var(--font-serif);font-size:42px;color:var(--color-green-primary);font-weight:500;line-height:1;letter-spacing:-0.02em}
+  .price-block .was{font-family:var(--font-serif);font-size:18px;color:var(--color-text-faint);text-decoration:line-through}
+  .price-block .save-chip{display:inline-flex;align-items:center;gap:6px;background:var(--color-gold);color:var(--color-text-primary);padding:6px 12px;border-radius:999px;font-family:var(--font-sans);font-size:12.5px;font-weight:700;letter-spacing:.02em;align-self:flex-start}
+  .price-block .sub-line{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-muted);line-height:1.5;padding-top:6px;border-top:1px solid var(--color-border)}
+
+  .add-cta{height:58px;border:0;border-radius:999px;background:var(--color-cta-primary);color:#fff;font-family:var(--font-sans);font-weight:600;font-size:15.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;box-shadow:var(--shadow-cta);width:100%}
+  .add-cta:hover{background:var(--color-cta-primary-hover)}
+
+  .trust-row{display:flex;flex-wrap:wrap;gap:16px 22px;padding-top:6px}
+  .trust-row .item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--color-text-muted);font-weight:500}
+  .trust-row .item svg{color:var(--color-green-primary);flex-shrink:0}
+  .ind-link{font-size:13px;color:var(--color-green-primary);font-weight:600;text-decoration:underline;text-underline-offset:3px;align-self:flex-start;margin-top:4px}
+
+  /* ===== Social proof strip ===== */
+  .proof-strip{background:var(--color-green-soft-card);padding:32px 64px;border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
+  .proof-row{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;max-width:1280px;margin:0 auto}
+  .proof-cell{display:flex;flex-direction:column;gap:6px;padding-left:18px;border-left:2px solid var(--color-green-medium)}
+  .proof-cell strong{font-family:var(--font-serif);font-size:15.5px;font-weight:500;color:var(--color-text-primary);line-height:1.3}
+  .proof-cell span{font-size:12.5px;color:var(--color-text-muted);line-height:1.45}
+
+  /* ===== Why these two ===== */
+  .why{padding:96px 64px;background:var(--color-bg-card)}
+  .why-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px}
+  .why-text{max-width:520px}
+  .why-text h2{font-family:var(--font-serif);font-size:36px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:14px 0 20px}
+  .why-text h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .why-text p{font-size:15.5px;color:var(--color-text-muted);line-height:1.75}
+  .why-text p strong{color:var(--color-text-primary);font-weight:600}
+  .why-cards{display:flex;flex-direction:column;gap:18px}
+  .why-card{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:18px;padding:24px 26px;display:flex;flex-direction:column;gap:12px}
+  .why-card .head{display:flex;align-items:center;gap:14px}
+  .why-card .ill{width:54px;height:54px;border-radius:12px;display:grid;place-items:center;flex-shrink:0;position:relative;overflow:hidden}
+  .why-card .ill.a{background:linear-gradient(160deg,var(--color-green-pale),var(--color-green-mute))}
+  .why-card .ill.a::after{content:"";width:12px;height:24px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:2px 2px 4px 4px}
+  .why-card .ill.b{background:linear-gradient(160deg,var(--color-green-soft-card),var(--color-green-pale))}
+  .why-card .ill.b::after{content:"";width:12px;height:24px;background:linear-gradient(180deg,#1E4530,#0a2418);border-radius:2px 2px 4px 4px}
+  .why-card .meta{flex:1}
+  .why-card .role-tag{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;display:inline-block;margin-bottom:4px}
+  .why-card h3{font-family:var(--font-serif);font-size:19px;font-weight:500;margin:0;line-height:1.25}
+  .why-card .role-line{font-size:14px;color:var(--color-text-muted);line-height:1.55}
+  .why-card .lnk{font-size:13px;color:var(--color-green-primary);font-weight:600;text-decoration:underline;text-underline-offset:3px;display:inline-block}
+
+  /* ===== Math card ===== */
+  .math-section{padding:96px 64px;background:var(--color-bg-page)}
+  .math-card{max-width:760px;margin:0 auto;background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:24px;padding:48px 56px}
+  .math-card h2{font-family:var(--font-serif);font-size:32px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:0 0 8px}
+  .math-card h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .math-card .lede{font-size:14.5px;color:var(--color-text-muted);margin:0 0 32px}
+  .math-list{display:flex;flex-direction:column;gap:0}
+  .math-row{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;font-family:var(--font-sans);font-size:14.5px;color:var(--color-text-primary)}
+  .math-row+.math-row{border-top:1px solid var(--color-border)}
+  .math-row .v{font-family:var(--font-serif);font-size:18px;font-weight:500}
+  .math-row.total-row{padding-top:22px;border-top:1.5px solid var(--color-green-medium);margin-top:6px}
+  .math-row.total-row .v{color:var(--color-text-faint);text-decoration:line-through;font-size:17px}
+  .math-row.bundle-row{padding:18px 0 14px}
+  .math-row.bundle-row .lbl{font-family:var(--font-serif);font-size:19px;font-weight:500}
+  .math-row.bundle-row .v{font-family:var(--font-serif);font-size:30px;color:var(--color-green-primary);font-weight:500;letter-spacing:-0.01em}
+  .math-row.save-row{padding:14px 0;border-top:1px solid var(--color-border)}
+  .math-row.save-row .chip{background:var(--color-gold);color:var(--color-text-primary);padding:6px 14px;border-radius:999px;font-family:var(--font-sans);font-size:13px;font-weight:700;letter-spacing:.02em}
+  .math-card .foot-line{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);margin-top:24px;line-height:1.6;text-align:center;padding-top:18px;border-top:1px dashed var(--color-border-2)}
+
+  /* ===== Timeline 120 days ===== */
+  .timeline{padding:96px 64px;background:var(--color-bg-card)}
+  .timeline-head{max-width:1280px;margin:0 auto 56px}
+  .timeline-head h2{font-family:var(--font-serif);font-size:36px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:14px 0 0;max-width:640px}
+  .timeline-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .timeline-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
+  .timeline-grid::before{content:"";position:absolute;top:34px;left:12%;right:12%;height:2px;background:repeating-linear-gradient(to right,var(--color-green-medium) 0 6px,transparent 6px 12px);opacity:.35}
+  .tl-step{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+  .tl-step .num{width:46px;height:46px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;font-family:var(--font-serif);font-weight:500;font-size:16px}
+  .tl-step .when{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700}
+  .tl-step h4{font-family:var(--font-serif);font-size:17px;font-weight:500;line-height:1.25;margin:0}
+  .tl-step p{font-size:13.5px;color:var(--color-text-muted);line-height:1.6;margin:0}
+
+  /* ===== Reviews ===== */
+  .reviews{padding:96px 64px;background:var(--color-bg-page)}
+  .rev-head{max-width:1280px;margin:0 auto 36px}
+  .rev-head h2{font-family:var(--font-serif);font-size:36px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:14px 0 0}
+  .rev-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .rev-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .rev-card{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:18px;padding:26px 28px;display:flex;flex-direction:column;gap:14px}
+  .rev-card .top{display:flex;justify-content:space-between;align-items:center}
+  .rev-card .who{display:flex;align-items:center;gap:12px}
+  .rev-card .avatar{width:40px;height:40px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;font-family:var(--font-serif);font-weight:500;font-size:16px}
+  .rev-card .name{font-family:var(--font-sans);font-size:13.5px;font-weight:600}
+  .rev-card .stars{color:var(--color-gold);display:flex;gap:2px}
+  .rev-card .stars svg{width:13px;height:13px}
+  .rev-card blockquote{font-family:var(--font-serif);font-size:15.5px;line-height:1.6;color:var(--color-text-primary);margin:0;font-weight:400}
+  .rev-card .vchip{display:inline-flex;align-items:center;gap:6px;background:rgba(115,191,107,.18);color:#2D6726;font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;align-self:flex-start;letter-spacing:.02em}
+  .rev-more{text-align:center;margin-top:36px}
+  .rev-more a{font-size:14px;color:var(--color-green-primary);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+  /* ===== FAQ ===== */
+  .faq{padding:96px 64px;background:var(--color-bg-card)}
+  .faq-head{max-width:880px;margin:0 auto 32px}
+  .faq-head h2{font-family:var(--font-serif);font-size:32px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:14px 0 0}
+  .faq-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .faq-list{max-width:880px;margin:0 auto;display:flex;flex-direction:column}
+  .faq-item{border-top:1px solid var(--color-border-2);padding:22px 0;cursor:pointer}
+  .faq-item:last-child{border-bottom:1px solid var(--color-border-2)}
+  .faq-q{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+  .faq-q h4{font-family:var(--font-serif);font-size:18px;font-weight:500;line-height:1.3;color:var(--color-text-primary);flex:1;margin:0}
+  .faq-q .toggle{width:30px;height:30px;border-radius:50%;border:1px solid var(--color-border-2);display:grid;place-items:center;color:var(--color-text-muted);background:var(--color-bg-card);flex-shrink:0}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;border-color:var(--color-green-primary)}
+  .faq-a{margin-top:12px;font-size:14.5px;color:var(--color-text-muted);line-height:1.7;max-width:780px;display:none}
+  .faq-item.open .faq-a{display:block}
+
+  /* ===== Alt bundles ===== */
+  .alts{padding:96px 64px;background:var(--color-bg-page)}
+  .alts-head{max-width:1280px;margin:0 auto 32px}
+  .alts-head h3{font-family:var(--font-serif);font-size:24px;line-height:1.2;font-weight:500;color:var(--color-green-primary);margin:0}
+  .alts-head p{font-size:14px;color:var(--color-text-muted);margin-top:6px}
+  .alt-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .alt-card{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:16px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px;cursor:pointer;transition:all .15s}
+  .alt-card:hover{border-color:var(--color-green-medium);transform:translateY(-2px)}
+  .alt-card .ph{aspect-ratio:16/9;border-radius:10px;background:linear-gradient(160deg,var(--color-green-soft-card),var(--color-green-pale));display:grid;place-items:center;position:relative}
+  .alt-card .ph::after{content:"";width:18px;height:30px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:2px 2px 4px 4px}
+  .alt-card .ph.t2::after{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .alt-card h4{font-family:var(--font-serif);font-size:17px;font-weight:500;line-height:1.25;margin:0}
+  .alt-card .duration{font-family:var(--font-sans);font-size:11px;letter-spacing:.08em;color:var(--color-text-faint);font-weight:600;text-transform:uppercase}
+  .alt-card .prices{display:flex;align-items:baseline;gap:10px}
+  .alt-card .prices .now{font-family:var(--font-serif);font-size:19px;font-weight:500;color:var(--color-text-primary)}
+  .alt-card .prices .was{font-family:var(--font-serif);font-size:13px;color:var(--color-text-faint);text-decoration:line-through}
+  .alt-card .lnk{font-size:13px;color:var(--color-green-primary);font-weight:600;text-decoration:underline;text-underline-offset:3px;margin-top:auto}
+
+  /* ===== Quiz nudge ===== */
+  .quiz-nudge{padding:64px 64px;background:var(--color-bg-card)}
+  .quiz-card-nudge{max-width:760px;margin:0 auto;background:var(--color-green-soft-card);border:1px solid var(--color-border-2);border-radius:20px;padding:36px 44px;display:flex;align-items:center;gap:28px}
+  .quiz-card-nudge .q-icon{width:52px;height:52px;border-radius:50%;background:var(--color-bg-card);border:1px solid var(--color-border);display:grid;place-items:center;font-family:var(--font-serif);font-size:24px;color:var(--color-green-primary);flex-shrink:0}
+  .quiz-card-nudge h3{font-family:var(--font-serif);font-size:22px;font-weight:500;line-height:1.25;margin:0 0 6px}
+  .quiz-card-nudge h3 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .quiz-card-nudge p{font-size:14px;color:var(--color-text-muted);line-height:1.55;margin:0}
+  .quiz-card-nudge .btn-secondary{flex-shrink:0;text-decoration:none}
+
+  /* ===== Final CTA band ===== */
+  .final-cta{padding:80px 64px;background:var(--color-green-soft-card);text-align:center}
+  .final-cta h2{font-family:var(--font-serif);font-size:38px;line-height:1.05;font-weight:400;letter-spacing:-0.02em;margin:0 0 12px;color:var(--color-text-primary)}
+  .final-cta h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .final-cta p{font-size:14.5px;color:var(--color-text-muted);margin:0 0 28px}
+  .final-cta .btn{height:60px;padding:0 32px;font-size:16px;background:var(--color-cta-primary);color:#fff;border-radius:999px;border:0;display:inline-flex;align-items:center;gap:12px;box-shadow:var(--shadow-cta);font-family:var(--font-sans);font-weight:600;text-decoration:none}
+  .final-cta .btn:hover{background:var(--color-cta-primary-hover)}
+
+  /* ===== Footer ===== */
+  footer.main .footer-bottom .edition{color:var(--color-gold);font-weight:600}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Pachet Imunitate">
+
+  <!-- Announcement -->
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata la livrare</span>
+      </div>
+      <div class="right">
+        <span class="wa"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="#">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută..." />
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Nav -->
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente</div>
+      <div class="nav-item">După obiectiv</div>
+      <div class="nav-item">După simptom</div>
+      <div class="nav-item active">Pachete</div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item">Despre</div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">/</span><a>Pachete</a><span class="sep">/</span><span class="here">Pachet Imunitate</span></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="gallery">
+        <div class="gal-main">
+          <div class="gal-seal">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Cură 120 de zile
+          </div>
+          <div class="pair">
+            <div class="bottle amber b1">
+              <div class="cap"></div><div class="neck"></div>
+              <div class="body">
+                <div class="label">
+                  <div class="brand">Mâna Naturii</div>
+                  <div class="seal">B</div>
+                  <div class="name">Black Seed<br/>Elixir</div>
+                  <div class="vol">240 CAPS</div>
+                </div>
+              </div>
+            </div>
+            <div class="bottle matte b2">
+              <div class="cap"></div><div class="neck"></div>
+              <div class="body">
+                <div class="label">
+                  <div class="brand">Vita Complete+</div>
+                  <div class="seal">V</div>
+                  <div class="name">Vegan<br/>Shots 50×</div>
+                  <div class="vol">500 ML</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gal-caption">Două produse, o singură cură de 120 de zile</div>
+        </div>
+        <div class="gal-thumbs">
+          <div class="gal-thumb t3 active"><div class="pair-mini"><span></span><span></span></div></div>
+          <div class="gal-thumb"></div>
+          <div class="gal-thumb t2"></div>
+        </div>
+      </div>
+
+      <div class="info">
+        <div class="eyebrow">Pachet de sezon · Imunitate</div>
+        <h1>Pachet Imunitate — <em>Apărare Naturală &amp; Energie.</em></h1>
+        <p class="subline">Vitamina C + Vitamina E · Vegan · produs în România. Cura completă ține <strong>120 de zile</strong>.</p>
+        <p class="hero-promise" style="font-family:var(--font-sans);font-size:14px;color:var(--color-text-muted);line-height:1.6;max-width:520px">Două produse care lucrează împreună, nu două produse alăturate. Suport zilnic pentru imunitate, rezistență și echilibru general.</p>
+
+        <div class="rating">
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+          </div>
+          <span class="score">4,9 din 5</span>
+          <span class="count">· 218 recenzii verificate</span>
+        </div>
+
+        <div class="bundle-list">
+          <div class="bundle-line">
+            <div class="mini-ph a"></div>
+            <div>
+              <div class="b-name">Black Seed Elixir</div>
+              <div class="b-meta">240 capsule, cură 120 de zile</div>
+            </div>
+            <div class="b-price">184 lei</div>
+          </div>
+          <div class="bundle-line">
+            <div class="mini-ph b"></div>
+            <div>
+              <div class="b-name">Vita Complete+ Vegan Shots</div>
+              <div class="b-meta">50 shoturi, 500 ml</div>
+            </div>
+            <div class="b-price">184 lei</div>
+          </div>
+        </div>
+
+        <div class="price-block">
+          <div class="row">
+            <span class="lbl muted">Dacă le iei separat</span>
+            <span class="old-total">368 lei</span>
+          </div>
+          <div class="now-row">
+            <span class="now-price">314,10 lei</span>
+            <span class="was">349 lei</span>
+          </div>
+          <span class="save-chip">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+            Economisești 53,90 lei
+          </span>
+          <div class="sub-line">Sau 290 lei pe lună la abonament cu livrare automată la 30 de zile. Poți opri oricând.</div>
+        </div>
+
+        <button class="add-cta">
+          Adaugă pachetul în coș
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+
+        <div class="trust-row">
+          <div class="item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Livrare 24–48h</div>
+          <div class="item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Retur 14 zile</div>
+          <div class="item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Plata la livrare</div>
+        </div>
+        <a class="ind-link">Vezi produsele individual →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social proof strip -->
+  <section class="proof-strip">
+    <div class="proof-row">
+      <div class="proof-cell">
+        <strong>Cel mai cumpărat pachet</strong>
+        <span>pe categoria imunitate</span>
+      </div>
+      <div class="proof-cell">
+        <strong>93% recomandă</strong>
+        <span>spun că ar comanda din nou</span>
+      </div>
+      <div class="proof-cell">
+        <strong>4,9 / 5 din 218 recenzii</strong>
+        <span>verificate, cumpărători reali</span>
+      </div>
+      <div class="proof-cell">
+        <strong>Formule Vivens Genetica</strong>
+        <span>produs în România</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why these two -->
+  <section class="why">
+    <div class="why-inner">
+      <div class="why-text">
+        <div class="eyebrow">De ce împreună</div>
+        <h2>De ce aceste două împreună, <em>nu altele.</em></h2>
+        <p>Imunitatea puternică nu vine dintr-o singură pastilă. Este rezultatul unui echilibru între nutrienții esențiali, inflamația cronică de fond ținută sub control, stresul oxidativ neutralizat zilnic și flora intestinală echilibrată, pentru că 70–80% din celulele imune sunt în jurul intestinului. <strong>Black Seed Elixir aduce scutul antiinflamator. Vita Complete+ aduce fundația de 52 de nutrienți.</strong> Mai mult de atât nu înseamnă mai bine.</p>
+      </div>
+      <div class="why-cards">
+        <div class="why-card">
+          <div class="head">
+            <div class="ill a"></div>
+            <div class="meta">
+              <span class="role-tag">Scutul antiinflamator</span>
+              <h3>Black Seed Elixir</h3>
+            </div>
+          </div>
+          <div class="role-line">240 capsule, două pe zi. Susține imunitatea și protecția celulară prin timoquinonă din Nigella sativa egipteană, presată la rece.</div>
+          <a class="lnk">Despre Nigella sativa egipteană →</a>
+        </div>
+        <div class="why-card">
+          <div class="head">
+            <div class="ill b"></div>
+            <div class="meta">
+              <span class="role-tag">Fundația</span>
+              <h3>Vita Complete+ Vegan Shots</h3>
+            </div>
+          </div>
+          <div class="role-line">50 shoturi lichide. 52 de nutrienți activi inclusiv Vit C 250% NRV și D3 400% NRV. Absorbție superioară față de capsule.</div>
+          <a class="lnk">Vezi compoziția completă →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Math card -->
+  <section class="math-section">
+    <div class="math-card">
+      <div class="eyebrow" style="margin-bottom:14px">Transparență</div>
+      <h2>Cât costă, <em>exact.</em></h2>
+      <p class="lede">Math-ul, nu marketing-ul.</p>
+      <div class="math-list">
+        <div class="math-row">
+          <span class="lbl">Black Seed Elixir, 240 capsule</span>
+          <span class="v">184 lei</span>
+        </div>
+        <div class="math-row">
+          <span class="lbl">Vita Complete+ Vegan Shots, 50 shoturi</span>
+          <span class="v">184 lei</span>
+        </div>
+        <div class="math-row total-row">
+          <span class="lbl">Total individual</span>
+          <span class="v">368 lei</span>
+        </div>
+        <div class="math-row bundle-row">
+          <span class="lbl">Preț pachet</span>
+          <span class="v">314,10 lei</span>
+        </div>
+        <div class="math-row save-row">
+          <span class="lbl">Economisești</span>
+          <span class="chip">53,90 lei</span>
+        </div>
+      </div>
+      <div class="foot-line">Cura completă de 120 de zile. La abonament prețul scade cu încă câteva procente. Fără obligativitate, oprire oricând.</div>
+    </div>
+  </section>
+
+  <!-- Timeline 120 days -->
+  <section class="timeline">
+    <div class="timeline-head">
+      <div class="eyebrow">Cura completă</div>
+      <h2>Cum se așază <em>în 120 de zile.</em></h2>
+    </div>
+    <div class="timeline-grid">
+      <div class="tl-step">
+        <div class="num">1</div>
+        <div class="when">Săptămâna 1–2</div>
+        <h4>Adaptare</h4>
+        <p>Pornești dimineața. Un shot Vita Complete+, două capsule Black Seed Elixir. Poți avea o ușoară schimbare digestivă. Asta e normal.</p>
+      </div>
+      <div class="tl-step">
+        <div class="num">2</div>
+        <div class="when">Săptămâna 3–6</div>
+        <h4>Echilibru</h4>
+        <p>Energia se stabilizează. Mai puține căderi la 3 PM. Imunitatea începe să construiască în fundal, fără efecte spectaculoase.</p>
+      </div>
+      <div class="tl-step">
+        <div class="num">3</div>
+        <div class="when">Săptămâna 7–12</div>
+        <h4>Suport profund</h4>
+        <p>Părul, unghiile, tenul arată diferit. Ceața mentală se reduce. Mai puține răceli sezoniere, mai multă rezistență la efort.</p>
+      </div>
+      <div class="tl-step">
+        <div class="num">4</div>
+        <div class="when">Săptămâna 13–17</div>
+        <h4>Evaluare</h4>
+        <p>Evaluezi onest. Dacă simți diferența, continui. Dacă nu, oprești. Restochează cu cap, nu din inerție.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews">
+    <div class="rev-head">
+      <div class="eyebrow">Recenzii verificate</div>
+      <h2>Cum a fost <em>pentru alții.</em></h2>
+    </div>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <div class="top">
+          <div class="who">
+            <div class="avatar">A</div>
+            <div>
+              <div class="name">Andreea P.</div>
+            </div>
+          </div>
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+          </div>
+        </div>
+        <span class="vchip"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Achiziție verificată</span>
+        <blockquote>„Îl iau zilnic de câteva săptămâni. Mă simt mai echilibrată și nu mai am acele căderi de energie din timpul zilei. Îmi place că e vegan și ușor de integrat în rutină."</blockquote>
+      </div>
+      <div class="rev-card">
+        <div class="top">
+          <div class="who">
+            <div class="avatar">M</div>
+            <div>
+              <div class="name">Maria R.</div>
+            </div>
+          </div>
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+          </div>
+        </div>
+        <span class="vchip"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Achiziție verificată</span>
+        <blockquote>„Se bea ușor și nu e greoi. L-am introdus în rutina zilnică și simt o diferență, mai ales la articulații."</blockquote>
+      </div>
+      <div class="rev-card">
+        <div class="top">
+          <div class="who">
+            <div class="avatar">R</div>
+            <div>
+              <div class="name">Radu I.</div>
+            </div>
+          </div>
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" opacity=".45"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+          </div>
+        </div>
+        <span class="vchip"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Achiziție verificată</span>
+        <blockquote>„O folosesc constant și sunt mulțumit. Diferența reală a venit în luna a doua. Exact ce aveam nevoie."</blockquote>
+      </div>
+    </div>
+    <div class="rev-more">
+      <a>Citește toate cele 218 recenzii →</a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-head">
+      <div class="eyebrow">Întrebări frecvente</div>
+      <h2>Ce ne întrebați <em>despre pachet.</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <div class="faq-q">
+          <h4>Pot lua și alte suplimente în același timp?</h4>
+          <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/></svg></div>
+        </div>
+        <div class="faq-a">Da. Pachetul este conceput să fie compatibil cu majoritatea suplimentelor uzuale. Dacă iei tratament medicamentos prescris sau iei deja un multivitamin similar, scrie-ne pe WhatsApp și verificăm împreună înainte să cumperi.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <h4>Cât timp țin cura?</h4>
+          <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <h4>Pot lua în sarcină sau alăptare?</h4>
+          <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <h4>Ce fac dacă unul dintre produse nu mi se potrivește?</h4>
+          <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <h4>Garanția de 14 zile cum funcționează?</h4>
+          <div class="toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alternative pachete reale -->
+  <section class="alts">
+    <div class="alts-head">
+      <h3>Dacă nu e potrivit pentru tine, vezi celelalte pachete.</h3>
+      <p>Patru combinații, fiecare construită pentru un obiectiv diferit.</p>
+    </div>
+    <div class="alt-grid">
+      <div class="alt-card">
+        <div class="ph"></div>
+        <span class="duration">Cură 120 zile</span>
+        <h4>Pachet Confort Digestiv</h4>
+        <div class="prices"><span class="now">254,70 lei</span><span class="was">283 lei</span></div>
+        <a class="lnk">Vezi pachet →</a>
+      </div>
+      <div class="alt-card">
+        <div class="ph t2"></div>
+        <span class="duration">Cură 120 zile</span>
+        <h4>Pachet Energie</h4>
+        <div class="prices"><span class="now">275,40 lei</span><span class="was">306 lei</span></div>
+        <a class="lnk">Vezi pachet →</a>
+      </div>
+      <div class="alt-card">
+        <div class="ph"></div>
+        <span class="duration">Cură 50 zile</span>
+        <h4>Pachet Focus</h4>
+        <div class="prices"><span class="now">262,80 lei</span><span class="was">292 lei</span></div>
+        <a class="lnk">Vezi pachet →</a>
+      </div>
+      <div class="alt-card">
+        <div class="ph t2"></div>
+        <span class="duration">Cură 50 zile</span>
+        <h4>Pachet Frumusețe</h4>
+        <div class="prices"><span class="now">314,10 lei</span><span class="was">349 lei</span></div>
+        <a class="lnk">Vezi pachet →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz nudge -->
+  <section class="quiz-nudge">
+    <div class="quiz-card-nudge">
+      <div class="q-icon">?</div>
+      <div style="flex:1">
+        <h3>Nu știi dacă <em>e pentru tine?</em></h3>
+        <p>Fă testul de 60 sec, îți spunem onest dacă acest pachet e alegerea bună sau dacă ai nevoie de altceva.</p>
+      </div>
+      <a class="btn btn-secondary">Mergi la test →</a>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <h2>Gata <em>să începi.</em></h2>
+    <p>Livrare 24–48h. Retur 14 zile la produse nedesigilate. Plata la livrare.</p>
+    <a class="btn">
+      Adaugă pachetul în coș · 314,10 lei
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în România. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 14 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica · <span class="edition">Ediția de toamnă, Octombrie 2025</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

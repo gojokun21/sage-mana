@@ -1,0 +1,1463 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Test de 60 sec V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  .canvas{background:var(--color-bg-page);padding:48px 64px 80px}
+  .quiz-card{background:#fff;border:1px solid var(--color-border);border-radius:24px;box-shadow:var(--shadow-soft);max-width:960px;margin:0 auto;overflow:hidden;position:relative}
+
+  /* Card chrome */
+  .quiz-top{display:flex;align-items:center;justify-content:space-between;padding:22px 36px;border-bottom:1px solid var(--color-border)}
+  .quiz-top .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-serif);font-size:15px;color:var(--color-green-primary);font-weight:500}
+  .quiz-top .brand .mark{width:22px;height:22px;border-radius:50%;background:var(--color-green-primary);color:#fff;display:grid;place-items:center}
+  .quiz-top .step-count{font-family:var(--font-sans);font-size:12px;letter-spacing:.10em;color:var(--color-text-faint);font-weight:600}
+  .quiz-top .step-count strong{color:var(--color-text-primary);font-weight:700}
+  .quiz-top .close{width:34px;height:34px;border-radius:50%;border:1px solid var(--color-border);background:#fff;display:grid;place-items:center;color:var(--color-text-muted);cursor:pointer}
+
+  .progress-wrap{padding:18px 36px;background:#fff;display:flex;align-items:center;gap:14px}
+  .progress{flex:1;height:6px;background:var(--color-green-pale);border-radius:999px;overflow:hidden}
+  .progress .fill{height:100%;background:var(--color-green-primary);border-radius:999px;transition:width .35s ease}
+  .progress-label{font-family:var(--font-sans);font-size:11.5px;color:var(--color-text-faint);font-weight:600;white-space:nowrap}
+  .progress-label strong{color:var(--color-green-primary);font-weight:700}
+
+  /* INTRO */
+  .intro-hero{padding:60px 56px 48px;text-align:center;position:relative;background:var(--color-green-primary);color:#fff;overflow:hidden}
+  .intro-hero::before{content:"";position:absolute;right:-100px;top:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(202,164,74,.10),transparent 70%)}
+  .intro-hero::after{content:"";position:absolute;left:-100px;bottom:-100px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.05),transparent 70%)}
+  .intro-hero .eyebrow-gold{font-family:var(--font-sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-gold);font-weight:700;display:inline-flex;align-items:center;gap:12px;margin-bottom:24px;position:relative}
+  .intro-hero .eyebrow-gold::before,.intro-hero .eyebrow-gold::after{content:"";width:24px;height:1px;background:var(--color-gold)}
+  .intro-hero h1{font-family:var(--font-serif);font-weight:400;font-size:46px;line-height:1.06;letter-spacing:-0.02em;margin:0 auto 22px;position:relative;max-width:680px;color:#fff}
+  .intro-hero h1 em{font-style:italic;color:var(--color-gold-soft);font-weight:300}
+  .intro-hero p.lede{font-size:16.5px;color:#C2D9AC;line-height:1.7;max-width:620px;margin:0 auto 32px;position:relative}
+  .intro-hero p.lede strong{color:#fff;font-weight:600}
+  .intro-badges{display:flex;justify-content:center;gap:10px;margin-bottom:32px;flex-wrap:wrap;position:relative}
+  .intro-badges .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);color:#E6EFE0;padding:9px 14px;border-radius:999px;font-size:12.5px;font-weight:500;border:1px solid rgba(255,255,255,.14)}
+  .intro-badges .badge svg{color:#C2D9AC}
+  .intro-cta{display:inline-flex;align-items:center;gap:12px;height:58px;padding:0 36px;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:16px;cursor:pointer;box-shadow:var(--shadow-cta);position:relative;text-decoration:none}
+  .intro-cta:hover{background:var(--color-cta-primary-hover)}
+  .intro-secondary{display:block;margin-top:14px;font-size:13px;color:#9AC0A8;text-decoration:underline;text-underline-offset:4px;position:relative}
+
+  .how-works{padding:48px 56px 56px;background:var(--color-bg-page);border-top:1px solid var(--color-border)}
+  .how-works .label{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:26px;text-align:center}
+  .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative}
+  .how-step{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:24px 22px}
+  .how-step .n{font-family:var(--font-serif);font-size:32px;color:var(--color-green-primary);font-weight:300;line-height:1}
+  .how-step h4{font-family:var(--font-serif);font-size:18px;font-weight:500;line-height:1.3;margin:0}
+  .how-step p{font-size:13.5px;color:var(--color-text-muted);line-height:1.6;margin:0}
+
+  /* QUESTION */
+  .q-body{padding:44px 56px 28px}
+  .q-eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px;display:inline-flex;align-items:center;gap:10px}
+  .q-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--color-green-medium)}
+  .q-title{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.18;letter-spacing:-0.015em;margin:0 0 12px;max-width:760px;color:var(--color-text-primary)}
+  .q-title em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .q-sub{font-family:var(--font-serif);font-style:italic;font-size:15.5px;color:var(--color-text-muted);line-height:1.55;max-width:640px;margin:0 0 28px}
+  .q-sub strong{color:var(--color-text-primary);font-weight:600;font-style:normal;font-family:var(--font-sans)}
+
+  /* Radio rows */
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{display:grid;grid-template-columns:24px 1fr;gap:14px;padding:16px 22px;border:1.5px solid var(--color-border);border-radius:14px;cursor:pointer;background:#fff;align-items:center}
+  .opt:hover{border-color:var(--color-green-medium)}
+  .opt.selected{border-color:var(--color-green-primary);background:var(--color-green-soft-card)}
+  .opt .rd{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--color-border-2);background:#fff;display:grid;place-items:center;flex-shrink:0}
+  .opt.selected .rd{border-color:var(--color-green-primary);background:var(--color-green-primary)}
+  .opt.selected .rd::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+  .opt .l{font-family:var(--font-sans);font-size:14.5px;color:var(--color-text-primary);font-weight:500;line-height:1.3}
+  .opt .meta{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-faint);margin-top:3px;display:block}
+
+  /* Q1 multi-select grouped */
+  .q1-groups{display:flex;flex-direction:column;gap:22px}
+  .q1-group .gtitle{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:10px;display:inline-flex;align-items:center;gap:8px}
+  .q1-group .gtitle::before{content:"";width:18px;height:1px;background:var(--color-green-medium)}
+  .q1-grid{display:grid;grid-template-columns:1fr;gap:8px}
+  .q1-opt{display:grid;grid-template-columns:22px 1fr;gap:12px;padding:13px 18px;border:1.5px solid var(--color-border);border-radius:12px;cursor:pointer;background:#fff;align-items:flex-start}
+  .q1-opt:hover{border-color:var(--color-green-medium)}
+  .q1-opt.selected{border-color:var(--color-green-primary);background:var(--color-green-soft-card)}
+  .q1-opt .cb{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--color-border-2);background:#fff;display:grid;place-items:center;flex-shrink:0;margin-top:1px;color:transparent}
+  .q1-opt.selected .cb{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+  .q1-opt .l{font-family:var(--font-sans);font-size:13.5px;color:var(--color-text-primary);font-weight:500;line-height:1.4}
+  .q1-counter{display:flex;align-items:center;justify-content:space-between;background:var(--color-green-soft-card);border:1px solid var(--color-green-mute);border-radius:10px;padding:10px 16px;margin-top:18px;font-family:var(--font-sans);font-size:12.5px;font-weight:600;color:var(--color-green-primary)}
+  .q1-counter .hint{font-family:var(--font-serif);font-style:italic;font-weight:400;color:var(--color-text-muted);font-size:12.5px}
+
+  /* Summary table on Q7 */
+  .summary{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:14px;padding:16px 20px;margin-top:24px}
+  .summary .stitle{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700;margin-bottom:10px}
+  .summary table{width:100%;border-collapse:collapse;font-size:13px}
+  .summary td{padding:7px 0;vertical-align:top}
+  .summary td:first-child{color:var(--color-text-muted);font-family:var(--font-serif);font-style:italic;width:38%}
+  .summary td:last-child{color:var(--color-text-primary);font-weight:500}
+  .summary tr+tr td{border-top:1px dashed var(--color-border)}
+
+  /* Controls */
+  .q-controls{display:flex;align-items:center;justify-content:space-between;padding:20px 56px 26px;border-top:1px solid var(--color-border);background:var(--color-bg-page)}
+  .btn-back{display:inline-flex;align-items:center;gap:8px;background:transparent;border:0;color:var(--color-text-muted);font-family:var(--font-sans);font-size:14px;font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:8px 0}
+  .btn-back:hover{color:var(--color-green-primary)}
+  .btn-back.disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+  .btn-next{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 28px;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14.5px;cursor:pointer;box-shadow:var(--shadow-cta)}
+  .btn-next:hover{background:var(--color-cta-primary-hover)}
+  .btn-next:disabled{background:var(--color-text-faint);cursor:not-allowed;box-shadow:none}
+
+  /* PROCESSING */
+  .processing{background:var(--color-green-primary);color:#fff;padding:80px 56px;text-align:center;position:relative;overflow:hidden;min-height:380px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+  .processing::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(202,164,74,.12),transparent 70%)}
+  .processing-spinner{width:64px;height:64px;border-radius:50%;border:4px solid rgba(255,255,255,.15);border-top-color:var(--color-gold);margin:0 auto 26px;position:relative;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .processing h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;margin:0 0 12px;color:#fff;position:relative}
+  .processing h2 em{font-style:italic;color:var(--color-gold-soft);font-weight:300}
+  .processing p{font-family:var(--font-serif);font-style:italic;font-size:15px;color:#C2D9AC;margin:0;position:relative}
+
+  /* RESULT — pack/product variant */
+  .result-body{padding:44px 56px 0}
+  .result-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+  .result-eyebrow .stamp{width:44px;height:44px;border-radius:50%;background:var(--color-green-primary);color:#fff;display:grid;place-items:center}
+  .result-eyebrow .lbl strong{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;display:block}
+  .result-eyebrow .lbl span{font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-faint)}
+  .result-body h1.reco-h1{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.2;letter-spacing:-0.015em;margin:0 0 14px;max-width:760px;color:var(--color-text-primary)}
+  .result-body h1.reco-h1 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .result-body p.lede{font-size:15px;color:var(--color-text-muted);line-height:1.75;max-width:680px;margin:0 0 28px}
+  .result-body p.lede strong{color:var(--color-text-primary);font-weight:600}
+
+  .reco-main{background:var(--color-green-soft-card);border:2px solid var(--color-green-primary);border-radius:20px;padding:28px;display:grid;grid-template-columns:180px 1fr;gap:28px;align-items:center;margin-bottom:18px;position:relative}
+  .reco-main .match-chip{position:absolute;top:-12px;left:24px;background:var(--color-gold);color:var(--color-text-primary);font-family:var(--font-sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border-radius:999px;font-weight:700}
+  .reco-main .photo{aspect-ratio:1;border-radius:14px;background:linear-gradient(160deg,#9FB8AA,#4A6B5C);display:grid;place-items:center;position:relative;overflow:hidden;box-shadow:0 14px 22px -10px rgba(7,12,8,.35)}
+  .reco-main .photo::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.32),transparent 55%)}
+  .reco-main .photo .row{position:relative;display:flex;gap:6px;align-items:flex-end}
+  .reco-main .photo .bot{width:36px;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 8px 10px rgba(0,0,0,.4))}
+  .reco-main .photo .bot .cap{width:14px;height:6px;background:linear-gradient(180deg,#2c1b08,#1A0C04);border-radius:1.5px 1.5px 0 0}
+  .reco-main .photo .bot .body{width:32px;height:72px;border-radius:5px 5px 8px 8px;position:relative;box-shadow:inset -3px -3px 7px rgba(0,0,0,.4)}
+  .reco-main .photo .bot.amber .body{background:linear-gradient(180deg,#3A2110,#1A0C04)}
+  .reco-main .photo .bot.matte .body{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .reco-main .photo .bot.matte .cap{background:linear-gradient(180deg,#0a2418,#051209)}
+  .reco-main .photo .bot .lbl{position:absolute;left:14%;right:14%;top:32%;bottom:14%;background:linear-gradient(180deg,#F5EAD0,#E5D4A8);border-radius:1.5px}
+  .reco-main .photo .bot.matte .lbl{background:linear-gradient(180deg,#F4F1E5,#D9D2BD)}
+
+  .reco-info .tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:6px}
+  .reco-info .tag .swatch{width:7px;height:7px;border-radius:50%;background:var(--color-green-medium)}
+  .reco-info h3{font-family:var(--font-serif);font-size:26px;font-weight:500;line-height:1.2;margin:0 0 6px}
+  .reco-info h3 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .reco-info .specs{font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-muted);margin-bottom:14px}
+  .reco-info .axes-mini{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+  .reco-info .axes-mini .ax{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.6);color:var(--color-text-primary);font-family:var(--font-sans);font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid var(--color-green-mute)}
+  .reco-foot{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--color-border-2)}
+  .reco-foot .price-stack{display:flex;flex-direction:column;gap:2px}
+  .reco-foot .price{font-family:var(--font-serif);font-size:28px;font-weight:500;color:var(--color-text-primary);line-height:1}
+  .reco-foot .save-mini{font-family:var(--font-sans);font-size:11.5px;color:var(--color-green-primary);font-weight:600}
+  .reco-foot .save-mini.transparent{color:var(--color-text-faint);font-style:italic;font-family:var(--font-serif);font-size:12.5px;font-weight:400}
+  .btn-buy{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;cursor:pointer;box-shadow:var(--shadow-cta);text-decoration:none}
+  .btn-buy:hover{background:var(--color-cta-primary-hover)}
+
+  .reco-secondary-label{font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted);font-weight:600;margin:22px 0 10px}
+  .reco-alt{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:18px 22px;display:grid;grid-template-columns:54px 1fr auto;gap:18px;align-items:center;text-decoration:none;color:inherit}
+  .reco-alt:hover{border-color:var(--color-green-medium)}
+  .reco-alt .ph{width:54px;height:54px;border-radius:10px;background:linear-gradient(160deg,var(--color-green-pale),var(--color-green-mute));display:grid;place-items:center}
+  .reco-alt .ph::after{content:"";width:14px;height:26px;background:linear-gradient(180deg,#1E4530,#0a2418);border-radius:2px 2px 4px 4px}
+  .reco-alt .info h4{font-family:var(--font-serif);font-size:16.5px;font-weight:500;line-height:1.25;margin:0 0 4px}
+  .reco-alt .info p{font-size:12.5px;color:var(--color-text-muted);line-height:1.45;margin:0;font-family:var(--font-serif);font-style:italic}
+  .reco-alt .price-mini{font-family:var(--font-serif);font-size:17px;font-weight:500;color:var(--color-text-primary);text-align:right}
+  .reco-alt .price-mini small{display:block;font-family:var(--font-sans);font-size:10.5px;color:var(--color-green-primary);font-weight:600;margin-top:2px;text-decoration:underline;text-underline-offset:3px}
+
+  .reco-edu{background:#fff;border:1px solid var(--color-border);border-radius:16px;padding:22px 26px;margin-top:22px}
+  .reco-edu h4{font-family:var(--font-serif);font-size:17px;font-weight:500;line-height:1.3;margin:0 0 12px}
+  .reco-edu h4 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .reco-edu .articles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .reco-edu .article-card{display:flex;gap:12px;align-items:center;cursor:pointer}
+  .reco-edu .article-card .thumb{width:58px;height:52px;border-radius:8px;background:linear-gradient(135deg,var(--color-green-soft-card),var(--color-green-pale));display:grid;place-items:center;color:var(--color-green-primary);flex-shrink:0}
+  .reco-edu .article-card .thumb.t2{background:linear-gradient(135deg,#F0E8D5,var(--color-gold-soft));color:#7A5530}
+  .reco-edu .article-card .body small{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700;display:block;margin-bottom:3px}
+  .reco-edu .article-card .body h5{font-family:var(--font-serif);font-size:13.5px;font-weight:500;line-height:1.3;margin:0}
+
+  /* Transparency accordion */
+  .transparency{background:var(--color-bg-page);border:1px dashed var(--color-border-2);border-radius:14px;margin-top:22px}
+  .transparency summary{cursor:pointer;padding:14px 20px;font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--color-text-muted);display:flex;justify-content:space-between;align-items:center;list-style:none}
+  .transparency summary::-webkit-details-marker{display:none}
+  .transparency summary::after{content:"+";color:var(--color-green-primary);font-size:18px;font-weight:300}
+  .transparency[open] summary::after{content:"−"}
+  .transparency .inner{padding:0 20px 18px;font-size:13px;color:var(--color-text-primary);line-height:1.6}
+  .transparency .inner h6{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700;margin:14px 0 6px}
+  .transparency .inner ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px}
+  .transparency .inner li{font-size:12.5px;color:var(--color-text-primary)}
+  .transparency .inner li .v{color:var(--color-text-muted);font-family:var(--font-serif);font-style:italic}
+  .transparency .inner .axes-detected{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .transparency .inner .axes-detected span{background:var(--color-green-soft-card);color:var(--color-green-primary);font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:999px}
+
+  .result-foot{padding:22px 56px 30px;background:var(--color-bg-page);border-top:1px solid var(--color-border);margin-top:24px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--color-text-faint)}
+  .result-foot a{color:var(--color-green-primary);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+  /* HONEST variant A */
+  .honest-eyebrow-bar{padding:14px 36px;background:var(--color-green-primary);color:#fff;display:flex;align-items:center;justify-content:space-between;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+  .honest-eyebrow-bar .left{display:flex;align-items:center;gap:10px}
+  .honest-eyebrow-bar .left .sigil{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center}
+  .honest-eyebrow-bar .right{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:0;text-transform:none;font-size:12.5px;color:var(--color-gold-soft)}
+
+  .honest-body{padding:40px 56px 0;position:relative}
+  .honest-body h1{font-family:var(--font-serif);font-weight:400;font-size:34px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 16px;max-width:700px}
+  .honest-body h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .honest-body p.lede{font-size:15.5px;color:var(--color-text-muted);line-height:1.75;max-width:700px;margin:0 0 26px}
+  .honest-body p.lede strong{color:var(--color-text-primary);font-weight:600}
+  .free-checklist{background:var(--color-green-soft-card);border:1.5px solid var(--color-border-2);border-radius:18px;padding:24px 28px;margin-bottom:22px}
+  .free-checklist .tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:12px}
+  .free-checklist .tag .swatch{width:7px;height:7px;border-radius:50%;background:var(--color-green-medium)}
+  .free-checklist ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+  .free-checklist li{display:grid;grid-template-columns:22px 1fr;gap:14px;align-items:flex-start;font-size:14.5px;color:var(--color-text-primary);line-height:1.55}
+  .free-checklist li .check{width:22px;height:22px;border-radius:50%;background:#fff;border:1.5px solid var(--color-green-primary);color:var(--color-green-primary);display:grid;place-items:center;margin-top:1px}
+  .free-checklist li strong{font-weight:600;display:block;margin-bottom:2px}
+  .free-checklist li span.meta{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-muted)}
+  .honest-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+  .btn-retake{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 24px;background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;text-decoration:none;cursor:pointer}
+  .btn-retake:hover{background:var(--color-green-primary);color:#fff}
+  .honest-actions a.discreet{font-size:13px;color:var(--color-text-faint);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+  .philosophy{padding:30px 56px 44px;background:var(--color-green-deep);color:#fff;text-align:center;position:relative;overflow:hidden}
+  .philosophy::before{content:"";position:absolute;left:-80px;top:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(202,164,74,.10),transparent 70%)}
+  .philosophy .label{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-gold);font-weight:700;margin-bottom:12px;position:relative}
+  .philosophy blockquote{font-family:var(--font-serif);font-style:italic;font-weight:400;font-size:20px;line-height:1.45;color:#fff;margin:0 auto;max-width:520px;position:relative}
+  .philosophy blockquote em{font-style:italic;color:#C2D9AC;font-weight:300}
+
+  /* Showcase scaffold — state labels between stacked demo states */
+  .state-label{display:flex;align-items:center;gap:14px;max-width:960px;margin:64px auto 14px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-text-faint);font-weight:600;position:relative}
+  .state-label::before{content:"";width:30px;height:1px;background:var(--color-text-faint)}
+  .state-label .step{color:var(--color-green-primary);font-weight:700}
+  .state-label .note{margin-left:auto;font-family:var(--font-serif);font-style:italic;text-transform:none;letter-spacing:0;font-weight:400;color:var(--color-text-faint);font-size:13px}
+  .state-label.first{margin-top:0}
+  .showcase-tag{max-width:960px;margin:18px auto 0;padding:14px 20px;background:var(--color-gold-soft);border:1px dashed var(--color-gold);border-radius:12px;font-family:var(--font-serif);font-style:italic;font-size:13px;color:#7A5530;line-height:1.55}
+  .showcase-tag strong{font-family:var(--font-sans);font-style:normal;font-weight:700;letter-spacing:.04em;font-size:11.5px;color:#7A5530;text-transform:uppercase;display:block;margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Quiz Wizard V2">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș (0)</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><a>Quiz</a><span class="sep">›</span><span class="here">Test de 60 sec · V2</span></div>
+
+  <section class="canvas">
+
+    <div class="showcase-tag">
+      <strong>Showcase mod</strong>
+      Pagina afișează toate cele 10 stări ale fluxului V2, stivuite vertical pentru review. Prima stare (intro) este complet interactivă — poți rula testul real. Stările 2–10 sunt mockup-uri statice cu date demo pre-selectate, pentru a arăta cum arată fiecare pas cu răspunsuri reale.
+    </div>
+
+    <!-- ====== STARE 1 / 10 — Intro landing (INTERACTIV) ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">1 / 10</span></span>
+      <span class="note">Intro · landing · interactiv</span>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <!-- top + progress + body injected by JS -->
+    </div>
+
+    <!-- ====== STARE 2 / 10 — Q1 simptome (multi-select) ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">2 / 10</span></span>
+      <span class="note">Întrebarea 1 din 7 · simptome (multi-select max 5)</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+        <div class="step-count">Întrebarea <strong>1</strong> din 7</div>
+        <button class="close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><div class="fill" style="width:14.3%"></div></div>
+        <div class="progress-label"><strong>1</strong> / 7</div>
+      </div>
+      <div class="q-body">
+        <div class="q-eyebrow"><span class="dot"></span>Întrebarea 1 din 7 · simptome</div>
+        <h2 class="q-title">Care sunt cele mai mari probleme cu <em>sănătatea ta?</em></h2>
+        <p class="q-sub"><strong>Maxim 5 simptome.</strong> Bifează doar ce simți cu adevărat — răspunsurile inutile încurcă algoritmul.</p>
+
+        <div class="q1-groups">
+          <div class="q1-group">
+            <div class="gtitle">Digestie</div>
+            <div class="q1-grid">
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Balonare, gaze, tranzit haotic</div></div>
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Disconfort după mese grase, digestie greoaie</div></div>
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Recuperare post-antibiotice sau după exces</div></div>
+            </div>
+          </div>
+          <div class="q1-group">
+            <div class="gtitle">Energie &amp; metabolism</div>
+            <div class="q1-grid">
+              <div class="q1-opt selected"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Oboseală cronică fără cauză, energie scăzută după-amiaza</div></div>
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Slăbit greoi, metabolism încetinit, kilograme greu de dat jos</div></div>
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Sensibilitate crescută la cofeină, alcool, medicamente</div></div>
+            </div>
+          </div>
+          <div class="q1-group">
+            <div class="gtitle">Focus &amp; mental</div>
+            <div class="q1-grid">
+              <div class="q1-opt selected"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Ceață mentală, uitări frecvente, concentrare slabă</div></div>
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Stres cronic, iritabilitate, treziri nocturne</div></div>
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Dependență de cafea ca să funcționezi</div></div>
+            </div>
+          </div>
+          <div class="q1-group">
+            <div class="gtitle">Frumusețe &amp; articulații</div>
+            <div class="q1-grid">
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Piele lăsată, riduri fine, cearcăne persistente</div></div>
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Păr fragil care cade, unghii care se rup</div></div>
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Dureri articulare, rigiditate matinală, recuperare lentă după sport</div></div>
+            </div>
+          </div>
+          <div class="q1-group">
+            <div class="gtitle">Imunitate &amp; anti-aging</div>
+            <div class="q1-grid">
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Răceli repetate, imunitate slăbită, vindecare lentă</div></div>
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Îmbătrânire celulară accelerată, inflamație cronică de fond</div></div>
+              <div class="q1-opt"><div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div class="l">Acumulare toxine (poluare, microplastice, alcool ocazional, medicamente)</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="q1-counter">
+          <span><strong>2</strong> / 5 simptome selectate</span>
+          <span class="hint">Bifează doar ce simți cu adevărat.</span>
+        </div>
+      </div>
+      <div class="q-controls">
+        <button class="btn-back disabled"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>Înapoi</button>
+        <button class="btn-next">Următoarea întrebare<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- ====== STARE 3 / 10 — Q2 durata ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">3 / 10</span></span>
+      <span class="note">Întrebarea 2 din 7 · durata simptomelor</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+        <div class="step-count">Întrebarea <strong>2</strong> din 7</div>
+        <button class="close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><div class="fill" style="width:28.6%"></div></div>
+        <div class="progress-label"><strong>2</strong> / 7</div>
+      </div>
+      <div class="q-body">
+        <div class="q-eyebrow"><span class="dot"></span>Întrebarea 2 din 7 · durata</div>
+        <h2 class="q-title">De cât timp simți <em>aceste simptome?</em></h2>
+        <p class="q-sub">Durata schimbă tot — un disconfort de o săptămână nu se tratează la fel ca unul de 3 luni.</p>
+        <div class="opts">
+          <div class="opt"><div class="rd"></div><div><span class="l">Sub o săptămână</span><span class="meta">Probabil reacție temporară</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">1–4 săptămâni</span><span class="meta">Merită să te uiți mai atent</span></div></div>
+          <div class="opt selected"><div class="rd"></div><div><span class="l">1–3 luni</span><span class="meta">O cură țintită are sens</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">Peste 3 luni</span><span class="meta">Recomandăm și un consult medical</span></div></div>
+        </div>
+      </div>
+      <div class="q-controls">
+        <button class="btn-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>Înapoi</button>
+        <button class="btn-next">Următoarea întrebare<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- ====== STARE 4 / 10 — Q3 vârsta ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">4 / 10</span></span>
+      <span class="note">Întrebarea 3 din 7 · vârsta</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+        <div class="step-count">Întrebarea <strong>3</strong> din 7</div>
+        <button class="close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><div class="fill" style="width:42.9%"></div></div>
+        <div class="progress-label"><strong>3</strong> / 7</div>
+      </div>
+      <div class="q-body">
+        <div class="q-eyebrow"><span class="dot"></span>Întrebarea 3 din 7 · vârsta</div>
+        <h2 class="q-title">Câți ani <em>ai?</em></h2>
+        <p class="q-sub">După 40, nevoile biologice se schimbă — Q10 scade, deficitele se acumulează.</p>
+        <div class="opts">
+          <div class="opt"><div class="rd"></div><div><span class="l">Sub 25 ani</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">25–35 ani</span></div></div>
+          <div class="opt selected"><div class="rd"></div><div><span class="l">36–45 ani</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">46–60 ani</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">Peste 60 ani</span></div></div>
+        </div>
+      </div>
+      <div class="q-controls">
+        <button class="btn-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>Înapoi</button>
+        <button class="btn-next">Următoarea întrebare<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- ====== STARE 5 / 10 — Q4 intensitate ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">5 / 10</span></span>
+      <span class="note">Întrebarea 4 din 7 · intensitate</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+        <div class="step-count">Întrebarea <strong>4</strong> din 7</div>
+        <button class="close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><div class="fill" style="width:57.1%"></div></div>
+        <div class="progress-label"><strong>4</strong> / 7</div>
+      </div>
+      <div class="q-body">
+        <div class="q-eyebrow"><span class="dot"></span>Întrebarea 4 din 7 · intensitate</div>
+        <h2 class="q-title">Cât de mult îți afectează <em>viața de zi cu zi?</em></h2>
+        <p class="q-sub">Intensitatea ne ajută să recomandăm fie un produs simplu, fie un protocol mai complet.</p>
+        <div class="opts">
+          <div class="opt"><div class="rd"></div><div><span class="l">Ușor</span><span class="meta">Mai mult un disconfort</span></div></div>
+          <div class="opt selected"><div class="rd"></div><div><span class="l">Moderat</span><span class="meta">Mă impactează, dar funcționez</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">Sever</span><span class="meta">Îmi afectează somnul, munca, relațiile</span></div></div>
+        </div>
+      </div>
+      <div class="q-controls">
+        <button class="btn-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>Înapoi</button>
+        <button class="btn-next">Următoarea întrebare<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- ====== STARE 6 / 10 — Q5 stil de viață ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">6 / 10</span></span>
+      <span class="note">Întrebarea 5 din 7 · stil de viață</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+        <div class="step-count">Întrebarea <strong>5</strong> din 7</div>
+        <button class="close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><div class="fill" style="width:71.4%"></div></div>
+        <div class="progress-label"><strong>5</strong> / 7</div>
+      </div>
+      <div class="q-body">
+        <div class="q-eyebrow"><span class="dot"></span>Întrebarea 5 din 7 · stil de viață</div>
+        <h2 class="q-title">Cum arată o <em>săptămână obișnuită?</em></h2>
+        <p class="q-sub">Sportivii regulați au nevoi diferite — articulații, recuperare, energie.</p>
+        <div class="opts">
+          <div class="opt"><div class="rd"></div><div><span class="l">Sedentar (birou, mers ocazional, fără sport)</span></div></div>
+          <div class="opt selected"><div class="rd"></div><div><span class="l">Activitate ușoară (mers zilnic, 1–2 sesiuni)</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">Sport regulat (3–4 antrenamente structurate / săptămână)</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">Muncă fizică sau sport intens (5+ antrenamente / zi)</span></div></div>
+        </div>
+      </div>
+      <div class="q-controls">
+        <button class="btn-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>Înapoi</button>
+        <button class="btn-next">Următoarea întrebare<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- ====== STARE 7 / 10 — Q6 încercări anterioare ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">7 / 10</span></span>
+      <span class="note">Întrebarea 6 din 7 · suplimente anterioare</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+        <div class="step-count">Întrebarea <strong>6</strong> din 7</div>
+        <button class="close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><div class="fill" style="width:85.7%"></div></div>
+        <div class="progress-label"><strong>6</strong> / 7</div>
+      </div>
+      <div class="q-body">
+        <div class="q-eyebrow"><span class="dot"></span>Întrebarea 6 din 7 · suplimente anterioare</div>
+        <h2 class="q-title">Ai mai luat <em>suplimente pentru asta?</em></h2>
+        <p class="q-sub">Dacă iei deja ceva, verificăm suprapunerile pe vitamine și minerale.</p>
+        <div class="opts">
+          <div class="opt"><div class="rd"></div><div><span class="l">Nu, vreau să încep cu ceva</span></div></div>
+          <div class="opt selected"><div class="rd"></div><div><span class="l">Da, dar nu au funcționat</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">Da, au ajutat puțin</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">Iau și acum ceva (verificăm suprapunerile)</span></div></div>
+        </div>
+      </div>
+      <div class="q-controls">
+        <button class="btn-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>Înapoi</button>
+        <button class="btn-next">Următoarea întrebare<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- ====== STARE 8 / 10 — Q7 preferință + sumar ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">8 / 10</span></span>
+      <span class="note">Întrebarea 7 din 7 · preferință formă + sumar răspunsuri</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+        <div class="step-count">Întrebarea <strong>7</strong> din 7</div>
+        <button class="close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><div class="fill" style="width:100%"></div></div>
+        <div class="progress-label"><strong>7</strong> / 7</div>
+      </div>
+      <div class="q-body">
+        <div class="q-eyebrow"><span class="dot"></span>Întrebarea 7 din 7 · preferință formă</div>
+        <h2 class="q-title">Ce <em>preferi?</em></h2>
+        <p class="q-sub">Recomandarea va lua în calcul forma preferată, fără să sacrifice eficacitatea.</p>
+        <div class="opts">
+          <div class="opt"><div class="rd"></div><div><span class="l">Capsule</span><span class="meta">Discrete, fără gust</span></div></div>
+          <div class="opt selected"><div class="rd"></div><div><span class="l">Lichid/shot</span><span class="meta">Absorbție rapidă</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">Jeleuri</span><span class="meta">Gust bun, ușor de luat</span></div></div>
+          <div class="opt"><div class="rd"></div><div><span class="l">Nu am preferință</span><span class="meta">Alegem ce e mai eficient</span></div></div>
+        </div>
+        <div class="summary">
+          <div class="stitle">Răspunsurile tale</div>
+          <table>
+            <tr><td>Simptome selectate</td><td>Oboseală cronică · Ceață mentală</td></tr>
+            <tr><td>Durata</td><td>1–3 luni</td></tr>
+            <tr><td>Vârsta</td><td>36–45 ani</td></tr>
+            <tr><td>Intensitate</td><td>Moderat</td></tr>
+            <tr><td>Stil de viață</td><td>Activitate ușoară</td></tr>
+            <tr><td>Suplimente luate</td><td>Da, dar nu au funcționat</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="q-controls">
+        <button class="btn-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>Înapoi</button>
+        <button class="btn-next">Vezi rezultatul<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- ====== STARE 9 / 10 — Processing ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">9 / 10</span></span>
+      <span class="note">Procesare · animație 1–2 secunde înainte de rezultat</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+        <div class="step-count">Procesăm răspunsurile</div>
+        <button class="close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><div class="fill" style="width:100%"></div></div>
+        <div class="progress-label"><strong>7</strong> / 7</div>
+      </div>
+      <div class="processing">
+        <div class="processing-spinner"></div>
+        <h2>Citim răspunsurile tale.</h2>
+        <p>Nu rulăm cuvinte cheie. <em>Verificăm context.</em></p>
+      </div>
+    </div>
+
+    <!-- ====== STARE 10 / 10 — Varianta A (no-buy) ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">10 / 10 · Varianta A</span></span>
+      <span class="note">Rezultat onest · "nu cumpăra acum"</span>
+    </div>
+    <div class="quiz-card">
+      <div class="honest-eyebrow-bar">
+        <div class="left"><span class="sigil"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg></span>Verdict onest</div>
+        <div class="right">Preferăm să nu îți vindem ceva inutil.</div>
+      </div>
+      <div class="honest-body">
+        <h1>Sincer, <em>nu cumpăra un supliment acum.</em></h1>
+        <p class="lede">Răspunsurile tale arată simptome <strong>ușoare și apărute recent</strong>. Trei lucruri simple pot rezolva 80% din ce simți. Dacă peste 3–4 săptămâni tot nu e mai bine, refă testul — atunci poate are sens să discutăm despre un supliment.</p>
+        <div class="free-checklist">
+          <div class="tag"><span class="swatch"></span>Trei lucruri gratuite de încercat întâi</div>
+          <ul>
+            <li><div class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div><strong>Somn la oră fixă, 7–8 ore.</strong><span class="meta">Cel mai puternic „supliment" natural. Aceeași oră de culcare 21 de zile la rând schimbă mai mult decât 90% din suplimente.</span></div></li>
+            <li><div class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div><strong>Două mese cu legume verzi pe zi.</strong><span class="meta">Spanac, broccoli, salată, kale. Magneziu, fier, folați — într-o formă pe care corpul o recunoaște instant.</span></div></li>
+            <li><div class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div><strong>20 de minute de mers afară, în lumină naturală.</strong><span class="meta">Reglare ritm circadian + vitamina D + mișcare ușoară. Cumulat, înlocuiește 3–4 suplimente.</span></div></li>
+          </ul>
+        </div>
+        <div class="honest-actions">
+          <button class="btn-retake"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Refă testul peste 3 săptămâni</button>
+          <a class="discreet" href="Pagina Suplimente - catalog.html">Sau vezi catalogul, dacă vrei să te uiți oricum →</a>
+        </div>
+      </div>
+      <div class="philosophy">
+        <div class="label">Filozofie</div>
+        <blockquote>„Preferăm să nu îți vindem ceva, <em>decât să îți vindem ceva ce nu îți trebuie.</em>"</blockquote>
+      </div>
+    </div>
+
+    <!-- ====== STARE 10 / 10 — Varianta B (produs unic) ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">10 / 10 · Varianta B</span></span>
+      <span class="note">Rezultat · 1 produs unic recomandat</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+        <div class="step-count">Rezultat · produs unic</div>
+        <button class="close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="result-body">
+        <div class="result-eyebrow">
+          <div class="stamp"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <div class="lbl"><strong>Rezultatul tău</strong><span>Pentru o nevoie precisă, recent apărută</span></div>
+        </div>
+        <h1 class="reco-h1">Pentru ce ne-ai spus, primul lucru pe care l-aș încerca este <em>Vita Complete+ Vegan Shots</em>.</h1>
+        <p class="lede">Răspunsurile tale arată oboseală cronică + ceață mentală + 1–3 luni + vârsta 36–45. Profilul indică <strong>deficit subclinic de B12, D și magneziu</strong> — frecvent la această grupă. Vita Complete+ acoperă cei 25 de nutrienți esențiali în format lichid, cu absorbție superioară față de capsule.</p>
+        <div class="reco-main">
+          <span class="match-chip">Potrivire 87%</span>
+          <div class="photo"><div class="row"><div class="bot matte"><div class="cap"></div><div class="body"><div class="lbl"></div></div></div></div></div>
+          <div class="reco-info">
+            <div class="tag"><span class="swatch"></span>Recomandare principală · multivitamine lichide</div>
+            <h3>Vita Complete+ Vegan Shots</h3>
+            <div class="specs">25 de nutrienți esențiali · 500 ml · 50 doze · vegan</div>
+            <div class="axes-mini"><span class="ax">Energie</span><span class="ax">Focus</span></div>
+            <div class="reco-foot">
+              <div class="price-stack">
+                <span class="price">184 lei</span>
+                <span class="save-mini transparent">sau 165 lei/lună cu abonament · oprești oricând</span>
+              </div>
+              <a class="btn-buy" href="PDP - Vita Complete+ Vegan Shots.html">Adaugă recomandarea
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="reco-secondary-label">A doua opțiune — dacă preferi capsule</div>
+        <a class="reco-alt" href="PDP - D-Tox Ficat.html">
+          <div class="ph"></div>
+          <div class="info"><h4>D-Tox Ficat</h4><p>Susține filtrul hepatic · armurariu + anghinare + păpădie · 120 capsule.</p></div>
+          <div class="price-mini">114 lei<small>Vezi produsul →</small></div>
+        </a>
+        <div class="reco-edu">
+          <h4>Ce să citești <em>înainte să decizi.</em></h4>
+          <div class="articles">
+            <div class="article-card">
+              <div class="thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+              <div class="body"><small>Ghid · 8 min</small><h5>Vitaminele B și reducerea oboselii — ce zice EFSA.</h5></div>
+            </div>
+            <div class="article-card">
+              <div class="thumb t2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/></svg></div>
+              <div class="body"><small>Cercetare · 6 min</small><h5>Cum măsori dacă un supliment funcționează pe tine.</h5></div>
+            </div>
+          </div>
+        </div>
+        <details class="transparency">
+          <summary>Cum am calculat această recomandare</summary>
+          <div class="inner">
+            <h6>Cele 7 răspunsuri ale tale</h6>
+            <ul>
+              <li>Simptome: <span class="v">Oboseală cronică · Ceață mentală</span></li>
+              <li>Durata: <span class="v">1–3 luni</span></li>
+              <li>Vârsta: <span class="v">36–45 ani</span></li>
+              <li>Intensitate: <span class="v">Moderat</span></li>
+              <li>Stil de viață: <span class="v">Activitate ușoară</span></li>
+              <li>Suplimente luate: <span class="v">Da, dar nu au funcționat</span></li>
+              <li>Preferință formă: <span class="v">Lichid/shot</span></li>
+            </ul>
+            <h6>Axe biologice detectate</h6>
+            <div class="axes-detected"><span>Energie · 4p</span><span>Focus · 3p</span></div>
+          </div>
+        </details>
+      </div>
+      <div class="result-foot">
+        <span>Rezultatul e o sugestie, nu un diagnostic. Pentru afecțiuni reale, consultă un medic.</span>
+        <span><a>↻ Refă testul</a> · <a>Trimite pe email</a></span>
+      </div>
+    </div>
+
+    <!-- ====== STARE 10 / 10 — Varianta C/D (pachet) ====== -->
+    <div class="state-label">
+      <span>Stare <span class="step">10 / 10 · Varianta C/D</span></span>
+      <span class="note">Rezultat · pachet recomandat (2 sau 3 produse)</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+        <div class="step-count">Rezultat · pachet 3 produse</div>
+        <button class="close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="result-body">
+        <div class="result-eyebrow">
+          <div class="stamp"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <div class="lbl"><strong>Pachet recomandat</strong><span>Trei produse pe trei axe biologice</span></div>
+        </div>
+        <h1 class="reco-h1">Pentru ce ne-ai spus, recomandarea principală este <em>Pachet Vitalitate</em>.</h1>
+        <p class="lede">Răspunsurile tale arată <strong>3 axe biologice active</strong> (energie, focus, anti-aging) și simptome <strong>cronice de 1–3 luni</strong>. La 36–45 ani cu activitate ușoară, ai nevoie de o fundație completă: probiotice pentru absorbție, multivitamine pentru combustibil, colagen pentru regenerare. Un pachet de 3 produse pe axa digestie-absorbție-regenerare e mai eficient decât un singur supliment.</p>
+        <div class="reco-main">
+          <span class="match-chip">Potrivire 94%</span>
+          <div class="photo"><div class="row">
+            <div class="bot matte"><div class="cap"></div><div class="body"><div class="lbl"></div></div></div>
+            <div class="bot amber"><div class="cap"></div><div class="body"><div class="lbl"></div></div></div>
+            <div class="bot matte"><div class="cap"></div><div class="body"><div class="lbl"></div></div></div>
+          </div></div>
+          <div class="reco-info">
+            <div class="tag"><span class="swatch"></span>Pachet 3 produse · cură 33 zile</div>
+            <h3>Pachet Vitalitate</h3>
+            <div class="specs">Colagen, vitamine și probiotice care lucrează împreună.<br/>Conține: Microflora+ + Vita Complete+ + Collagen Joint+.</div>
+            <div class="axes-mini"><span class="ax">Energie</span><span class="ax">Focus</span><span class="ax">Anti-aging</span></div>
+            <div class="reco-foot">
+              <div class="price-stack">
+                <span class="price">499 lei</span>
+                <span class="save-mini">✓ Economisești 28 lei vs. individual</span>
+              </div>
+              <a class="btn-buy" href="Pagina Pachet - Vitalitate.html">Adaugă pachetul · 499 lei
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="reco-secondary-label">Dacă preferi să începi cu un singur produs</div>
+        <a class="reco-alt" href="PDP - Vita Complete+ Vegan Shots.html">
+          <div class="ph"></div>
+          <div class="info"><h4>Vita Complete+ Vegan Shots</h4><p>Cel mai important produs din pachet · 500 ml · 50 doze · vegan.</p></div>
+          <div class="price-mini">184 lei<small>Începe cu Vita Complete+ →</small></div>
+        </a>
+        <div class="reco-edu">
+          <h4>Ce să citești <em>înainte să decizi.</em></h4>
+          <div class="articles">
+            <div class="article-card">
+              <div class="thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+              <div class="body"><small>Ghid · 10 min</small><h5>Cum lucrează sinergic colagenul, vitaminele și probioticele.</h5></div>
+            </div>
+            <div class="article-card">
+              <div class="thumb t2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/></svg></div>
+              <div class="body"><small>Practic · 5 min</small><h5>Curele de 33 vs. 90 zile — când are sens fiecare.</h5></div>
+            </div>
+          </div>
+        </div>
+        <details class="transparency" open>
+          <summary>Cum am calculat această recomandare</summary>
+          <div class="inner">
+            <h6>Cele 7 răspunsuri ale tale</h6>
+            <ul>
+              <li>Simptome: <span class="v">Oboseală cronică · Ceață mentală (2 simptome)</span></li>
+              <li>Durata: <span class="v">1–3 luni · cronic — multiplicator 1.5× pe axa dominantă</span></li>
+              <li>Vârsta: <span class="v">36–45 ani · +3 puncte axa anti-aging</span></li>
+              <li>Intensitate: <span class="v">Moderat</span></li>
+              <li>Stil de viață: <span class="v">Activitate ușoară</span></li>
+              <li>Suplimente luate: <span class="v">Da, dar nu au funcționat</span></li>
+              <li>Preferință formă: <span class="v">Lichid/shot</span></li>
+            </ul>
+            <h6>Axe biologice detectate (scor &gt;= 3 = activă)</h6>
+            <div class="axes-detected"><span>Energie · 6p</span><span>Focus · 4p</span><span>Anti-aging · 3p</span></div>
+            <h6>Decizie</h6>
+            <ul>
+              <li>3 axe active &gt;= 3 → Varianta D (pachet 3-produse)</li>
+              <li>Mapare: energie + focus + anti-aging → <strong>Pachet Vitalitate</strong></li>
+            </ul>
+          </div>
+        </details>
+      </div>
+      <div class="result-foot">
+        <span>Rezultatul e o sugestie, nu un diagnostic. Pentru afecțiuni reale, consultă un medic.</span>
+        <span><a>↻ Refă testul</a> · <a href="Pagina hub - Pachete.html">Vezi toate pachetele</a></span>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 30 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="color:var(--color-gold);font-weight:600">Ediția de toamnă, Octombrie 2025</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ============================================================
+   QUIZ V2 — scoring algorithm + state machine
+   ============================================================ */
+
+const Q1_GROUPS = [
+  { name: 'Digestie', items: [
+    { id:'bal',     label:'Balonare, gaze, tranzit haotic', scores:{digestie:2} },
+    { id:'gras',    label:'Disconfort după mese grase, digestie greoaie', scores:{ficat:3, digestie:1} },
+    { id:'antibio', label:'Recuperare post-antibiotice sau după exces', scores:{digestie:2, ficat:2, detox:1} }
+  ]},
+  { name: 'Energie & metabolism', items: [
+    { id:'obos', label:'Oboseală cronică fără cauză, energie scăzută după-amiaza', scores:{energie:2} },
+    { id:'slab', label:'Slăbit greoi, metabolism încetinit, kilograme greu de dat jos', scores:{energie:2} },
+    { id:'sens', label:'Sensibilitate crescută la cofeină, alcool, medicamente', scores:{ficat:2, detox:2} }
+  ]},
+  { name: 'Focus & mental', items: [
+    { id:'ceata', label:'Ceață mentală, uitări frecvente, concentrare slabă', scores:{focus:2} },
+    { id:'stres', label:'Stres cronic, iritabilitate, treziri nocturne', scores:{focus:2} },
+    { id:'cafea', label:'Dependență de cafea ca să funcționezi', scores:{focus:1, energie:1} }
+  ]},
+  { name: 'Frumusețe & articulații', items: [
+    { id:'piele', label:'Piele lăsată, riduri fine, cearcăne persistente', scores:{frumusete:2} },
+    { id:'par',   label:'Păr fragil care cade, unghii care se rup', scores:{frumusete:2} },
+    { id:'artic', label:'Dureri articulare, rigiditate matinală, recuperare lentă după sport', scores:{articulatii:3} }
+  ]},
+  { name: 'Imunitate & anti-aging', items: [
+    { id:'rac',     label:'Răceli repetate, imunitate slăbită, vindecare lentă', scores:{imunitate:3} },
+    { id:'imbatran',label:'Îmbătrânire celulară accelerată, inflamație cronică de fond', scores:{antiaging:3} },
+    { id:'tox',     label:'Acumulare toxine (poluare, microplastice, alcool ocazional, medicamente)', scores:{detox:3} }
+  ]}
+];
+
+const Q2_OPTIONS = [
+  { id:'sub',  label:'Sub o săptămână', meta:'Probabil reacție temporară' },
+  { id:'1-4',  label:'1–4 săptămâni', meta:'Merită să te uiți mai atent' },
+  { id:'1-3',  label:'1–3 luni', meta:'O cură țintită are sens' },
+  { id:'peste',label:'Peste 3 luni', meta:'Recomandăm și un consult medical' }
+];
+const Q3_OPTIONS = [
+  { id:'sub-25', label:'Sub 25 ani' },
+  { id:'25-35',  label:'25–35 ani' },
+  { id:'36-45',  label:'36–45 ani' },
+  { id:'46-60',  label:'46–60 ani' },
+  { id:'peste-60', label:'Peste 60 ani' }
+];
+const Q4_OPTIONS = [
+  { id:'usor',    label:'Ușor', meta:'Mai mult un disconfort' },
+  { id:'moderat', label:'Moderat', meta:'Mă impactează, dar funcționez' },
+  { id:'sever',   label:'Sever', meta:'Îmi afectează somnul, munca, relațiile' }
+];
+const Q5_OPTIONS = [
+  { id:'sed',    label:'Sedentar (birou, mers ocazional, fără sport)' },
+  { id:'usor',   label:'Activitate ușoară (mers zilnic, 1–2 sesiuni)' },
+  { id:'sport',  label:'Sport regulat (3–4 antrenamente structurate / săptămână)' },
+  { id:'intens', label:'Muncă fizică sau sport intens (5+ antrenamente / zi)' }
+];
+const Q6_OPTIONS = [
+  { id:'nu',     label:'Nu, vreau să încep cu ceva' },
+  { id:'da-fail',label:'Da, dar nu au funcționat' },
+  { id:'da-ok',  label:'Da, au ajutat puțin' },
+  { id:'iau',    label:'Iau și acum ceva (verificăm suprapunerile)' }
+];
+const Q7_OPTIONS = [
+  { id:'caps',   label:'Capsule', meta:'Discrete, fără gust' },
+  { id:'lichid', label:'Lichid/shot', meta:'Absorbție rapidă' },
+  { id:'jel',    label:'Jeleuri', meta:'Gust bun, ușor de luat' },
+  { id:'any',    label:'Nu am preferință', meta:'Alegem ce e mai eficient' }
+];
+
+const QUESTIONS = [
+  { id:'q1', title:'Care sunt cele mai mari probleme cu sănătatea ta în <em>ultimele săptămâni?</em>',
+    sub:'<strong>Maxim 5 simptome.</strong> Bifează doar ce simți cu adevărat — răspunsurile inutile încurcă algoritmul.',
+    type:'multi-grouped', groups: Q1_GROUPS, max: 5 },
+  { id:'q2', title:'De cât timp simți <em>aceste simptome?</em>',
+    sub:'Durata schimbă tot — un disconfort de o săptămână nu se tratează la fel ca unul de 3 luni.',
+    type:'single', options: Q2_OPTIONS },
+  { id:'q3', title:'Câți ani <em>ai?</em>',
+    sub:'După 40, nevoile biologice se schimbă — Q10 scade, deficitele se acumulează.',
+    type:'single', options: Q3_OPTIONS },
+  { id:'q4', title:'Cât de mult îți afectează <em>viața de zi cu zi?</em>',
+    sub:'Intensitatea ne ajută să recomandăm fie un produs simplu, fie un protocol mai complet.',
+    type:'single', options: Q4_OPTIONS },
+  { id:'q5', title:'Cum arată o <em>săptămână obișnuită?</em>',
+    sub:'Sportivii regulați au nevoi diferite — articulații, recuperare, energie.',
+    type:'single', options: Q5_OPTIONS },
+  { id:'q6', title:'Ai mai luat <em>suplimente pentru asta?</em>',
+    sub:'Dacă iei deja ceva, verificăm suprapunerile pe vitamine și minerale.',
+    type:'single', options: Q6_OPTIONS },
+  { id:'q7', title:'Ce <em>preferi?</em>',
+    sub:'Recomandarea va lua în calcul forma preferată, fără să sacrifice eficacitatea.',
+    type:'single', options: Q7_OPTIONS, lastWithSummary: true }
+];
+
+/* ============================================================
+   PRODUCT / PACK CATALOG
+   ============================================================ */
+
+const PRODUCTS = {
+  'd-tox':     { name:'D-Tox Ficat', price:114, specs:'120 capsule · vegan · 120 zile', link:'PDP - D-Tox Ficat.html', tone:'amber' },
+  'microflora':{ name:'Microflora+ Lemon Shots', price:159, specs:'500 ml · 33 doze · vegan', link:'PDP - Microflora+ Lemon Shots.html', tone:'matte' },
+  'black-seed':{ name:'Black Seed Elixir', price:149, specs:'240 capsule · vegan · 120 zile', link:'PDP - Black Seed Elixir.html', tone:'amber' },
+  'vita':      { name:'Vita Complete+ Vegan Shots', price:184, specs:'500 ml · 50 doze · vegan', link:'PDP - Vita Complete+ Vegan Shots.html', tone:'matte' },
+  'lion':      { name:'LionFocus B6 Jeleuri', price:124, specs:'60 jeleuri · vegan · 30 zile', link:'PDP - LionFocus B6 Jeleuri.html', tone:'amber' },
+  'collagen':  { name:'Collagen Joint+ Berry', price:184, specs:'500 ml · 33 doze', link:'PDP - Collagen Joint+ Berry.html', tone:'matte' }
+};
+
+const PACKS = {
+  'imunitate':   { name:'Pachet Imunitate', hook:'Apărare naturală, energie zilnică.', price:349, save:19, duration:'120 zile', bottles:['amber','matte'], prods:['Black Seed Elixir','Vita Complete+ Vegan Shots'], link:'Pagina Pachet - Imunitate.html', axes:['imunitate','antiaging'] },
+  'energie':     { name:'Pachet Energie', hook:'Energie susținută, ficat curat.', price:306, save:17, duration:'120 zile', bottles:['matte','amber'], prods:['Vita Complete+ Vegan Shots','D-Tox Ficat'], link:'Pagina Pachet - Energie.html', axes:['energie','ficat'] },
+  'focus':       { name:'Pachet Focus', hook:'Concentrare, energie cognitivă.', price:292, save:16, duration:'50 zile', bottles:['amber','matte'], prods:['LionFocus B6 Jeleuri','Vita Complete+ Vegan Shots'], link:'Pagina Pachet - Focus.html', axes:['focus','energie'] },
+  'frumusete':   { name:'Pachet Frumusețe', hook:'Peptide & nutrienți, într-un singur ritual.', price:349, save:19, duration:'50 zile', bottles:['matte','amber'], prods:['Collagen Joint+ Berry','Vita Complete+ Vegan Shots'], link:'Pagina Pachet - Frumusete.html', axes:['frumusete','articulatii'] },
+  'echilibru':   { name:'Pachet Echilibru', hook:'Intestin sănătos, piele luminoasă.', price:325, save:18, duration:'33 zile', bottles:['matte','matte'], prods:['Microflora+ Lemon Shots','Collagen Joint+ Berry'], link:'Pagina Pachet - Echilibru.html', axes:['digestie','frumusete'] },
+  'confort-dig': { name:'Pachet Confort Digestiv', hook:'Probiotice & detox ficat.', price:283, save:0, duration:'120 zile', bottles:['matte','amber'], prods:['Microflora+ Lemon Shots','D-Tox Ficat'], link:'Pagina Pachet - Confort Digestiv.html', axes:['digestie','ficat'] },
+  'detox':       { name:'Pachet Detox', hook:'Curățare & echilibru.', price:283, save:0, duration:'120 zile', bottles:['amber','matte'], prods:['D-Tox Ficat','Black Seed Elixir'], link:'Pagina Pachet - Detox.html', axes:['detox','ficat'] },
+  'vitalitate':  { name:'Pachet Vitalitate', hook:'Colagen, vitamine și probiotice.', price:499, save:28, duration:'33 zile', bottles:['matte','amber','matte'], prods:['Microflora+ Lemon Shots','Vita Complete+ Vegan Shots','Collagen Joint+ Berry'], link:'Pagina Pachet - Vitalitate.html', axes:['digestie','energie','frumusete'] },
+  'detox-plus':  { name:'Pachet Detox Plus', hook:'Ficat, intestin, scut antioxidant.', price:457, save:0, duration:'120 zile', bottles:['amber','matte','amber'], prods:['D-Tox Ficat','Microflora+ Lemon Shots','Black Seed Elixir'], link:'Pagina Pachet - Detox Plus.html', axes:['detox','digestie','imunitate','ficat','antiaging'] },
+  'complex40':   { name:'Pachet Complex Sănătate 40+', hook:'Fundația, flora și scutul.', price:499, save:28, duration:'50 zile', bottles:['amber','matte','amber'], prods:['Vita Complete+ Vegan Shots','Microflora+ Lemon Shots','Black Seed Elixir'], link:'Pagina Pachet - Complex Sanatate 40.html', axes:['energie','imunitate','antiaging','digestie'] },
+  'regenerare':  { name:'Pachet Regenerare Celulară', hook:'Refacere profundă, protecție celulară.', price:524, save:28, duration:'33 zile', bottles:['matte','amber','amber'], prods:['Collagen Joint+ Berry','Vita Complete+ Vegan Shots','Black Seed Elixir'], link:'Pagina Pachet - Regenerare Celulara.html', axes:['frumusete','antiaging','energie','articulatii'] }
+};
+
+const AXIS_LABELS = {
+  digestie:'Digestie',
+  ficat:'Ficat',
+  energie:'Energie',
+  focus:'Focus',
+  frumusete:'Frumusețe',
+  articulatii:'Articulații',
+  imunitate:'Imunitate',
+  antiaging:'Anti-aging',
+  detox:'Detox'
+};
+
+/* ============================================================
+   SCORING ALGORITHM
+   ============================================================ */
+function computeScores(answers){
+  const axes = { digestie:0, ficat:0, energie:0, focus:0, frumusete:0, articulatii:0, imunitate:0, antiaging:0, detox:0 };
+
+  // Step 1: aggregate from Q1 multi-select
+  (answers.q1 || []).forEach(symId => {
+    Q1_GROUPS.forEach(g => g.items.forEach(it => {
+      if(it.id === symId) Object.entries(it.scores).forEach(([k,v]) => axes[k] += v);
+    }));
+  });
+
+  // Step 2: contextual amplifiers
+  // Q2 duration multiplier on dominant axis
+  let dominant = null, dominantVal = 0;
+  Object.entries(axes).forEach(([k,v]) => { if(v > dominantVal){ dominantVal = v; dominant = k; } });
+  if(dominant && (answers.q2 === '1-3' || answers.q2 === 'peste')){
+    axes[dominant] = Math.round(axes[dominant] * 1.5);
+  }
+
+  // Q3 age boosts
+  if(answers.q3 === '46-60' || answers.q3 === 'peste-60'){
+    axes.antiaging += 5; axes.imunitate += 5;
+  } else if(answers.q3 === '36-45'){
+    axes.antiaging += 3;
+  }
+
+  // Q4 severity multiplier
+  if(answers.q4 === 'sever'){
+    Object.keys(axes).forEach(k => { if(axes[k] > 0) axes[k] = Math.round(axes[k] * 1.3); });
+  }
+
+  // Q5 sport boosts
+  if(answers.q5 === 'sport' || answers.q5 === 'intens'){
+    axes.articulatii += 3; axes.energie += 3;
+  }
+
+  return axes;
+}
+
+function pickResult(answers){
+  const axes = computeScores(answers);
+  const threshold = 3;
+  const active = Object.entries(axes).filter(([,v]) => v >= threshold).map(([k,v]) => ({k, v})).sort((a,b)=>b.v-a.v);
+  const total = Object.values(axes).reduce((a,b)=>a+b,0);
+  const isOlder = answers.q3 === '46-60' || answers.q3 === 'peste-60';
+  const isSevere = answers.q4 === 'sever';
+  const isShort = answers.q2 === 'sub';
+  const isRecent = answers.q2 === 'sub' || answers.q2 === '1-4';
+  const isUsor = answers.q4 === 'usor';
+
+  // VARIANT A — Honest no-buy
+  if(active.length === 0 && total < 6){
+    return { variant:'A', axes, active };
+  }
+  if(isShort && total < 8 && !isSevere){
+    return { variant:'A', axes, active };
+  }
+  if(isUsor && active.length <= 1 && isShort){
+    return { variant:'A', axes, active };
+  }
+
+  // VARIANT D — 3-product pack
+  if(active.length >= 3 || (isOlder && active.length >= 2)){
+    return { variant:'D', axes, active, pack: pickPack3(active, answers) };
+  }
+
+  // VARIANT C — 2-product pack
+  if(active.length === 2 || (active.length === 1 && (answers.q2 === '1-3' || answers.q2 === 'peste'))){
+    return { variant:'C', axes, active, pack: pickPack2(active, answers) };
+  }
+
+  // VARIANT B — single product
+  if(active.length === 1 && isRecent){
+    return { variant:'B', axes, active, product: pickProduct(active[0].k, answers.q7) };
+  }
+
+  // Fallback: 2-pack
+  return { variant:'C', axes, active, pack: pickPack2(active, answers) };
+}
+
+function pickPack3(active, ans){
+  const has = ax => active.some(a => a.k === ax);
+  const isOlder = ans.q3 === '46-60' || ans.q3 === 'peste-60';
+
+  if(has('antiaging') && (has('frumusete') || has('articulatii'))) return 'regenerare';
+  if(isOlder && (has('energie') || has('imunitate') || has('antiaging'))) return 'complex40';
+  if(has('detox') && (has('digestie') || has('ficat')) && (has('imunitate') || has('antiaging'))) return 'detox-plus';
+  if(has('digestie') && has('energie') && has('frumusete')) return 'vitalitate';
+  if(has('detox')) return 'detox-plus';
+  return 'vitalitate';
+}
+
+function pickPack2(active, ans){
+  const has = ax => active.some(a => a.k === ax);
+  const isSport = ans.q5 === 'sport' || ans.q5 === 'intens';
+
+  if(has('digestie') && has('ficat')) return 'confort-dig';
+  if(has('digestie') && has('frumusete')) return 'echilibru';
+  if(has('frumusete') && has('articulatii')) return 'frumusete';
+  if(has('focus') && has('energie')) return 'focus';
+  if(has('energie') && has('ficat')) return 'energie';
+  if(has('imunitate')) return 'imunitate';
+  if(has('antiaging')) return 'imunitate';
+  if(has('detox') && has('ficat')) return 'detox';
+  if(has('detox')) return 'detox';
+  // Single-axis fallback to closest pack
+  if(has('digestie')) return 'confort-dig';
+  if(has('frumusete')) return 'frumusete';
+  if(has('articulatii')) return isSport ? 'frumusete' : 'frumusete';
+  if(has('energie')) return 'energie';
+  if(has('focus')) return 'focus';
+  if(has('ficat')) return 'energie';
+  return 'imunitate';
+}
+
+function pickProduct(axis, formPref){
+  const map = {
+    ficat:'d-tox', digestie:'microflora', imunitate:'black-seed', antiaging:'black-seed',
+    detox:'d-tox', energie:'vita', focus:'lion', frumusete:'collagen', articulatii:'collagen'
+  };
+  let primary = map[axis] || 'vita';
+  // Adjust for form preference
+  if(formPref === 'caps' && primary === 'vita') primary = 'black-seed';
+  if(formPref === 'jel' && primary !== 'lion') primary = 'lion';
+  return primary;
+}
+
+function computeMatch(active, total){
+  if(active.length === 0) return 35;
+  if(active.length === 1) return 72;
+  if(active.length === 2) return 82;
+  if(active.length === 3) return 88;
+  return 90; // cap, no inflation
+}
+
+/* ============================================================
+   STATE MACHINE
+   ============================================================ */
+const state = {
+  step: 0, // 0=intro, 1-7=questions, 8=processing, 9=result
+  answers: { q1: [], q2: null, q3: null, q4: null, q5: null, q6: null, q7: null }
+};
+
+function render(){
+  const root = document.getElementById('quizCard');
+  let html = '';
+  if(state.step === 0)      html = chrome('— pregătit să începi') + intro();
+  else if(state.step >= 1 && state.step <= 7) html = chrome(`Întrebarea <strong>${state.step}</strong> din 7`) + progress() + question(state.step);
+  else if(state.step === 8) html = chrome('Procesăm răspunsurile') + progress() + processing();
+  else if(state.step === 9) html = result();
+  root.innerHTML = html;
+  bind();
+  if(state.step === 8) setTimeout(()=>{ state.step = 9; render(); window.scrollTo({top:0, behavior:'smooth'}); }, 1600);
+}
+
+function chrome(rightLbl){
+  return `<div class="quiz-top">
+    <div class="brand"><span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>Testul de 60 de secunde · V2</div>
+    <div class="step-count">${rightLbl}</div>
+    <button class="close" data-action="restart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>`;
+}
+
+function progress(){
+  const pct = state.step <= 7 ? (state.step / 7) * 100 : 100;
+  return `<div class="progress-wrap">
+    <div class="progress"><div class="fill" style="width:${pct}%"></div></div>
+    <div class="progress-label"><strong>${Math.min(state.step, 7)}</strong> / 7</div>
+  </div>`;
+}
+
+function intro(){
+  return `
+  <div class="intro-hero">
+    <div class="eyebrow-gold">Ghid onest · V2</div>
+    <h1>Nu știi de unde să începi? <em>Răspunde la 7 întrebări.</em></h1>
+    <p class="lede">60 de secunde. Fără email, fără cont. La final primești <strong>1 recomandare onestă</strong> — poate fi un pachet, un produs, sau sfatul să nu cumperi nimic acum.</p>
+    <div class="intro-badges">
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/></svg>Anonim</span>
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>60 de secunde</span>
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Fără presiune de cumpărare</span>
+    </div>
+    <a class="intro-cta" data-action="start">Începe testul
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+    <a class="intro-secondary" href="Pagina Suplimente - catalog.html">Sau vezi întâi toate produsele</a>
+  </div>
+  <div class="how-works">
+    <div class="label">Cum funcționează</div>
+    <div class="how-grid">
+      <div class="how-step"><div class="n">01</div><h4>Răspunzi onest.</h4><p>7 întrebări scurte, multi-select doar la prima (max 5 simptome).</p></div>
+      <div class="how-step"><div class="n">02</div><h4>Algoritmul scorează 9 axe biologice.</h4><p>Digestie, ficat, energie, focus, frumusețe, articulații, imunitate, anti-aging, detox.</p></div>
+      <div class="how-step"><div class="n">03</div><h4>Primești 1 din 3 recomandări.</h4><p>Pachet (2 sau 3 produse), produs unic, sau „nu cumpăra acum”.</p></div>
+    </div>
+  </div>`;
+}
+
+function question(step){
+  const q = QUESTIONS[step-1];
+  let body = '';
+
+  if(q.type === 'multi-grouped'){
+    body = `<div class="q1-groups">`;
+    q.groups.forEach(g => {
+      body += `<div class="q1-group"><div class="gtitle">${g.name}</div><div class="q1-grid">`;
+      g.items.forEach(it => {
+        const sel = state.answers.q1.includes(it.id) ? 'selected' : '';
+        body += `<div class="q1-opt ${sel}" data-action="toggle-q1" data-id="${it.id}">
+          <div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <div class="l">${it.label}</div>
+        </div>`;
+      });
+      body += `</div></div>`;
+    });
+    body += `</div>`;
+    body += `<div class="q1-counter">
+      <span><strong>${state.answers.q1.length}</strong> / ${q.max} simptome selectate</span>
+      <span class="hint">Bifează doar ce simți cu adevărat.</span>
+    </div>`;
+  } else {
+    body = `<div class="opts">`;
+    q.options.forEach(o => {
+      const sel = state.answers[q.id] === o.id ? 'selected' : '';
+      body += `<div class="opt ${sel}" data-action="pick" data-q="${q.id}" data-id="${o.id}">
+        <div class="rd"></div>
+        <div><span class="l">${o.label}</span>${o.meta ? `<span class="meta">${o.meta}</span>` : ''}</div>
+      </div>`;
+    });
+    body += `</div>`;
+  }
+
+  if(q.lastWithSummary){
+    body += summaryTable();
+  }
+
+  const canContinue = q.type === 'multi-grouped' ? state.answers.q1.length >= 1 : !!state.answers[q.id];
+  const nextLabel = step === 7 ? 'Vezi rezultatul' : 'Următoarea întrebare';
+
+  return `
+  <div class="q-body">
+    <div class="q-eyebrow"><span class="dot"></span>Întrebarea ${step} din 7</div>
+    <h2 class="q-title">${q.title}</h2>
+    <p class="q-sub">${q.sub}</p>
+    ${body}
+  </div>
+  <div class="q-controls">
+    <button class="btn-back ${step === 1 ? 'disabled' : ''}" data-action="back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>Înapoi
+    </button>
+    <button class="btn-next" data-action="next" ${!canContinue ? 'disabled' : ''}>${nextLabel}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </button>
+  </div>`;
+}
+
+function summaryTable(){
+  const rows = [];
+  const sel = state.answers.q1.map(id => {
+    let label = id;
+    Q1_GROUPS.forEach(g => g.items.forEach(it => { if(it.id === id) label = it.label; }));
+    return label;
+  });
+  rows.push(['Simptome selectate', sel.length ? sel.join(' · ') : '—']);
+  const q2lbl = Q2_OPTIONS.find(o => o.id === state.answers.q2)?.label || '—';
+  const q3lbl = Q3_OPTIONS.find(o => o.id === state.answers.q3)?.label || '—';
+  const q4lbl = Q4_OPTIONS.find(o => o.id === state.answers.q4)?.label || '—';
+  const q5lbl = Q5_OPTIONS.find(o => o.id === state.answers.q5)?.label || '—';
+  const q6lbl = Q6_OPTIONS.find(o => o.id === state.answers.q6)?.label || '—';
+  rows.push(['Durata', q2lbl]);
+  rows.push(['Vârsta', q3lbl]);
+  rows.push(['Intensitate', q4lbl]);
+  rows.push(['Stil de viață', q5lbl]);
+  rows.push(['Suplimente luate', q6lbl]);
+  return `<div class="summary"><div class="stitle">Răspunsurile tale</div><table>
+    ${rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}
+  </table></div>`;
+}
+
+function processing(){
+  return `<div class="processing">
+    <div class="processing-spinner"></div>
+    <h2>Citim răspunsurile tale.</h2>
+    <p>Nu rulăm cuvinte cheie. <em>Verificăm context.</em></p>
+  </div>`;
+}
+
+/* ============================================================
+   RESULT RENDERING — 3 variants
+   ============================================================ */
+function result(){
+  const r = pickResult(state.answers);
+  if(r.variant === 'A') return resultHonest(r);
+  if(r.variant === 'B') return resultProduct(r);
+  return resultPack(r);
+}
+
+function resultHonest(r){
+  return chrome('Rezultat · onest') +
+  `<div class="honest-eyebrow-bar">
+    <div class="left"><span class="sigil"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg></span>Verdict onest</div>
+    <div class="right">Preferăm să nu îți vindem ceva inutil.</div>
+  </div>
+  <div class="honest-body">
+    <h1>Sincer, <em>nu cumpăra un supliment acum.</em></h1>
+    <p class="lede">Răspunsurile tale arată simptome <strong>ușoare și apărute recent</strong>. Trei lucruri simple pot rezolva 80% din ce simți. Dacă peste 3–4 săptămâni tot nu e mai bine, refă testul — atunci poate are sens să discutăm despre un supliment.</p>
+    <div class="free-checklist">
+      <div class="tag"><span class="swatch"></span>Trei lucruri gratuite de încercat întâi</div>
+      <ul>
+        <li><div class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div><strong>Somn la oră fixă, 7–8 ore.</strong><span class="meta">Cel mai puternic „supliment” natural. Aceeași oră de culcare 21 de zile la rând schimbă mai mult decât 90% din suplimente.</span></div></li>
+        <li><div class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div><strong>Două mese cu legume verzi pe zi.</strong><span class="meta">Spanac, broccoli, salată, kale. Magneziu, fier, folați — într-o formă pe care corpul o recunoaște instant.</span></div></li>
+        <li><div class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div><strong>20 de minute de mers afară, în lumină naturală.</strong><span class="meta">Reglare ritm circadian + vitamina D + mișcare ușoară. Cumulat, înlocuiește 3–4 suplimente.</span></div></li>
+      </ul>
+    </div>
+    <div class="honest-actions">
+      <button class="btn-retake" data-action="restart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Refă testul peste 3 săptămâni</button>
+      <a class="discreet" href="Pagina Suplimente - catalog.html">Sau vezi catalogul, dacă vrei să te uiți oricum →</a>
+    </div>
+    ${transparencyBlock(r)}
+  </div>
+  <div class="philosophy">
+    <div class="label">Filozofie</div>
+    <blockquote>„Preferăm să nu îți vindem ceva, <em>decât să îți vindem ceva ce nu îți trebuie.</em>"</blockquote>
+  </div>`;
+}
+
+function resultProduct(r){
+  const pId = r.product;
+  const p = PRODUCTS[pId];
+  const match = computeMatch(r.active);
+  const altPack = pickPack2(r.active, state.answers);
+  const altPackData = PACKS[altPack];
+
+  return chrome('Rezultat · produs unic') +
+  `<div class="result-body">
+    <div class="result-eyebrow">
+      <div class="stamp"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="lbl"><strong>Recomandare principală</strong><span>Pentru o nevoie precisă, recent apărută</span></div>
+    </div>
+    <h1 class="reco-h1">Pentru ce ne-ai spus, primul lucru pe care l-aș încerca este <em>${p.name}</em>.</h1>
+    <p class="lede">Ai bifat ${r.active.length === 1 ? 'o singură axă biologică' : `${r.active.length} axe`} (${r.active.map(a=>AXIS_LABELS[a.k]).join(', ')}) și durata simptomelor e <strong>recentă</strong>. Un singur produs țintit e mai eficient decât un pachet complet — mai puține variabile, rezultate mai clare în 2–4 săptămâni.</p>
+    <div class="reco-main">
+      <span class="match-chip">Potrivire ${match}%</span>
+      <div class="photo"><div class="row"><div class="bot ${p.tone}"><div class="cap"></div><div class="body"><div class="lbl"></div></div></div></div></div>
+      <div class="reco-info">
+        <div class="tag"><span class="swatch"></span>${AXIS_LABELS[r.active[0]?.k] || 'Recomandare'}</div>
+        <h3>${p.name}</h3>
+        <div class="specs">${p.specs}</div>
+        <div class="axes-mini">${r.active.map(a => `<span class="ax">${AXIS_LABELS[a.k]}</span>`).join('')}</div>
+        <div class="reco-foot">
+          <div class="price-stack">
+            <span class="price">${p.price} lei</span>
+            <span class="save-mini transparent">Preț individual · cură țintită</span>
+          </div>
+          <a class="btn-buy" href="${p.link}">Adaugă recomandarea
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="reco-secondary-label">A doua opțiune — dacă simptomele se cronicizează</div>
+    <a class="reco-alt" href="${altPackData.link}">
+      <div class="ph"></div>
+      <div class="info"><h4>${altPackData.name}</h4><p>${altPackData.hook} · ${altPackData.duration}.</p></div>
+      <div class="price-mini">${altPackData.price} lei<small>Vezi pachetul →</small></div>
+    </a>
+    <div class="reco-edu">
+      <h4>Ce să citești <em>înainte să decizi.</em></h4>
+      <div class="articles">
+        <div class="article-card">
+          <div class="thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+          <div class="body"><small>Ghid · 8 min</small><h5>Când un supliment merge și când e doar placebo scump.</h5></div>
+        </div>
+        <div class="article-card">
+          <div class="thumb t2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/></svg></div>
+          <div class="body"><small>Cercetare · 6 min</small><h5>Ce e o „doză activă reală" — cum o recunoști pe etichetă.</h5></div>
+        </div>
+      </div>
+    </div>
+    ${transparencyBlock(r)}
+  </div>
+  <div class="result-foot">
+    <a data-action="restart">↻ Refă testul</a>
+    <a href="Pagina hub - Pachete.html">Vezi toate pachetele →</a>
+  </div>`;
+}
+
+function resultPack(r){
+  const p = PACKS[r.pack];
+  const match = computeMatch(r.active);
+  // Single-product alternative = first ingredient of pack
+  const altProd = r.variant === 'D'
+    ? pickProduct(r.active[0]?.k || 'energie', state.answers.q7)
+    : pickProduct(r.active[0]?.k || 'energie', state.answers.q7);
+  const ap = PRODUCTS[altProd];
+  const isTransparent = p.save === 0;
+
+  return chrome(`Rezultat · pachet ${p.bottles.length} produse`) +
+  `<div class="result-body">
+    <div class="result-eyebrow">
+      <div class="stamp"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="lbl"><strong>Pachet recomandat</strong><span>${p.bottles.length === 3 ? 'Trei produse pe trei axe' : 'Două produse, o singură nevoie'}</span></div>
+    </div>
+    <h1 class="reco-h1">Pentru ce ne-ai spus, recomandarea principală este <em>${p.name}</em>.</h1>
+    <p class="lede">Răspunsurile tale arată ${r.active.length} axe biologice active (${r.active.map(a=>AXIS_LABELS[a.k]).join(', ')})${state.answers.q2 === 'peste' || state.answers.q2 === '1-3' ? ' și simptome <strong>cronice</strong>' : ''}. Un pachet cu ${p.bottles.length} produse complementare e mai eficient decât un singur supliment — cele ${p.bottles.length === 3 ? 'trei' : 'două'} acționează pe axe diferite, dar conectate.</p>
+    <div class="reco-main">
+      <span class="match-chip">Potrivire ${match}%</span>
+      <div class="photo"><div class="row">
+        ${p.bottles.map(t => `<div class="bot ${t}"><div class="cap"></div><div class="body"><div class="lbl"></div></div></div>`).join('')}
+      </div></div>
+      <div class="reco-info">
+        <div class="tag"><span class="swatch"></span>${p.duration} · ${p.bottles.length} produse</div>
+        <h3>${p.name}</h3>
+        <div class="specs">${p.hook}<br/>Conține: ${p.prods.join(' + ')}.</div>
+        <div class="axes-mini">${r.active.map(a => `<span class="ax">${AXIS_LABELS[a.k]}</span>`).join('')}</div>
+        <div class="reco-foot">
+          <div class="price-stack">
+            <span class="price">${p.price} lei</span>
+            ${isTransparent
+              ? `<span class="save-mini transparent">Preț transparent · suma produselor</span>`
+              : `<span class="save-mini">✓ Economisești ${p.save} lei vs. individual</span>`}
+          </div>
+          <a class="btn-buy" href="${p.link}">Adaugă pachetul · ${p.price} lei
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="reco-secondary-label">Dacă preferi să începi cu un singur produs</div>
+    <a class="reco-alt" href="${ap.link}">
+      <div class="ph"></div>
+      <div class="info"><h4>${ap.name}</h4><p>Cel mai important produs din pachet · ${ap.specs}.</p></div>
+      <div class="price-mini">${ap.price} lei<small>Vezi produsul →</small></div>
+    </a>
+    <div class="reco-edu">
+      <h4>Ce să citești <em>înainte să decizi.</em></h4>
+      <div class="articles">
+        <div class="article-card">
+          <div class="thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+          <div class="body"><small>Ghid · 7 min</small><h5>De ce un pachet e mai eficient decât 3 suplimente luate separat.</h5></div>
+        </div>
+        <div class="article-card">
+          <div class="thumb t2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/></svg></div>
+          <div class="body"><small>Cercetare · 9 min</small><h5>Sinergii reale vs. colecții marketing — cum le diferențiezi.</h5></div>
+        </div>
+      </div>
+    </div>
+    ${transparencyBlock(r)}
+  </div>
+  <div class="result-foot">
+    <a data-action="restart">↻ Refă testul</a>
+    <a href="Pagina hub - Pachete.html">Vezi toate pachetele →</a>
+  </div>`;
+}
+
+function transparencyBlock(r){
+  const a = state.answers;
+  const q1lbl = a.q1.map(id => {
+    let l = id;
+    Q1_GROUPS.forEach(g => g.items.forEach(it => { if(it.id === id) l = it.label; }));
+    return l;
+  });
+  const lookup = (arr, id) => arr.find(o => o.id === id)?.label || '—';
+  return `<details class="transparency">
+    <summary>Cum am calculat această recomandare</summary>
+    <div class="inner">
+      <h6>Cele 7 răspunsuri ale tale</h6>
+      <ul>
+        <li>Simptome: <span class="v">${q1lbl.length ? q1lbl.join(' · ') : '—'}</span></li>
+        <li>Durata: <span class="v">${lookup(Q2_OPTIONS, a.q2)}</span></li>
+        <li>Vârsta: <span class="v">${lookup(Q3_OPTIONS, a.q3)}</span></li>
+        <li>Intensitate: <span class="v">${lookup(Q4_OPTIONS, a.q4)}</span></li>
+        <li>Stil de viață: <span class="v">${lookup(Q5_OPTIONS, a.q5)}</span></li>
+        <li>Suplimente luate: <span class="v">${lookup(Q6_OPTIONS, a.q6)}</span></li>
+        <li>Preferință formă: <span class="v">${lookup(Q7_OPTIONS, a.q7)}</span></li>
+      </ul>
+      <h6>Axe biologice detectate</h6>
+      <div class="axes-detected">
+        ${r.active.length ? r.active.map(ax => `<span>${AXIS_LABELS[ax.k]} · ${ax.v}p</span>`).join('') : '<span>Nicio axă peste prag · scor general scăzut</span>'}
+      </div>
+    </div>
+  </details>`;
+}
+
+/* ============================================================
+   EVENT BINDING
+   ============================================================ */
+function bind(){
+  document.querySelectorAll('[data-action]').forEach(el => {
+    el.onclick = (e) => {
+      const action = el.dataset.action;
+      if(action === 'start'){ state.step = 1; render(); window.scrollTo({top:0, behavior:'smooth'}); }
+      else if(action === 'back'){ if(state.step > 1){ state.step--; render(); window.scrollTo({top:0, behavior:'smooth'}); } }
+      else if(action === 'next'){ if(state.step < 7){ state.step++; } else { state.step = 8; } render(); window.scrollTo({top:0, behavior:'smooth'}); }
+      else if(action === 'restart'){ state.step = 0; state.answers = { q1:[], q2:null, q3:null, q4:null, q5:null, q6:null, q7:null }; render(); window.scrollTo({top:0, behavior:'smooth'}); }
+      else if(action === 'pick'){
+        const q = el.dataset.q; const id = el.dataset.id;
+        state.answers[q] = id;
+        render();
+      }
+      else if(action === 'toggle-q1'){
+        const id = el.dataset.id;
+        const idx = state.answers.q1.indexOf(id);
+        if(idx >= 0) state.answers.q1.splice(idx, 1);
+        else if(state.answers.q1.length < 5) state.answers.q1.push(id);
+        render();
+      }
+    };
+  });
+}
+
+// Boot
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii: Resetare parolă</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  body{background:var(--color-bg-page)}
+
+  /* Header identic Pagina Autentificare */
+  .auth-header{padding:18px 64px;background:#fff;border-bottom:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+  .auth-header .logo-a{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+  .auth-header .logo-mark-a{width:34px;height:34px;border-radius:50%;background:var(--color-green-primary);color:#fff;display:grid;place-items:center;flex-shrink:0}
+  .auth-header .stack-a{display:flex;flex-direction:column;line-height:1.05}
+  .auth-header .stack-a .name{font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--color-text-primary);letter-spacing:-0.01em}
+  .auth-header .stack-a small{font-family:var(--font-serif);font-style:italic;font-size:11px;color:var(--color-text-faint);font-weight:400;margin-top:1px}
+  .auth-header .back-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:13.5px;color:var(--color-text-muted);font-weight:500;text-decoration:none;padding:8px 14px;border-radius:999px;transition:all .15s}
+  .auth-header .back-link:hover{color:var(--color-green-primary);background:var(--color-green-soft-card)}
+  .auth-header .back-link svg{color:var(--color-text-faint)}
+  .auth-header .back-link:hover svg{color:var(--color-green-primary)}
+
+  /* Layout */
+  .reset-wrap{padding:48px 24px 36px;background:var(--cream);display:flex;flex-direction:column;align-items:center;gap:22px;min-height:calc(100vh - 70px)}
+  .reset-card{width:100%;max-width:480px;background:#fff;border:1px solid var(--rule);border-radius:18px;box-shadow:0 10px 40px -16px rgba(31,61,46,.12), 0 2px 8px rgba(31,61,46,.04);overflow:hidden;position:relative}
+
+  /* Progress bar */
+  .progress{padding:22px 28px 18px;border-bottom:1px solid var(--rule);background:linear-gradient(180deg, #FCFAF6 0%, #fff 100%)}
+  .progress-track{display:flex;align-items:center;justify-content:space-between;gap:4px}
+  .pg-step{display:flex;flex-direction:column;align-items:center;gap:6px;flex:0 0 auto;text-align:center;position:relative;z-index:2;min-width:0}
+  .pg-step .pg-dot{width:30px;height:30px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--ink-3);border:1.5px solid var(--rule);font-family:"Inter",sans-serif;font-size:12px;font-weight:700;flex-shrink:0;transition:all .25s}
+  .pg-step.done .pg-dot{background:var(--green);color:#fff;border-color:var(--green)}
+  .pg-step.active .pg-dot{background:var(--green-deep);color:#fff;border-color:var(--green-deep);box-shadow:0 0 0 4px rgba(46,79,55,.12)}
+  .pg-step .pg-lbl{font-family:"Inter",sans-serif;font-size:10.5px;font-weight:600;color:var(--ink-3);line-height:1.2;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+  .pg-step.active .pg-lbl{color:var(--green-deep);font-weight:700}
+  .pg-step.done .pg-lbl{color:var(--ink-2)}
+  .pg-line{flex:1;height:2px;background:var(--rule);margin:0 -3px;align-self:flex-start;margin-top:14px;border-radius:1px;z-index:1;min-width:18px}
+  .pg-line.done{background:var(--green)}
+
+  /* Step common */
+  .step{padding:30px 32px 32px;display:none;flex-direction:column;gap:18px;animation:stepIn .25s ease}
+  .step.active{display:flex}
+  @keyframes stepIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  .step h2{font-family:"Fraunces",serif;font-weight:400;font-size:28px;line-height:1.15;letter-spacing:-0.02em;margin:0;color:var(--ink)}
+  .step h2 em{font-style:italic;color:var(--green);font-weight:300}
+  .step .sub{font-family:"Inter",sans-serif;font-size:14px;color:var(--ink-2);line-height:1.55;margin:0}
+  .step .sub strong{color:var(--ink);font-weight:600}
+  .step .sub .email-mask{font-family:"JetBrains Mono",monospace;font-size:13px;background:var(--cream);color:var(--green-deep);padding:1px 7px;border-radius:5px;font-weight:600}
+
+  /* Field */
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-family:"Inter",sans-serif;font-size:11.5px;font-weight:600;color:var(--ink-2);letter-spacing:.04em;display:flex;align-items:center;gap:6px}
+  .field .opt{font-family:"Fraunces",serif;font-style:italic;font-size:11px;color:var(--ink-3);font-weight:400;letter-spacing:0;margin-left:auto}
+  .field input{height:46px;border:1.5px solid var(--rule);border-radius:11px;padding:0 14px;font-family:"Inter",sans-serif;font-size:14.5px;color:var(--ink);background:#fff;outline:none;transition:border-color .15s, box-shadow .15s;width:100%;box-sizing:border-box}
+  .field input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(46,79,55,.10)}
+  .field input:invalid:not(:placeholder-shown):not(:focus){border-color:#C44}
+  .field .helper{font-family:"Fraunces",serif;font-style:italic;font-size:12px;color:var(--ink-3);line-height:1.5;margin-top:1px}
+
+  /* Password field with toggle */
+  .pw-wrap{position:relative}
+  .pw-wrap input{padding-right:46px}
+  .pw-toggle{position:absolute;top:50%;right:6px;transform:translateY(-50%);background:transparent;border:0;width:36px;height:36px;border-radius:8px;color:var(--ink-3);cursor:pointer;display:grid;place-items:center;transition:all .15s}
+  .pw-toggle:hover{background:var(--cream);color:var(--green)}
+
+  /* Strength meter */
+  .pw-meter{display:flex;gap:5px;margin-top:6px}
+  .pw-meter .bar{flex:1;height:5px;border-radius:3px;background:var(--rule)}
+  .pw-meter.weak .bar:nth-child(1){background:#C44}
+  .pw-meter.medium .bar:nth-child(1),.pw-meter.medium .bar:nth-child(2){background:#D4A017}
+  .pw-meter.strong .bar{background:#4A7C59}
+  .pw-status{display:flex;justify-content:space-between;align-items:center;font-family:"Inter",sans-serif;font-size:11.5px;font-weight:600;margin-top:5px}
+  .pw-status .lbl{color:var(--ink-3);letter-spacing:.04em}
+  .pw-status .lvl{font-family:"Fraunces",serif;font-style:italic;font-weight:500;font-size:13px}
+  .pw-status .lvl.weak{color:#A33}
+  .pw-status .lvl.medium{color:#8A6A0F}
+  .pw-status .lvl.strong{color:#2E8B57}
+
+  /* Match indicator */
+  .match-row{display:flex;align-items:center;gap:7px;font-family:"Inter",sans-serif;font-size:12.5px;font-weight:600;margin-top:5px;min-height:18px}
+  .match-row .mi{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;transition:all .2s}
+  .match-row.match .mi{background:#4A7C59;color:#fff}
+  .match-row.match{color:#2E8B57}
+  .match-row.nomatch .mi{background:#C44;color:#fff}
+  .match-row.nomatch{color:#A33}
+  .match-row .mi svg{width:11px;height:11px}
+
+  /* Buttons */
+  .btn-primary{height:48px;background:var(--terra);color:#fff;border:0;border-radius:999px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%}
+  .btn-primary:hover{background:var(--terra-deep)}
+  .btn-primary:disabled{background:var(--ink-3);cursor:not-allowed;opacity:.55;box-shadow:none}
+  .btn-primary svg{flex-shrink:0}
+  .btn-outline{height:46px;background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:999px;font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;text-decoration:none}
+  .btn-outline:hover{background:var(--cream)}
+
+  /* Sub link */
+  .sub-link{text-align:center;font-family:"Inter",sans-serif;font-size:13px;color:var(--ink-3);margin-top:2px}
+  .sub-link a{color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+  .sub-link a:hover{color:var(--green-deep)}
+
+  .step-helper{font-family:"Fraunces",serif;font-style:italic;font-size:12.5px;color:var(--ink-3);line-height:1.55;padding:11px 14px;background:var(--cream);border:1px dashed var(--rule);border-radius:10px;display:flex;gap:9px;align-items:flex-start}
+  .step-helper svg{color:var(--green-2);flex-shrink:0;margin-top:2px}
+
+  /* OTP code inputs */
+  .otp-row{display:flex;justify-content:space-between;gap:8px;margin-top:2px}
+  .otp-row input{width:100%;max-width:54px;flex:1;height:58px;border:1.5px solid var(--rule);border-radius:11px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:24px;font-weight:600;color:var(--ink);background:#fff;outline:none;transition:all .15s;padding:0}
+  .otp-row input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(46,79,55,.10);background:#FCFAF6}
+  .otp-row input.filled{border-color:var(--green);color:var(--green-deep)}
+  .otp-row input.err{border-color:#C44;animation:shake .35s}
+  @keyframes shake{
+    0%,100%{transform:translateX(0)}
+    25%{transform:translateX(-4px)}
+    75%{transform:translateX(4px)}
+  }
+
+  .resend-row{text-align:center;font-family:"Inter",sans-serif;font-size:12.5px;color:var(--ink-3);line-height:1.55;margin-top:2px}
+  .resend-row .countdown{font-family:"JetBrains Mono",monospace;color:var(--ink-2);font-weight:600;background:var(--cream);padding:1px 7px;border-radius:5px}
+  .resend-row .resend-link{color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:3px;background:transparent;border:0;cursor:pointer;font-family:"Inter",sans-serif;font-size:12.5px;padding:0}
+  .resend-row .resend-link:disabled{color:var(--ink-3);cursor:not-allowed;text-decoration:none;font-weight:500}
+  .resend-row .resend-link:not(:disabled):hover{color:var(--green-deep)}
+  .change-email-link{text-align:center;font-family:"Inter",sans-serif;font-size:12.5px;color:var(--ink-3);margin-top:4px}
+  .change-email-link a{color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:3px;background:transparent;border:0;cursor:pointer;font-family:"Inter",sans-serif;font-size:12.5px}
+  .change-email-link a:hover{color:var(--green-deep)}
+
+  /* Success state */
+  .success-wrap{padding:40px 32px 36px;display:none;flex-direction:column;align-items:center;text-align:center;gap:16px;animation:stepIn .3s ease}
+  .success-wrap.active{display:flex}
+  .success-icon{width:78px;height:78px;border-radius:50%;background:rgba(46,139,87,.10);color:#2E8B57;display:grid;place-items:center;border:2px solid rgba(46,139,87,.25);position:relative;animation:successPop .5s cubic-bezier(.34,1.56,.64,1)}
+  .success-icon::before{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(46,139,87,.15);animation:successPulse 2s infinite}
+  @keyframes successPop{0%{transform:scale(0)}80%{transform:scale(1.08)}100%{transform:scale(1)}}
+  @keyframes successPulse{
+    0%{transform:scale(1);opacity:.6}
+    100%{transform:scale(1.18);opacity:0}
+  }
+  .success-wrap h2{font-family:"Fraunces",serif;font-weight:400;font-size:28px;line-height:1.15;letter-spacing:-0.02em;margin:6px 0 0;color:var(--ink)}
+  .success-wrap h2 em{font-style:italic;color:var(--green);font-weight:300}
+  .success-wrap p{font-family:"Inter",sans-serif;font-size:14px;color:var(--ink-2);line-height:1.55;margin:0;max-width:340px}
+  .success-wrap .countdown-pill{display:inline-flex;align-items:center;gap:7px;background:var(--cream);padding:7px 14px;border-radius:999px;font-family:"Inter",sans-serif;font-size:12px;color:var(--ink-2);font-weight:600}
+  .success-wrap .countdown-pill svg{color:var(--green);animation:spin 1.4s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .success-wrap .countdown-pill strong{font-family:"JetBrains Mono",monospace;color:var(--green-deep);font-weight:700}
+  .success-wrap .auto-bar{width:100%;max-width:280px;height:4px;background:var(--rule);border-radius:2px;overflow:hidden;margin-top:4px}
+  .success-wrap .auto-bar-fill{height:100%;background:var(--green);width:0;transition:width 3s linear}
+  .success-wrap .auto-bar-fill.run{width:100%}
+  .success-wrap .btn-outline{margin-top:6px}
+
+  /* Trust card */
+  .trust-card{width:100%;max-width:480px;background:var(--cream-2);border:1px solid var(--rule);border-radius:14px;padding:14px 18px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;font-family:"Inter",sans-serif;font-size:11.5px;color:var(--ink-2);font-weight:500}
+  .trust-card .tc-item{display:inline-flex;align-items:center;gap:6px}
+  .trust-card .tc-item svg{color:var(--green);width:13px;height:13px;flex-shrink:0}
+  .trust-card .tc-item strong{color:var(--ink);font-weight:600}
+
+  /* Footer */
+  .auth-footer{background:#fff;border-top:1px solid var(--rule);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .auth-footer .links{display:flex;flex-wrap:wrap;gap:18px;font-family:"Inter",sans-serif;font-size:12px;color:var(--ink-3)}
+  .auth-footer .links a{color:var(--ink-3);text-decoration:none;font-weight:500}
+  .auth-footer .links a:hover{color:var(--green)}
+  .auth-footer .links .sep{color:var(--rule-2)}
+  .auth-footer .copy{font-family:"Inter",sans-serif;font-size:11.5px;color:var(--ink-3);font-weight:500}
+  .auth-footer .copy span{font-family:"Fraunces",serif;font-style:italic;color:var(--ink-3);font-weight:400}
+
+  @media (max-width:560px){
+    .auth-header{padding:14px 20px}
+    .reset-wrap{padding:30px 16px 28px}
+    .reset-card{border-radius:16px}
+    .step{padding:24px 22px 26px}
+    .step h2{font-size:24px}
+    .progress{padding:18px 20px 14px}
+    .pg-step .pg-lbl{font-size:9.5px}
+    .otp-row input{height:50px;font-size:20px;max-width:46px}
+    .success-wrap{padding:32px 22px 28px}
+  }
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Resetare parolă">
+
+  <!-- HEADER identic Pagina Autentificare -->
+  <header class="auth-header">
+    <a class="logo-a" href="Mana Naturii - Homepage.html">
+      <span class="logo-mark-a"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+      <span class="stack-a"><span class="name">mâna naturii</span><small>by vivens genetica</small></span>
+    </a>
+    <a class="back-link" href="Mana Naturii - Homepage.html">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+      Înapoi la magazin
+    </a>
+  </header>
+
+  <section class="reset-wrap">
+
+    <div class="reset-card">
+
+      <!-- PROGRESS BAR -->
+      <div class="progress">
+        <div class="progress-track">
+          <div class="pg-step active" id="pg1">
+            <div class="pg-dot">1</div>
+            <span class="pg-lbl">Email</span>
+          </div>
+          <div class="pg-line" id="pl1"></div>
+          <div class="pg-step" id="pg2">
+            <div class="pg-dot">2</div>
+            <span class="pg-lbl">Cod</span>
+          </div>
+          <div class="pg-line" id="pl2"></div>
+          <div class="pg-step" id="pg3">
+            <div class="pg-dot">3</div>
+            <span class="pg-lbl">Parolă nouă</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 1: EMAIL -->
+      <div class="step active" id="step1">
+        <h2>Ai uitat parola? <em>Nicio problemă.</em></h2>
+        <p class="sub">Îți trimitem un cod de 6 cifre pe email pentru a-ți reseta parola în siguranță.</p>
+
+        <form id="emailForm" novalidate>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" id="emailInput" placeholder="nume@email.ro" required autocomplete="email" />
+          </div>
+          <button type="submit" class="btn-primary" style="margin-top:18px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Trimite codul
+          </button>
+        </form>
+
+        <div class="sub-link">
+          Ţi-ai amintit parola? <a href="Pagina Autentificare.html">Intră în cont</a>.
+        </div>
+
+        <div class="step-helper">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>Dacă ai cont creat prin Google sau Apple, folosește butoanele SSO din pagina de autentificare.</span>
+        </div>
+      </div>
+
+      <!-- STEP 2: CODE -->
+      <div class="step" id="step2">
+        <h2>Verifică <em>emailul.</em></h2>
+        <p class="sub">Am trimis un cod de 6 cifre la <span class="email-mask" id="maskedEmail">a*****a@gmail.com</span>. Codul e valabil 15 minute.</p>
+
+        <div class="field" style="margin-top:6px">
+          <label>Cod de verificare</label>
+          <div class="otp-row" id="otpRow">
+            <input type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" />
+            <input type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" />
+            <input type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" />
+            <input type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" />
+            <input type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" />
+            <input type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" />
+          </div>
+        </div>
+
+        <button type="button" class="btn-primary" id="verifyBtn" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+          Verifică codul
+        </button>
+
+        <div class="resend-row">
+          N-ai primit emailul? Verifică spam-ul sau <button class="resend-link" id="resendBtn" disabled>trimite din nou</button> <span id="resendTimer">(disponibil în <span class="countdown" id="countdown">0:45</span>)</span>
+        </div>
+
+        <div class="change-email-link">
+          <a id="changeEmailLink">Schimbă emailul</a>
+        </div>
+      </div>
+
+      <!-- STEP 3: NEW PASSWORD -->
+      <div class="step" id="step3">
+        <h2>Alege o <em>parolă nouă.</em></h2>
+        <p class="sub">Minim 8 caractere, cu litere și cifre. Fără alte restricții ciudate.</p>
+
+        <div class="field">
+          <label>Parolă nouă</label>
+          <div class="pw-wrap">
+            <input type="password" id="pwNew" placeholder="Cel puțin 8 caractere" autocomplete="new-password" />
+            <button type="button" class="pw-toggle" data-toggle="pwNew" aria-label="Arată parola">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="pw-meter" id="pwMeter"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+          <div class="pw-status">
+            <span class="lbl">FORȚA PAROLEI</span>
+            <span class="lvl" id="pwStatusLvl">Începe să tastezi</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Confirmă parola nouă</label>
+          <div class="pw-wrap">
+            <input type="password" id="pwConfirm" placeholder="Aceeași parolă, încă o dată" autocomplete="new-password" />
+            <button type="button" class="pw-toggle" data-toggle="pwConfirm" aria-label="Arată parola">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="match-row" id="matchRow" style="display:none">
+            <span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span id="matchText">Parolele coincid</span>
+          </div>
+        </div>
+
+        <button type="button" class="btn-primary" id="saveBtn" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Salvează și intră în cont
+        </button>
+
+        <div class="step-helper">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Nu trimitem niciodată parola pe email. O salvăm criptat (hash bcrypt), nici noi nu o putem citi.</span>
+        </div>
+      </div>
+
+      <!-- STEP 4: SUCCESS -->
+      <div class="success-wrap" id="step4">
+        <div class="success-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h2>Parola schimbată. <em>Bun venit înapoi.</em></h2>
+        <p>Poți intra acum în cont cu noua parolă. Te conectăm automat în câteva secunde.</p>
+        <div class="countdown-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>
+          Redirect în <strong id="redirCount">3</strong> secunde
+        </div>
+        <div class="auto-bar"><div class="auto-bar-fill" id="autoBarFill"></div></div>
+        <a class="btn-outline" href="Cont - Dashboard.html" style="max-width:280px">
+          Mergi la dashboard acum
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Trust card -->
+    <div class="trust-card">
+      <div class="tc-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <strong>Conexiune SSL</strong> securizată
+      </div>
+      <div class="tc-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+        Date în <strong>UE, GDPR</strong>
+      </div>
+      <div class="tc-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Cod valabil <strong>15 minute</strong>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="auth-footer">
+    <div class="links">
+      <a href="#">Termeni</a>
+      <span class="sep">·</span>
+      <a href="#">Confidențialitate</a>
+      <span class="sep">·</span>
+      <a href="#">Cookies</a>
+      <span class="sep">·</span>
+      <a href="Pagina Contact.html">Contact</a>
+      <span class="sep">·</span>
+      <a href="Pagina FAQ.html">FAQ</a>
+    </div>
+    <div class="copy">© 2026 Mâna Naturii, <span>by Vivens Genetica</span></div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  // ===== Step navigation =====
+  var steps = {
+    1: document.getElementById('step1'),
+    2: document.getElementById('step2'),
+    3: document.getElementById('step3'),
+    4: document.getElementById('step4')
+  };
+  var pgSteps = { 1: document.getElementById('pg1'), 2: document.getElementById('pg2'), 3: document.getElementById('pg3') };
+  var pgLines = { 1: document.getElementById('pl1'), 2: document.getElementById('pl2') };
+
+  function goTo(n){
+    Object.keys(steps).forEach(function(k){
+      steps[k].classList.remove('active');
+    });
+    steps[n].classList.add('active');
+    // Update progress
+    [1,2,3].forEach(function(i){
+      pgSteps[i].classList.remove('active','done');
+      if(i < n) pgSteps[i].classList.add('done');
+      else if(i === n) pgSteps[i].classList.add('active');
+    });
+    [1,2].forEach(function(i){
+      pgLines[i].classList.remove('done');
+      if(i < n) pgLines[i].classList.add('done');
+    });
+    // If reached step 4, mark all done
+    if(n === 4){
+      [1,2,3].forEach(function(i){ pgSteps[i].classList.add('done'); pgSteps[i].classList.remove('active'); });
+      [1,2].forEach(function(i){ pgLines[i].classList.add('done'); });
+      var p3 = pgSteps[3];
+      // Replace numeric with check
+      var dot = p3.querySelector('.pg-dot');
+      dot.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>';
+    }
+  }
+
+  // Helpers to render checkmark on done steps
+  function refreshProgressIcons(){
+    [1,2,3].forEach(function(i){
+      var st = pgSteps[i];
+      var dot = st.querySelector('.pg-dot');
+      if(st.classList.contains('done')){
+        dot.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>';
+      } else {
+        dot.textContent = String(i);
+      }
+    });
+  }
+  var origGoTo = goTo;
+  goTo = function(n){ origGoTo(n); refreshProgressIcons(); };
+
+  // ===== STEP 1: Email submit =====
+  var emailForm = document.getElementById('emailForm');
+  var emailInput = document.getElementById('emailInput');
+  var maskedEmail = document.getElementById('maskedEmail');
+
+  function maskEmail(e){
+    var parts = e.split('@');
+    if(parts.length !== 2) return e;
+    var local = parts[0];
+    if(local.length <= 2) return e;
+    var masked = local[0] + new Array(Math.max(0, local.length - 2) + 1).join('*') + local[local.length - 1];
+    return masked + '@' + parts[1];
+  }
+
+  emailForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var val = emailInput.value.trim();
+    if(!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){
+      emailInput.focus();
+      emailInput.style.borderColor = '#C44';
+      setTimeout(function(){ emailInput.style.borderColor = ''; }, 1800);
+      return;
+    }
+    maskedEmail.textContent = maskEmail(val);
+    goTo(2);
+    startCountdown();
+    // Focus first OTP
+    setTimeout(function(){
+      document.querySelectorAll('#otpRow input')[0].focus();
+    }, 250);
+  });
+
+  // ===== STEP 2: OTP inputs =====
+  var otpInputs = Array.prototype.slice.call(document.querySelectorAll('#otpRow input'));
+  var verifyBtn = document.getElementById('verifyBtn');
+
+  function updateOtpButton(){
+    var allFilled = otpInputs.every(function(i){ return /^[0-9]$/.test(i.value); });
+    verifyBtn.disabled = !allFilled;
+    otpInputs.forEach(function(i){ i.classList.toggle('filled', /^[0-9]$/.test(i.value)); });
+  }
+
+  otpInputs.forEach(function(inp, idx){
+    inp.addEventListener('input', function(e){
+      var v = inp.value.replace(/[^0-9]/g, '');
+      inp.value = v.slice(-1);
+      if(inp.value && idx < otpInputs.length - 1){
+        otpInputs[idx + 1].focus();
+      }
+      updateOtpButton();
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !inp.value && idx > 0){
+        otpInputs[idx - 1].focus();
+        otpInputs[idx - 1].value = '';
+        updateOtpButton();
+      }
+      if(e.key === 'ArrowLeft' && idx > 0) otpInputs[idx - 1].focus();
+      if(e.key === 'ArrowRight' && idx < otpInputs.length - 1) otpInputs[idx + 1].focus();
+    });
+    inp.addEventListener('paste', function(e){
+      e.preventDefault();
+      var paste = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '');
+      if(!paste) return;
+      otpInputs.forEach(function(i, k){ i.value = paste[k] || ''; });
+      updateOtpButton();
+      var nextEmpty = otpInputs.findIndex(function(i){ return !i.value; });
+      (nextEmpty === -1 ? otpInputs[otpInputs.length - 1] : otpInputs[nextEmpty]).focus();
+    });
+  });
+
+  verifyBtn.addEventListener('click', function(){
+    if(verifyBtn.disabled) return;
+    // Accept any 6-digit combo (mock)
+    goTo(3);
+    setTimeout(function(){ document.getElementById('pwNew').focus(); }, 250);
+  });
+
+  // ===== STEP 2: Countdown =====
+  var countdownEl = document.getElementById('countdown');
+  var resendBtn = document.getElementById('resendBtn');
+  var resendTimer = document.getElementById('resendTimer');
+  var cdTick;
+  function startCountdown(){
+    var remaining = 45;
+    resendBtn.disabled = true;
+    resendTimer.style.display = 'inline';
+    clearInterval(cdTick);
+    cdTick = setInterval(function(){
+      remaining -= 1;
+      var m = Math.floor(remaining / 60);
+      var s = remaining % 60;
+      countdownEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+      if(remaining <= 0){
+        clearInterval(cdTick);
+        resendBtn.disabled = false;
+        resendTimer.style.display = 'none';
+      }
+    }, 1000);
+  }
+  resendBtn.addEventListener('click', function(){
+    if(resendBtn.disabled) return;
+    otpInputs.forEach(function(i){ i.value = ''; i.classList.remove('filled'); });
+    updateOtpButton();
+    startCountdown();
+    otpInputs[0].focus();
+  });
+
+  // Change email link
+  document.getElementById('changeEmailLink').addEventListener('click', function(){
+    goTo(1);
+    clearInterval(cdTick);
+    otpInputs.forEach(function(i){ i.value = ''; i.classList.remove('filled'); });
+    updateOtpButton();
+    setTimeout(function(){ emailInput.focus(); }, 200);
+  });
+
+  // ===== STEP 3: Password strength =====
+  var pwNew = document.getElementById('pwNew');
+  var pwConfirm = document.getElementById('pwConfirm');
+  var pwMeter = document.getElementById('pwMeter');
+  var pwStatusLvl = document.getElementById('pwStatusLvl');
+  var matchRow = document.getElementById('matchRow');
+  var matchText = document.getElementById('matchText');
+  var saveBtn = document.getElementById('saveBtn');
+
+  function strengthOf(p){
+    if(!p) return { level:0, label:'Începe să tastezi', cls:'' };
+    if(p.length < 8) return { level:1, label:'Slabă', cls:'weak' };
+    var hasLetter = /[a-zA-Zăâîșțşţ]/.test(p);
+    var hasDigit = /[0-9]/.test(p);
+    if(hasLetter && hasDigit) return { level:3, label:'Excelentă', cls:'strong' };
+    if(hasLetter || hasDigit) return { level:2, label:'Bună', cls:'medium' };
+    return { level:1, label:'Slabă', cls:'weak' };
+  }
+
+  function updatePwState(){
+    var p = pwNew.value;
+    var s = strengthOf(p);
+    pwMeter.className = 'pw-meter ' + (s.cls || '');
+    pwStatusLvl.className = 'lvl ' + (s.cls || '');
+    pwStatusLvl.textContent = s.label;
+
+    var c = pwConfirm.value;
+    if(c.length === 0){
+      matchRow.style.display = 'none';
+    } else if(c === p){
+      matchRow.style.display = 'flex';
+      matchRow.className = 'match-row match';
+      matchRow.querySelector('.mi').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6 9 17l-5-5"/></svg>';
+      matchText.textContent = 'Parolele coincid';
+    } else {
+      matchRow.style.display = 'flex';
+      matchRow.className = 'match-row nomatch';
+      matchRow.querySelector('.mi').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+      matchText.textContent = 'Nu coincid încă';
+    }
+
+    var canSave = s.level === 3 && c === p && c.length > 0;
+    saveBtn.disabled = !canSave;
+  }
+
+  pwNew.addEventListener('input', updatePwState);
+  pwConfirm.addEventListener('input', updatePwState);
+
+  // Password toggle visibility
+  document.querySelectorAll('.pw-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var targetId = btn.dataset.toggle;
+      var target = document.getElementById(targetId);
+      var isPw = target.type === 'password';
+      target.type = isPw ? 'text' : 'password';
+      btn.innerHTML = isPw
+        ? '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+        : '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+    });
+  });
+
+  // ===== STEP 3: Save =====
+  saveBtn.addEventListener('click', function(){
+    if(saveBtn.disabled) return;
+    goTo(4);
+    startRedirect();
+  });
+
+  // ===== STEP 4: Auto redirect =====
+  var redirCount = document.getElementById('redirCount');
+  var autoBarFill = document.getElementById('autoBarFill');
+  function startRedirect(){
+    setTimeout(function(){ autoBarFill.classList.add('run'); }, 50);
+    var n = 3;
+    var t = setInterval(function(){
+      n -= 1;
+      if(n <= 0){
+        clearInterval(t);
+        window.location.href = 'Cont - Dashboard.html';
+      } else {
+        redirCount.textContent = n;
+      }
+    }, 1000);
+  }
+
+})();
+</script>
+</body>
+</html>

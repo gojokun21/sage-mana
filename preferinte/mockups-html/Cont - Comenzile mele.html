@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Comenzile mele</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .breadcrumb{padding:18px 64px;font-size:13px;color:var(--ink-3);display:flex;align-items:center;gap:10px;background:#fff;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:20}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--ink);font-weight:600}
+
+  /* Layout */
+  .account-wrap{display:grid;grid-template-columns:280px 1fr;gap:32px;padding:32px 64px 80px;background:var(--cream);min-height:600px;align-items:flex-start}
+
+  /* SIDEBAR */
+  .sidebar{position:sticky;top:84px;background:#fff;border:1px solid var(--rule);border-radius:20px;overflow:hidden}
+  .sb-profile{padding:24px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--rule)}
+  .sb-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;display:grid;place-items:center;font-family:"Fraunces",serif;font-size:19px;font-weight:500;letter-spacing:-0.01em;flex-shrink:0}
+  .sb-profile .who{display:flex;flex-direction:column;min-width:0}
+  .sb-profile .who .n{font-family:"Inter",sans-serif;font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.2}
+  .sb-profile .who .e{font-size:12px;color:var(--ink-3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sb-nav{padding:14px 12px;display:flex;flex-direction:column;gap:2px}
+  .sb-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink-2);font-weight:500;cursor:pointer;position:relative;text-decoration:none}
+  .sb-item:hover{background:var(--cream)}
+  .sb-item svg{width:16px;height:16px;color:var(--ink-3);flex-shrink:0}
+  .sb-item.active{background:var(--cream);color:var(--green-deep);font-weight:600}
+  .sb-item.active svg{color:var(--green)}
+  .sb-item.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--terra);border-radius:0 3px 3px 0}
+  .sb-item .chip-level{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:var(--cream-2);color:var(--green-deep);font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:999px;text-transform:uppercase}
+  .sb-item .chip-level::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green-2)}
+  .sb-sep{height:1px;background:var(--rule);margin:8px 16px}
+  .sb-logout{display:flex;align-items:center;gap:10px;padding:14px 26px;font-size:12.5px;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+  /* Main */
+  .main-col{display:flex;flex-direction:column;gap:24px;min-width:0}
+
+  .page-head{padding:0 4px}
+  .page-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--green-2);font-weight:600;margin-bottom:14px}
+  .page-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--green-2)}
+  .page-head h1{font-family:"Fraunces",serif;font-weight:400;font-size:36px;line-height:1.1;letter-spacing:-0.015em;margin:0 0 12px}
+  .page-head h1 em{font-style:italic;color:var(--green);font-weight:300}
+  .page-head p{font-size:14.5px;color:var(--ink-2);line-height:1.6;max-width:680px;margin:0}
+
+  /* Metrics */
+  .metrics{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:24px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .metric{display:flex;align-items:flex-start;gap:14px;padding:0 16px;border-right:1px solid var(--rule)}
+  .metric:last-child{border-right:0}
+  .metric:first-child{padding-left:0}
+  .metric .ico{width:38px;height:38px;border-radius:10px;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+  .metric .eyebrow{font-family:"Inter",sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700;display:block;margin-bottom:6px}
+  .metric .big{font-family:"Fraunces",serif;font-size:26px;font-weight:500;color:var(--ink);line-height:1;letter-spacing:-0.01em}
+  .metric .lbl{font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:var(--ink-3);margin-top:4px;line-height:1.4}
+
+  /* Filters */
+  .filter-bar{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:18px 24px;display:flex;flex-direction:column;gap:14px}
+  .filter-search{display:flex;align-items:center;background:var(--cream);border:1.5px solid var(--rule);border-radius:12px;padding:0 14px;height:44px;gap:10px}
+  .filter-search:focus-within{border-color:var(--green)}
+  .filter-search svg{color:var(--green);flex-shrink:0}
+  .filter-search input{flex:1;border:0;background:transparent;font-family:"Inter",sans-serif;font-size:14px;color:var(--ink);outline:none}
+  .filter-search input::placeholder{color:var(--ink-3)}
+  .filter-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+  .chip-set{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--rule);color:var(--ink-2);font-family:"Inter",sans-serif;font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:999px;cursor:pointer;transition:all .12s}
+  .chip:hover{border-color:var(--green-2);color:var(--green)}
+  .chip.active{background:var(--cream);border-color:var(--green);color:var(--green-deep)}
+  .chip .ct{color:var(--ink-3);font-weight:500;font-size:11.5px}
+  .chip.active .ct{color:var(--green)}
+  .sort-select{height:38px;border:1px solid var(--rule);border-radius:999px;padding:0 32px 0 14px;font-family:"Inter",sans-serif;font-size:12.5px;color:var(--ink-2);background:#fff;outline:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%23556' stroke-width='1.5'/></svg>");background-repeat:no-repeat;background-position:right 12px center}
+
+  /* Order cards */
+  .orders-list{display:flex;flex-direction:column;gap:14px}
+  .order-card{background:#fff;border:1px solid var(--rule);border-radius:16px;overflow:hidden;transition:all .15s}
+  .order-card:hover{border-color:var(--green-2);box-shadow:0 8px 16px -8px rgba(15,42,29,.10)}
+  .order-card.hidden{display:none}
+
+  .order-head{padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--rule);background:#FCFAF3}
+  .order-head .left{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .order-num{font-family:"Fraunces",serif;font-size:17px;font-weight:500;color:var(--ink);letter-spacing:-0.005em}
+  .order-date{font-family:"Inter",sans-serif;font-size:12.5px;color:var(--ink-3);font-weight:500}
+  .order-date::before{content:"·";margin-right:8px;color:var(--rule-2)}
+  .status-badge{display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:999px;font-family:"Inter",sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .status-badge .dot{width:6px;height:6px;border-radius:50%}
+  .status-badge.delivered{background:rgba(46,139,87,.10);color:#2E8B57}
+  .status-badge.delivered .dot{background:#2E8B57}
+  .status-badge.shipped{background:rgba(196,98,63,.10);color:var(--terra-deep)}
+  .status-badge.shipped .dot{background:var(--terra)}
+  .status-badge.processing{background:rgba(212,160,23,.12);color:#8A6810}
+  .status-badge.processing .dot{background:#D4A017;animation:pulse 1.5s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+  .order-products{padding:18px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-bottom:1px solid var(--rule)}
+  .prod-thumbs{display:flex;gap:8px}
+  .prod-thumb{width:46px;height:46px;border-radius:9px;background:linear-gradient(160deg,#FFF9E1,#EDD27D);display:grid;place-items:center;position:relative;flex-shrink:0}
+  .prod-thumb.t-micro{background:linear-gradient(160deg,#FFF9E1,#EDD27D)}
+  .prod-thumb.t-choco{background:linear-gradient(160deg,#4A3120,#2C1B10)}
+  .prod-thumb.t-dtox{background:linear-gradient(160deg,#EFE9DA,#B89867)}
+  .prod-thumb.t-black{background:linear-gradient(160deg,#3a2818,#1a0e08)}
+  .prod-thumb.t-collagen{background:linear-gradient(160deg,#F5C0C0,#D88080)}
+  .prod-thumb.t-pack-imun{background:linear-gradient(160deg,#E5D6B8,#C9B68A)}
+  .prod-thumb.t-pack-detox{background:linear-gradient(160deg,#D9E8D2,#A8C39A)}
+  .prod-thumb.t-sirop{background:linear-gradient(160deg,#FFD9B3,#E6A86B)}
+  .prod-thumb.t-propolis{background:linear-gradient(160deg,#F0E0A8,#C89F4A)}
+  .prod-thumb::after{content:"";width:14px;height:24px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:2px 2px 4px 4px}
+  .prod-thumb.t-choco::after,.prod-thumb.t-black::after{background:linear-gradient(180deg,#0F1810,#000)}
+  .prod-thumb.t-collagen::after{background:linear-gradient(180deg,#5a3a3a,#2a1818)}
+  .prod-info{flex:1;min-width:0}
+  .prod-list{font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink);line-height:1.55}
+  .prod-list .more{color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:12.5px;margin-left:6px}
+  .prod-meta{font-family:"Fraunces",serif;font-style:italic;font-size:12.5px;color:var(--ink-3);margin-top:2px}
+
+  .order-total{padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--rule)}
+  .order-total .amount{font-family:"Fraunces",serif;font-size:22px;font-weight:500;color:var(--ink);line-height:1;letter-spacing:-0.01em}
+  .order-total .meta{font-family:"Inter",sans-serif;font-size:12px;color:var(--ink-3);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .order-total .meta .pay-pill{display:inline-flex;align-items:center;gap:6px;background:var(--cream);border:1px solid var(--rule);padding:4px 9px;border-radius:8px;font-weight:600;color:var(--ink)}
+  .order-total .meta .sep{color:var(--rule-2)}
+  .order-total .meta .free{color:var(--green);font-weight:600}
+
+  .order-actions{padding:14px 24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .act-link{font-family:"Inter",sans-serif;font-size:12.5px;color:var(--ink-2);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:6px 0}
+  .act-link:hover{color:var(--green)}
+  .act-link svg{color:var(--green);flex-shrink:0}
+  .act-link.expand-toggle{margin-left:auto}
+  .act-btn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:999px;font-family:"Inter",sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;cursor:pointer;border:1.5px solid;transition:all .12s}
+  .act-btn.primary{background:var(--terra);color:#fff;border-color:var(--terra);box-shadow:0 8px 16px -6px rgba(224,122,75,.5)}
+  .act-btn.primary:hover{background:var(--terra-deep);border-color:var(--terra-deep)}
+  .act-btn.outline{background:#fff;color:var(--ink-2);border-color:var(--rule)}
+  .act-btn.outline:hover{border-color:var(--green);color:var(--green)}
+
+  /* Expandable timeline */
+  .order-expand{display:none;padding:24px 24px 28px;background:#FCFAF3;border-top:1px solid var(--rule);animation:slideDown .25s ease}
+  .order-card.expanded .order-expand{display:block}
+  @keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+  .expand-section{margin-bottom:24px}
+  .expand-section:last-child{margin-bottom:0}
+  .expand-label{font-family:"Inter",sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:14px}
+
+  .timeline-h{display:flex;justify-content:space-between;align-items:flex-start;position:relative;gap:8px}
+  .timeline-h::before{content:"";position:absolute;top:14px;left:7%;right:7%;height:2px;background:var(--green);z-index:0}
+  .tl-step-h{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;position:relative;z-index:1;text-align:center}
+  .tl-step-h .dot{width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;border:2px solid #FCFAF3}
+  .tl-step-h .ttl{font-family:"Inter",sans-serif;font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.3}
+  .tl-step-h .when{font-family:"Fraunces",serif;font-style:italic;font-size:11px;color:var(--ink-3);line-height:1.3}
+
+  .addr-box{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+  .addr-cell{display:flex;flex-direction:column;gap:2px;font-size:12.5px}
+  .addr-cell .k{font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:4px}
+  .addr-cell .v{color:var(--ink);line-height:1.5;font-weight:500}
+  .addr-cell .v small{display:block;font-family:"Fraunces",serif;font-style:italic;color:var(--ink-3);font-weight:400;font-size:12px;margin-top:1px}
+  .addr-cell .v a{color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+  /* Pagination */
+  .pagination{padding:14px 0 0;display:flex;justify-content:center;align-items:center;gap:8px}
+  .pag-btn{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 16px;background:#fff;border:1.5px solid var(--rule);color:var(--ink-2);border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none}
+  .pag-btn:hover{border-color:var(--green);color:var(--green)}
+  .pag-num{width:38px;height:38px;border-radius:50%;background:#fff;border:1.5px solid var(--rule);color:var(--ink-2);font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:grid;place-items:center}
+  .pag-num.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+  /* Help section */
+  .help-section{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:22px 24px}
+  .help-section h3{font-family:"Fraunces",serif;font-size:18px;font-weight:500;line-height:1.3;margin:0 0 14px;color:var(--ink)}
+  .help-section h3 em{font-style:italic;color:var(--green);font-weight:300}
+  .help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .help-card{display:flex;align-items:center;gap:12px;background:var(--cream);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;text-decoration:none;color:inherit;transition:all .12s}
+  .help-card:hover{border-color:var(--green-2);background:#fff}
+  .help-card .ico{width:32px;height:32px;border-radius:8px;background:#fff;border:1px solid var(--rule);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+  .help-card .copy h4{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin:0 0 2px;line-height:1.3}
+  .help-card .copy p{font-family:"Fraunces",serif;font-style:italic;font-size:11.5px;color:var(--ink-3);margin:0;line-height:1.4}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Cont · Comenzile mele">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 250 lei</span><span class="dot"></span>
+        <span>Livrare 1–3 zile</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--ink-3)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Salut, Andreea</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><a>Contul meu</a><span class="sep">›</span><span class="here">Comenzi</span></div>
+
+  <section class="account-wrap">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sb-profile">
+        <div class="sb-avatar">AP</div>
+        <div class="who">
+          <span class="n">Andreea Popescu</span>
+          <span class="e">andreea.popescu@gmail.c...</span>
+        </div>
+      </div>
+      <nav class="sb-nav">
+        <a class="sb-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Comenzi</a>
+        <a class="sb-item" href="Cont - Gestionare Abonament.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Abonamente</a>
+        <a class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Adrese de livrare</a>
+        <a class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Date personale</a>
+        <a class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Carduri salvate</a>
+        <a class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Cod fidelitate<span class="chip-level">CONSTANT</span></a>
+        <a class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notificări</a>
+      </nav>
+      <div class="sb-sep"></div>
+      <a class="sb-logout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Ieși din cont</a>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main-col">
+
+      <!-- HERO -->
+      <div class="page-head">
+        <div class="eyebrow">Cont · Comenzi</div>
+        <h1>Comenzile tale, <em>la un click.</em></h1>
+        <p>Vezi statusul, descarci facturile, ceri retur sau comanzi din nou în câteva secunde.</p>
+      </div>
+
+      <!-- METRICS -->
+      <div class="metrics">
+        <div class="metric">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div>
+            <span class="eyebrow">Total comenzi</span>
+            <div class="big">12</div>
+            <div class="lbl">de la prima ta comandă, 12 martie 2025</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div>
+            <span class="eyebrow">Total cumpărat</span>
+            <div class="big">1.847 lei</div>
+            <div class="lbl">medie 154 lei pe comandă</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg></div>
+          <div>
+            <span class="eyebrow">Returnuri</span>
+            <div class="big">0</div>
+            <div class="lbl">felicitări pentru alegeri inspirate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILTERS -->
+      <div class="filter-bar">
+        <div class="filter-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="orderSearch" type="search" placeholder="Caută după număr comandă sau produs..." />
+        </div>
+        <div class="filter-row">
+          <div class="chip-set" id="chipSet">
+            <span class="chip active" data-status="all">Toate <span class="ct">(12)</span></span>
+            <span class="chip" data-status="processing">În procesare <span class="ct">(1)</span></span>
+            <span class="chip" data-status="shipped">Expediate <span class="ct">(1)</span></span>
+            <span class="chip" data-status="delivered">Livrate <span class="ct">(10)</span></span>
+            <span class="chip" data-status="cancelled">Anulate <span class="ct">(0)</span></span>
+            <span class="chip" data-status="returned">Returnate <span class="ct">(0)</span></span>
+          </div>
+          <select class="sort-select">
+            <option>Cele mai recente</option>
+            <option>Cele mai vechi</option>
+            <option>Suma crescător</option>
+            <option>Suma descrescător</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ORDERS -->
+      <div class="orders-list" id="ordersList">
+
+        <!-- Order 1 -->
+        <article class="order-card" data-status="processing" data-search="mn-2026-0142 microflora chocoprotein">
+          <div class="order-head">
+            <div class="left">
+              <span class="order-num">#MN-2026-0142</span>
+              <span class="order-date">18 noiembrie 2026</span>
+            </div>
+            <span class="status-badge processing"><span class="dot"></span>În procesare</span>
+          </div>
+          <div class="order-products">
+            <div class="prod-thumbs">
+              <div class="prod-thumb t-micro"></div>
+              <div class="prod-thumb t-choco"></div>
+            </div>
+            <div class="prod-info">
+              <div class="prod-list">Microflora+ Lemon Shots <strong>× 1</strong>, ChocoProtein 1000g <strong>× 1</strong></div>
+              <div class="prod-meta">2 produse, 1,4 kg</div>
+            </div>
+          </div>
+          <div class="order-total">
+            <span class="amount">176,90 lei</span>
+            <span class="meta">
+              <span class="pay-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Stripe ••••7821</span>
+              <span class="sep">·</span>
+              <span class="free">Transport gratuit</span>
+            </span>
+          </div>
+          <div class="order-actions">
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Vezi detalii</a>
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă factură</a>
+          </div>
+        </article>
+
+        <!-- Order 2 -->
+        <article class="order-card" data-status="shipped" data-search="mn-2026-0128 pachet bronze imunitate">
+          <div class="order-head">
+            <div class="left">
+              <span class="order-num">#MN-2026-0128</span>
+              <span class="order-date">02 noiembrie 2026</span>
+            </div>
+            <span class="status-badge shipped"><span class="dot"></span>Expediat</span>
+          </div>
+          <div class="order-products">
+            <div class="prod-thumbs">
+              <div class="prod-thumb t-pack-imun"></div>
+            </div>
+            <div class="prod-info">
+              <div class="prod-list">Pachet Bronze Imunitate <strong>× 1</strong></div>
+              <div class="prod-meta">Pachet 2 produse, 33 doze cură</div>
+            </div>
+          </div>
+          <div class="order-total">
+            <span class="amount">178 lei</span>
+            <span class="meta">
+              <span class="pay-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>Apple Pay</span>
+              <span class="sep">·</span>
+              <span class="free">Transport gratuit</span>
+            </span>
+          </div>
+          <div class="order-actions">
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Vezi detalii</a>
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă factură</a>
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="15" height="10" rx="1"/><path d="M18 11h2l3 3v4h-5"/><circle cx="7" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>Urmărește colet (AWB)</a>
+          </div>
+        </article>
+
+        <!-- Order 3 — EXPANDABLE -->
+        <article class="order-card" data-status="delivered" data-search="mn-2026-0103 d-tox black seed elixir" id="order-0103">
+          <div class="order-head">
+            <div class="left">
+              <span class="order-num">#MN-2026-0103</span>
+              <span class="order-date">12 octombrie 2026</span>
+            </div>
+            <span class="status-badge delivered"><span class="dot"></span>Livrat</span>
+          </div>
+          <div class="order-products">
+            <div class="prod-thumbs">
+              <div class="prod-thumb t-dtox"></div>
+              <div class="prod-thumb t-black"></div>
+            </div>
+            <div class="prod-info">
+              <div class="prod-list">D-Tox plus <strong>× 1</strong>, Black Seed Elixir <strong>× 1</strong></div>
+              <div class="prod-meta">2 produse, cură 33 doze</div>
+            </div>
+          </div>
+          <div class="order-total">
+            <span class="amount">234 lei</span>
+            <span class="meta">
+              <span class="pay-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Stripe ••••7821</span>
+              <span class="sep">·</span>
+              <span class="free">Transport gratuit</span>
+            </span>
+          </div>
+          <div class="order-actions">
+            <a class="act-link expand-trigger"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Vezi detalii</a>
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă factură</a>
+            <a class="act-btn primary"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Comandă din nou</a>
+            <a class="act-btn outline" href="Pagina Retur RMA.html"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>Cere retur</a>
+            <a class="act-link expand-toggle expand-trigger">Detalii livrare <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron"><path d="m6 9 6 6 6-6"/></svg></a>
+          </div>
+          <div class="order-expand">
+            <div class="expand-section">
+              <div class="expand-label">Traseu colet</div>
+              <div class="timeline-h">
+                <div class="tl-step-h">
+                  <div class="dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+                  <span class="ttl">Plasată</span>
+                  <span class="when">12 oct · 14:22</span>
+                </div>
+                <div class="tl-step-h">
+                  <div class="dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+                  <span class="ttl">Confirmată</span>
+                  <span class="when">12 oct · 14:24</span>
+                </div>
+                <div class="tl-step-h">
+                  <div class="dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+                  <span class="ttl">Împachetată</span>
+                  <span class="when">13 oct · 09:48</span>
+                </div>
+                <div class="tl-step-h">
+                  <div class="dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+                  <span class="ttl">Expediată</span>
+                  <span class="when">13 oct · 16:15</span>
+                </div>
+                <div class="tl-step-h">
+                  <div class="dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+                  <span class="ttl">Livrată</span>
+                  <span class="when">15 oct · 11:30</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="expand-section">
+              <div class="expand-label">Detalii livrare</div>
+              <div class="addr-box">
+                <div class="addr-cell">
+                  <span class="k">Adresă livrare</span>
+                  <span class="v">Str. Florilor 12, bl. A, sc. 1, ap. 4<small>București, Sector 2</small></span>
+                </div>
+                <div class="addr-cell">
+                  <span class="k">Curier AWB</span>
+                  <span class="v">FAN Courier<small>7400123456789</small><a>Detalii AWB</a></span>
+                </div>
+                <div class="addr-cell">
+                  <span class="k">Semnătură primire</span>
+                  <span class="v">Andreea P.<small>15 oct · 11:30, livrat personal</small></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="expand-section" style="margin-bottom:0">
+              <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Descarcă factura PDF</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Order 4 -->
+        <article class="order-card" data-status="delivered" data-search="mn-2026-0089 collagen joint">
+          <div class="order-head">
+            <div class="left">
+              <span class="order-num">#MN-2026-0089</span>
+              <span class="order-date">28 septembrie 2026</span>
+            </div>
+            <span class="status-badge delivered"><span class="dot"></span>Livrat</span>
+          </div>
+          <div class="order-products">
+            <div class="prod-thumbs">
+              <div class="prod-thumb t-collagen"></div>
+            </div>
+            <div class="prod-info">
+              <div class="prod-list">Collagen Joint+ Berry <strong>× 1</strong></div>
+              <div class="prod-meta">1 produs, 500 ml, 33 doze</div>
+            </div>
+          </div>
+          <div class="order-total">
+            <span class="amount">184 lei</span>
+            <span class="meta">
+              <span class="pay-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Google Pay</span>
+              <span class="sep">·</span>
+              <span class="free">Transport gratuit</span>
+            </span>
+          </div>
+          <div class="order-actions">
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Vezi detalii</a>
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă factură</a>
+            <a class="act-btn primary"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Comandă din nou</a>
+          </div>
+        </article>
+
+        <!-- Order 5 -->
+        <article class="order-card" data-status="delivered" data-search="mn-2026-0067 pachet silver detox">
+          <div class="order-head">
+            <div class="left">
+              <span class="order-num">#MN-2026-0067</span>
+              <span class="order-date">15 august 2026</span>
+            </div>
+            <span class="status-badge delivered"><span class="dot"></span>Livrat</span>
+          </div>
+          <div class="order-products">
+            <div class="prod-thumbs">
+              <div class="prod-thumb t-pack-detox"></div>
+            </div>
+            <div class="prod-info">
+              <div class="prod-list">Pachet Silver Detox <strong>× 1</strong></div>
+              <div class="prod-meta">Pachet 3 produse, cură 50 zile</div>
+            </div>
+          </div>
+          <div class="order-total">
+            <span class="amount">387 lei</span>
+            <span class="meta">
+              <span class="pay-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Stripe ••••7821</span>
+              <span class="sep">·</span>
+              <span class="free">Transport gratuit</span>
+            </span>
+          </div>
+          <div class="order-actions">
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Vezi detalii</a>
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă factură</a>
+            <a class="act-btn primary"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Comandă din nou</a>
+          </div>
+        </article>
+
+        <!-- Order 6 -->
+        <article class="order-card" data-status="delivered" data-search="mn-2026-0051 microflora">
+          <div class="order-head">
+            <div class="left">
+              <span class="order-num">#MN-2026-0051</span>
+              <span class="order-date">22 iulie 2026</span>
+            </div>
+            <span class="status-badge delivered"><span class="dot"></span>Livrat</span>
+          </div>
+          <div class="order-products">
+            <div class="prod-thumbs">
+              <div class="prod-thumb t-micro"></div>
+            </div>
+            <div class="prod-info">
+              <div class="prod-list">Microflora+ Lemon Shots <strong>× 2</strong></div>
+              <div class="prod-meta">1 produs, 2 cantități, 66 doze</div>
+            </div>
+          </div>
+          <div class="order-total">
+            <span class="amount">152 lei</span>
+            <span class="meta">
+              <span class="pay-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Stripe ••••7821</span>
+              <span class="sep">·</span>
+              <span class="free">Transport gratuit</span>
+            </span>
+          </div>
+          <div class="order-actions">
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Vezi detalii</a>
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă factură</a>
+            <a class="act-btn primary"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Comandă din nou</a>
+          </div>
+        </article>
+
+        <!-- Order 7 -->
+        <article class="order-card" data-status="delivered" data-search="mn-2026-0032 sirop tuse propolis">
+          <div class="order-head">
+            <div class="left">
+              <span class="order-num">#MN-2026-0032</span>
+              <span class="order-date">05 mai 2026</span>
+            </div>
+            <span class="status-badge delivered"><span class="dot"></span>Livrat</span>
+          </div>
+          <div class="order-products">
+            <div class="prod-thumbs">
+              <div class="prod-thumb t-sirop"></div>
+              <div class="prod-thumb t-propolis"></div>
+            </div>
+            <div class="prod-info">
+              <div class="prod-list">Sirop tuse copii <strong>× 2</strong>, Propolis spray <strong>× 1</strong></div>
+              <div class="prod-meta">2 produse, 3 cantități totale</div>
+            </div>
+          </div>
+          <div class="order-total">
+            <span class="amount">198 lei</span>
+            <span class="meta">
+              <span class="pay-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>Ramburs</span>
+              <span class="sep">·</span>
+              <span>Transport 19,90 lei</span>
+            </span>
+          </div>
+          <div class="order-actions">
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Vezi detalii</a>
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă factură</a>
+            <a class="act-btn primary"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Comandă din nou</a>
+          </div>
+        </article>
+
+        <!-- Order 8 -->
+        <article class="order-card" data-status="delivered" data-search="mn-2026-0014 microflora prima comanda">
+          <div class="order-head">
+            <div class="left">
+              <span class="order-num">#MN-2026-0014</span>
+              <span class="order-date">12 martie 2026</span>
+            </div>
+            <span class="status-badge delivered"><span class="dot"></span>Livrat</span>
+          </div>
+          <div class="order-products">
+            <div class="prod-thumbs">
+              <div class="prod-thumb t-micro"></div>
+            </div>
+            <div class="prod-info">
+              <div class="prod-list">Microflora+ Lemon Shots <strong>× 1</strong> <em style="color:var(--ink-3);font-style:italic;font-family:Fraunces,serif;font-size:12.5px">(prima ta comandă)</em></div>
+              <div class="prod-meta">1 produs, 33 doze</div>
+            </div>
+          </div>
+          <div class="order-total">
+            <span class="amount">76 lei</span>
+            <span class="meta">
+              <span class="pay-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Stripe ••••7821</span>
+              <span class="sep">·</span>
+              <span>Transport 19,90 lei</span>
+            </span>
+          </div>
+          <div class="order-actions">
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Vezi detalii</a>
+            <a class="act-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă factură</a>
+            <a class="act-btn primary"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Comandă din nou</a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- PAGINATION -->
+      <div class="pagination">
+        <a class="pag-btn" aria-disabled="true" style="opacity:.45;cursor:not-allowed"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>Anterior</a>
+        <a class="pag-num active">1</a>
+        <a class="pag-num">2</a>
+        <a class="pag-btn">Următor<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></a>
+      </div>
+
+      <!-- HELP -->
+      <div class="help-section">
+        <h3>Ai nevoie de <em>ajutor?</em></h3>
+        <div class="help-grid">
+          <a class="help-card" href="Pagina Contact.html">
+            <div class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div class="copy">
+              <h4>Probleme cu o comandă?</h4>
+              <p>WhatsApp sub 1 oră, email 24h.</p>
+            </div>
+          </a>
+          <a class="help-card" href="Pagina Retur RMA.html">
+            <div class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg></div>
+            <div class="copy">
+              <h4>Cum returnez un produs?</h4>
+              <p>14 zile pentru produse sigilate.</p>
+            </div>
+          </a>
+          <a class="help-card">
+            <div class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="copy">
+              <h4>Unde îmi găsesc facturile?</h4>
+              <p>Aici și pe email, în 24h după livrare.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  // Filter chips
+  var chips = document.querySelectorAll('#chipSet .chip');
+  var cards = document.querySelectorAll('.order-card');
+  var searchInput = document.getElementById('orderSearch');
+  var activeStatus = 'all';
+
+  function applyFilters(){
+    var q = (searchInput.value || '').trim().toLowerCase();
+    cards.forEach(function(c){
+      var s = c.dataset.status;
+      var hay = (c.dataset.search || '') + ' ' + c.textContent.toLowerCase();
+      var matchStatus = (activeStatus === 'all') || (s === activeStatus);
+      var matchSearch = !q || hay.indexOf(q) > -1;
+      c.classList.toggle('hidden', !(matchStatus && matchSearch));
+    });
+  }
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      chips.forEach(function(c){c.classList.remove('active');});
+      chip.classList.add('active');
+      activeStatus = chip.dataset.status;
+      applyFilters();
+    });
+  });
+  searchInput.addEventListener('input', applyFilters);
+
+  // Expand toggle (only #order-0103 has expand zone)
+  var expandCard = document.getElementById('order-0103');
+  if(expandCard){
+    expandCard.querySelectorAll('.expand-trigger').forEach(function(el){
+      el.addEventListener('click', function(e){
+        e.preventDefault();
+        expandCard.classList.toggle('expanded');
+        var chev = expandCard.querySelector('.chevron');
+        if(chev) chev.style.transform = expandCard.classList.contains('expanded') ? 'rotate(180deg)' : '';
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>

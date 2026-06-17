@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Noutăți · În curând</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* HERO */
+  .filt-hero{padding:64px 64px 56px;background:var(--color-bg-page)}
+  .filt-hero .inner{max-width:1180px;margin:0 auto}
+  .filt-hero .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:18px}
+  .filt-hero .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .filt-hero h1{font-family:var(--font-serif);font-weight:400;font-size:54px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 16px;color:var(--color-text-primary);max-width:780px}
+  .filt-hero h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .filt-hero .lede{font-size:16.5px;color:var(--color-text-muted);line-height:1.7;max-width:640px;margin:0 0 24px}
+  .filt-hero .lede strong{color:var(--color-text-primary);font-weight:600}
+  .big-disclaimer{max-width:760px;background:var(--color-bg-card);border-left:4px solid var(--color-gold);padding:18px 22px 18px 56px;border-radius:0 12px 12px 0;font-family:var(--font-sans);font-size:14px;color:var(--color-text-primary);line-height:1.65;margin:0 0 26px;position:relative}
+  .big-disclaimer::before{content:"";position:absolute;left:18px;top:20px;width:24px;height:24px;border-radius:50%;background:var(--color-gold);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231F3D2E' stroke-width='2.4'><path d='M12 9v4M12 17h.01'/><circle cx='12' cy='12' r='10'/></svg>");background-size:14px;background-position:center;background-repeat:no-repeat}
+  .big-disclaimer strong{display:block;font-family:var(--font-sans);font-weight:700;letter-spacing:.04em;font-size:11px;color:var(--color-gold);text-transform:uppercase;margin-bottom:4px}
+  .hero-cta{display:inline-flex;align-items:center;gap:10px;height:54px;padding:0 26px;background:var(--color-cta-primary);color:#fff;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:15px;text-decoration:none;box-shadow:var(--shadow-cta)}
+  .hero-cta:hover{background:var(--color-cta-primary-hover)}
+
+  /* EXPLAIN */
+  .explain{padding:64px;background:var(--color-bg-card);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
+  .explain-inner{max-width:1180px;margin:0 auto}
+  .explain-head{margin-bottom:32px;max-width:680px}
+  .explain-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:12px}
+  .explain-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .explain-head h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0}
+  .explain-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .explain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .ex-card{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:24px 26px;display:flex;flex-direction:column;gap:12px}
+  .ex-card .ico{width:38px;height:38px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;flex-shrink:0}
+  .ex-card h3{font-family:var(--font-serif);font-size:18px;font-weight:500;line-height:1.3;margin:0;color:var(--color-text-primary)}
+  .ex-card p{font-size:14px;color:var(--color-text-muted);line-height:1.65;margin:0}
+  .ex-card p strong{color:var(--color-text-primary);font-weight:600}
+
+  /* TINCTURE GRID */
+  .tinctures{padding:80px 64px 56px;background:var(--color-bg-page)}
+  .tinctures-inner{max-width:1180px;margin:0 auto}
+  .tinctures-head{margin-bottom:32px}
+  .tinctures-head h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.1;letter-spacing:-0.02em;margin:0 0 8px;max-width:640px}
+  .tinctures-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .tinctures-head p{font-family:var(--font-serif);font-style:italic;font-size:14.5px;color:var(--color-text-faint);margin:0}
+  .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+
+  .tcard{background:#fff;border:1.5px dashed var(--color-border-2);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+  .tcard:hover{border-color:var(--color-gold);border-style:solid}
+  .tcard .pending-badge{position:absolute;top:14px;left:14px;right:14px;display:inline-flex;align-items:center;gap:8px;background:var(--color-gold);color:var(--color-text-primary);font-family:var(--font-sans);font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;padding:7px 12px;border-radius:6px;justify-content:center;z-index:2}
+  .tcard .pending-badge svg{flex-shrink:0}
+  .tcard .img{aspect-ratio:1.05/1;display:grid;place-items:center;border-bottom:1px solid var(--color-border);padding:60px 32px 32px;position:relative;background:linear-gradient(160deg,#F0E5D0,var(--color-gold-soft))}
+  .tcard .img.t-immune{background:linear-gradient(160deg,#E5D6B8,#C9B68A)}
+  .tcard .img.t-sleep{background:linear-gradient(160deg,#D8DBEC,#B8BED4)}
+  .tcard .img .dropper{position:relative;width:54px;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 18px 18px rgba(7,58,31,.30))}
+  .tcard .img .dropper .cap{width:30px;height:18px;background:linear-gradient(180deg,#1a2818,#0d150c);border-radius:3px 3px 1px 1px;position:relative;z-index:2}
+  .tcard .img .dropper .cap::after{content:"";position:absolute;left:50%;transform:translateX(-50%);top:-6px;width:6px;height:8px;background:#0d150c;border-radius:50% 50% 30% 30%}
+  .tcard .img .dropper .bottle{width:50px;height:90px;background:linear-gradient(180deg,#2d1c10,#170a04);border-radius:5px 5px 9px 9px;position:relative;margin-top:-3px;box-shadow:inset -3px -4px 8px rgba(0,0,0,.5),inset 3px 3px 6px rgba(255,255,255,.04)}
+  .tcard .img.t-immune .dropper .bottle{background:linear-gradient(180deg,#3a2110,#1a0c04)}
+  .tcard .img.t-sleep .dropper .bottle{background:linear-gradient(180deg,#1e2a4a,#0a1228)}
+  .tcard .img .dropper .lbl{position:absolute;left:14%;right:14%;top:35%;bottom:15%;background:linear-gradient(180deg,#F5EAD0,#E5D4A8);border-radius:2.5px;padding:5px 3px;display:grid;place-items:center;font-family:var(--font-serif);font-size:8px;font-weight:600;color:#3A2510;text-align:center;line-height:1.05;letter-spacing:.04em;z-index:1}
+
+  .tcard .body{padding:22px 24px 22px;display:flex;flex-direction:column;gap:11px;flex:1}
+  .tcard .ph-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-serif);font-style:italic;font-size:11px;color:var(--color-text-faint);background:var(--color-bg-page);padding:3px 9px;border-radius:999px;align-self:flex-start;border:1px dashed var(--color-border)}
+  .tcard h3{font-family:var(--font-serif);font-size:22px;font-weight:500;line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--color-text-primary)}
+  .tcard h3 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .tcard .role{font-family:var(--font-sans);font-size:13.5px;color:var(--color-text-primary);font-weight:500;line-height:1.45;margin:0}
+  .tcard .specs{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);line-height:1.5;margin:0}
+  .tcard .status-line{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-sans);font-size:11.5px;color:var(--color-text-muted);background:var(--color-bg-page);padding:7px 12px;border-radius:8px;font-weight:500;border:1px solid var(--color-border);align-self:flex-start}
+  .tcard .status-line .pulse{width:7px;height:7px;border-radius:50%;background:var(--color-gold);box-shadow:0 0 0 3px rgba(202,164,74,.25)}
+  .tcard .preliminary{display:flex;flex-direction:column;gap:6px;padding:12px 14px;background:var(--color-bg-page);border:1px dashed var(--color-border-2);border-radius:10px;margin-top:auto}
+  .tcard .preliminary .lbl{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700}
+  .tcard .preliminary .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13.5px}
+  .tcard .preliminary .row .k{color:var(--color-text-muted);font-family:var(--font-serif);font-style:italic}
+  .tcard .preliminary .row .v{color:var(--color-text-primary);font-weight:600;font-family:var(--font-serif);font-style:italic;font-size:13px}
+  .tcard .preliminary .row .v.estimate{color:var(--color-green-primary);font-style:normal;font-weight:600}
+  .tcard .notify-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 18px;background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:13.5px;text-decoration:none;margin-top:10px}
+  .tcard .notify-btn:hover{background:var(--color-green-soft-card)}
+
+  /* Update: real-data tincture extras */
+  .tcard .brand-line{font-family:var(--font-serif);font-style:italic;font-size:11.5px;color:var(--color-text-faint);margin:-4px 0 0;letter-spacing:.02em}
+  .tcard .cat-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:10.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;background:var(--color-green-soft-card);padding:5px 10px;border-radius:999px;align-self:flex-start;border:1px solid var(--color-green-mute)}
+  .tcard .usage{font-family:var(--font-sans);font-size:12.5px;color:var(--color-text-primary);background:var(--color-bg-page);padding:9px 12px;border-radius:8px;border:1px solid var(--color-border);line-height:1.45;display:flex;gap:8px;align-items:flex-start}
+  .tcard .usage svg{flex-shrink:0;color:var(--color-green-primary);margin-top:1px}
+  .tcard details.ingredients{border:1px solid var(--color-border);border-radius:10px;background:var(--color-bg-page)}
+  .tcard details.ingredients summary{cursor:pointer;padding:11px 14px;font-family:var(--font-sans);font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .tcard details.ingredients summary::-webkit-details-marker{display:none}
+  .tcard details.ingredients summary::after{content:"+";color:var(--color-green-primary);font-size:16px;font-weight:300}
+  .tcard details.ingredients[open] summary::after{content:"−"}
+  .tcard details.ingredients .ing-list{list-style:none;padding:0 14px 12px;margin:0;display:flex;flex-direction:column;gap:7px}
+  .tcard details.ingredients .ing-list li{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;font-size:12px;line-height:1.4;color:var(--color-text-primary)}
+  .tcard details.ingredients .ing-list li .plant{font-weight:500}
+  .tcard details.ingredients .ing-list li .latin{font-family:var(--font-serif);font-style:italic;font-size:10.5px;color:var(--color-text-faint);font-weight:400;display:block;margin-top:1px}
+  .tcard details.ingredients .ing-list li .pct{font-family:var(--font-serif);font-size:13px;font-weight:600;color:var(--color-green-primary);white-space:nowrap;flex-shrink:0}
+  .tcard ul.bens{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+  .tcard ul.bens li{font-size:12.5px;color:var(--color-text-primary);line-height:1.5;display:flex;gap:8px;align-items:flex-start}
+  .tcard ul.bens li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--color-green-medium);flex-shrink:0;margin-top:8px}
+  .tcard .contraindic{background:var(--color-bg-page);border-left:3px solid var(--color-gold);padding:10px 14px;border-radius:0 8px 8px 0;font-family:var(--font-serif);font-style:italic;font-size:11.5px;color:var(--color-text-muted);line-height:1.5}
+  .tcard .contraindic strong{font-family:var(--font-sans);font-style:normal;font-weight:700;letter-spacing:.06em;font-size:9.5px;color:#7A5530;text-transform:uppercase;display:block;margin-bottom:3px}
+  .tcard .contraindic.extra{border-left-color:var(--color-cta-primary);margin-top:6px}
+  .tcard .contraindic.extra strong{color:var(--color-cta-primary)}
+  .tcard .preliminary .row .v.tba{color:var(--color-text-faint);font-style:italic}
+  .tcard .img.t-vas{background:linear-gradient(160deg,#D8C8E5,#A38AC2)}
+  .tcard .img.t-colon{background:linear-gradient(160deg,#D9E5C5,#8CA86B)}
+  .tcard .img.t-vas .dropper .bottle{background:linear-gradient(180deg,#2a1e3a,#150e20)}
+  .tcard .img.t-colon .dropper .bottle{background:linear-gradient(180deg,#1e2818,#0d150c)}
+  .tcard .img.t-neuro{background:linear-gradient(160deg,#D8DBEC,#8b94c0)}
+  .tcard .img.t-neuro .dropper .bottle{background:linear-gradient(180deg,#1e2a4a,#0a1228)}
+  .filt-hero .brand-by{font-family:var(--font-serif);font-style:italic;font-size:14.5px;color:var(--color-text-faint);margin:-8px 0 18px;display:block}
+
+  /* WHY TINCTURES */
+  .why-tinc{padding:72px 64px;background:var(--color-bg-card)}
+  .why-tinc-inner{max-width:1000px;margin:0 auto}
+  .why-tinc-head{margin-bottom:28px;max-width:680px}
+  .why-tinc-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:12px}
+  .why-tinc-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .why-tinc-head h2{font-family:var(--font-serif);font-weight:400;font-size:28px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 6px}
+  .why-tinc-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .why-tinc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .why-card{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:24px 26px;display:flex;flex-direction:column;gap:10px}
+  .why-card h3{font-family:var(--font-serif);font-size:19px;font-weight:500;line-height:1.3;margin:0;color:var(--color-text-primary)}
+  .why-card h3 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .why-card p{font-size:14px;color:var(--color-text-muted);line-height:1.7;margin:0}
+  .why-card p strong{color:var(--color-text-primary);font-weight:600}
+
+  /* NOTIFY FORM (S5) */
+  .notify{padding:80px 64px;background:var(--color-green-primary);color:#fff;position:relative;overflow:hidden;scroll-margin-top:40px}
+  .notify::before{content:"";position:absolute;right:-100px;top:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(202,164,74,.10),transparent 70%);pointer-events:none}
+  .notify::after{content:"";position:absolute;left:-100px;bottom:-100px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.05),transparent 70%);pointer-events:none}
+  .notify-inner{max-width:680px;margin:0 auto;position:relative}
+  .notify .eyebrow-gold{font-family:var(--font-sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-gold);font-weight:700;display:inline-flex;align-items:center;gap:12px;margin-bottom:20px}
+  .notify .eyebrow-gold::before,.notify .eyebrow-gold::after{content:"";width:24px;height:1px;background:var(--color-gold)}
+  .notify h2{font-family:var(--font-serif);font-weight:400;font-size:40px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 14px;color:#fff;text-align:center}
+  .notify h2 em{font-style:italic;color:var(--color-gold-soft);font-weight:300}
+  .notify .lede{color:#C2D9AC;font-size:15.5px;line-height:1.7;margin:0 0 32px;text-align:center}
+  .notify-form{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:28px 30px;backdrop-filter:blur(6px)}
+  .notify-form label{display:block;font-family:var(--font-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#C2D9AC;font-weight:700;margin-bottom:8px}
+  .notify-form input[type="email"]{width:100%;height:50px;background:#fff;border:0;border-radius:10px;padding:0 18px;font-family:var(--font-sans);font-size:15px;color:var(--color-text-primary);outline:none;box-sizing:border-box}
+  .notify-form input[type="email"]::placeholder{color:var(--color-text-faint)}
+  .notify-form .which{margin-top:22px}
+  .notify-form .which-list{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+  .notify-form .cb-row{display:flex;align-items:center;gap:12px;padding:13px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:10px;cursor:pointer}
+  .notify-form .cb-row:hover{background:rgba(255,255,255,.08)}
+  .notify-form .cb-row.checked{background:rgba(202,164,74,.10);border-color:rgba(202,164,74,.50)}
+  .notify-form .cb{width:20px;height:20px;border-radius:5px;background:transparent;border:1.5px solid rgba(255,255,255,.40);display:grid;place-items:center;flex-shrink:0;color:transparent}
+  .notify-form .cb-row.checked .cb{background:var(--color-gold);border-color:var(--color-gold);color:var(--color-text-primary)}
+  .notify-form .cb-row .label-txt{font-family:var(--font-sans);font-size:14px;color:#fff;font-weight:500}
+  .notify-form .cb-row .label-txt small{display:block;font-family:var(--font-serif);font-style:italic;font-weight:400;font-size:12.5px;color:#9AC0A8;margin-top:2px}
+  .notify-form .consent{margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.10);display:flex;gap:12px;align-items:flex-start;font-family:var(--font-serif);font-style:italic;font-size:13px;color:#C2D9AC;line-height:1.55;cursor:pointer}
+  .notify-form .consent .cb{margin-top:2px}
+  .notify-form .consent.checked .cb{background:var(--color-gold);border-color:var(--color-gold);color:var(--color-text-primary)}
+  .notify-form .submit-btn{width:100%;height:54px;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:15px;cursor:pointer;margin-top:22px;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:var(--shadow-cta)}
+  .notify-form .submit-btn:hover{background:var(--color-cta-primary-hover)}
+  .notify .post-line{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:#9AC0A8;text-align:center;margin-top:18px;line-height:1.6}
+
+  /* FAQ */
+  .faq{padding:80px 64px;background:var(--color-bg-page)}
+  .faq-inner{max-width:780px;margin:0 auto}
+  .faq h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 28px;text-align:center}
+  .faq h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .faq-list{display:flex;flex-direction:column;border-top:1px solid var(--color-border)}
+  .faq-item{border-bottom:1px solid var(--color-border)}
+  .faq-q{padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--color-text-primary);line-height:1.35}
+  .faq-q .toggle{width:28px;height:28px;border-radius:50%;background:var(--color-green-soft-card);display:grid;place-items:center;color:var(--color-green-primary);flex-shrink:0;font-size:18px;line-height:1}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;transform:rotate(45deg)}
+  .faq-a{padding:0 0 22px;color:var(--color-text-muted);font-size:14.5px;line-height:1.7;display:none;max-width:680px}
+  .faq-item.open .faq-a{display:block}
+  .faq-a strong{color:var(--color-text-primary);font-weight:600}
+
+  /* CTA FINAL */
+  .cta-final{padding:72px 64px;background:var(--color-bg-card);text-align:center;border-top:1px solid var(--color-border)}
+  .cta-final-inner{max-width:680px;margin:0 auto}
+  .cta-final h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.1;letter-spacing:-0.02em;margin:0 0 12px;color:var(--color-text-primary)}
+  .cta-final h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .cta-final p{color:var(--color-text-muted);font-size:15px;line-height:1.7;margin:0 0 26px}
+  .cta-final p strong{color:var(--color-text-primary);font-weight:600}
+  .cta-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+  .cta-buttons a{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 26px;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14.5px;text-decoration:none}
+  .cta-buttons a.primary{background:var(--color-cta-primary);color:#fff;box-shadow:var(--shadow-cta)}
+  .cta-buttons a.primary:hover{background:var(--color-cta-primary-hover)}
+  .cta-buttons a.outline{background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary)}
+  .cta-buttons a.outline:hover{background:var(--color-green-soft-card)}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Filtru Noutati In curand">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș (0)</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item active">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item">Pachete</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a>Acasă</a><span class="sep">›</span><a href="Pagina Suplimente - catalog.html">Suplimente</a><span class="sep">›</span><span class="here">Noutăți · În curând</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="filt-hero">
+    <div class="inner">
+      <div class="eyebrow">Noutăți · În curând</div>
+      <h1>Ce vine <em>în curând.</em></h1>
+      <span class="brand-by">by Vivens Genetica</span>
+      <p class="lede"><strong>3 tincturi</strong> în dezvoltare, în așteptarea aprobărilor oficiale.</p>
+      <div class="big-disclaimer">
+        <strong>Important · înainte să citești mai departe</strong>
+        Aceste produse <strong>nu sunt încă pe stoc</strong>. Așteptăm aprobările ANSVSA pentru notificarea suplimentelor cu plante. Dacă vrei să fii anunțat când sunt gata, lasă-ți emailul jos — fără pre-comenzi, fără plăți avansate.
+      </div>
+      <a class="hero-cta" href="#notify">Anunță-mă la lansare
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- EXPLAIN -->
+  <section class="explain">
+    <div class="explain-inner">
+      <div class="explain-head">
+        <div class="eyebrow">De ce durează</div>
+        <h2>De ce nu lansăm <em>în grabă.</em></h2>
+      </div>
+      <div class="explain-grid">
+        <div class="ex-card">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <h3>Aprobarea contează.</h3>
+          <p>În România, suplimentele cu plante necesită <strong>notificare la ANSVSA</strong>. Procesul durează 3–9 luni și verifică siguranța consumatorului. Nu trecem peste el.</p>
+        </div>
+        <div class="ex-card">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+          <h3>Formularea finală se schimbă.</h3>
+          <p>Până la aprobare, <strong>dozajele se pot modifica</strong> pe baza recomandărilor autorităților. Așa că prețurile și specificațiile de mai jos sunt PRELIMINARE.</p>
+        </div>
+        <div class="ex-card">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></div>
+          <h3>Cantitate limitată la prima cură.</h3>
+          <p>La lansare vom avea <strong>stoc limitat</strong>. Cei înscriși pe lista de email primesc acces cu 7 zile înainte de public — fără reduceri false, doar prioritate de cumpărare.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TINCTURE GRID -->
+  <section class="tinctures">
+    <div class="tinctures-inner">
+      <div class="tinctures-head">
+        <h2>Cele 3 tincturi <em>în dezvoltare.</em></h2>
+        <p>Numele și specificațiile sunt placeholder — se finalizează după aprobare.</p>
+      </div>
+      <div class="tgrid">
+
+        <!-- 1. Dreno VAS -->
+        <div class="tcard">
+          <span class="pending-badge">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            În așteptarea aprobării ANSVSA
+          </span>
+          <div class="img t-vas">
+            <div class="dropper">
+              <div class="cap"></div>
+              <div class="bottle"><div class="lbl">Dreno<br/>VAS</div></div>
+            </div>
+          </div>
+          <div class="body">
+            <span class="cat-chip">Circulație &amp; Drenaj</span>
+            <h3>Dreno <em>VAS</em></h3>
+            <p class="brand-line">by Vivens Genetica</p>
+            <p class="role">Drenaj vascular și limfatic, suport pentru picioare grele și circulație venoasă.</p>
+            <p class="specs">Extract hidroalcoolic 1:3 · 30 ml · 28–30% alcool · 7 plante</p>
+            <div class="usage">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              <span>Adulți <strong>25–30 picături de 3 ori/zi</strong>, înainte de masă.</span>
+            </div>
+            <details class="ingredients">
+              <summary>Compoziție · 7 plante</summary>
+              <ul class="ing-list">
+                <li><div><span class="plant">Castan sălbatic</span><span class="latin">Aesculus hippocastanum · fruct</span></div><span class="pct">20%</span></li>
+                <li><div><span class="plant">Curcuma</span><span class="latin">Curcuma longa · pulbere</span></div><span class="pct">20%</span></li>
+                <li><div><span class="plant">Păpădie</span><span class="latin">Taraxacum officinale · părți aeriene</span></div><span class="pct">15%</span></li>
+                <li><div><span class="plant">Coada calului</span><span class="latin">Equisetum arvense · părți aeriene</span></div><span class="pct">15%</span></li>
+                <li><div><span class="plant">Măceș</span><span class="latin">Rosa canina · fruct</span></div><span class="pct">10%</span></li>
+                <li><div><span class="plant">Coada șoricelului</span><span class="latin">Achillea millefolium · părți aeriene</span></div><span class="pct">10%</span></li>
+                <li><div><span class="plant">Gălbenele</span><span class="latin">Calendula officinalis · părți aeriene</span></div><span class="pct">10%</span></li>
+              </ul>
+            </details>
+            <ul class="bens">
+              <li>Susține circulația venoasă normală la nivelul membrelor inferioare (castan sălbatic)</li>
+              <li>Sprijină procesele naturale de drenaj și eliminarea excesului de lichide (păpădie, coada calului)</li>
+              <li>Contribuie la protecția vasculară și la confortul circulator (curcuma)</li>
+              <li>Suport antioxidant pentru integritatea țesuturilor (măceș, gălbenele, coada șoricelului)</li>
+            </ul>
+            <div class="contraindic">
+              <strong>Contraindicații</strong>
+              Nu în sarcină, alăptare sau la copii. Conține alcool 28–30% — nu se recomandă persoanelor cărora le este interzis sau limitat consumul de alcool.
+            </div>
+            <div class="preliminary">
+              <span class="lbl">Status &amp; preț</span>
+              <div class="row"><span class="k">Notificare</span><span class="v">ANSVSA în curs</span></div>
+              <div class="row"><span class="k">Preț</span><span class="v tba">Se anunță la lansare</span></div>
+              <div class="row"><span class="k">Disponibil</span><span class="v">Trimestrul 2–3 · 2026</span></div>
+            </div>
+            <a class="notify-btn" href="#notify">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              Anunță-mă când e gata Dreno VAS
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. Colon BALANCE -->
+        <div class="tcard">
+          <span class="pending-badge">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            În așteptarea aprobării ANSVSA
+          </span>
+          <div class="img t-colon">
+            <div class="dropper">
+              <div class="cap"></div>
+              <div class="bottle"><div class="lbl">Colon<br/>BALANCE</div></div>
+            </div>
+          </div>
+          <div class="body">
+            <span class="cat-chip">Digestie &amp; Echilibru Intestinal</span>
+            <h3>Colon <em>BALANCE</em></h3>
+            <p class="brand-line">by Vivens Genetica</p>
+            <p class="role">Echilibru intestinal, tranzit normal, reducere balonare și disconfort abdominal.</p>
+            <p class="specs">Extract hidroalcoolic 1:3 · 30 ml · 28–30% alcool · 8 plante</p>
+            <div class="usage">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              <span>Adulți <strong>25–30 picături de 3 ori/zi</strong>, înainte de masă.</span>
+            </div>
+            <details class="ingredients">
+              <summary>Compoziție · 8 plante</summary>
+              <ul class="ing-list">
+                <li><div><span class="plant">Țintaură</span><span class="latin">Centaurium erythraea · părți aeriene</span></div><span class="pct">20%</span></li>
+                <li><div><span class="plant">Mentă</span><span class="latin">Mentha piperita · părți aeriene</span></div><span class="pct">15%</span></li>
+                <li><div><span class="plant">Cimbru</span><span class="latin">Thymus vulgaris · părți aeriene</span></div><span class="pct">15%</span></li>
+                <li><div><span class="plant">Nucă neagră</span><span class="latin">Juglans nigra · fruct</span></div><span class="pct">10%</span></li>
+                <li><div><span class="plant">Nucă verde</span><span class="latin">Juglans regia · fruct</span></div><span class="pct">10%</span></li>
+                <li><div><span class="plant">Pelin</span><span class="latin">Artemisia absinthium · părți aeriene</span></div><span class="pct">10%</span></li>
+                <li><div><span class="plant">Chimen</span><span class="latin">Carum carvi · părți aeriene</span></div><span class="pct">10%</span></li>
+                <li><div><span class="plant">Coada șoricelului</span><span class="latin">Achillea millefolium · părți aeriene</span></div><span class="pct">10%</span></li>
+              </ul>
+            </details>
+            <ul class="bens">
+              <li>Ajută la reglarea tranzitului intestinal (nucă neagră, nucă verde)</li>
+              <li>Favorizează activitatea digestivă prin gustul amar natural (țintaură, pelin)</li>
+              <li>Reduce senzația de balonare și disconfort abdominal (mentă, chimen)</li>
+              <li>Sprijină echilibrul florei intestinale și protejează mucoasa (cimbru, coada șoricelului)</li>
+            </ul>
+            <div class="contraindic">
+              <strong>Contraindicații</strong>
+              Nu în sarcină, alăptare sau la copii. Conține alcool 28–30% — nu se recomandă persoanelor cărora le este interzis sau limitat consumul de alcool.
+            </div>
+            <div class="preliminary">
+              <span class="lbl">Status &amp; preț</span>
+              <div class="row"><span class="k">Notificare</span><span class="v">ANSVSA în curs</span></div>
+              <div class="row"><span class="k">Preț</span><span class="v tba">Se anunță la lansare</span></div>
+              <div class="row"><span class="k">Disponibil</span><span class="v">Trimestrul 2–3 · 2026</span></div>
+            </div>
+            <a class="notify-btn" href="#notify">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              Anunță-mă când e gata Colon BALANCE
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Neuro BALANCE -->
+        <div class="tcard">
+          <span class="pending-badge">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            În așteptarea aprobării ANSVSA
+          </span>
+          <div class="img t-neuro">
+            <div class="dropper">
+              <div class="cap"></div>
+              <div class="bottle"><div class="lbl">Neuro<br/>BALANCE</div></div>
+            </div>
+          </div>
+          <div class="body">
+            <span class="cat-chip">Echilibru Emoțional</span>
+            <h3>Neuro <em>BALANCE</em></h3>
+            <p class="brand-line">by Vivens Genetica</p>
+            <p class="role">Echilibru emoțional, suport la stres, claritate mentală și relaxare.</p>
+            <p class="specs">Extract hidroalcoolic 1:3 · 30 ml · 28–30% alcool · 8 plante</p>
+            <div class="usage">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              <span>Adulți <strong>25–30 picături de 3 ori/zi</strong>, înainte de masă.</span>
+            </div>
+            <details class="ingredients">
+              <summary>Compoziție · 8 plante</summary>
+              <ul class="ing-list">
+                <li><div><span class="plant">Roiniță</span><span class="latin">Melissa officinalis · părți aeriene</span></div><span class="pct">15%</span></li>
+                <li><div><span class="plant">Sunătoare</span><span class="latin">Hypericum perforatum · părți aeriene</span></div><span class="pct">15%</span></li>
+                <li><div><span class="plant">Salvie</span><span class="latin">Salvia officinalis · părți aeriene</span></div><span class="pct">15%</span></li>
+                <li><div><span class="plant">Păducel</span><span class="latin">Crataegus monogyna · părți aeriene</span></div><span class="pct">15%</span></li>
+                <li><div><span class="plant">Valeriană</span><span class="latin">Valeriana officinalis · rădăcină</span></div><span class="pct">10%</span></li>
+                <li><div><span class="plant">Busuioc</span><span class="latin">Ocimum basilicum · părți aeriene</span></div><span class="pct">10%</span></li>
+                <li><div><span class="plant">Cătină</span><span class="latin">Hippophae rhamnoides · fruct</span></div><span class="pct">10%</span></li>
+                <li><div><span class="plant">Rozmarin</span><span class="latin">Rosmarinus officinalis · părți aeriene</span></div><span class="pct">10%</span></li>
+              </ul>
+            </details>
+            <ul class="bens">
+              <li>Ajută la menținerea echilibrului emoțional în perioade de stres (roiniță, sunătoare)</li>
+              <li>Susține relaxarea, starea de liniște și adaptarea la stresul cotidian (valeriană, busuioc)</li>
+              <li>Contribuie la susținerea funcției cardio-vegetative asociate tensiunii nervoase (păducel)</li>
+              <li>Ajută la menținerea clarității mentale în perioade de suprasolicitare (salvie, rozmarin, cătină)</li>
+            </ul>
+            <div class="contraindic">
+              <strong>Contraindicații</strong>
+              Nu în sarcină, alăptare sau la copii. Conține alcool 28–30%.
+            </div>
+            <div class="contraindic extra">
+              <strong>Atenție specială</strong>
+              Sunătoarea poate interacționa cu anumite medicamente (antidepresive, anticoagulante, contraceptive orale). Consultă medicul înainte de utilizare dacă iei tratament.
+            </div>
+            <div class="preliminary">
+              <span class="lbl">Status &amp; preț</span>
+              <div class="row"><span class="k">Notificare</span><span class="v">ANSVSA în curs</span></div>
+              <div class="row"><span class="k">Preț</span><span class="v tba">Se anunță la lansare</span></div>
+              <div class="row"><span class="k">Disponibil</span><span class="v">Trimestrul 3–4 · 2026</span></div>
+            </div>
+            <a class="notify-btn" href="#notify">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              Anunță-mă când e gata Neuro BALANCE
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY TINCTURES -->
+  <section class="why-tinc">
+    <div class="why-tinc-inner">
+      <div class="why-tinc-head">
+        <div class="eyebrow">Despre formă</div>
+        <h2>De ce <em>tincturi.</em></h2>
+      </div>
+      <div class="why-tinc-grid">
+        <div class="why-card">
+          <h3>Formă concentrată, <em>absorbție rapidă.</em></h3>
+          <p>Tincturile sunt extracte alcoolice sau glicerinate ale plantelor. Sunt <strong>mai concentrate decât ceaiurile</strong> și se absorb mai rapid decât capsulele — sublingual, prin mucoasa orală, ocolind tractul digestiv pentru câteva minute mai devreme.</p>
+        </div>
+        <div class="why-card">
+          <h3>Cantitate exactă, <em>gust real.</em></h3>
+          <p>Picurătorul îți permite <strong>dozare precisă</strong> — de la 10 la 30 de picături în funcție de nevoie. Nu sunt ascunse într-o capsulă; simți gustul plantelor, ceea ce contribuie la acțiunea reflexă orală și la conectarea senzorială cu remediul.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTIFY FORM -->
+  <section class="notify" id="notify">
+    <div class="notify-inner">
+      <div style="text-align:center"><span class="eyebrow-gold">Listă de lansare</span></div>
+      <h2>Anunță-mă <em>când sunt gata.</em></h2>
+      <p class="lede">Îți scriem o singură dată per lansare. Fără newsletter, fără spam, fără reclame la alte produse.</p>
+      <div class="notify-form">
+        <label for="email">Adresa ta de email</label>
+        <input type="email" id="email" placeholder="email@exemplu.ro" />
+
+        <div class="which">
+          <label>Pentru care tincturi vrei să fii anunțat</label>
+          <div class="which-list">
+            <div class="cb-row checked">
+              <div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <div class="label-txt">Dreno VAS<small>Circulație &amp; drenaj — picioare grele, suport venos</small></div>
+            </div>
+            <div class="cb-row">
+              <div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <div class="label-txt">Colon BALANCE<small>Digestie &amp; echilibru intestinal — tranzit, balonare</small></div>
+            </div>
+            <div class="cb-row">
+              <div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <div class="label-txt">Neuro BALANCE<small>Echilibru emoțional &amp; stres — relaxare, claritate</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="consent checked">
+          <div class="cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <span>Înțeleg că primesc <strong style="color:#fff;font-style:normal;font-family:var(--font-sans)">un singur email</strong> când fiecare tinctură este disponibilă, după care mă pot dezabona oricând cu un click.</span>
+        </div>
+
+        <button class="submit-btn" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Înscrie-mă pe listă
+        </button>
+      </div>
+      <p class="post-line">Nu vindem emailurile. Nu facem retargeting. Nu trimitem newslettere. <em>Doar anunțurile de lansare.</em></p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-inner">
+      <h2>Întrebări <em>frecvente.</em></h2>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <div class="faq-q">Când exact se lansează?<span class="toggle">+</span></div>
+          <div class="faq-a">Trimestre estimate (Q2–Q4 2026), dar <strong>depinde de aprobări</strong>. Nu putem promite date exacte. Cei înscriși pe lista de email află cu 7 zile înainte de public — așa că e cea mai sigură metodă de a nu rata lansarea.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Pot rezerva cu plată acum?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>NU.</strong> Nu acceptăm plăți până când produsele sunt notificate ANSVSA. E ilegal să încasezi bani pentru un produs nenotificat și e riscant pentru tine (dacă aprobarea nu vine, banii ar trebui returnați cu dobândă). Lista de email e gratis, fără obligație, fără card cerut.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Prețul afișat este final?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>NU.</strong> Este estimat — se poate modifica ușor (în sus sau în jos) după aprobare și formularea finală. Estimările date acum reflectă costurile actuale ale materiilor prime și formulei provizorii; după aprobare ANSVSA putem avea ajustări de ±10–15 lei.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">De ce nu lansați mai repede?<span class="toggle">+</span></div>
+          <div class="faq-a"><strong>Brand mic, fără grabă.</strong> Preferăm un lansament corect, nu unul făcut cu jumătate de măsură. Aprobarea ANSVSA, formularea testată extern, etichetarea conformă, stocul inițial corect dimensionat — toate cer timp. Iar tu meriți un produs gata, nu o promisiune.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="cta-final-inner">
+      <h2>Până atunci, vezi ce ai <em>deja la dispoziție.</em></h2>
+      <p><strong>20 de suplimente</strong> și <strong>11 pachete</strong> deja disponibile, cu studii, reviews și analize publice de lot. Probabil ce cauți există deja.</p>
+      <div class="cta-buttons">
+        <a class="primary" href="Pagina Suplimente - catalog.html">Vezi catalogul
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a class="outline" href="Test de 60 sec - Quiz Wizard.html">Fă testul de 60 sec
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 30 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="color:var(--color-gold);font-weight:600">Ediția de toamnă, Octombrie 2025</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

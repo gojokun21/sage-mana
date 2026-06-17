@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Pachet Energie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+  .announce .right .sparkle{color:var(--color-gold)}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* HERO */
+  .hero{padding:56px 64px 80px;background:var(--color-bg-page)}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:flex-start;max-width:1280px;margin:0 auto}
+  .gallery{display:flex;flex-direction:column;gap:14px}
+  .gal-main{aspect-ratio:1;border-radius:24px;background:linear-gradient(160deg,var(--color-green-soft-card) 0%,var(--color-green-pale) 60%,var(--color-green-mute) 100%);position:relative;overflow:hidden;box-shadow:var(--shadow-soft)}
+  .gal-main::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 22%,rgba(255,255,255,.45),transparent 55%)}
+  .gal-seal{position:absolute;top:22px;right:22px;display:inline-flex;align-items:center;gap:8px;background:var(--color-gold);color:var(--color-text-primary);padding:8px 14px;border-radius:999px;font-family:var(--font-sans);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;box-shadow:var(--shadow-gold)}
+  .pair{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:24px}
+  .bottle{position:relative;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 30px 30px rgba(7,58,31,.25))}
+  .bottle .cap{width:46px;height:18px;background:linear-gradient(180deg,#2c1b08,#1A0C04);border-radius:3px 3px 1px 1px}
+  .bottle .neck{width:36px;height:14px;background:linear-gradient(180deg,#1A0C04,#0a0502)}
+  .bottle .body{width:138px;height:280px;border-radius:14px 14px 26px 26px;position:relative;box-shadow:inset -10px -12px 22px rgba(0,0,0,.45),inset 10px 10px 22px rgba(255,255,255,.06)}
+  .bottle.amber .body{background:linear-gradient(180deg,#3A2110,#1A0C04)}
+  .bottle.matte .body{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .bottle.matte .cap,.bottle.matte .neck{background:linear-gradient(180deg,#0a2418,#051209)}
+  .bottle .label{position:absolute;left:9%;right:9%;top:28%;bottom:13%;background:linear-gradient(180deg,#F5EAD0,#E5D4A8);border-radius:5px;padding:14px 8px;display:flex;flex-direction:column;justify-content:space-between;text-align:center}
+  .bottle.matte .label{background:linear-gradient(180deg,#F4F1E5,#D9D2BD)}
+  .bottle .label .brand{font-family:var(--font-serif);font-size:7px;letter-spacing:.18em;color:#7A5530;font-weight:600;text-transform:uppercase}
+  .bottle.matte .label .brand{color:#2E5040}
+  .bottle .label .seal{width:24px;height:24px;border-radius:50%;background:var(--color-gold);color:var(--color-text-primary);margin:0 auto;display:grid;place-items:center;font-family:var(--font-serif);font-size:10px;font-weight:600}
+  .bottle .label .name{font-family:var(--font-serif);font-size:13px;color:#3A2510;font-weight:500;line-height:1.15}
+  .bottle.matte .label .name{color:#0F2A1D}
+  .bottle .label .vol{font-family:var(--font-sans);font-size:7px;color:#3A2510;letter-spacing:.12em;font-weight:600}
+  .bottle.matte .label .vol{color:#0F2A1D}
+  .bottle.b1{transform:rotate(-3deg)}
+  .bottle.b2{transform:translateY(-10px) rotate(3deg)}
+  .gal-caption{position:absolute;bottom:22px;left:22px;font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-primary);background:rgba(255,255,255,.85);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px)}
+  .gal-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .gal-thumb{aspect-ratio:1;border-radius:14px;background:var(--color-green-soft-card);border:1px solid var(--color-border);position:relative;cursor:pointer}
+  .gal-thumb.active{border-color:var(--color-green-primary);border-width:2px}
+  .gal-thumb::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:42px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:3px 3px 6px 6px;box-shadow:0 6px 10px -4px rgba(0,0,0,.4)}
+  .gal-thumb.t2::after{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .gal-thumb.t3{background:var(--color-green-mute)}
+  .gal-thumb.t3::after{display:none}
+  .gal-thumb.t3 .pair-mini{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:4px}
+  .gal-thumb.t3 .pair-mini span{width:18px;height:36px;border-radius:3px;background:linear-gradient(180deg,#3A2110,#1A0C04)}
+  .gal-thumb.t3 .pair-mini span:last-child{background:linear-gradient(180deg,#1E4530,#0a2418);height:40px}
+
+  .info{display:flex;flex-direction:column;gap:18px}
+  .info .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.18em}
+  .info .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .info h1{font-family:var(--font-serif);font-size:42px;line-height:1.08;letter-spacing:-0.02em;font-weight:400;margin:0;color:var(--color-text-primary)}
+  .info h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .info .subline{font-size:15.5px;color:var(--color-text-muted);line-height:1.65;max-width:520px}
+  .info .subline strong{color:var(--color-text-primary);font-weight:600}
+  .rating{display:flex;align-items:center;gap:14px;padding:6px 0}
+  .rating .stars{color:var(--color-gold);letter-spacing:.05em}
+  .rating .score{font-weight:600;color:var(--color-text-primary);font-size:14px}
+  .rating .count{color:var(--color-text-faint);font-size:13.5px}
+
+  .bundle-list{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:0}
+  .bundle-line{display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;padding:12px 4px}
+  .bundle-line+.bundle-line{border-top:1px solid var(--color-border)}
+  .bundle-line .mini-ph{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;position:relative;overflow:hidden}
+  .bundle-line .mini-ph.a{background:linear-gradient(160deg,var(--color-green-pale),var(--color-green-mute))}
+  .bundle-line .mini-ph.b{background:linear-gradient(160deg,var(--color-green-soft-card),var(--color-green-pale))}
+  .bundle-line .mini-ph::after{content:"";width:14px;height:26px;background:linear-gradient(180deg,#1E4530,#0a2418);border-radius:2px 2px 4px 4px}
+  .bundle-line .mini-ph.b::after{background:linear-gradient(180deg,#3A2110,#1A0C04)}
+  .bundle-line .b-name{font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--color-text-primary);line-height:1.3}
+  .bundle-line .b-meta{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-faint);margin-top:2px}
+  .bundle-line .b-price{font-family:var(--font-serif);font-size:15px;font-weight:500;color:var(--color-text-primary)}
+
+  .price-block{background:var(--color-bg-card);border:1.5px solid var(--color-border);border-radius:18px;padding:22px 24px;display:flex;flex-direction:column;gap:10px}
+  .price-block .row{display:flex;align-items:baseline;justify-content:space-between}
+  .price-block .row .lbl{font-size:13px;color:var(--color-text-muted);font-weight:500}
+  .price-block .now-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .price-block .now-price{font-family:var(--font-serif);font-size:42px;color:var(--color-green-primary);font-weight:500;line-height:1;letter-spacing:-0.02em}
+  .price-block .sub-line{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-muted);line-height:1.5;padding-top:6px;border-top:1px solid var(--color-border)}
+
+  .add-cta{height:58px;border:0;border-radius:999px;background:var(--color-cta-primary);color:#fff;font-family:var(--font-sans);font-weight:600;font-size:15.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;box-shadow:var(--shadow-cta);width:100%}
+  .add-cta:hover{background:var(--color-cta-primary-hover)}
+  .trust-row{display:flex;flex-wrap:wrap;gap:16px 22px;padding-top:6px}
+  .trust-row .item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--color-text-muted);font-weight:500}
+  .trust-row .item svg{color:var(--color-green-primary);flex-shrink:0}
+  .ind-link{font-size:13px;color:var(--color-green-primary);font-weight:600;text-decoration:underline;text-underline-offset:3px;align-self:flex-start;margin-top:4px}
+
+  .proof-strip{background:var(--color-green-soft-card);padding:32px 64px;border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
+  .proof-row{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;max-width:1280px;margin:0 auto}
+  .proof-cell{display:flex;flex-direction:column;gap:6px;padding-left:18px;border-left:2px solid var(--color-green-medium)}
+  .proof-cell strong{font-family:var(--font-serif);font-size:15.5px;font-weight:500;color:var(--color-text-primary);line-height:1.3}
+  .proof-cell span{font-size:12.5px;color:var(--color-text-muted);line-height:1.45}
+
+  .why{padding:96px 64px;background:var(--color-bg-card)}
+  .why-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px}
+  .why-text{max-width:520px}
+  .why-text h2{font-family:var(--font-serif);font-size:36px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:14px 0 20px}
+  .why-text h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .why-text p{font-size:15.5px;color:var(--color-text-muted);line-height:1.75}
+  .why-text p strong{color:var(--color-text-primary);font-weight:600}
+  .why-cards{display:flex;flex-direction:column;gap:18px}
+  .why-card{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:18px;padding:24px 26px;display:flex;flex-direction:column;gap:12px}
+  .why-card .head{display:flex;align-items:center;gap:14px}
+  .why-card .ill{width:54px;height:54px;border-radius:12px;display:grid;place-items:center;flex-shrink:0}
+  .why-card .ill.a{background:linear-gradient(160deg,var(--color-green-pale),var(--color-green-mute))}
+  .why-card .ill.a::after{content:"";width:12px;height:24px;background:linear-gradient(180deg,#3A2110,#1A0C04);border-radius:2px 2px 4px 4px}
+  .why-card .ill.b{background:linear-gradient(160deg,var(--color-green-soft-card),var(--color-green-pale))}
+  .why-card .ill.b::after{content:"";width:12px;height:24px;background:linear-gradient(180deg,#1E4530,#0a2418);border-radius:2px 2px 4px 4px}
+  .why-card .role-tag{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;display:inline-block;margin-bottom:4px}
+  .why-card h3{font-family:var(--font-serif);font-size:19px;font-weight:500;margin:0;line-height:1.25}
+  .why-card .role-line{font-size:14px;color:var(--color-text-muted);line-height:1.55}
+
+  .benefits{padding:96px 64px;background:var(--color-bg-page)}
+  .benefits-inner{max-width:1100px;margin:0 auto}
+  .benefits h2{font-family:var(--font-serif);font-size:34px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:0 0 36px;max-width:620px}
+  .benefits h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .b-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 32px}
+  .b-grid li{list-style:none;display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--color-text-primary);line-height:1.55;padding:8px 0}
+  .b-grid li::before{content:"";width:18px;height:18px;flex-shrink:0;margin-top:2px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230C542F' stroke-width='2.5'><path d='M20 6L9 17l-5-5'/></svg>");background-repeat:no-repeat;background-position:center}
+
+  .math-section{padding:96px 64px;background:var(--color-bg-card)}
+  .math-card{max-width:760px;margin:0 auto;background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:24px;padding:48px 56px}
+  .math-card h2{font-family:var(--font-serif);font-size:32px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:0 0 8px}
+  .math-card h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .math-card .lede{font-size:14.5px;color:var(--color-text-muted);margin:0 0 32px}
+  .math-list{display:flex;flex-direction:column;gap:0}
+  .math-row{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;font-family:var(--font-sans);font-size:14.5px;color:var(--color-text-primary)}
+  .math-row+.math-row{border-top:1px solid var(--color-border)}
+  .math-row .v{font-family:var(--font-serif);font-size:18px;font-weight:500}
+  .math-row.total-row{padding:14px 0;color:var(--color-text-muted)}
+  .math-row.total-row .v{font-family:var(--font-serif);font-size:18px;font-weight:500;color:var(--color-text-muted)}
+  .math-row.bundle-row{padding:18px 0 14px;border-top:1.5px solid var(--color-green-medium);margin-top:6px}
+  .math-row.bundle-row .lbl{font-family:var(--font-serif);font-size:19px;font-weight:500}
+  .math-row.bundle-row .v{font-family:var(--font-serif);font-size:30px;color:var(--color-green-primary);font-weight:500;letter-spacing:-0.01em}
+  .save-chip{display:inline-flex;align-items:center;gap:8px;align-self:flex-end;margin-top:10px;background:var(--color-green-soft-card);color:var(--color-green-primary);font-family:var(--font-sans);font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--color-green-mute)}
+  .save-chip svg{flex-shrink:0}
+  .math-card .foot-line{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);margin-top:24px;line-height:1.6;text-align:center;padding-top:18px;border-top:1px dashed var(--color-border-2)}
+
+  .timeline{padding:96px 64px;background:var(--color-bg-page)}
+  .timeline-head{max-width:1280px;margin:0 auto 56px}
+  .timeline-head h2{font-family:var(--font-serif);font-size:36px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:14px 0 0;max-width:640px}
+  .timeline-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .timeline-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
+  .timeline-grid::before{content:"";position:absolute;top:34px;left:14%;right:14%;height:2px;background:repeating-linear-gradient(to right,var(--color-green-medium) 0 6px,transparent 6px 12px);opacity:.35}
+  .tl-step{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+  .tl-step .num{width:46px;height:46px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;font-family:var(--font-serif);font-weight:500;font-size:16px}
+  .tl-step .when{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700}
+  .tl-step h4{font-family:var(--font-serif);font-size:17px;font-weight:500;line-height:1.25;margin:0}
+  .tl-step p{font-size:13.5px;color:var(--color-text-muted);line-height:1.6;margin:0}
+
+  .pcine{padding:96px 64px;background:var(--color-bg-card)}
+  .pcine-inner{max-width:1180px;margin:0 auto}
+  .pcine-head h2{font-family:var(--font-serif);font-size:36px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:0 0 32px}
+  .pcine-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .pcine-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .pcine-col{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:14px;padding:28px 30px}
+  .pcine-col.yes h3{color:var(--color-green-primary)}
+  .pcine-col.no h3{color:var(--color-text-muted)}
+  .pcine-col h3{font-family:var(--font-serif);font-style:italic;font-weight:500;font-size:20px;margin:0 0 18px}
+  .pcine-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  .pcine-col li{display:flex;gap:10px;font-size:14px;color:var(--color-text-primary);line-height:1.5}
+  .pcine-col.yes li::before{content:"";width:16px;height:16px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230C542F' stroke-width='2.5'><path d='M20 6L9 17l-5-5'/></svg>");background-repeat:no-repeat;background-position:center;flex-shrink:0;margin-top:2px}
+  .pcine-col.no li::before{content:"×";color:var(--color-text-faint);font-weight:300;font-size:18px;line-height:1;flex-shrink:0;width:16px;text-align:center;margin-top:1px}
+
+  .faq{padding:96px 64px;background:var(--color-bg-page)}
+  .faq-head{max-width:880px;margin:0 auto 32px}
+  .faq-head h2{font-family:var(--font-serif);font-size:32px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:14px 0 0}
+  .faq-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .faq-list{max-width:880px;margin:0 auto;display:flex;flex-direction:column;border-top:1px solid var(--color-border-2)}
+  .faq-item{border-bottom:1px solid var(--color-border-2)}
+  .faq-q{padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--color-text-primary);line-height:1.35}
+  .faq-q .toggle{width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid var(--color-border);display:grid;place-items:center;color:var(--color-green-primary);flex-shrink:0;font-size:18px;line-height:1}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;transform:rotate(45deg)}
+  .faq-a{padding:0 0 22px;color:var(--color-text-muted);font-size:14.5px;line-height:1.7;max-width:780px;display:none}
+  .faq-item.open .faq-a{display:block}
+  .faq-a strong{color:var(--color-text-primary);font-weight:600}
+
+  .cross{padding:96px 64px;background:var(--color-bg-card)}
+  .cross-inner{max-width:1280px;margin:0 auto}
+  .cross-head h2{font-family:var(--font-serif);font-size:30px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:0 0 32px}
+  .cross-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .cross-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .cross-card{background:var(--color-bg-page);border:1px solid var(--color-border);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit}
+  .cross-card:hover{border-color:var(--color-green-medium)}
+  .cross-card .ill{aspect-ratio:1.4/1;border-radius:10px;background:linear-gradient(160deg,var(--color-green-pale),var(--color-green-mute));display:grid;place-items:center;position:relative;margin-bottom:6px}
+  .cross-card .ill::after{content:"";width:18px;height:32px;background:linear-gradient(180deg,#1E4530,#0a2418);border-radius:3px 3px 5px 5px}
+  .cross-card h4{font-family:var(--font-serif);font-size:17px;font-weight:500;margin:0;line-height:1.25}
+  .cross-card .desc{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-muted);line-height:1.45}
+  .cross-card .pr{font-family:var(--font-serif);font-size:18px;font-weight:600;color:var(--color-green-primary);margin-top:6px}
+
+  .quiz-mini{padding:64px;background:var(--color-bg-page)}
+  .quiz-card{max-width:600px;margin:0 auto;background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:32px;text-align:center}
+  .quiz-card .ico{width:42px;height:42px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;margin:0 auto 14px}
+  .quiz-card h3{font-family:var(--font-serif);font-weight:400;font-size:24px;line-height:1.25;letter-spacing:-0.015em;margin:0 0 10px}
+  .quiz-card h3 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .quiz-card p{font-size:14px;color:var(--color-text-muted);line-height:1.65;margin:0 0 20px}
+  .quiz-card a{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border:1.5px solid var(--color-green-primary);color:var(--color-green-primary);border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;text-decoration:none}
+  .quiz-card a:hover{background:var(--color-green-soft-card)}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Pachet Energie">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 299 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span class="wa"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="#">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/></svg><span class="icon-label">Coș (0)</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item active">Pachete</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a>Acasă</a><span class="sep">›</span><a>Pachete</a><span class="sep">›</span><span class="here">Pachet Energie</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="gallery">
+        <div class="gal-main">
+          <span class="gal-seal">Cură 120 de zile</span>
+          <div class="pair">
+            <div class="bottle matte b1">
+              <div class="cap"></div><div class="neck"></div>
+              <div class="body"><div class="label">
+                <div class="brand">Vivens Genetica</div>
+                <div class="seal">V+</div>
+                <div class="name">Vita Complete+<br/>Vegan Shots</div>
+                <div class="vol">500 ML · 50 DOZE</div>
+              </div></div>
+            </div>
+            <div class="bottle amber b2">
+              <div class="cap"></div><div class="neck"></div>
+              <div class="body"><div class="label">
+                <div class="brand">Vivens Genetica</div>
+                <div class="seal">D+</div>
+                <div class="name">D-Tox<br/>Ficat</div>
+                <div class="vol">120 CAPSULE</div>
+              </div></div>
+            </div>
+          </div>
+          <div class="gal-caption">combustibil vitaminic + filtru hepatic · cură 120 zile</div>
+        </div>
+        <div class="gal-thumbs">
+          <div class="gal-thumb t3 active"><div class="pair-mini"><span></span><span></span></div></div>
+          <div class="gal-thumb"></div>
+          <div class="gal-thumb t2"></div>
+        </div>
+      </div>
+
+      <div class="info">
+        <div class="eyebrow" style="color:var(--color-green-primary);text-transform:uppercase;font-weight:700;font-family:var(--font-sans)">PACHET ENERGIE · REVITALIZARE &amp; VITALITATE</div>
+        <h1>Pachet Energie — <em>Combustibil &amp; filtru hepatic.</em></h1>
+        <p class="subline" style="font-family:var(--font-serif);font-style:italic;font-size:18px">Energie celulară, detoxifiere, metabolism activ.</p>
+        <p class="subline">Două produse care lucrează simultan pe două axe: <strong>Vita Complete+</strong> aduce combustibilul vitaminic cu 25+ nutrienți pentru energie zilnică, <strong>D-Tox Ficat</strong> susține filtrul hepatic care activează corect vitaminele liposolubile A, D, E, K. Cură completă pentru <strong>120 de zile</strong>.</p>
+
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span class="score">4,7 din 5</span>
+          <span class="count">· 128 recenzii verificate</span>
+        </div>
+
+        <div class="bundle-list">
+          <div class="bundle-line">
+            <div class="mini-ph a"></div>
+            <div>
+              <div class="b-name">Vita Complete+ Vegan Shots</div>
+              <div class="b-meta">500 ml · 50 doze · vegan</div>
+            </div>
+            <div class="b-price">184 lei</div>
+          </div>
+          <div class="bundle-line">
+            <div class="mini-ph b"></div>
+            <div>
+              <div class="b-name">D-Tox Ficat</div>
+              <div class="b-meta">120 capsule · vegan</div>
+            </div>
+            <div class="b-price">139 lei</div>
+          </div>
+        </div>
+
+        <div class="price-block">
+          <div class="row">
+            <span class="lbl">Preț pachet</span>
+            <span class="now-price">306 lei</span>
+          </div>
+          <div class="sub-line">Cură completă de 120 de zile. La abonament prețul scade automat cu încă câteva procente. Oprești oricând, fără obligativitate.</div>
+        </div>
+
+        <button class="add-cta">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/></svg>
+          Adaugă pachetul în coș · 306 lei
+        </button>
+
+        <div class="trust-row">
+          <div class="item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Livrare 24–48h</div>
+          <div class="item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Retur 14 zile</div>
+          <div class="item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Plata la livrare</div>
+        </div>
+        <a class="ind-link">Vezi produsele individual →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF STRIP -->
+  <section class="proof-strip">
+    <div class="proof-row">
+      <div class="proof-cell"><strong>128 recenzii</strong><span>cumpărători verificați</span></div>
+      <div class="proof-cell"><strong>4,7 din 5</strong><span>rating mediu</span></div>
+      <div class="proof-cell"><strong>120 zile cură</strong><span>completă, fără pauze</span></div>
+      <div class="proof-cell"><strong>2 produse vegane</strong><span>analize publice pe fiecare lot</span></div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why">
+    <div class="why-inner">
+      <div class="why-text">
+        <div style="font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700">Cum lucrează împreună</div>
+        <h2>Axa <em>combustibil-filtru, ținută în echilibru.</em></h2>
+        <p>Energia reală se construiește din două procese suprapuse: <strong>ce primește celula</strong> (micronutrienții) și <strong>ce procesează ficatul</strong> (activarea acelor micronutrienți). Mâncarea procesată, stresul cronic și solul agricol sărac au creat deficite subclinice de B12, magneziu, vitamina D la jumătate din populația adultă.</p>
+        <p>În paralel, ficatul filtrează 1,5 litri de sânge pe minut — vitaminele liposolubile A, D, E, K se activează în ficat. Vita Complete+ aduce fundația, D-Tox Ficat repune filtrul în funcțiune.</p>
+      </div>
+      <div class="why-cards">
+        <div class="why-card">
+          <div class="head">
+            <div class="ill b"></div>
+            <div>
+              <div class="role-tag">Combustibilul · Vita Complete+</div>
+              <h3>25+ vitamine și minerale lichide + Green Blend &amp; Amino Blend.</h3>
+            </div>
+          </div>
+          <p class="role-line">Vit. C 250%, D3 400%, B12 10667%, B-complex complet, Coenzima Q10 + magneziu. Combustibilul mitocondrial pentru energie zilnică și reducerea oboselii.</p>
+        </div>
+        <div class="why-card">
+          <div class="head">
+            <div class="ill a"></div>
+            <div>
+              <div class="role-tag">Filtrul · D-Tox Ficat</div>
+              <h3>Armurariu 200 mg silimarină + Anghinare + Păpădie.</h3>
+            </div>
+          </div>
+          <p class="role-line">Silimarina protejează celulele hepatice și susține regenerarea. Cinarina din anghinare stimulează producția de bilă și digestia grăsimilor. Inulina din păpădie susține flora intestinală și eliminarea naturală.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits">
+    <div class="benefits-inner">
+      <div style="font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:10px">Beneficiile pachetului</div>
+      <h2>Ce se schimbă <em>în 120 de zile.</em></h2>
+      <ul class="b-grid">
+        <li>Energie reală fără cafea obligatorie — B-complex + Q10 + magneziu repornesc mitocondriile</li>
+        <li>Reducerea oboselii cu vitamine cu claim EFSA confirmat (C, B1, B2, B3, B5, B6, B12, magneziu)</li>
+        <li>Trezire mai ușoară dimineața — echilibru B-complex + magneziu</li>
+        <li>Metabolism energetic eficient (claim EFSA) — B-complex + crom + magneziu</li>
+        <li>Filtrul hepatic repornit — silimarina susține regenerarea celulelor hepatice</li>
+        <li>Activarea corectă a vitaminelor liposolubile A, D, E, K prin ficat funcțional</li>
+        <li>Digestie ușoară a meselor grase — cinarina stimulează producția de bilă</li>
+        <li>Ten mai luminos, fără ton gălbui — ficat sănătos se reflectă în calitatea tenului</li>
+        <li>Halenă matinală mai curată — fără senzația „de mahmureală fără alcool”</li>
+        <li>Somn mai stabil, fără treziri la 2–3 noaptea</li>
+        <li>Sprijin în slăbit — ficat susținut + crom 333% + B-complex = metabolism eficient</li>
+        <li>Protecție celulară împotriva stresului oxidativ (claim EFSA) — Vit. C, E naturală, seleniu + silimarină</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MATH -->
+  <section class="math-section">
+    <div class="math-card">
+      <div style="font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:8px">Transparență preț</div>
+      <h2>Cât costă, <em>exact.</em></h2>
+      <p class="lede">Două produse, un preț unic.</p>
+      <div class="math-list">
+        <div class="math-row">
+          <span>Vita Complete+ Vegan Shots — 500 ml, 50 doze</span>
+          <span class="v">184 lei</span>
+        </div>
+        <div class="math-row">
+          <span>D-Tox Ficat — 120 capsule, 120 doze</span>
+          <span class="v">139 lei</span>
+        </div>
+        <div class="math-row total-row">
+          <span>Total individual</span>
+          <span class="v">323 lei</span>
+        </div>
+        <div class="math-row bundle-row">
+          <span class="lbl">Preț pachet</span>
+          <span class="v">306 lei</span>
+        </div>
+      </div>
+      <div class="save-chip">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        Economisești 17 lei
+      </div>
+      <div class="foot-line">La abonament cu livrare automată la 90 de zile, prețul scade cu încă 5%. Oprești oricând, în cont, fără întrebări.</div>
+    </div>
+  </section>
+
+  <!-- TIMELINE / CUM SE FOLOSEȘTE -->
+  <section class="timeline">
+    <div class="timeline-head">
+      <div style="font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700">Cum se folosește</div>
+      <h2>Două produse, <em>două momente ale zilei.</em></h2>
+    </div>
+    <div class="timeline-grid">
+      <div class="tl-step">
+        <div class="num">1</div>
+        <div class="when">Dimineața, pe stomacul gol</div>
+        <h4>1 shot Vita Complete+.</h4>
+        <p>10 ml la trezire, cu 15–30 min înainte de mic dejun. Absorbția optimă a vitaminelor liposolubile prin formatul lichid. Gust de portocale.</p>
+      </div>
+      <div class="tl-step">
+        <div class="num">2</div>
+        <div class="when">La micul dejun</div>
+        <h4>1 capsulă D-Tox Ficat.</h4>
+        <p>Cu apă, în timpul mesei. Silimarina se absoarbe mai bine în prezența grăsimilor alimentare.</p>
+      </div>
+      <div class="tl-step">
+        <div class="num">3</div>
+        <div class="when">Durată recomandată</div>
+        <h4>Minimum 3 luni, ideal 120 zile.</h4>
+        <p>Primele schimbări (energie, somn) apar în 2–4 săptămâni. Funcția hepatică se rebalansează treptat în 6–10 săptămâni.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PENTRU CINE -->
+  <section class="pcine">
+    <div class="pcine-inner">
+      <div class="pcine-head">
+        <div style="font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700">Onestitate produs</div>
+        <h2>Pentru cine merge bine. Și pentru cine <em>nu merge (încă).</em></h2>
+      </div>
+      <div class="pcine-grid">
+        <div class="pcine-col yes">
+          <h3>Merge bine pentru...</h3>
+          <ul>
+            <li>Persoane cu oboseală persistentă, trezire grea, dependență de cafea</li>
+            <li>Cei cu „lipsa de energie” la 14:00, prăbușire după prânz</li>
+            <li>Persoane peste 30 ani cu deficite subclinice de B12, magneziu, vitamina D</li>
+            <li>Cei care simt moleșeală după mese grase, halenă matinală, ten gălbui</li>
+            <li>Stil de viață cu mese procesate, alcool ocazional, stres cronic</li>
+            <li>Cei care „stau” pe cântar și bănuiesc că metabolismul e încetinit</li>
+          </ul>
+        </div>
+        <div class="pcine-col no">
+          <h3>Nu merge (încă) pentru...</h3>
+          <ul>
+            <li>Minori sub 12 ani — consultă medicul pediatru</li>
+            <li>Femei însărcinate sau care alăptează — consultă medicul</li>
+            <li>Persoane cu boli hepatice în tratament — verifică cu medicul</li>
+            <li>Alergie la armurariu, anghinare, păpădie sau familia Asteraceae</li>
+            <li>Cei cu obstrucție biliară sau pietre la fiere — verifică cu medicul</li>
+            <li>Cei sub tratament cu medicamente metabolizate hepatic — verifică cu medicul</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-head">
+      <div style="font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700">Întrebări frecvente</div>
+      <h2>Ce ne întrebați despre <em>acest pachet.</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <div class="faq-q">Când încep să simt diferența?<span class="toggle">+</span></div>
+        <div class="faq-a">Energia se simte în <strong>1–2 săptămâni</strong>. Filtrul hepatic se rebalansează în 4–8 săptămâni. Tenul și halena matinală se îmbunătățesc în 6–10 săptămâni.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Pot lua amândouă produsele în aceeași zi?<span class="toggle">+</span></div>
+        <div class="faq-a">Da, sunt formulate să se completeze. <strong>Vita Complete+</strong> dimineața pe stomacul gol, <strong>D-Tox Ficat</strong> la micul dejun pentru absorbție optimă cu grăsimi alimentare.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Este sigur pentru utilizare pe termen lung?<span class="toggle">+</span></div>
+        <div class="faq-a">Da. Recomandăm cure de <strong>3 luni cu pauze de 2–4 săptămâni</strong> între. D-Tox Ficat poate fi luat continuu pentru susținere hepatică de fond.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Conține alergeni?<span class="toggle">+</span></div>
+        <div class="faq-a">Nu conține <strong>gluten, lactoză, soia sau OMG</strong>. Atenție dacă ești alergic la familia Asteraceae (anghinare, păpădie, armurariu).</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Pot lua cu medicamente?<span class="toggle">+</span></div>
+        <div class="faq-a"><strong>Silimarina</strong> influențează metabolismul hepatic al unor medicamente. Dacă iei tratament cronic, verifică cu medicul înainte.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Garanția de 14 zile cum funcționează?<span class="toggle">+</span></div>
+        <div class="faq-a">Dacă după 14 zile produsul nu te convinge, primești banii înapoi pentru sticla deschisă. Returul se face din cont, <strong>fără întrebări</strong>.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROSS-SELL -->
+  <section class="cross">
+    <div class="cross-inner">
+      <div class="cross-head">
+        <h2>Dacă nu e potrivit pentru tine, <em>vezi celelalte pachete.</em></h2>
+      </div>
+      <div class="cross-grid">
+        <a class="cross-card">
+          <div class="ill"></div>
+          <h4>Pachet Imunitate</h4>
+          <p class="desc">Apărare naturală, antioxidanți, Black Seed + Vita Complete+.</p>
+          <span class="pr">349 lei</span>
+        </a>
+        <a class="cross-card">
+          <div class="ill"></div>
+          <h4>Pachet Confort Digestiv</h4>
+          <p class="desc">Probiotice, detox ficat, echilibru intestinal.</p>
+          <span class="pr">283 lei</span>
+        </a>
+        <a class="cross-card">
+          <div class="ill"></div>
+          <h4>Pachet Detox</h4>
+          <p class="desc">Curățare organism, susținere ficat &amp; eliminare toxine.</p>
+          <span class="pr">283 lei</span>
+        </a>
+        <a class="cross-card">
+          <div class="ill"></div>
+          <h4>Pachet Focus</h4>
+          <p class="desc">Claritate mentală, concentrare, Lion's Mane &amp; B6.</p>
+          <span class="pr">292 lei</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ MINI -->
+  <section class="quiz-mini">
+    <div class="quiz-card">
+      <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <h3>Nu știi dacă <em>e pentru tine?</em></h3>
+      <p>Fă testul de 60 sec — îți spunem onest dacă Pachetul Energie merge sau dacă alt pachet e mai potrivit.</p>
+      <a>Mergi la test
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>FAQ</li><li>Contact</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="font-family:var(--font-serif);font-style:italic;color:#9FB3A2">Date statistice sunt demo, în scop de prezentare design.</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

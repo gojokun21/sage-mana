@@ -1,0 +1,66 @@
+═══════════════════════════════════════════════════════════════
+  MÂNA NATURII — DESIGN SYSTEM v2.1
+  Paletă de culori & Tipografie
+  Forest green + Gold premium + Terracotta sobru CTA
+═══════════════════════════════════════════════════════════════
+
+
+───────────────────────────────────────────────────────────────
+  CULORI
+───────────────────────────────────────────────────────────────
+
+VERZI — 7 trepte de la deep la pal
+  Verde deep            #073A1F
+  Verde primary         #0C542F
+  Verde medium          #428C62
+  Verde soft card       #E6EFE0
+  Verde pale            #C2D9AC
+  Verde mute            #C5DBA0
+  Verde success         #73BF6B
+
+AUR PREMIUM
+  Gold                  #CAA44A
+  Gold hover            #B58F38
+  Gold soft             #F0D99A
+
+ACCENT CALD CTA — terracotta sobru
+  CTA primary           #B85A3C
+  CTA primary hover     #A04E33
+
+NEUTRE & TEXT
+  Background pagină      #F4F8F1
+  Background card        #FFFFFF
+  Background card 2      #ECF2E6
+  Border                 #DCE5D6
+  Border 2               #C7D4BD
+  Text primary           #0F2317
+  Text muted             #4A5E51
+  Text faint             #7B8C7F
+  Text on dark           #F4F8F1
+
+SISTEM
+  Danger                 #D94545
+  Warning                #E89C2F
+
+
+───────────────────────────────────────────────────────────────
+  TIPOGRAFIE
+───────────────────────────────────────────────────────────────
+
+FONTURI
+  Serif (titluri H1–H4)   'Fraunces', Georgia, serif
+  Sans (body / UI)        'Inter', -apple-system, sans-serif
+
+SCARĂ TITLURI
+  H1   64px · weight 400 · line-height 1.04 · letter-spacing -0.02em
+  H2   42px · weight 400 · line-height 1.10 · letter-spacing -0.015em
+  H3   22px · weight 500 · line-height 1.25
+  H4   serif · weight 500 · letter-spacing -0.01em
+
+BODY & UI
+  Body text              15px · line-height 1.55 · Inter
+  Eyebrow                11px · weight 600 · letter-spacing .18em · UPPERCASE · verde primary
+  Eyebrow gold           11px · weight 600 · letter-spacing .18em · UPPERCASE · gold hover
+  Logo                   26px · serif · weight 500
+
+═══════════════════════════════════════════════════════════════

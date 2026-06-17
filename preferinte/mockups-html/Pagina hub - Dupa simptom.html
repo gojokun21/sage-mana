@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Index după simptom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px;letter-spacing:.01em}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+  .announce .right .sparkle{color:var(--color-gold)}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* HERO */
+  .hero{padding:72px 64px 88px;background:var(--color-bg-page)}
+  .hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:64px;align-items:center}
+  .hero .eyebrow{margin-bottom:18px;display:inline-flex;align-items:center;gap:10px}
+  .hero .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .hero h1{font-family:var(--font-serif);font-weight:400;font-size:56px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 22px;color:var(--color-text-primary)}
+  .hero h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .hero .lede{font-size:17px;color:var(--color-text-muted);line-height:1.75;max-width:580px;margin:0 0 28px}
+  .hero-search{display:flex;align-items:center;background:var(--color-bg-card);border:1.5px solid var(--color-border);border-radius:14px;height:54px;padding:0 20px;gap:12px;max-width:480px}
+  .hero-search svg{color:var(--color-green-primary);flex-shrink:0}
+  .hero-search input{flex:1;border:0;background:transparent;font-family:var(--font-sans);font-size:14.5px;color:var(--color-text-primary);outline:none}
+  .hero-search input::placeholder{color:var(--color-text-faint)}
+
+  .hero-illu{aspect-ratio:1/1.1;border-radius:24px;background:var(--color-bg-card);border:1px solid var(--color-border);position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:var(--shadow-soft)}
+  .hero-illu::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,var(--color-green-soft-card) 0%,transparent 65%)}
+  .body-figure{position:relative;width:170px;height:340px}
+  .body-figure svg{width:100%;height:100%;color:var(--color-green-medium);opacity:.55}
+  .body-dot{position:absolute;width:18px;height:18px;border-radius:50%;background:var(--color-green-primary);border:3px solid #fff;box-shadow:0 0 0 4px rgba(12,84,47,.18)}
+  .body-dot.d-head{top:6%;left:50%;transform:translateX(-50%)}
+  .body-dot.d-chest{top:36%;left:50%;transform:translateX(-50%)}
+  .body-dot.d-abdomen{top:48%;left:50%;transform:translateX(-50%)}
+  .body-dot.d-leg{top:78%;left:30%}
+  .body-dot.d-label{position:absolute;font-family:var(--font-sans);font-size:11px;color:var(--color-text-muted);background:#fff;border:1px solid var(--color-border);padding:3px 9px;border-radius:999px;white-space:nowrap;font-weight:500}
+  .body-dot.d-label.lh{top:5%;left:calc(50% + 26px);transform:translateX(0)}
+  .body-dot.d-label.lc{top:35%;left:calc(50% + 26px);transform:translateX(0)}
+  .body-dot.d-label.la{top:47%;left:calc(50% - 110px);transform:translateX(0)}
+  .body-dot.d-label.ll{top:77%;left:calc(30% - 110px);transform:translateX(0)}
+
+  /* Group section */
+  .grp-block{padding:88px 64px}
+  .grp-block.tone-a{background:var(--color-bg-page)}
+  .grp-block.tone-b{background:var(--color-green-soft-card)}
+  .grp-head{margin-bottom:36px;max-width:780px}
+  .grp-head .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+  .grp-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .grp-head h2{font-family:var(--font-serif);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-0.015em;margin:0}
+  .grp-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+
+  .grp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .grp-card{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:16px;padding:22px 22px 16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;transition:all .15s;text-decoration:none;color:inherit;min-height:240px}
+  .grp-card:hover{border-color:var(--color-green-primary);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .grp-card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .grp-card h3{font-family:var(--font-serif);font-size:18px;font-weight:500;line-height:1.25;margin:0;color:var(--color-text-primary);flex:1}
+  .grp-card .chip-prev{display:inline-flex;align-items:center;gap:5px;background:var(--color-green-soft-card);color:var(--color-green-deep);font-family:var(--font-sans);font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.04em;white-space:nowrap}
+  .grp-card .desc{font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-muted);line-height:1.55;margin:0;flex:1}
+  .grp-card .more{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:12.5px;font-weight:600;color:var(--color-green-primary);margin-top:auto;padding-top:10px;border-top:1px solid var(--color-border)}
+
+  .grp-foot-line{margin-top:36px;font-size:14.5px;color:var(--color-text-muted);text-align:center;font-family:var(--font-serif);font-style:italic}
+  .grp-foot-line a{color:var(--color-green-primary);font-weight:600;font-style:normal;font-family:var(--font-sans);text-decoration:underline;text-underline-offset:3px}
+
+  /* Medic card */
+  .medic{padding:96px 64px;background:var(--color-bg-page)}
+  .medic-card{max-width:880px;margin:0 auto;background:var(--color-bg-card);border:2px solid var(--color-green-primary);border-radius:24px;padding:48px 56px;text-align:center;position:relative}
+  .medic-card .ico{width:56px;height:56px;border-radius:50%;background:var(--color-green-soft-card);display:grid;place-items:center;color:var(--color-green-primary);margin:0 auto 22px}
+  .medic-card h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.2;letter-spacing:-0.015em;margin:0 0 16px;color:var(--color-text-primary)}
+  .medic-card p.lede{font-size:15.5px;color:var(--color-text-muted);line-height:1.7;margin:0 0 28px;max-width:600px;margin-left:auto;margin-right:auto}
+  .medic-list{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-direction:column;gap:14px;text-align:left;max-width:640px;margin-left:auto;margin-right:auto}
+  .medic-list li{display:flex;align-items:flex-start;gap:12px;font-size:14.5px;color:var(--color-text-primary);line-height:1.55}
+  .medic-list li .check{width:22px;height:22px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;flex-shrink:0;margin-top:2px}
+  .medic-foot{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-faint);background:var(--color-bg-page);padding:14px 20px;border-radius:10px;max-width:620px;margin:0 auto;text-align:center;line-height:1.55}
+
+  /* Quiz strip */
+  .quiz-strip{background:var(--color-green-primary);color:#fff;padding:80px 64px;position:relative;overflow:hidden}
+  .quiz-strip::before{content:"";position:absolute;right:-100px;bottom:-100px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(202,164,74,.10),transparent 70%)}
+  .quiz-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center;position:relative}
+  .quiz-grid .left .eyebrow-gold{color:var(--color-gold);margin-bottom:18px}
+  .quiz-grid .left h2{font-family:var(--font-serif);font-weight:400;font-size:42px;line-height:1.1;letter-spacing:-0.02em;margin:0 0 16px;color:#fff}
+  .quiz-grid .left h2 em{font-style:italic;color:#C2D9AC;font-weight:300}
+  .quiz-grid .left p{font-size:16px;color:#C2D9AC;line-height:1.7;margin:0;max-width:560px}
+  .quiz-grid .right{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+  .quiz-cta{display:inline-flex;align-items:center;gap:12px;height:60px;padding:0 32px;background:var(--color-cta-primary);color:#fff;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:16px;text-decoration:none;border:0;cursor:pointer;box-shadow:var(--shadow-cta)}
+  .quiz-cta:hover{background:var(--color-cta-primary-hover)}
+  .quiz-micro{font-family:var(--font-serif);font-style:italic;font-size:13px;color:#9AC0A8}
+
+  /* Blog */
+  .blog{padding:96px 64px;background:var(--color-bg-page)}
+  .blog-head{margin-bottom:48px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
+  .blog-head h2{font-family:var(--font-serif);font-weight:400;font-size:38px;line-height:1.1;letter-spacing:-0.02em;margin:14px 0 0}
+  .blog-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .blog-card{display:flex;flex-direction:column;gap:14px;cursor:pointer}
+  .blog-thumb{aspect-ratio:4/3;border-radius:14px;position:relative;display:grid;place-items:center;overflow:hidden}
+  .blog-thumb.t1{background:linear-gradient(160deg,var(--color-green-pale),var(--color-green-medium))}
+  .blog-thumb.t2{background:linear-gradient(160deg,var(--color-green-mute),var(--color-green-soft-card))}
+  .blog-thumb.t3{background:linear-gradient(160deg,var(--color-green-soft-card),#D9E8D2)}
+  .blog-thumb svg{width:42%;height:42%;color:var(--color-green-deep);opacity:.5}
+  .blog-thumb .cat{position:absolute;top:16px;left:16px;background:#fff;color:var(--color-green-primary);font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:999px;border:1px solid var(--color-border)}
+  .blog-card .meta{font-size:12px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px}
+  .blog-card h3{font-family:var(--font-serif);font-size:20px;font-weight:500;line-height:1.3;margin:0;color:var(--color-text-primary)}
+  .blog-foot{text-align:center;margin-top:36px}
+  .blog-foot a{color:var(--color-green-primary);font-weight:600;font-size:14.5px;text-decoration:underline;text-underline-offset:4px}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Hub După simptom">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span class="wa"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="#">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș (0)</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item active">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><span class="here">După simptom</span></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Index · 32 simptome grupate</div>
+        <h1>După simptom. <em>Nu după ce sună mai bine.</em></h1>
+        <p class="lede">Alege simptomul care te aduce aici, nu numele unui supliment. Înăuntru, găsești ce ți se întâmplă, când e doar o reacție temporară și când merită mai multă atenție. Dacă simptomul tău nu apare aici, scrie-ne pe WhatsApp.</p>
+        <div class="hero-search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input placeholder="Caută simptomul (ex: balonare, oboseală)" />
+        </div>
+      </div>
+
+      <div class="hero-illu">
+        <div class="body-figure">
+          <svg viewBox="0 0 200 400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="100" cy="40" r="30"/>
+            <path d="M100 70 L100 95 M60 95 Q100 80 140 95 L150 220 Q150 230 140 230 L120 230 L120 380 M80 230 L60 230 Q50 230 50 220 L60 95"/>
+            <path d="M80 230 L80 380"/>
+            <path d="M70 110 L40 200 M130 110 L160 200"/>
+          </svg>
+          <div class="body-dot d-head"></div>
+          <div class="body-dot d-chest"></div>
+          <div class="body-dot d-abdomen"></div>
+          <div class="body-dot d-leg"></div>
+          <div class="body-dot d-label lh">cap</div>
+          <div class="body-dot d-label lc">piept</div>
+          <div class="body-dot d-label la">abdomen</div>
+          <div class="body-dot d-label ll">picioare</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRP 1: Digestiv -->
+  <section class="grp-block tone-a">
+    <div class="grp-head">
+      <div class="eyebrow">Grupa 01 · Digestiv</div>
+      <h2>Când ceva nu e <em>în ordine cu digestia.</em></h2>
+    </div>
+    <div class="grp-grid">
+      <a class="grp-card">
+        <div class="top"><h3>Balonare</h3><span class="chip-prev">60%</span></div>
+        <p class="desc">Abdomen plin, presiune în pântec, gaze.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Constipație</h3></div>
+        <p class="desc">Mai puțin de 3 tranzite pe săptămână, scaun tare, efort mare.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Reflux și arsuri</h3></div>
+        <p class="desc">Senzație de arsură în piept sau în gât, mai des după mese mari sau seara.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Diaree cronică</h3></div>
+        <p class="desc">Tranzit accelerat repetat, mai mult de 2 săptămâni.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Intoleranțe alimentare</h3></div>
+        <p class="desc">Reacții repetate la aceeași grupă de alimente: lactate, gluten, FODMAP.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- GRP 2: Energie & somn -->
+  <section class="grp-block tone-b">
+    <div class="grp-head">
+      <div class="eyebrow">Grupa 02 · Energie &amp; somn</div>
+      <h2>Când corpul refuză <em>să mai dea randament.</em></h2>
+    </div>
+    <div class="grp-grid">
+      <a class="grp-card">
+        <div class="top"><h3>Oboseală cronică</h3></div>
+        <p class="desc">Epuizare care nu trece nici după weekend lung. Te trezești deja obosit dimineața.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Ceața mentală</h3></div>
+        <p class="desc">Greutate în concentrare, memorie de scurt termen încetinită, lucrezi prin ceață.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Somn agitat</h3></div>
+        <p class="desc">Treziri nocturne, somn neodihnitor, dimineți grele.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Insomnie de adormire</h3></div>
+        <p class="desc">S-au scurs 30+ minute în fiecare seară până te ia somnul.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Energy crash după-amiezii</h3></div>
+        <p class="desc">Ora 14–15 te găsește golit, cauți cafea ca să termini ziua.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- GRP 3: Imunitate -->
+  <section class="grp-block tone-a">
+    <div class="grp-head">
+      <div class="eyebrow">Grupa 03 · Imunitate &amp; inflamație</div>
+      <h2>Când organismul luptă <em>mai des decât trebuie.</em></h2>
+    </div>
+    <div class="grp-grid">
+      <a class="grp-card">
+        <div class="top"><h3>Răceli repetate</h3></div>
+        <p class="desc">Mai mult de 4 răceli pe an, durează și 10+ zile fiecare.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Inflamație articulară</h3></div>
+        <p class="desc">Durere în genunchi, șolduri sau încheieturi, accentuată dimineața.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Alergii sezoniere puternice</h3></div>
+        <p class="desc">Polen, praf, păr de animale, simptome care țin săptămâni.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Piele inflamată</h3></div>
+        <p class="desc">Eczeme, roșeață persistentă, mâncărimi recurente.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Recuperare lentă după boală</h3></div>
+        <p class="desc">După viroză, energia revine în 3–4 săptămâni, nu într-una.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- GRP 4: Performanță -->
+  <section class="grp-block tone-b">
+    <div class="grp-head">
+      <div class="eyebrow">Grupa 04 · Performanță &amp; focus</div>
+      <h2>Când vrei mai mult <em>de la ce ești deja.</em></h2>
+    </div>
+    <div class="grp-grid">
+      <a class="grp-card">
+        <div class="top"><h3>Recuperare musculară lentă</h3></div>
+        <p class="desc">Durere musculară care ține 3+ zile după antrenament intens.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Lipsă de focus la antrenament</h3></div>
+        <p class="desc">Corpul e ok, dar mintea rătăcește în sală.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Plateau de forță</h3></div>
+        <p class="desc">Câteva săptămâni cu aceleași greutăți, niciun progres.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Tonus muscular scăzut</h3></div>
+        <p class="desc">Mușchi care arată mai puțin definit, chiar dacă te antrenezi.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="grp-card">
+        <div class="top"><h3>Energie sportivă inconsistentă</h3></div>
+        <p class="desc">Zi de zi cu variații mari de putere și rezistență.</p>
+        <span class="more">Vezi simptomul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+    </div>
+
+    <p class="grp-foot-line">Mai sunt 12 simptome în index, distribuite în grupe minore (piele, păr, hormoni, ciclu menstrual). <a>Vezi indexul complet (32 simptome) →</a></p>
+  </section>
+
+  <!-- Medic card -->
+  <section class="medic">
+    <div class="medic-card">
+      <div class="ico">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 12h6"/><path d="M12 9v6"/><circle cx="12" cy="12" r="10"/></svg>
+      </div>
+      <h2>Câteva simptome cer să vorbești <em>cu un medic, nu cu un site.</em></h2>
+      <p class="lede">Dacă ai oricare dintre semnele de mai jos, prioritar este să consulți un specialist, nu să încerci suplimentele singur.</p>
+      <ul class="medic-list">
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Scădere bruscă în greutate fără motiv.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Durere persistentă mai mult de 2 săptămâni.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Modificări vizibile în aspectul scaunului sau urinii.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Stare generală severă (febră ridicată, transpirații nocturne).</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Sângerări inexplicabile.</li>
+        <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Antecedente familiale de afecțiuni serioase.</li>
+      </ul>
+      <div class="medic-foot">Un supliment poate susține, dar nu înlocuiește o investigație medicală. Ne pare important să spunem asta clar.</div>
+    </div>
+  </section>
+
+  <!-- Quiz strip -->
+  <section class="quiz-strip">
+    <div class="quiz-grid">
+      <div class="left">
+        <div class="eyebrow eyebrow-gold">Test de 60 secunde</div>
+        <h2>Ai mai multe simptome <em>simultan?</em></h2>
+        <p>7 întrebări scurte, niciun email cerut înainte de rezultat. Îți spunem ce ar trebui să abordezi întâi, sau dacă ar trebui să abordezi ceva.</p>
+      </div>
+      <div class="right">
+        <a class="quiz-cta">Începe testul
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <div class="quiz-micro">Folosit de 8.234 oameni în ultima lună.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section class="blog">
+    <div class="blog-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">Din jurnalul nostru · auto-diagnostic</div>
+        <h2>Dacă vrei să înțelegi mai întâi, <em>apoi să acționezi.</em></h2>
+      </div>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-thumb t1">
+          <span class="cat">Ghid</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
+        <div class="meta">Ghid · 8 min citire</div>
+        <h3>Când un simptom e doar o reacție și când e un semnal.</h3>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb t2">
+          <span class="cat">Cercetare</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.5" fill="currentColor"/><circle cx="14" cy="9" r="1.2" fill="currentColor"/></svg>
+        </div>
+        <div class="meta">Cercetare · 11 min citire</div>
+        <h3>Intestinul și sistemul imunitar: legături dovedite, mituri demontate.</h3>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb t3">
+          <span class="cat">Practic</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+        </div>
+        <div class="meta">Practic · 6 min citire</div>
+        <h3>Jurnal de simptome: cum să-l ții fără să devii obsedat.</h3>
+      </div>
+    </div>
+    <div class="blog-foot"><a>Toate articolele despre auto-diagnostic →</a></div>
+  </section>
+
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 30 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="color:var(--color-gold);font-weight:600">Ediția de toamnă, Octombrie 2025</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Mega-menu Suplimente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px;letter-spacing:.01em}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+
+  /* Active nav underline (terracotta) */
+  .nav-item.sup-active{color:var(--color-text-primary);position:relative}
+  .nav-item.sup-active::after{content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:2px;background:var(--color-cta-primary);border-radius:2px}
+
+  /* Mega menu shell */
+  .mega-shell{position:relative;padding:24px 0 0;background:transparent}
+  .mega-shell::before{content:"";position:absolute;inset:0;background:rgba(7,58,31,.18);backdrop-filter:blur(2px);pointer-events:none}
+  .mega{position:relative;width:1280px;margin:0 auto;background:#fff;border:1px solid var(--color-border);border-radius:16px;padding:36px 40px 0;box-shadow:var(--shadow-mega);z-index:2}
+  .mega::before{content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(45deg);width:18px;height:18px;background:#fff;border-left:1px solid var(--color-border);border-top:1px solid var(--color-border);border-radius:3px;z-index:-1}
+
+  .mega-grid{display:grid;grid-template-columns:1fr 1fr 1fr 2fr;gap:32px;padding:0 0 28px}
+
+  .mega-col h4{font-family:var(--font-serif);font-style:italic;font-weight:500;font-size:15px;color:var(--color-text-faint);margin:0 0 14px;letter-spacing:-0.01em}
+
+  .mega-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column}
+  .mega-col li{padding:7px 0;font-family:var(--font-sans);font-size:13.5px;color:var(--color-text-primary);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .mega-col li a{color:inherit;text-decoration:none;display:flex;align-items:center;justify-content:space-between;gap:8px;flex:1}
+  .mega-col li:hover{color:var(--color-green-primary)}
+  .mega-col li .count{color:var(--color-text-faint);font-size:12px;font-variant-numeric:tabular-nums}
+  .mega-col li .new{background:var(--color-cta-primary);color:#fff;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:4px;font-weight:700}
+
+  .col-foot-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--font-sans);font-size:13px;color:var(--color-green-primary);font-weight:600;border-bottom:1.5px solid var(--color-green-primary);padding-bottom:1px;text-decoration:none}
+  .col-foot-link:hover{border-bottom-color:var(--color-cta-primary);color:var(--color-cta-primary-hover)}
+  .col-foot-disclaimer{margin-top:10px;font-family:var(--font-serif);font-style:italic;font-size:11.5px;color:var(--color-text-faint)}
+
+  /* Featured area (cols 4+5) */
+  .feat{background:var(--color-bg-page);border:1px solid var(--color-border-2);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:14px}
+  .feat h4{margin:0}
+  .feat .fcard{display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;padding:12px;background:#fff;border:1px solid var(--color-border);border-radius:10px;cursor:pointer;transition:transform .12s,box-shadow .12s}
+  .feat .fcard:hover{transform:translateY(-1px);box-shadow:0 8px 16px -6px rgba(15,42,29,.08)}
+  .feat .fcard .thumb{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--color-green-medium),var(--color-green-primary));display:grid;place-items:center;color:#fff;font-family:var(--font-serif);font-weight:500;font-size:14px;letter-spacing:-0.01em}
+  .feat .fcard .info{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .feat .fcard .info .name{font-family:var(--font-sans);font-weight:600;font-size:13.5px;color:var(--color-text-primary);line-height:1.25}
+  .feat .fcard .info .why{font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-muted)}
+  .feat .fcard .right-col{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+  .feat .fcard .price{font-family:var(--font-serif);font-size:15px;font-weight:600;color:var(--color-green-primary)}
+  .feat .fcard .see{font-family:var(--font-sans);font-size:11.5px;color:var(--color-green-primary);font-weight:600;display:inline-flex;align-items:center;gap:3px}
+
+  /* Bottom band inside mega */
+  .mega-bottom{margin:0 -40px;background:var(--color-green-deep);color:#fff;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;border-radius:0 0 16px 16px}
+  .mega-bottom .info{font-family:var(--font-sans);font-size:12.5px;color:#C2D9AC;letter-spacing:.01em}
+  .mega-bottom .info .sep{opacity:.5;margin:0 8px}
+  .mega-bottom .btn-cta{background:var(--color-cta-primary);color:#fff;height:38px;padding:0 18px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:13px;font-weight:600;text-decoration:none;box-shadow:var(--shadow-cta)}
+  .mega-bottom .btn-cta:hover{background:var(--color-cta-primary-hover)}
+
+  /* Ghost background area */
+  .ghost-bg{position:relative;padding:96px 64px 160px;background:var(--color-bg-page);overflow:hidden;text-align:center}
+  .ghost-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,58,31,.18) 0%,rgba(7,58,31,.08) 60%,rgba(7,58,31,0) 100%);pointer-events:none}
+  .ghost-bg .label{position:relative;display:inline-flex;align-items:center;gap:12px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-text-faint);font-weight:600;padding:8px 14px;background:#fff;border:1px solid var(--color-border);border-radius:999px;opacity:.85}
+  .ghost-bg .label::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--color-green-medium)}
+
+  footer.main .footer-bottom .edition{color:var(--color-gold);font-weight:600}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Mega-menu Suplimente">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span class="wa"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="#">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș</span><span class="badge">2</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item sup-active">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(180deg)"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <!-- Mega menu OPEN -->
+  <div class="mega-shell">
+    <div class="mega">
+      <div class="mega-grid">
+
+        <!-- Col 1: Pe categorie -->
+        <div class="mega-col">
+          <h4>Pe categorie</h4>
+          <ul>
+            <li>Stare de bine generală <span class="count">(16)</span></li>
+            <li>Imunitate <span class="count">(11)</span></li>
+            <li>Sănătate intestinală <span class="count">(9)</span></li>
+            <li>Energie <span class="count">(5)</span></li>
+            <li>Oase și articulații <span class="count">(5)</span></li>
+            <li>Vitalitate &amp; anti-aging <span class="count">(5)</span></li>
+            <li>Sănătatea inimii <span class="count">(4)</span></li>
+            <li>Focus <span class="count">(3)</span></li>
+            <li>Performanță sportivă <span class="count">(3)</span></li>
+            <li>Detoxifiere <span class="count">(3)</span></li>
+          </ul>
+          <a class="col-foot-link">→ Vezi toate cele 20 de produse</a>
+        </div>
+
+        <!-- Col 2: Pe format -->
+        <div class="mega-col">
+          <h4>Pe format</h4>
+          <ul>
+            <li>Capsule <span class="count">(3)</span></li>
+            <li>Lichid · Shots <span class="count">(4)</span></li>
+            <li>Pudră · Proteine <span class="count">(3)</span></li>
+            <li>Jeleuri <span class="count">(1)</span></li>
+            <li>Pachete <span class="count">(9)</span></li>
+          </ul>
+          <p class="col-foot-disclaimer">Filtrele se combină în catalog.</p>
+        </div>
+
+        <!-- Col 3: Quick links -->
+        <div class="mega-col">
+          <h4>Quick links</h4>
+          <ul>
+            <li><a href="Pagina filtru - Cele mai vandute.html">Cele mai vândute</a></li>
+            <li><a href="Pagina filtru - Noutati In curand.html">Noutăți <span class="new">Nou</span></a></li>
+            <li><a href="Pagina filtru - Sub 200 lei.html">Sub 200 lei</a></li>
+            <li><a href="Pagina filtru - Pachete sub 400 lei.html">Pachete sub 400 lei</a></li>
+            <li><a href="Test de 60 sec - Quiz Wizard V2.html">Cum aleg suplimentul potrivit?</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4+5: Featured -->
+        <div class="feat">
+          <h4 style="font-family:var(--font-serif);font-style:italic;font-weight:500;font-size:15px;color:var(--color-text-faint);letter-spacing:-0.01em">Recomandate de echipa noastră</h4>
+
+          <div class="fcard">
+            <div class="thumb">BS</div>
+            <div class="info">
+              <span class="name">Black Seed Elixir</span>
+              <span class="why">Imunitate &amp; echilibru metabolic</span>
+            </div>
+            <div class="right-col">
+              <span class="price">184 lei</span>
+              <span class="see">Vezi →</span>
+            </div>
+          </div>
+
+          <div class="fcard">
+            <div class="thumb">CP</div>
+            <div class="info">
+              <span class="name">ChocoProtein 1000g</span>
+              <span class="why">Proteină din zer, 33 porții</span>
+            </div>
+            <div class="right-col">
+              <span class="price">219 lei</span>
+              <span class="see">Vezi →</span>
+            </div>
+          </div>
+
+          <div class="fcard">
+            <div class="thumb">PE</div>
+            <div class="info">
+              <span class="name">Pachet Energie</span>
+              <span class="why">Multivitamine + adaptogeni</span>
+            </div>
+            <div class="right-col">
+              <span class="price">306 lei</span>
+              <span class="see">Vezi →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom band -->
+      <div class="mega-bottom">
+        <div class="info">
+          Transport gratuit peste 299 lei <span class="sep">•</span>
+          90 zile garanție <span class="sep">•</span>
+          Plata ramburs
+        </div>
+        <a class="btn-cta">Vezi catalogul complet
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Ghost background -->
+    <div class="ghost-bg">
+      <div class="label">Specificație de design · mega-menu open state</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 14 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678</div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -189,3 +189,67 @@ if (document.querySelector('[data-fancybox]')) {
     Thumbs: false,
   });
 }
+
+/* ---------------- Newsletter strip subscribe ----------------
+ * AJAX submit to the existing `natura_popup_subscribe` endpoint
+ * (app/newsletter-popup.php). Email-only; the handler derives a name.
+ */
+(function () {
+  var form = document.querySelector('.news-form[data-news-subscribe]');
+  if (!form) return;
+
+  var input = form.querySelector('input[type="email"]');
+  var honeypot = form.querySelector('input[name="website"]');
+  var btn = form.querySelector('button[type="submit"]');
+  var status = form.parentElement.querySelector('[data-news-status]');
+  var busy = false;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (busy) return;
+
+    var email = input ? input.value.trim() : '';
+    if (!email) {
+      if (input) input.focus();
+      return;
+    }
+
+    busy = true;
+    var btnLabel = btn ? btn.textContent : '';
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Se trimite...';
+    }
+
+    var data = new FormData();
+    data.append('action', 'natura_popup_subscribe');
+    data.append('nonce', form.getAttribute('data-nonce') || '');
+    data.append('email', email);
+    data.append('website', honeypot ? honeypot.value : '');
+
+    fetch(form.getAttribute('action'), {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: data,
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.success) {
+          form.reset();
+          if (status) status.textContent = 'Gata! Te-ai abonat — verifică-ți emailul.';
+        } else if (status) {
+          status.textContent = (res && res.data && res.data.message) || 'A apărut o eroare. Încearcă din nou.';
+        }
+      })
+      .catch(function () {
+        if (status) status.textContent = 'A apărut o eroare. Încearcă din nou.';
+      })
+      .finally(function () {
+        busy = false;
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = btnLabel;
+        }
+      });
+  });
+})();

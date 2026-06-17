@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Index pachete</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px;letter-spacing:.01em}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* HERO */
+  .hero{padding:72px 64px 88px;background:var(--color-bg-page)}
+  .hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:64px;align-items:center}
+  .hero .eyebrow{margin-bottom:18px;display:inline-flex;align-items:center;gap:10px}
+  .hero .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .hero h1{font-family:var(--font-serif);font-weight:400;font-size:56px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 14px;color:var(--color-text-primary)}
+  .hero h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .hero .subline{font-family:var(--font-serif);font-style:italic;font-size:20px;color:var(--color-text-muted);margin:0 0 22px}
+  .hero .lede{font-size:16.5px;color:var(--color-text-muted);line-height:1.75;max-width:580px;margin:0 0 28px}
+  .trust-chips{display:flex;flex-wrap:wrap;gap:10px}
+  .trust-chip{display:inline-flex;align-items:center;gap:8px;background:var(--color-bg-card);border:1px solid var(--color-border);color:var(--color-text-primary);font-family:var(--font-sans);font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:999px}
+  .trust-chip svg{color:var(--color-green-primary);flex-shrink:0}
+
+  .hero-illu{aspect-ratio:1/1.05;border-radius:24px;background:var(--color-bg-card);border:1px solid var(--color-border);position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:var(--shadow-soft)}
+  .hero-illu::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,var(--color-green-soft-card) 0%,transparent 65%)}
+  .pkg-stack{position:relative;display:flex;align-items:flex-end;gap:14px}
+  .pkg-bot{position:relative;width:64px;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 18px 18px rgba(7,58,31,.22))}
+  .pkg-bot .cap{width:22px;height:9px;background:linear-gradient(180deg,#2c1b08,#1A0C04);border-radius:2px 2px 1px 1px}
+  .pkg-bot .body{width:62px;height:148px;border-radius:7px 7px 14px 14px;position:relative;box-shadow:inset -5px -6px 12px rgba(0,0,0,.4),inset 5px 5px 12px rgba(255,255,255,.07)}
+  .pkg-bot.amber .body{background:linear-gradient(180deg,#3A2110,#1A0C04)}
+  .pkg-bot.matte .body{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .pkg-bot.matte .cap{background:linear-gradient(180deg,#0a2418,#051209)}
+  .pkg-bot .label{position:absolute;left:9%;right:9%;top:30%;bottom:14%;background:linear-gradient(180deg,#F5EAD0,#E5D4A8);border-radius:3px;display:grid;place-items:center;padding:6px 4px}
+  .pkg-bot.matte .label{background:linear-gradient(180deg,#F4F1E5,#D9D2BD)}
+  .pkg-bot .label .seal{width:14px;height:14px;border-radius:50%;background:var(--color-gold);color:var(--color-text-primary);display:grid;place-items:center;font-family:var(--font-serif);font-size:7px;font-weight:600}
+  .pkg-bot.b-mid{transform:translateY(-22px) scale(1.06)}
+  .pkg-stack .pkg-bot.b1{transform:rotate(-3deg)}
+  .pkg-stack .pkg-bot.b3{transform:rotate(3deg)}
+  .pkg-caption{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-primary);background:rgba(255,255,255,.85);padding:6px 14px;border-radius:999px;backdrop-filter:blur(6px);white-space:nowrap}
+
+  /* GRID SECTION */
+  .grid-block{padding:88px 64px;background:var(--color-bg-page)}
+  .grid-head{margin-bottom:36px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+  .grid-head .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+  .grid-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .grid-head h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.15;letter-spacing:-0.015em;margin:0;max-width:680px}
+  .grid-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .grid-head .legend{display:flex;gap:14px;align-items:center;font-size:12.5px;color:var(--color-text-muted)}
+  .grid-head .legend .dot{width:7px;height:7px;border-radius:50%;background:var(--color-green-primary)}
+
+  .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .pkg-card{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;text-decoration:none;color:inherit;transition:all .15s}
+  .pkg-card:hover{border-color:var(--color-green-primary);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .pkg-art{aspect-ratio:1.55/1;border-radius:12px;background:linear-gradient(160deg,var(--color-green-soft-card),var(--color-green-pale) 65%,var(--color-green-mute));position:relative;overflow:hidden;display:grid;place-items:center}
+  .pkg-art::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4),transparent 55%)}
+  .mini-pair{position:relative;display:flex;align-items:flex-end;gap:8px}
+  .mini-bot{width:32px;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 6px 8px rgba(7,58,31,.25))}
+  .mini-bot .cap{width:11px;height:5px;background:linear-gradient(180deg,#2c1b08,#1A0C04);border-radius:1px 1px 0 0}
+  .mini-bot .body{width:28px;height:62px;border-radius:4px 4px 7px 7px;position:relative;box-shadow:inset -3px -3px 6px rgba(0,0,0,.4)}
+  .mini-bot.amber .body{background:linear-gradient(180deg,#3A2110,#1A0C04)}
+  .mini-bot.matte .body{background:linear-gradient(180deg,#1E4530,#0a2418)}
+  .mini-bot.matte .cap{background:linear-gradient(180deg,#0a2418,#051209)}
+  .mini-bot .label{position:absolute;left:14%;right:14%;top:30%;bottom:14%;background:linear-gradient(180deg,#F5EAD0,#E5D4A8);border-radius:1.5px}
+  .mini-bot.matte .label{background:linear-gradient(180deg,#F4F1E5,#D9D2BD)}
+  .mini-pair .mini-bot.b1{transform:rotate(-3deg)}
+  .mini-pair .mini-bot.b2{transform:translateY(-4px)}
+  .mini-pair .mini-bot.b3{transform:rotate(3deg)}
+  .pkg-art .duration{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.92);color:var(--color-text-primary);font-family:var(--font-sans);font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:5px 10px;border-radius:999px}
+  .pkg-art .count-pill{position:absolute;top:12px;left:12px;background:var(--color-green-primary);color:#fff;font-family:var(--font-sans);font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:5px 10px;border-radius:999px}
+
+  .pkg-card .eyeb{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700}
+  .pkg-card h3{font-family:var(--font-serif);font-size:22px;font-weight:500;line-height:1.2;margin:0;color:var(--color-text-primary);letter-spacing:-0.01em}
+  .pkg-card .hook{font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--color-text-muted);line-height:1.5;margin:-6px 0 0}
+  .pkg-card .prods{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px}
+  .pkg-card .prods li{font-size:13px;color:var(--color-text-primary);font-weight:500;display:flex;gap:8px;align-items:flex-start;line-height:1.45}
+  .pkg-card .prods li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--color-green-medium);flex-shrink:0;margin-top:8px}
+  .pkg-card .foot{display:flex;justify-content:space-between;align-items:flex-end;padding-top:14px;border-top:1px solid var(--color-border);margin-top:auto}
+  .pkg-card .price-area{display:flex;flex-direction:column;gap:3px}
+  .pkg-card .price{font-family:var(--font-serif);font-size:26px;font-weight:500;color:var(--color-green-primary);line-height:1;letter-spacing:-0.01em}
+  .pkg-card .save{font-family:var(--font-sans);font-size:11.5px;color:var(--color-green-primary);font-weight:600;display:inline-flex;align-items:center;gap:5px}
+  .pkg-card .save.transparent{color:var(--color-text-faint);font-style:italic;font-family:var(--font-serif);font-size:12.5px;font-weight:400}
+  .pkg-card .save svg{flex-shrink:0}
+  .pkg-card .more{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--color-green-primary)}
+
+  /* EDU SECTION */
+  .edu{padding:88px 64px;background:var(--color-green-soft-card)}
+  .edu-head{margin-bottom:36px;max-width:780px}
+  .edu-head .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+  .edu-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .edu-head h2{font-family:var(--font-serif);font-weight:400;font-size:34px;line-height:1.15;letter-spacing:-0.015em;margin:0}
+  .edu-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .edu-card{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:16px;padding:28px 26px;display:flex;flex-direction:column;gap:14px}
+  .edu-card .num{width:34px;height:34px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;font-family:var(--font-serif);font-weight:500;font-size:14px}
+  .edu-card h3{font-family:var(--font-serif);font-size:21px;font-weight:500;margin:0;line-height:1.25;letter-spacing:-0.005em}
+  .edu-card p{font-size:14px;color:var(--color-text-muted);line-height:1.65;margin:0}
+
+  /* QUIZ STRIP */
+  .quiz-strip{background:var(--color-green-primary);color:#fff;padding:80px 64px;position:relative;overflow:hidden}
+  .quiz-strip::before{content:"";position:absolute;right:-100px;bottom:-100px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(202,164,74,.10),transparent 70%)}
+  .quiz-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center;position:relative}
+  .quiz-grid .left .eyebrow-gold{color:var(--color-gold);margin-bottom:18px;display:inline-flex;align-items:center;gap:10px}
+  .quiz-grid .left .eyebrow-gold::before{content:"";width:24px;height:1px;background:var(--color-gold)}
+  .quiz-grid .left h2{font-family:var(--font-serif);font-weight:400;font-size:42px;line-height:1.1;letter-spacing:-0.02em;margin:0 0 16px;color:#fff}
+  .quiz-grid .left h2 em{font-style:italic;color:#C2D9AC;font-weight:300}
+  .quiz-grid .left p{font-size:16px;color:#C2D9AC;line-height:1.7;margin:0;max-width:560px}
+  .quiz-grid .right{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+  .quiz-cta{display:inline-flex;align-items:center;gap:12px;height:60px;padding:0 32px;background:var(--color-cta-primary);color:#fff;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:16px;text-decoration:none;border:0;cursor:pointer;box-shadow:var(--shadow-cta)}
+  .quiz-cta:hover{background:var(--color-cta-primary-hover)}
+  .quiz-chips{display:flex;gap:8px;flex-wrap:wrap}
+  .quiz-chips span{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.10);color:#E0EFD6;border:1px solid rgba(255,255,255,.18);font-size:11.5px;font-weight:500;padding:6px 11px;border-radius:999px;font-family:var(--font-sans)}
+
+  /* FAQ */
+  .faq{padding:96px 64px;background:var(--color-bg-page)}
+  .faq-head{max-width:880px;margin:0 auto 32px}
+  .faq-head .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+  .faq-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .faq-head h2{font-family:var(--font-serif);font-size:32px;line-height:1.1;font-weight:400;letter-spacing:-0.02em;margin:0}
+  .faq-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .faq-list{max-width:880px;margin:0 auto;display:flex;flex-direction:column;border-top:1px solid var(--color-border-2)}
+  .faq-item{border-bottom:1px solid var(--color-border-2)}
+  .faq-q{padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--color-text-primary);line-height:1.35}
+  .faq-q .toggle{width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid var(--color-border);display:grid;place-items:center;color:var(--color-green-primary);flex-shrink:0;font-size:18px;line-height:1}
+  .faq-item.open .toggle{background:var(--color-green-primary);color:#fff;transform:rotate(45deg)}
+  .faq-a{padding:0 0 22px;color:var(--color-text-muted);font-size:14.5px;line-height:1.7;max-width:780px;display:none}
+  .faq-item.open .faq-a{display:block}
+  .faq-a strong{color:var(--color-text-primary);font-weight:600}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Hub Pachete">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș (0)</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item active">Pachete</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><span class="here">Pachete</span></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Index · 11 pachete gândite</div>
+        <h1>Pachete. <em>Combinații care lucrează împreună.</em></h1>
+        <p class="subline">Nu colecții random. Sinergii calibrate.</p>
+        <p class="lede">Fiecare pachet rezolvă o nevoie reală: imunitate, energie, focus, frumusețe, echilibru digestiv, vitalitate, detoxifiere, sănătate după 40, regenerare. Combinațiile sunt gândite ca produsele să lucreze sinergic — nu doar alăturat. Prețul pachetelor e mai mic decât suma produselor individuale. Dacă nu știi ce ți se potrivește, fă quiz-ul de 60 secunde — îți recomandăm onest, fără presiune.</p>
+        <div class="trust-chips">
+          <span class="trust-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Sinergii calibrate</span>
+          <span class="trust-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Preț transparent</span>
+          <span class="trust-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Oprești oricând</span>
+        </div>
+      </div>
+
+      <div class="hero-illu">
+        <div class="pkg-stack">
+          <div class="pkg-bot amber b1"><div class="cap"></div><div class="body"><div class="label"><div class="seal">B+</div></div></div></div>
+          <div class="pkg-bot matte b-mid"><div class="cap"></div><div class="body"><div class="label"><div class="seal">V+</div></div></div></div>
+          <div class="pkg-bot amber b3"><div class="cap"></div><div class="body"><div class="label"><div class="seal">C+</div></div></div></div>
+        </div>
+        <div class="pkg-caption">11 pachete, sinergii calibrate</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID PACHETE -->
+  <section class="grid-block">
+    <div class="grid-head">
+      <div>
+        <div class="eyebrow">Cele 11 pachete</div>
+        <h2>De la 2 produse pentru o nevoie precisă, până la <em>3 produse care acoperă o axă întreagă.</em></h2>
+      </div>
+      <div class="legend"><span class="dot"></span>Toate vegane sau cu opțiune vegană marcată în pagină.</div>
+    </div>
+
+    <div class="pkg-grid">
+
+      <!-- 1. Imunitate -->
+      <a class="pkg-card" href="Pagina Pachet - Imunitate.html">
+        <div class="pkg-art">
+          <span class="count-pill">2 produse</span>
+          <span class="duration">120 zile</span>
+          <div class="mini-pair">
+            <div class="mini-bot amber b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot matte b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Imunitate &amp; apărare</div>
+        <h3>Pachet Imunitate</h3>
+        <p class="hook">Apărare naturală, energie zilnică.</p>
+        <ul class="prods">
+          <li>Black Seed Elixir — 240 capsule</li>
+          <li>Vita Complete+ Vegan Shots — 500 ml</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">349 lei</span>
+            <span class="save"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Economisești 19 lei</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 2. Energie -->
+      <a class="pkg-card" href="Pagina Pachet - Energie.html">
+        <div class="pkg-art">
+          <span class="count-pill">2 produse</span>
+          <span class="duration">120 zile</span>
+          <div class="mini-pair">
+            <div class="mini-bot matte b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot amber b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Energie &amp; metabolism</div>
+        <h3>Pachet Energie</h3>
+        <p class="hook">Energie susținută, ficat curat.</p>
+        <ul class="prods">
+          <li>Vita Complete+ Vegan Shots — 500 ml</li>
+          <li>D-Tox Ficat — 120 capsule</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">306 lei</span>
+            <span class="save"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Economisești 17 lei</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 3. Focus -->
+      <a class="pkg-card" href="Pagina Pachet - Focus.html">
+        <div class="pkg-art">
+          <span class="count-pill">2 produse</span>
+          <span class="duration">50 zile</span>
+          <div class="mini-pair">
+            <div class="mini-bot amber b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot matte b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Focus &amp; claritate</div>
+        <h3>Pachet Focus</h3>
+        <p class="hook">Concentrare, energie cognitivă.</p>
+        <ul class="prods">
+          <li>LionFocus B6 Jeleuri — 60 jeleuri</li>
+          <li>Vita Complete+ Vegan Shots — 500 ml</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">292 lei</span>
+            <span class="save"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Economisești 16 lei</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 4. Frumusete -->
+      <a class="pkg-card" href="Pagina Pachet - Frumusete.html">
+        <div class="pkg-art">
+          <span class="count-pill">2 produse</span>
+          <span class="duration">50 zile</span>
+          <div class="mini-pair">
+            <div class="mini-bot matte b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot amber b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Frumusețe · piele păr unghii</div>
+        <h3>Pachet Frumusețe</h3>
+        <p class="hook">Peptide &amp; nutrienți, într-un singur ritual.</p>
+        <ul class="prods">
+          <li>Collagen Joint+ Berry — 500 ml</li>
+          <li>Vita Complete+ Vegan Shots — 500 ml</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">349 lei</span>
+            <span class="save"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Economisești 19 lei</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 5. Echilibru -->
+      <a class="pkg-card" href="Pagina Pachet - Echilibru.html">
+        <div class="pkg-art">
+          <span class="count-pill">2 produse</span>
+          <span class="duration">33 zile</span>
+          <div class="mini-pair">
+            <div class="mini-bot matte b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot amber b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Digestie &amp; frumusețe</div>
+        <h3>Pachet Echilibru</h3>
+        <p class="hook">Intestin sănătos, piele luminoasă.</p>
+        <ul class="prods">
+          <li>Microflora+ Lemon Shots — 500 ml</li>
+          <li>Collagen Joint+ Berry — 500 ml</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">325 lei</span>
+            <span class="save"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Economisești 18 lei</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 6. Confort Digestiv -->
+      <a class="pkg-card" href="Pagina Pachet - Confort Digestiv.html">
+        <div class="pkg-art">
+          <span class="count-pill">2 produse</span>
+          <span class="duration">120 zile</span>
+          <div class="mini-pair">
+            <div class="mini-bot matte b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot amber b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Digestie</div>
+        <h3>Pachet Confort Digestiv</h3>
+        <p class="hook">Probiotice &amp; detox ficat.</p>
+        <ul class="prods">
+          <li>Microflora+ Lemon Shots — 500 ml</li>
+          <li>D-Tox Ficat — 120 capsule</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">283 lei</span>
+            <span class="save transparent">Preț transparent</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 7. Detox -->
+      <a class="pkg-card" href="Pagina Pachet - Detox.html">
+        <div class="pkg-art">
+          <span class="count-pill">2 produse</span>
+          <span class="duration">120 zile</span>
+          <div class="mini-pair">
+            <div class="mini-bot amber b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot matte b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Digestie &amp; detox</div>
+        <h3>Pachet Detox</h3>
+        <p class="hook">Curățare &amp; echilibru.</p>
+        <ul class="prods">
+          <li>D-Tox Ficat — 120 capsule</li>
+          <li>Black Seed Elixir — 240 capsule</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">283 lei</span>
+            <span class="save transparent">Preț transparent</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 8. Vitalitate -->
+      <a class="pkg-card" href="Pagina Pachet - Vitalitate.html">
+        <div class="pkg-art">
+          <span class="count-pill">3 produse</span>
+          <span class="duration">33 zile</span>
+          <div class="mini-pair">
+            <div class="mini-bot matte b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot amber b2"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot matte b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Energie &amp; regenerare</div>
+        <h3>Pachet Vitalitate</h3>
+        <p class="hook">Colagen, vitamine și probiotice.</p>
+        <ul class="prods">
+          <li>Microflora+ Lemon Shots — 500 ml</li>
+          <li>Vita Complete+ Vegan Shots — 500 ml</li>
+          <li>Collagen Joint+ Berry — 500 ml</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">499 lei</span>
+            <span class="save"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Economisești 28 lei</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 9. Detox Plus -->
+      <a class="pkg-card" href="Pagina Pachet - Detox Plus.html">
+        <div class="pkg-art">
+          <span class="count-pill">3 produse</span>
+          <span class="duration">120 zile</span>
+          <div class="mini-pair">
+            <div class="mini-bot amber b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot matte b2"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot amber b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Curățare profundă</div>
+        <h3>Pachet Detox Plus</h3>
+        <p class="hook">Ficat, intestin, scut antioxidant.</p>
+        <ul class="prods">
+          <li>D-Tox Ficat — 120 capsule</li>
+          <li>Microflora+ Lemon Shots — 500 ml</li>
+          <li>Black Seed Elixir — 240 capsule</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">457 lei</span>
+            <span class="save transparent">Preț transparent</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 10. Complex Sanatate 40+ -->
+      <a class="pkg-card" href="Pagina Pachet - Complex Sanatate 40.html">
+        <div class="pkg-art">
+          <span class="count-pill">3 produse</span>
+          <span class="duration">50 zile</span>
+          <div class="mini-pair">
+            <div class="mini-bot amber b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot matte b2"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot amber b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Vitalitate completă · 40+</div>
+        <h3>Pachet Complex Sănătate 40+</h3>
+        <p class="hook">Fundația, flora și scutul.</p>
+        <ul class="prods">
+          <li>Vita Complete+ Vegan Shots — 500 ml</li>
+          <li>Microflora+ Lemon Shots — 500 ml</li>
+          <li>Black Seed Elixir — 240 capsule</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">499 lei</span>
+            <span class="save"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Economisești 28 lei</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 11. Regenerare Celulara -->
+      <a class="pkg-card" href="Pagina Pachet - Regenerare Celulara.html">
+        <div class="pkg-art">
+          <span class="count-pill">3 produse</span>
+          <span class="duration">33 zile intensiv</span>
+          <div class="mini-pair">
+            <div class="mini-bot matte b1"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot amber b2"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+            <div class="mini-bot amber b3"><div class="cap"></div><div class="body"><div class="label"></div></div></div>
+          </div>
+        </div>
+        <div class="eyeb">Anti-aging funcțional</div>
+        <h3>Pachet Regenerare Celulară</h3>
+        <p class="hook">Refacere profundă, protecție celulară.</p>
+        <ul class="prods">
+          <li>Collagen Joint+ Berry — 500 ml</li>
+          <li>Vita Complete+ Vegan Shots — 500 ml</li>
+          <li>Black Seed Elixir — 240 capsule</li>
+        </ul>
+        <div class="foot">
+          <div class="price-area">
+            <span class="price">524 lei</span>
+            <span class="save"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Economisești 28 lei</span>
+          </div>
+          <span class="more">Vezi detalii <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- EDU -->
+  <section class="edu">
+    <div class="edu-head">
+      <div class="eyebrow">Criteriile noastre</div>
+      <h2>Sinergie reală, <em>nu simplă colecție.</em></h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="num">01</div>
+        <h3>Lucrează pe aceeași axă.</h3>
+        <p>Produsele dintr-un pachet atacă aceeași axă biologică — imunitate, ficat, articulații, neuroni. Nu punem împreună produse doar pentru că „arată bine în coș”.</p>
+      </div>
+      <div class="edu-card">
+        <div class="num">02</div>
+        <h3>Doze active reale.</h3>
+        <p>Cantitățile sunt suficiente să facă o diferență — Vit. C 250% VNR, D3 400%, colagen 7,2 g, probiotice 10 miliarde UFC. Nu doze simbolice de eticheta.</p>
+      </div>
+      <div class="edu-card">
+        <div class="num">03</div>
+        <h3>Durată aliniată.</h3>
+        <p>Cura completă, fără surprize de tipul „ține doar 10 zile”. Fiecare pachet specifică clar durata și ce produs ține mai puțin sau mai mult.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ STRIP -->
+  <section class="quiz-strip">
+    <div class="quiz-grid">
+      <div class="left">
+        <div class="eyebrow eyebrow-gold">Ghid onest · 60 secunde</div>
+        <h2>Nu știi unde să începi? <em>Răspunde la 7 întrebări.</em></h2>
+        <p>60 secunde. Fără email, fără cont. La final primești 1–2 sugestii pe care le poți lua sau ignora. Onest.</p>
+      </div>
+      <div class="right">
+        <a class="quiz-cta" href="Test de 60 sec - Quiz Wizard.html">Începe testul
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <div class="quiz-chips">
+          <span>Anonim</span>
+          <span>60 secunde</span>
+          <span>Fără presiune de cumpărare</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-head">
+      <div class="eyebrow">Întrebări frecvente</div>
+      <h2>Ce ne întrebați despre <em>pachete.</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <div class="faq-q">Pot lua mai multe pachete în paralel?<span class="toggle">+</span></div>
+        <div class="faq-a">Da, dar verifică <strong>suprapunerile pe vitamine și minerale</strong> ca să nu depășești VNR. Pentru combinații sigure, folosește quiz-ul sau scrie-ne pe WhatsApp — îți spunem onest dacă două pachete merg împreună sau dacă unul singur acoperă deja tot.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Cât durează până văd rezultate?<span class="toggle">+</span></div>
+        <div class="faq-a">Depinde de pachet și de nevoia ta. Reper general: <strong>digestie și energie</strong> 1–3 săptămâni; <strong>piele, păr, articulații</strong> 6–12 săptămâni; <strong>detoxifiere profundă</strong> 8–12 săptămâni. Fiecare pagină de pachet are timpii proprii detaliați.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Pot opri abonamentul oricând?<span class="toggle">+</span></div>
+        <div class="faq-a">Da, din contul tău, <strong>fără întrebări</strong>, fără apeluri de retenție, fără birocrație. Plus 14 zile garanție pentru produsele deschise — primesti banii înapoi dacă nu te conving.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Care e diferența între pachetele de 2 produse și cele de 3 produse?<span class="toggle">+</span></div>
+        <div class="faq-a">Pachetele de <strong>2 produse</strong> au focus pe o nevoie principală (imunitate, focus, digestie). Pachetele de <strong>3 produse</strong> acoperă 3 axe simultan — ideal pentru momentele biologice complexe (40+, regenerare profundă, vitalitate completă) sau pentru cei care vor un protocol complet într-un singur ritual.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 30 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="color:var(--color-gold);font-weight:600">Ediția de toamnă, Octombrie 2025</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

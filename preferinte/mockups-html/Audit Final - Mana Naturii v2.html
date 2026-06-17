@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Audit Final v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  body{background:#E9E3D2}
+  .stage{background:#FBF9F1}
+
+  /* ====== Top bar ====== */
+  .doc-top{background:var(--green-deep);color:#cfe2d6;padding:14px 64px;display:flex;justify-content:space-between;align-items:center;font-family:"Inter",sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  .doc-top .left{display:flex;align-items:center;gap:12px;color:#fff;font-weight:600}
+  .doc-top .left .mark{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.10);display:grid;place-items:center}
+  .doc-top .right{color:#9AC0A8;font-weight:500;letter-spacing:.12em}
+
+  /* ====== Document layout ====== */
+  .doc{max-width:880px;margin:0 auto;padding:0 32px}
+  .section{padding:96px 0;border-bottom:1px solid rgba(31,42,36,.08)}
+  .section:last-child{border-bottom:0}
+  .section.bg-cream{background:var(--cream)}
+
+  /* Doc-wide alternate using overlay; allow full-bleed cream blocks */
+  .full-cream{background:var(--cream);margin:0 -32px;padding:96px 32px;border-bottom:1px solid rgba(31,42,36,.08)}
+
+  /* Section eyebrow */
+  .section-num{font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.22em;color:var(--ink-3);font-weight:600;margin-bottom:28px;display:flex;align-items:center;gap:14px}
+  .section-num::before{content:"";width:42px;height:1px;background:var(--ink-3)}
+  .section-num strong{color:var(--green);font-weight:700}
+
+  /* Typography */
+  .doc h1{font-family:"Fraunces",serif;font-weight:400;font-size:68px;line-height:1.02;letter-spacing:-0.025em;margin:0 0 22px;color:var(--ink)}
+  .doc h1 em{font-style:italic;color:var(--green);font-weight:300}
+  .doc h2{font-family:"Fraunces",serif;font-weight:400;font-size:40px;line-height:1.12;letter-spacing:-0.015em;margin:0 0 28px}
+  .doc h2 em{font-style:italic;color:var(--green);font-weight:300}
+  .doc h3{font-family:"Fraunces",serif;font-weight:500;font-size:22px;line-height:1.3;letter-spacing:-0.01em;margin:0 0 12px;color:var(--ink)}
+  .doc h3 em{font-style:italic;color:var(--green);font-weight:400}
+  .doc p{font-family:"Inter",sans-serif;font-size:16px;line-height:1.75;color:var(--ink-2);margin:0 0 20px;max-width:760px}
+  .doc p strong{color:var(--ink);font-weight:600}
+  .doc p em{font-style:italic;color:var(--green-deep)}
+  .doc p:last-child{margin-bottom:0}
+
+  /* ====== 01 — Cover ====== */
+  .cover .subtitle{font-family:"Fraunces",serif;font-style:italic;font-size:22px;line-height:1.5;color:var(--ink-2);font-weight:400;max-width:680px;margin:0 0 40px}
+  .cover .subtitle em{color:var(--green);font-weight:300}
+  .cover .meta-line{font-family:"Inter",sans-serif;font-size:13px;letter-spacing:.04em;color:var(--ink-3);padding:18px 0;border-top:1px solid rgba(31,42,36,.15);border-bottom:1px solid rgba(31,42,36,.15);margin-bottom:36px;display:flex;flex-wrap:wrap;gap:16px}
+  .cover .meta-line .dot{color:var(--rule-2)}
+  .cover .meta-line strong{color:var(--ink);font-weight:600}
+
+  /* ====== 02 — Executive summary ====== */
+  .lead-para{font-family:"Inter",sans-serif;font-size:18px;line-height:1.7;color:var(--ink);margin:0 0 24px;max-width:760px}
+  .lead-para strong{font-weight:600}
+
+  /* ====== 03 — System map (table) ====== */
+  .sysmap{border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:#fff;margin-bottom:24px}
+  .sysmap-head, .sysmap-row{display:grid;grid-template-columns:1.4fr 1fr 90px 1.4fr;gap:0}
+  .sysmap-head .cell{padding:18px 20px;background:#FCFAF3;border-bottom:1px solid var(--rule);font-family:"Inter",sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  .sysmap-row .cell{padding:18px 20px;border-bottom:1px solid var(--rule);font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink-2);line-height:1.5;display:flex;align-items:flex-start;gap:8px}
+  .sysmap-row:last-child .cell{border-bottom:0}
+  .sysmap-row .cell.file{font-family:"Fraunces",serif;font-size:14.5px;color:var(--ink);font-weight:500;line-height:1.35}
+  .sysmap-row .cell.file .num{font-family:"Inter",sans-serif;font-size:11px;color:var(--ink-3);font-weight:600;letter-spacing:.04em;margin-top:3px;flex-shrink:0}
+  .sysmap-row .cell.ratio{font-family:"Fraunces",serif;font-weight:500;font-size:14px;color:var(--green-deep);font-variant-numeric:tabular-nums}
+  .sysmap-row .cell.ratio.na{color:var(--ink-3);font-style:italic}
+  .sysmap-row .cell.kind{font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:var(--ink-3)}
+  .sysmap-row .cell.role{font-size:13px;color:var(--ink-2);line-height:1.55}
+  .table-note{font-family:"Fraunces",serif;font-style:italic;font-size:15px;color:var(--ink-2);line-height:1.6;max-width:700px;margin:0}
+
+  /* ====== 04 — Principles ====== */
+  .principles{display:flex;flex-direction:column;gap:18px}
+  .principle{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:32px 36px;display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:flex-start}
+  .principle .num{font-family:"Fraunces",serif;font-size:44px;color:var(--green);font-weight:300;line-height:1;letter-spacing:-0.025em}
+  .principle h3{font-family:"Fraunces",serif;font-size:22px;font-weight:500;line-height:1.25;margin:0 0 10px;color:var(--ink);text-transform:none}
+  .principle h3 em{font-style:italic;color:var(--green);font-weight:300}
+  .principle p{font-size:15px;line-height:1.7;color:var(--ink-2);margin:0}
+  .principle p strong{color:var(--ink);font-weight:600}
+
+  /* ====== 05 — Decisions ====== */
+  .decision{padding:28px 0;border-top:1px solid rgba(31,42,36,.12)}
+  .decision:first-of-type{border-top:0;padding-top:0}
+  .decision .deco-h{font-family:"Fraunces",serif;font-weight:500;font-size:20px;color:var(--ink);margin:0 0 6px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+  .decision .deco-h .page{color:var(--green-deep);font-weight:600}
+  .decision .deco-h .dash{color:var(--ink-3);font-weight:300;font-style:italic;font-size:18px}
+  .decision .deco-h .why{font-family:"Fraunces",serif;font-style:italic;color:var(--ink-2);font-weight:400;font-size:18px}
+  .decision p{margin:10px 0 0;font-size:15px;line-height:1.75;color:var(--ink-2);max-width:760px}
+
+  /* ====== 06 — Anti-pattern table ====== */
+  .anti-table{border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:#fff}
+  .anti-row{display:grid;grid-template-columns:1fr 1.4fr;border-bottom:1px solid var(--rule)}
+  .anti-row:last-child{border-bottom:0}
+  .anti-row .pat{padding:18px 22px;font-family:"Fraunces",serif;font-size:14.5px;color:var(--ink);font-weight:500;line-height:1.4;background:#FCFAF3;border-right:1px solid var(--rule);display:flex;align-items:center;gap:10px}
+  .anti-row .pat::before{content:"✕";color:#a05a30;font-family:"Inter",sans-serif;font-size:14px;font-weight:600}
+  .anti-row .reason{padding:18px 22px;font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink-2);line-height:1.65}
+  .anti-row .reason strong{color:var(--ink);font-weight:600}
+
+  /* ====== 07 — Metrics ====== */
+  .metrics-intro{font-family:"Fraunces",serif;font-style:italic;font-size:18px;color:var(--ink-2);line-height:1.65;max-width:700px;margin:0 0 32px}
+  .metrics-intro em{color:var(--green-deep);font-style:italic}
+  .metric{display:grid;grid-template-columns:84px 1fr;gap:24px;padding:24px 0;border-top:1px solid rgba(31,42,36,.10);align-items:flex-start}
+  .metric:first-of-type{border-top:0}
+  .metric .num{font-family:"Fraunces",serif;font-size:48px;color:var(--green);font-weight:300;line-height:.95;letter-spacing:-0.03em}
+  .metric h3{font-family:"Fraunces",serif;font-size:19px;font-weight:500;line-height:1.3;margin:0 0 8px;color:var(--ink)}
+  .metric h3 em{font-style:italic;color:var(--green-2);font-weight:400}
+  .metric p{font-size:14.5px;line-height:1.7;color:var(--ink-2);margin:0}
+  .metric p strong{color:var(--ink);font-weight:600}
+  .metric .target{display:inline-block;background:var(--cream);border:1px solid var(--rule);color:var(--green-deep);font-family:"Inter",sans-serif;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;margin-bottom:8px;letter-spacing:.02em}
+
+  /* ====== 08 — Roadmap ====== */
+  .roadmap{display:flex;flex-direction:column;gap:18px}
+  .roadmap-card{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:28px 32px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:flex-start}
+  .roadmap-card .stage-tag{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 18px;background:var(--cream);border-radius:12px;min-width:120px}
+  .roadmap-card .stage-tag .label{font-family:"Inter",sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  .roadmap-card .stage-tag .num{font-family:"Fraunces",serif;font-size:36px;color:var(--green-deep);font-weight:500;line-height:1;letter-spacing:-0.02em}
+  .roadmap-card .stage-tag .when{font-family:"Fraunces",serif;font-style:italic;font-size:12px;color:var(--ink-3)}
+  .roadmap-card h3{font-family:"Fraunces",serif;font-size:21px;font-weight:500;line-height:1.25;margin:0 0 10px}
+  .roadmap-card h3 em{font-style:italic;color:var(--green);font-weight:300}
+  .roadmap-card p{font-size:14.5px;line-height:1.7;color:var(--ink-2);margin:0}
+  .roadmap-card p strong{color:var(--ink);font-weight:600}
+
+  /* ====== Closing ====== */
+  .closing{padding:96px 0;background:var(--green-deep);color:#fff;text-align:center;border-bottom:0;position:relative;overflow:hidden}
+  .closing::before{content:"";position:absolute;left:-100px;top:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.04),transparent 70%);pointer-events:none}
+  .closing::after{content:"";position:absolute;right:-100px;bottom:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.04),transparent 70%);pointer-events:none}
+  .closing .container-c{max-width:760px;margin:0 auto;padding:0 32px;position:relative}
+  .closing .label-c{font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#9AC0A8;font-weight:600;margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:14px}
+  .closing .label-c::before,.closing .label-c::after{content:"";width:42px;height:1px;background:#9AC0A8}
+  .closing blockquote{font-family:"Fraunces",serif;font-style:italic;font-weight:400;font-size:30px;line-height:1.4;color:#fff;margin:0;letter-spacing:-0.01em}
+  .closing blockquote em{font-style:italic;color:#cfe2d6;font-weight:300;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:2px}
+
+  /* ====== Doc footer ====== */
+  .doc-foot{padding:24px 64px;background:#fff;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;font-family:"Inter",sans-serif;font-size:12px;color:var(--ink-3);letter-spacing:.02em}
+  .doc-foot strong{color:var(--ink-2);font-weight:600}
+
+  /* table-of-contents helper */
+  .toc{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:36px}
+  .toc a{font-family:"Inter",sans-serif;font-size:11.5px;color:var(--ink-3);background:#fff;border:1px solid var(--rule);padding:6px 12px;border-radius:999px;font-weight:600;letter-spacing:.04em;text-decoration:none}
+  .toc a:hover{border-color:var(--green);color:var(--green)}
+  .toc a strong{color:var(--ink);font-weight:700;margin-right:5px}
+
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Audit Final Mâna Naturii v2">
+
+  <!-- Top bar -->
+  <div class="doc-top">
+    <div class="left">
+      <span class="mark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+      Mâna Naturii — Audit Final v2 · Octombrie 2025
+    </div>
+    <div class="right">Pregătit pentru: Echipa Mâna Naturii</div>
+  </div>
+
+  <div class="doc">
+
+    <!-- ====== 01 — COVER ====== -->
+    <section class="section cover">
+      <div class="section-num"><span>Secțiunea <strong>01</strong> / 08</span><span style="font-family:'Fraunces',serif;font-style:italic;text-transform:none;letter-spacing:0;color:var(--ink-3);font-weight:400">cover</span></div>
+      <div style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--green-2);font-weight:600;margin-bottom:24px">Redesign UX · document de proiect</div>
+      <h1>Mâna Naturii <em>v2.</em></h1>
+      <p class="subtitle">O suită de <em>11 pagini</em> construite pe principiul: educație înainte de vânzare, transparență înainte de optimizare.</p>
+      <div class="meta-line">
+        <span><strong>Versiune 2.0</strong></span>
+        <span class="dot">·</span>
+        <span>Octombrie 2025</span>
+        <span class="dot">·</span>
+        <span>11 fișiere</span>
+        <span class="dot">·</span>
+        <span>8 luni de lucru documentat</span>
+      </div>
+      <p>Această versiune există pentru că prima versiune a site-ului mananaturii.ro tratează vizitatorul ca pe un cumpărător din prima secundă. Dar 70-80% din traficul rece nu vine să cumpere — vine să înțeleagă dacă produsele sunt pentru el. v2 reorganizează întreaga pâlnie de la „convinge într-o secundă" la „construiește încrederea în timp", fără a renunța la rolul comercial al site-ului.</p>
+
+      <div class="toc" style="margin-top:48px">
+        <a><strong>01</strong>Cover</a>
+        <a><strong>02</strong>Sumar executiv</a>
+        <a><strong>03</strong>Harta sistemului</a>
+        <a><strong>04</strong>Principii</a>
+        <a><strong>05</strong>Decizii-cheie</a>
+        <a><strong>06</strong>Anti-patterns</a>
+        <a><strong>07</strong>Metrice</a>
+        <a><strong>08</strong>Roadmap</a>
+      </div>
+    </section>
+
+    <!-- ====== 02 — EXECUTIVE SUMMARY ====== -->
+    <section class="section">
+      <div class="section-num"><span>Secțiunea <strong>02</strong> / 08</span><span style="font-family:'Fraunces',serif;font-style:italic;text-transform:none;letter-spacing:0;color:var(--ink-3);font-weight:400">sumar executiv</span></div>
+      <h2>Pe scurt, <em>ce s-a schimbat.</em></h2>
+
+      <p class="lead-para"><strong>Problema.</strong> Site-ul actual mananaturii.ro tratează vizitatorul ca pe un cumpărător din prima secundă. Banner-uri agresive, urgență fabricată, lipsa de educație înainte de PDP. Asta funcționează pentru trafic cald deja convins, dar pierde 70–80% din traficul rece din Google și social.</p>
+
+      <p class="lead-para"><strong>Abordarea.</strong> Am construit o pâlnie diferențiată pe tipul de intenție. Trafic rece (Homepage, Hub categorie, Pagini simptom, Blog) primește <em>80% educație și 20% vânzare</em>. Trafic cald (PDP, Pachete, Promoții) primește <em>60% vânzare și 40% educație</em>. Trafic foarte cald (Coș, Checkout) primește <em>90% vânzare și 10% trust</em>. Quiz-ul rămâne <em>70% educație/diagnostic, 30% recomandare</em>. Contul logat e <em>85% retenție etică, 15% cross-sell subtle</em>.</p>
+
+      <p class="lead-para"><strong>Rezultatul așteptat.</strong> Cresc 3 metrice care contează: conversie pe trafic rece, AOV pe trafic cald, retention rate post-prima comandă. Toate trei prin construirea încrederii într-un context unde competitorii (Naturisimo, FaresPRO, Plafar) optimizează pentru click pe „Adaugă în coș" din prima secundă. Diferențierea nu vine din produs, ci din respectul față de timpul și inteligența cumpărătorului.</p>
+    </section>
+
+    <!-- ====== 03 — SYSTEM MAP ====== -->
+    <section class="section bg-cream" style="background:var(--cream);margin:0 -32px;padding:96px 32px;border-bottom:1px solid rgba(31,42,36,.08)">
+      <div class="section-num"><span>Secțiunea <strong>03</strong> / 08</span><span style="font-family:'Fraunces',serif;font-style:italic;text-transform:none;letter-spacing:0;color:var(--ink-3);font-weight:400">harta sistemului</span></div>
+      <h2>Cele 11 piese, mapate pe <em>intenția de trafic.</em></h2>
+
+      <div class="sysmap">
+        <div class="sysmap-head">
+          <div class="cell">Fișier</div>
+          <div class="cell">Tipul paginii</div>
+          <div class="cell">Ratio Ed/V</div>
+          <div class="cell">Rolul în pâlnie</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">01</span><span>Mana Naturii — Homepage.html</span></div>
+          <div class="cell kind">Landing principal</div>
+          <div class="cell ratio">80 / 20</div>
+          <div class="cell role">Poarta de intrare pentru trafic rece din Google și organic social.</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">02</span><span>Mega-menu — După simptom.html</span></div>
+          <div class="cell kind">Componentă navigație</div>
+          <div class="cell ratio na">n/a</div>
+          <div class="cell role">Arhitectura informației pentru descoperire pe simptom.</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">03</span><span>Pagina hub — După simptom.html</span></div>
+          <div class="cell kind">Categorie</div>
+          <div class="cell ratio">80 / 20</div>
+          <div class="cell role">Educație pe simptome înainte de produs specific.</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">04</span><span>Pagina simptom — Balonare.html</span></div>
+          <div class="cell kind">Sub-categorie</div>
+          <div class="cell ratio">80 / 20</div>
+          <div class="cell role">Articol cu ghid de încercat fără supliment + produs recomandat la final.</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">05</span><span>Test de 60 sec — Quiz Wizard.html</span></div>
+          <div class="cell kind">Tool de descoperire</div>
+          <div class="cell ratio">70 / 30</div>
+          <div class="cell role">Diagnostic onest + recomandare contextuală — cu opțiunea „nu ai nevoie de supliment acum".</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">06</span><span>PDP v2 — Black Seed Elixir.html</span></div>
+          <div class="cell kind">Produs wellness</div>
+          <div class="cell ratio">60 / 40</div>
+          <div class="cell role">Validare pattern sales-forward cu integritate.</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">07</span><span>PDP — ChocoProtein.html</span></div>
+          <div class="cell kind">Produs performanță</div>
+          <div class="cell ratio">60 / 40</div>
+          <div class="cell role">Validare că pattern-ul ține și pe altă categorie mentală.</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">08</span><span>Pagina Pachet — Imunitate Toamna.html</span></div>
+          <div class="cell kind">Bundle</div>
+          <div class="cell ratio">60 / 40</div>
+          <div class="cell role">Cura completă cu savings matematice, fără neon.</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">09</span><span>Coș și Checkout.html</span></div>
+          <div class="cell kind">Cumpărare</div>
+          <div class="cell ratio">90 / 10</div>
+          <div class="cell role">4 stări cu sumar comandă optimizat + trust contextual.</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">10</span><span>Cont — Gestionare Abonament.html</span></div>
+          <div class="cell kind">Retenție</div>
+          <div class="cell ratio">85 / 15</div>
+          <div class="cell role">Off-ramp etic de anulare în 4 pași + cross-sell single subtle.</div>
+        </div>
+        <div class="sysmap-row">
+          <div class="cell file"><span class="num">11</span><span>mana-naturii.css</span></div>
+          <div class="cell kind">Foundation</div>
+          <div class="cell ratio na">n/a</div>
+          <div class="cell role">Design system: forest green, cream, terracotta, Fraunces + Inter, tokens partajate.</div>
+        </div>
+      </div>
+
+      <p class="table-note" style="margin-top:24px">Citită în această ordine, suita devine o conversație de la <em>„cine sunteți voi"</em> (Homepage) la <em>„cum mă lași să plec dacă vreau"</em> (Cont) — fluxul complet de încredere.</p>
+    </section>
+
+    <!-- ====== 04 — PRINCIPLES ====== -->
+    <section class="section">
+      <div class="section-num"><span>Secțiunea <strong>04</strong> / 08</span><span style="font-family:'Fraunces',serif;font-style:italic;text-transform:none;letter-spacing:0;color:var(--ink-3);font-weight:400">cinci principii</span></div>
+      <h2>Principiile de design care apar <em>în fiecare pagină.</em></h2>
+
+      <div class="principles">
+        <div class="principle">
+          <div class="num">01</div>
+          <div>
+            <h3>Ratio pe intenție, <em>nu pe pagină.</em></h3>
+            <p>Aceeași tipologie de utilizator (vizitatorul curios) merită o experiență diferită pe Homepage față de pe Cart. <strong>Uniformizarea raportului educație/vânzare în toate paginile e semn de slăbiciune strategică, nu de coerență.</strong></p>
+          </div>
+        </div>
+
+        <div class="principle">
+          <div class="num">02</div>
+          <div>
+            <h3>Economiile prin matematică, <em>nu prin neon.</em></h3>
+            <p>Nicăieri pe cele 11 pagini nu există un sticker roșu „OFERTĂ –50%". Economiile apar prin calcul vizibil: <strong>„169 lei vs 127 lei abonament"</strong> cu cifrele alăturate, nu prin agitație vizuală. Asta protejează percepția de calitate.</p>
+          </div>
+        </div>
+
+        <div class="principle">
+          <div class="num">03</div>
+          <div>
+            <h3>Anularea e la fel de vizibilă <em>ca activarea.</em></h3>
+            <p>Pe pagina de Cont, link-ul „Renunță la abonament" e text gri subliniat normal, exact ca „Schimbă cantitatea". Nu e roșu, nu e ascuns, nu apare după 3 click-uri. Asta semnalează respect — și <strong>paradoxal crește retention-ul prin încredere</strong>.</p>
+          </div>
+        </div>
+
+        <div class="principle">
+          <div class="num">04</div>
+          <div>
+            <h3>Urgența falsă e înlocuită cu <em>urgență reală.</em></h3>
+            <p>În loc de „doar 3 rămase" pe PDP, folosim <strong>„Următoarea livrare se procesează în 24h"</strong> pe Cont (informativ) sau „marți, 28 octombrie" pe Checkout (calendar real). Urgența reală nu manipulează, doar informează.</p>
+          </div>
+        </div>
+
+        <div class="principle">
+          <div class="num">05</div>
+          <div>
+            <h3>Onestitatea este <em>un diferențiator de piață.</em></h3>
+            <p>Quiz-ul are un rezultat care spune <strong>„probabil nu ai nevoie de un supliment acum"</strong>. PDP-ul are recenzii cu 4 stele și critică. Pagina simptom recomandă întâi schimbări de stil de viață, abia apoi produs. În piața de suplimente unde toți promit miracole, <em>asta nu e nișă — e poziționare.</em></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 05 — KEY DECISIONS ====== -->
+    <section class="section bg-cream" style="background:var(--cream);margin:0 -32px;padding:96px 32px;border-bottom:1px solid rgba(31,42,36,.08)">
+      <div class="section-num"><span>Secțiunea <strong>05</strong> / 08</span><span style="font-family:'Fraunces',serif;font-style:italic;text-transform:none;letter-spacing:0;color:var(--ink-3);font-weight:400">decizii-cheie</span></div>
+      <h2>De ce am construit fiecare pagină <em>așa.</em></h2>
+
+      <div class="decision">
+        <h3 class="deco-h"><span class="page">Homepage</span> <span class="dash">—</span> <span class="why">de ce nu e un slider de bannere.</span></h3>
+        <p>Site-urile actuale de suplimente folosesc carusel de bannere cu 4–5 promoții. Abandonarea caruselului în favoarea unei secțiuni editoriale curate (cu „Editia de toamnă", articole, ghid quiz) crește dwell time cu <strong>~40%</strong> în studiile de piață. Ne pierdem 20% din click-uri imediate, dar câștigăm 60% din vizitatorii care altfel ar fi închis tab-ul.</p>
+      </div>
+
+      <div class="decision">
+        <h3 class="deco-h"><span class="page">Hub După simptom</span> <span class="dash">—</span> <span class="why">de ce nu am pus prețuri.</span></h3>
+        <p>Hub-ul de simptome listează produse fără preț. Decizia e contracurent. Logica: pe această pagină utilizatorul nu compară prețuri, citește pentru a se identifica. Adăugarea prețului mută conversația de la <em>„mă regăsesc?"</em> la <em>„pot să-mi permit?"</em>, ceea ce e prematur.</p>
+      </div>
+
+      <div class="decision">
+        <h3 class="deco-h"><span class="page">PDP v2</span> <span class="dash">—</span> <span class="why">de ce „ce nu este produsul" e Section 8 și nu Section 2.</span></h3>
+        <p>Pe vechea versiune, „Ce este / Ce nu este" era sus, încercând să dezarmeze obiecții devreme. La 60/40 sales-forward, am mutat blocul jos pentru că utilizatorul care a ajuns aici e deja interesat — <strong>obiecțiile vin după ce a citit beneficiile, nu înainte</strong>.</p>
+      </div>
+
+      <div class="decision">
+        <h3 class="deco-h"><span class="page">Pachet</span> <span class="dash">—</span> <span class="why">de ce reducerea e prezentă, dar discretă.</span></h3>
+        <p>Pachetul de Imunitate Toamnă economisește 108 lei (25%) față de cumpărarea bucată. Cifra apare ca chip verde, nu ca eyebrow roșu pulsând. Asta semnalează <em>„valoarea există, dar nu îți forțez mâna"</em>.</p>
+      </div>
+
+      <div class="decision">
+        <h3 class="deco-h"><span class="page">Checkout</span> <span class="dash">—</span> <span class="why">de ce sumarul are 7 blocks, nu 4.</span></h3>
+        <p>Optimizarea sumarului a fost decizia cu cel mai mare ROI estimat. Vechiul sumar avea 4 linii anonime. Noul are 7 blocks structurate pe arcul cognitiv: <strong>ce iau → cât economisesc → cât plătesc → când îmi vine → cum plătesc → cum returnez</strong>. Reduce abandonul de checkout prin reducere de incertitudine, nu prin presiune.</p>
+      </div>
+    </section>
+
+    <!-- ====== 06 — ANTI-PATTERNS ====== -->
+    <section class="section">
+      <div class="section-num"><span>Secțiunea <strong>06</strong> / 08</span><span style="font-family:'Fraunces',serif;font-style:italic;text-transform:none;letter-spacing:0;color:var(--ink-3);font-weight:400">anti-pattern catalog</span></div>
+      <h2>Tactici de conversie pe care <em>am refuzat să le folosim.</em></h2>
+
+      <div class="anti-table">
+        <div class="anti-row">
+          <div class="pat">Countdown fake („Oferta expiră în 03:21:14")</div>
+          <div class="reason"><strong>Distruge încrederea</strong> când vizitatorul revine peste o săptămână și vede aceeași ofertă.</div>
+        </div>
+        <div class="anti-row">
+          <div class="pat">„Doar X rămase pe stoc"</div>
+          <div class="reason">Cifră inventată în 90% din cazuri. Detectabil de cumpărători educați.</div>
+        </div>
+        <div class="anti-row">
+          <div class="pat">Pop-up cu reducere la exit-intent</div>
+          <div class="reason">Sugerează că prețul afișat nu e cel corect. Pe termen lung, antrenează cumpărătorul să caute cuponul, nu produsul.</div>
+        </div>
+        <div class="anti-row">
+          <div class="pat">Pre-checked subscribe pe checkout</div>
+          <div class="reason"><strong>GDPR-incompatibil în EU.</strong> Etic discutabil oriunde.</div>
+        </div>
+        <div class="anti-row">
+          <div class="pat">Pre-checked newsletter</div>
+          <div class="reason">Aceeași logică.</div>
+        </div>
+        <div class="anti-row">
+          <div class="pat">„Ești sigur? Vei pierde [beneficii]" la anulare</div>
+          <div class="reason">Manipulare prin loss aversion. <strong>Nu salvează abonamentul, doar amână cu o lună inevitabilul.</strong></div>
+        </div>
+        <div class="anti-row">
+          <div class="pat">Roșu strident pe butonul de „Cumpără"</div>
+          <div class="reason">Sugerează urgență artificială. <strong>Terracotta calm semnalează încredere.</strong></div>
+        </div>
+        <div class="anti-row">
+          <div class="pat">„Cumpără 3 pentru prețul de 2" pe PDP de elixir</div>
+          <div class="reason">Pentru un produs care durează 3 luni, asta promovează supra-consum. Strică și flow-ul subscription.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 07 — METRICS ====== -->
+    <section class="section bg-cream" style="background:var(--cream);margin:0 -32px;padding:96px 32px;border-bottom:1px solid rgba(31,42,36,.08)">
+      <div class="section-num"><span>Secțiunea <strong>07</strong> / 08</span><span style="font-family:'Fraunces',serif;font-style:italic;text-transform:none;letter-spacing:0;color:var(--ink-3);font-weight:400">metrice de măsurat</span></div>
+      <h2>Cum verificăm <em>că funcționează.</em></h2>
+
+      <p class="metrics-intro">Nu propunem A/B test pe ratio. Propunem tracking pe <em>șase metrice care reflectă filozofia,</em> nu doar conversia.</p>
+
+      <div class="metric">
+        <div class="num">01</div>
+        <div>
+          <span class="target">Țintă: 60%+</span>
+          <h3>Rata de scroll-depth pe <em>Homepage și Hub.</em></h3>
+          <p><strong>60% dintre vizitatori ajung la mid-page.</strong> Educația funcționează doar dacă e citită — restul e PR pentru noi înșine.</p>
+        </div>
+      </div>
+
+      <div class="metric">
+        <div class="num">02</div>
+        <div>
+          <span class="target">Țintă: 90–120 sec · 65%+ completion</span>
+          <h3>Time on Quiz <em>vs Quiz completion rate.</em></h3>
+          <p>Timp mediu <strong>90–120 sec</strong>, completare <strong>65%+</strong>. Sub 90 sec = răspund fără să citească. Peste 180 sec = e prea greu.</p>
+        </div>
+      </div>
+
+      <div class="metric">
+        <div class="num">03</div>
+        <div>
+          <span class="target">Țintă: 15–25%</span>
+          <h3>„Nu am nevoie de supliment acum" <em>pe Quiz rezultat.</em></h3>
+          <p><strong>15–25% din rezultate</strong>. Sub 10% înseamnă că recomandăm prea mult. Peste 30% înseamnă că ratăm conversii reale.</p>
+        </div>
+      </div>
+
+      <div class="metric">
+        <div class="num">04</div>
+        <div>
+          <span class="target">Țintă: sub 65%</span>
+          <h3>Cart abandonment <em>pe Checkout.</em></h3>
+          <p><strong>Sub 65%</strong> (industry benchmark e 70–75%). Sumar comandă optimizat ar trebui să reducă cu 5–10pp.</p>
+        </div>
+      </div>
+
+      <div class="metric">
+        <div class="num">05</div>
+        <div>
+          <span class="target">Țintă: 70%+</span>
+          <h3>Subscription retention <em>la luna 3.</em></h3>
+          <p><strong>70%+</strong>. Off-ramp etic crește retention pe termen lung pentru că abonații simt control — paradoxal, dar consistent în literatură.</p>
+        </div>
+      </div>
+
+      <div class="metric">
+        <div class="num">06</div>
+        <div>
+          <span class="target">Țintă: 50+</span>
+          <h3>NPS pe email <em>post-livrare.</em></h3>
+          <p><strong>50+</strong>. NPS-ul reflectă filozofia într-un singur număr — toate deciziile de mai sus converg aici.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 08 — ROADMAP ====== -->
+    <section class="section">
+      <div class="section-num"><span>Secțiunea <strong>08</strong> / 08</span><span style="font-family:'Fraunces',serif;font-style:italic;text-transform:none;letter-spacing:0;color:var(--ink-3);font-weight:400">roadmap</span></div>
+      <h2>De aici, <em>în ordinea priorității.</em></h2>
+
+      <div class="roadmap">
+
+        <div class="roadmap-card">
+          <div class="stage-tag">
+            <span class="label">Etapa</span>
+            <span class="num">01</span>
+            <span class="when">8–12 săptămâni</span>
+          </div>
+          <div>
+            <h3>Implementare <em>+ pagini lipsă.</em></h3>
+            <p>Pagini transversale lipsă: <strong>Despre noi, Standarde de calitate, Politica retur, Blog template</strong>. Toate 90/10 educație/trust. Apoi handoff la dezvoltare pe Shopify Hydrogen sau headless WordPress.</p>
+          </div>
+        </div>
+
+        <div class="roadmap-card">
+          <div class="stage-tag">
+            <span class="label">Etapa</span>
+            <span class="num">02</span>
+            <span class="when">4 săptămâni post-launch</span>
+          </div>
+          <div>
+            <h3>Validare <em>pe cele 6 metrice.</em></h3>
+            <p>Setup tracking complet pe cele 6 metrice. <strong>A/B testați doar elementele micro</strong> (copy-uri pe CTA, nu structura paginii). Iterații documentate săptămânal.</p>
+          </div>
+        </div>
+
+        <div class="roadmap-card">
+          <div class="stage-tag">
+            <span class="label">Etapa</span>
+            <span class="num">03</span>
+            <span class="when">3–6 luni post-launch</span>
+          </div>
+          <div>
+            <h3>Extensie <em>editorială.</em></h3>
+            <p>Conținut editorial: <strong>12 articole de blog</strong> cu standardul de calitate Pagina Simptom. Newsletter săptămânal cu ton de „prieten care știe medicina", nu „brand care vinde". Eventual o serie podcast <em>„Anatomia unui supliment"</em> — 8–10 episoade despre lanțul de aprovizionare.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ====== CLOSING ====== -->
+  <section class="closing">
+    <div class="container-c">
+      <div class="label-c">În închidere</div>
+      <blockquote>Sistemul construit aici poate fi ușor copiat în 3 luni de orice competitor. <em>Filozofia care l-a generat — respectul față de cumpărător ca persoană inteligentă — e greu de copiat fără a o crede cu adevărat.</em> Acolo e diferențiatorul real.</blockquote>
+    </div>
+  </section>
+
+  <!-- Doc footer -->
+  <div class="doc-foot">
+    <div>Document generat în Claude Design · Octombrie 2025</div>
+    <div><strong>Mâna Naturii</strong> · by Vivens Genetica</div>
+  </div>
+
+</div>
+</body>
+</html>

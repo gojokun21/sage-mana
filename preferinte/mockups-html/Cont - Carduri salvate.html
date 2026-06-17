@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii: Carduri salvate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .breadcrumb{padding:18px 64px;font-size:13px;color:var(--ink-3);display:flex;align-items:center;gap:10px;background:#fff;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:20}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--ink);font-weight:600}
+
+  /* Layout (identic) */
+  .account-wrap{display:grid;grid-template-columns:280px 1fr;gap:32px;padding:32px 64px 80px;background:var(--cream);min-height:600px;align-items:flex-start}
+
+  /* SIDEBAR identic */
+  .sidebar{position:sticky;top:84px;background:#fff;border:1px solid var(--rule);border-radius:20px;overflow:hidden}
+  .sb-profile{padding:24px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--rule)}
+  .sb-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;display:grid;place-items:center;font-family:"Fraunces",serif;font-size:19px;font-weight:500;letter-spacing:-0.01em;flex-shrink:0}
+  .sb-profile .who{display:flex;flex-direction:column;min-width:0}
+  .sb-profile .who .n{font-family:"Inter",sans-serif;font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.2}
+  .sb-profile .who .e{font-size:12px;color:var(--ink-3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sb-nav{padding:14px 12px;display:flex;flex-direction:column;gap:2px}
+  .sb-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink-2);font-weight:500;cursor:pointer;position:relative;text-decoration:none}
+  .sb-item:hover{background:var(--cream)}
+  .sb-item svg{width:16px;height:16px;color:var(--ink-3);flex-shrink:0}
+  .sb-item.active{background:var(--cream);color:var(--green-deep);font-weight:600}
+  .sb-item.active svg{color:var(--green)}
+  .sb-item.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--terra);border-radius:0 3px 3px 0}
+  .sb-item .chip-level{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:var(--cream-2);color:var(--green-deep);font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:999px;text-transform:uppercase}
+  .sb-item .chip-level::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green-2)}
+  .sb-sep{height:1px;background:var(--rule);margin:8px 16px}
+  .sb-logout{display:flex;align-items:center;gap:10px;padding:14px 26px;font-size:12.5px;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+  /* Main column */
+  .main-col{display:flex;flex-direction:column;gap:22px;min-width:0}
+
+  .page-head{padding:0 4px}
+  .page-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--green-2);font-weight:600;margin-bottom:14px}
+  .page-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--green-2)}
+  .page-head h1{font-family:"Fraunces",serif;font-weight:400;font-size:36px;line-height:1.1;letter-spacing:-0.015em;margin:0 0 12px}
+  .page-head h1 em{font-style:italic;color:var(--green);font-weight:300}
+  .page-head p{font-size:14.5px;color:var(--ink-2);line-height:1.6;max-width:680px;margin:0}
+
+  /* Actions row */
+  .actions-row{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:0 4px}
+  .actions-row .count{font-family:"Inter",sans-serif;font-size:13px;color:var(--ink-3);display:inline-flex;align-items:center;gap:9px;padding-top:11px}
+  .actions-row .count strong{color:var(--ink-2);font-weight:600}
+  .actions-row .count .sep-dot{width:3px;height:3px;border-radius:50%;background:var(--rule-2)}
+  .add-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:7px;max-width:340px}
+  .btn-add{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 20px;background:var(--terra);color:#fff;border:0;border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+  .btn-add:hover{background:var(--terra-deep)}
+  .add-helper{font-family:"Fraunces",serif;font-style:italic;font-size:12px;color:var(--ink-3);line-height:1.5;text-align:right}
+
+  /* Cards grid */
+  .cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media (max-width:960px){.cards-grid{grid-template-columns:1fr}}
+
+  /* Saved card */
+  .pay-card{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:0;display:flex;flex-direction:column;overflow:hidden;transition:border-color .15s, box-shadow .15s}
+  .pay-card.is-default{border:2px solid var(--green)}
+  .pay-card:hover{box-shadow:0 6px 22px -10px rgba(15,42,29,.15)}
+
+  /* Visual card mock */
+  .card-visual{position:relative;height:172px;padding:20px 22px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;font-family:"Inter",sans-serif;overflow:hidden}
+  .card-visual.visa{background:linear-gradient(135deg, #1F3D2E 0%, #2E5240 55%, #3D6E55 100%)}
+  .card-visual.mastercard{background:linear-gradient(135deg, #C4623F 0%, #B05633 50%, #8E4426 100%)}
+  .card-visual::before{content:"";position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
+  .card-visual::after{content:"";position:absolute;bottom:-60px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+
+  .cv-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1}
+  .cv-chip{width:34px;height:26px;border-radius:5px;background:linear-gradient(135deg,#E8C76F,#C49941);position:relative;display:grid;place-items:center}
+  .cv-chip::before{content:"";position:absolute;inset:5px 7px;border:1px solid rgba(0,0,0,.18);border-radius:2px}
+  .cv-chip::after{content:"";position:absolute;left:50%;top:5px;bottom:5px;width:1px;background:rgba(0,0,0,.18);transform:translateX(-50%)}
+  .cv-brand{height:26px;display:flex;align-items:center;color:#fff}
+  .cv-brand svg{height:24px;width:auto;display:block}
+
+  .cv-number{position:relative;z-index:1;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:17px;font-weight:500;letter-spacing:.10em;color:rgba(255,255,255,.96);text-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .cv-number .dots{letter-spacing:.18em;font-size:14px;color:rgba(255,255,255,.72)}
+
+  .cv-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;position:relative;z-index:1}
+  .cv-bottom .col{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .cv-bottom .lbl{font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:600}
+  .cv-bottom .val{font-size:13.5px;font-weight:600;color:#fff;letter-spacing:.02em}
+  .cv-bottom .val.holder{text-transform:uppercase;letter-spacing:.08em;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
+
+  .cv-badge{position:absolute;top:18px;right:22px;z-index:2;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.95);color:var(--green-deep);font-family:"Inter",sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.08em;padding:4px 9px;border-radius:999px;text-transform:uppercase;backdrop-filter:blur(4px)}
+  .cv-badge svg{width:10px;height:10px;color:var(--green)}
+
+  /* Card meta body */
+  .card-meta{padding:18px 22px;display:flex;flex-direction:column;gap:11px}
+  .meta-row{display:flex;justify-content:space-between;align-items:center;gap:14px;font-family:"Inter",sans-serif;font-size:13px;line-height:1.4}
+  .meta-row .ml{color:var(--ink-3);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+  .meta-row .mv{color:var(--ink);font-weight:500;text-align:right}
+  .meta-row .mv.bold{font-weight:600}
+  .meta-row .mv.exp-warn{display:inline-flex;align-items:center;gap:7px;color:#8A6A0F}
+  .meta-row .mv.exp-warn .warn-pill{display:inline-flex;align-items:center;gap:4px;background:rgba(212,160,23,.14);color:#8A6A0F;border:1px solid rgba(212,160,23,.32);font-size:10px;font-weight:700;letter-spacing:.05em;padding:3px 9px;border-radius:999px;text-transform:uppercase;line-height:1}
+  .meta-row .mv.exp-warn .warn-pill svg{width:9px;height:9px}
+
+  /* Card foot actions */
+  .pay-foot{padding:14px 22px;border-top:1px solid var(--rule);display:flex;align-items:center;gap:0;flex-wrap:wrap;background:var(--cream)}
+  .pay-foot .act{display:inline-flex;align-items:center;gap:6px;font-family:"Inter",sans-serif;font-size:12.5px;font-weight:600;color:var(--ink-2);background:transparent;border:0;cursor:pointer;padding:5px 12px 5px 0;border-right:1px solid var(--rule);transition:color .12s}
+  .pay-foot .act:not(:first-child){padding-left:12px}
+  .pay-foot .act:last-of-type{border-right:0}
+  .pay-foot .act:hover{color:var(--green)}
+  .pay-foot .act svg{color:var(--ink-3);transition:color .12s;flex-shrink:0}
+  .pay-foot .act:hover svg{color:var(--green)}
+  .pay-foot .act.is-default-marker{color:var(--green-deep);cursor:default}
+  .pay-foot .act.is-default-marker:hover{color:var(--green-deep)}
+  .pay-foot .act.is-default-marker svg{color:var(--green)}
+  .pay-foot .act.del{color:#A33;margin-left:auto;padding-right:0;border-right:0}
+  .pay-foot .act.del svg{color:#A33}
+  .pay-foot .act.del:hover{color:#7A2A2A}
+  .pay-foot .act.del:hover svg{color:#7A2A2A}
+  .pay-foot .act.renew{color:#8A6A0F}
+  .pay-foot .act.renew svg{color:#8A6A0F}
+  .pay-foot .act.renew:hover{color:#6B5208}
+
+  /* Info card (cream) */
+  .info-card{background:var(--cream-2);border:1px solid var(--rule);border-radius:18px;padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .info-card .ih{display:flex;align-items:center;gap:12px}
+  .info-card .ih .ico{width:36px;height:36px;border-radius:9px;background:#fff;color:var(--green);display:grid;place-items:center;flex-shrink:0;border:1px solid var(--rule)}
+  .info-card .ih h2{font-family:"Fraunces",serif;font-weight:500;font-size:18px;line-height:1.25;letter-spacing:-0.01em;margin:0;color:var(--ink)}
+  .info-card .ih h2 em{font-style:italic;color:var(--green);font-weight:400}
+  .info-card .helper{font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:var(--ink-3);line-height:1.55;margin:0}
+
+  .method-chips{display:flex;flex-wrap:wrap;gap:10px}
+  .method-chip{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--rule);border-radius:11px;padding:11px 14px;font-family:"Inter",sans-serif;font-size:13px;color:var(--ink);font-weight:600}
+  .method-chip .mi{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;background:var(--cream);flex-shrink:0}
+  .method-chip .stat{font-family:"Fraunces",serif;font-style:italic;font-size:11.5px;color:var(--ink-3);font-weight:400;margin-left:auto}
+
+  /* Security card */
+  .sec-card{background:var(--cream-2);border:1px solid var(--rule);border-radius:18px;padding:26px 28px;display:flex;flex-direction:column;gap:18px}
+  .sec-card .ih{display:flex;align-items:center;gap:12px}
+  .sec-card .ih .ico{width:36px;height:36px;border-radius:9px;background:var(--green);color:#fff;display:grid;place-items:center;flex-shrink:0}
+  .sec-card .ih h2{font-family:"Fraunces",serif;font-weight:500;font-size:20px;line-height:1.25;letter-spacing:-0.01em;margin:0;color:var(--ink)}
+  .sec-card .ih h2 em{font-style:italic;color:var(--green);font-weight:400}
+  .sec-list{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:760px){.sec-list{grid-template-columns:1fr}}
+  .sec-pt{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:14px 16px}
+  .sec-pt .pi{width:34px;height:34px;border-radius:9px;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+  .sec-pt .pc .pt{font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:3px}
+  .sec-pt .pc .pt .legal-tag{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;background:var(--cream);color:var(--green-deep);padding:1px 6px;border-radius:4px;font-weight:600;letter-spacing:.02em;margin-left:5px}
+  .sec-pt .pc .pd{font-family:"Fraunces",serif;font-style:italic;font-size:12.5px;color:var(--ink-3);line-height:1.5}
+
+  /* Renewal info card (white) */
+  .renew-card{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:24px 28px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .renew-card .ico-big{width:44px;height:44px;border-radius:12px;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+  .renew-card .copy{flex:1;min-width:260px}
+  .renew-card h2{font-family:"Fraunces",serif;font-weight:500;font-size:18px;line-height:1.3;margin:0 0 5px;color:var(--ink)}
+  .renew-card h2 em{font-style:italic;color:var(--green);font-weight:400}
+  .renew-card p{font-family:"Inter",sans-serif;font-size:13px;color:var(--ink-2);line-height:1.6;margin:0}
+  .renew-card p strong{color:var(--ink);font-weight:600}
+  .renew-btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 20px;background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none}
+  .renew-btn:hover{background:var(--cream)}
+
+  /* Add modal (Stripe Elements stub) */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(15,42,29,.5);display:none;align-items:center;justify-content:center;z-index:100;padding:24px;backdrop-filter:blur(3px)}
+  .modal-backdrop.open{display:flex}
+  .modal{background:#fff;border-radius:20px;max-width:500px;width:100%;padding:30px 32px;display:flex;flex-direction:column;gap:18px;animation:modalIn .2s ease}
+  @keyframes modalIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .modal-head{display:flex;align-items:flex-start;gap:14px}
+  .modal-head .ico{width:42px;height:42px;border-radius:11px;background:var(--cream);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+  .modal-head.danger .ico{background:#FCEFEF;color:#A33;border:1px solid #E5B5B5}
+  .modal-head .copy{flex:1;min-width:0}
+  .modal-head .copy h3{font-family:"Fraunces",serif;font-size:20px;font-weight:500;line-height:1.25;margin:0 0 5px;color:var(--ink)}
+  .modal-head .copy h3 em{font-style:italic;color:var(--green);font-weight:400}
+  .modal-head.danger .copy h3{color:#7A2A2A}
+  .modal-head .copy p{font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:var(--ink-2);line-height:1.55;margin:0}
+  .modal-head .close{background:transparent;border:0;color:var(--ink-3);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
+  .modal-head .close:hover{background:var(--cream);color:var(--ink)}
+
+  .stripe-stub{padding:20px;background:var(--cream);border:1.5px dashed var(--rule);border-radius:12px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+  .stripe-stub .sl{display:inline-flex;align-items:center;gap:9px;font-family:"Inter",sans-serif;font-size:12px;color:var(--ink-3);font-weight:600;letter-spacing:.04em}
+  .stripe-stub .sl .stripe-logo{font-family:"Inter",sans-serif;font-weight:700;color:#635BFF;letter-spacing:-0.02em;font-size:16px}
+  .stripe-stub .body{font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink-2);line-height:1.55;max-width:380px}
+  .stripe-stub .body strong{color:var(--ink);font-weight:600}
+  .stripe-stub ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;text-align:left;width:100%;max-width:340px}
+  .stripe-stub ul li{display:flex;gap:9px;align-items:flex-start;font-family:"Inter",sans-serif;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+  .stripe-stub ul li svg{color:var(--green);flex-shrink:0;margin-top:3px}
+
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+  .modal-actions .cancel{height:42px;padding:0 18px;background:transparent;color:var(--ink-2);border:1.5px solid var(--rule);border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer}
+  .modal-actions .cancel:hover{border-color:var(--ink-3);color:var(--ink)}
+  .modal-actions .primary{height:42px;padding:0 22px;background:var(--terra);color:#fff;border:0;border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+  .modal-actions .primary:hover{background:var(--terra-deep)}
+  .modal-actions .danger-btn{height:42px;padding:0 20px;background:transparent;color:#A33;border:1.5px solid #C44;border-radius:999px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+  .modal-actions .danger-btn:hover{background:#FCEFEF}
+
+  /* Toast */
+  .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green-deep);color:#fff;padding:12px 22px;border-radius:999px;font-family:"Inter",sans-serif;font-size:13.5px;font-weight:600;box-shadow:0 14px 30px -10px rgba(15,42,29,.45);display:inline-flex;align-items:center;gap:10px;opacity:0;pointer-events:none;transition:all .25s ease;z-index:200}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast svg{color:#A4D49B}
+
+  @media (max-width:980px){
+    .account-wrap{grid-template-columns:1fr;padding:24px 24px 60px}
+    .sidebar{position:static}
+    .breadcrumb{padding:16px 24px}
+    .actions-row .add-wrap{align-items:flex-start;max-width:100%}
+    .add-helper{text-align:left}
+  }
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Cont · Carduri salvate">
+
+  <!-- HEADER GLOBAL -->
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 250 lei</span><span class="dot"></span>
+        <span>Livrare 1–3 zile</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--ink-3)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Salut, Andreea</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <div class="container nav-row">
+      <div class="nav-item">Suplimente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După obiectiv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">După simptom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Performanță sportivă <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="nav-item">Blog</div>
+      <div class="nav-item promo">Promoții</div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><a>Contul meu</a><span class="sep">›</span><span class="here">Carduri salvate</span></div>
+
+  <section class="account-wrap">
+
+    <!-- SIDEBAR (Carduri salvate ACTIV) -->
+    <aside class="sidebar">
+      <div class="sb-profile">
+        <div class="sb-avatar">AP</div>
+        <div class="who">
+          <span class="n">Andreea Popescu</span>
+          <span class="e">andreea.popescu@gmail.c...</span>
+        </div>
+      </div>
+      <nav class="sb-nav">
+        <a class="sb-item" href="Cont - Comenzile mele.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Comenzi</a>
+        <a class="sb-item" href="Cont - Gestionare Abonament.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Abonamente</a>
+        <a class="sb-item" href="Cont - Adrese de livrare.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Adrese de livrare</a>
+        <a class="sb-item" href="Cont - Date personale.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Date personale</a>
+        <a class="sb-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Carduri salvate</a>
+        <a class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Cod fidelitate<span class="chip-level">CONSTANT</span></a>
+        <a class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notificări</a>
+      </nav>
+      <div class="sb-sep"></div>
+      <a class="sb-logout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Ieși din cont</a>
+    </aside>
+
+    <!-- MAIN COL -->
+    <div class="main-col">
+
+      <div class="page-head">
+        <div class="eyebrow">Cont · Carduri salvate</div>
+        <h1>Carduri salvate, <em>plăți rapide.</em></h1>
+        <p>Păstrăm doar ultimele 4 cifre și tokenul Stripe. Datele complete nu trec niciodată prin serverele noastre.</p>
+      </div>
+
+      <!-- ACTIONS ROW -->
+      <div class="actions-row">
+        <div class="count" id="cardCount"><strong>2 carduri</strong> salvate <span class="sep-dot"></span> Maxim 5 per cont</div>
+        <div class="add-wrap">
+          <button class="btn-add" id="btnAdd">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+            Adaugă card nou
+          </button>
+          <span class="add-helper">Se salvează automat la următoarea plată, dacă bifezi opțiunea.</span>
+        </div>
+      </div>
+
+      <!-- CARDS GRID -->
+      <div class="cards-grid" id="cardsGrid">
+
+        <!-- CARD 1: Visa Default -->
+        <article class="pay-card is-default" data-id="visa7821">
+          <div class="card-visual visa">
+            <span class="cv-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Default</span>
+            <div class="cv-top">
+              <div class="cv-chip"></div>
+              <div class="cv-brand">
+                <!-- Visa wordmark stylized -->
+                <svg viewBox="0 0 80 26" xmlns="http://www.w3.org/2000/svg">
+                  <text x="0" y="20" font-family="Inter, Arial Black, sans-serif" font-size="22" font-weight="900" font-style="italic" fill="#fff" letter-spacing="-1">VISA</text>
+                </svg>
+              </div>
+            </div>
+            <div class="cv-number"><span class="dots">••••&nbsp;••••&nbsp;••••</span>&nbsp;7821</div>
+            <div class="cv-bottom">
+              <div class="col">
+                <span class="lbl">Titular</span>
+                <span class="val holder">Andreea Popescu</span>
+              </div>
+              <div class="col" style="text-align:right">
+                <span class="lbl">Expiră</span>
+                <span class="val">08 / 27</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-meta">
+            <div class="meta-row"><span class="ml">Tip card</span><span class="mv">Visa Credit</span></div>
+            <div class="meta-row"><span class="ml">Adăugat</span><span class="mv">12 martie 2025</span></div>
+            <div class="meta-row"><span class="ml">Folosit ultima dată</span><span class="mv">18 noiembrie 2026</span></div>
+            <div class="meta-row"><span class="ml">Stare</span><span class="mv bold" style="color:#2E8B57">Activ</span></div>
+          </div>
+          <div class="pay-foot">
+            <span class="act is-default-marker"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 8-6-5-6 5 2-8-6-4h7z"/></svg>E default</span>
+            <button class="act" data-delete="visa7821"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Şterge</button>
+          </div>
+        </article>
+
+        <!-- CARD 2: Mastercard, expires soon -->
+        <article class="pay-card" data-id="mc4521">
+          <div class="card-visual mastercard">
+            <div class="cv-top">
+              <div class="cv-chip"></div>
+              <div class="cv-brand">
+                <!-- Mastercard interlocking circles -->
+                <svg viewBox="0 0 50 30" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="19" cy="15" r="11" fill="#EB001B" opacity="0.95"/>
+                  <circle cx="31" cy="15" r="11" fill="#F79E1B" opacity="0.95"/>
+                  <path d="M25 6.5a11 11 0 0 0 0 17 11 11 0 0 0 0-17z" fill="#FF5F00"/>
+                </svg>
+              </div>
+            </div>
+            <div class="cv-number"><span class="dots">••••&nbsp;••••&nbsp;••••</span>&nbsp;4521</div>
+            <div class="cv-bottom">
+              <div class="col">
+                <span class="lbl">Titular</span>
+                <span class="val holder">Andreea Popescu</span>
+              </div>
+              <div class="col" style="text-align:right">
+                <span class="lbl">Expiră</span>
+                <span class="val">11 / 25</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-meta">
+            <div class="meta-row"><span class="ml">Tip card</span><span class="mv">Mastercard Debit</span></div>
+            <div class="meta-row"><span class="ml">Expiră</span><span class="mv exp-warn"><span>11 / 25</span><span class="warn-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>Expiră curând</span></span></div>
+            <div class="meta-row"><span class="ml">Adăugat</span><span class="mv">22 iulie 2026</span></div>
+            <div class="meta-row"><span class="ml">Folosit ultima dată</span><span class="mv">22 iulie 2026</span></div>
+          </div>
+          <div class="pay-foot">
+            <button class="act" data-setdefault="mc4521"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-6 4 2 8-6-5-6 5 2-8-6-4h7z"/></svg>Setează default</button>
+            <button class="act renew" data-renew="mc4521"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>Reînnoiește</button>
+            <button class="act del" data-delete="mc4521"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Şterge</button>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- INFO CARD: Alte metode -->
+      <div class="info-card">
+        <div class="ih">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg></div>
+          <h2>Alte metode de plată <em>la checkout.</em></h2>
+        </div>
+        <div class="method-chips">
+          <div class="method-chip">
+            <span class="mi"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg></span>
+            Apple Pay
+            <span class="stat">via portofel</span>
+          </div>
+          <div class="method-chip">
+            <span class="mi"><svg width="16" height="16" viewBox="0 0 48 48"><path fill="#4285F4" d="M44.5 20H24v8.5h11.7C34.7 33.9 30 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/></svg></span>
+            Google Pay
+            <span class="stat">via portofel</span>
+          </div>
+          <div class="method-chip">
+            <span class="mi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></span>
+            Plată ramburs
+            <span class="stat">la curier</span>
+          </div>
+          <div class="method-chip">
+            <span class="mi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21V14h6v7"/></svg></span>
+            Transfer bancar
+            <span class="stat">OP firmă</span>
+          </div>
+        </div>
+        <p class="helper">Apple Pay și Google Pay nu se salvează aici; le folosești direct din portofelul telefonului la fiecare plată.</p>
+      </div>
+
+      <!-- SECURITY CARD -->
+      <div class="sec-card">
+        <div class="ih">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h2>De ce sunt în siguranță <em>cardurile tale.</em></h2>
+        </div>
+        <div class="sec-list">
+
+          <div class="sec-pt">
+            <div class="pi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <div class="pc">
+              <div class="pt">Tokenizare prin Stripe<span class="legal-tag">PCI DSS Level 1</span></div>
+              <div class="pd">Nu vedem niciodată numărul complet sau CVV. Stocăm doar un token criptat și ultimele 4 cifre.</div>
+            </div>
+          </div>
+
+          <div class="sec-pt">
+            <div class="pi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <div class="pc">
+              <div class="pt">3D Secure obligatoriu<span class="legal-tag">Visa Secure, MC Identity Check</span></div>
+              <div class="pd">Aprobi tu fiecare plată în aplicația băncii, prin amprentă, Face ID sau cod SMS.</div>
+            </div>
+          </div>
+
+          <div class="sec-pt">
+            <div class="pi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="pc">
+              <div class="pt">Notificare instant pe email și WhatsApp</div>
+              <div class="pd">La fiecare încercare de plată primești confirmare. Dacă vezi ceva suspect, blochezi cardul cu un click.</div>
+            </div>
+          </div>
+
+          <div class="sec-pt">
+            <div class="pi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="pc">
+              <div class="pt">Ştergere instantă</div>
+              <div class="pd">Când apeși Şterge, tokenul dispare imediat din baza Stripe și din contul tău. Nu rămâne nimic stocat la noi.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RENEWAL INFO CARD -->
+      <div class="renew-card">
+        <div class="ico-big"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg></div>
+        <div class="copy">
+          <h2>Cardul expiră? <em>Te anunțăm înainte.</em></h2>
+          <p>Cu <strong>60 de zile înainte de expirare</strong>, primești email cu butonul Reînnoiește. Adaugi noul card o singură dată la următoarea plată, iar abonamentele și plățile automate se mută singure pe el (dacă ai).</p>
+        </div>
+        <a class="renew-btn" href="Cont - Gestionare Abonament.html">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Vezi plăți viitoare programate
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MODAL: Adaugă card (Stripe stub) -->
+  <div class="modal-backdrop" id="modalAdd">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg></div>
+        <div class="copy">
+          <h3>Cum adaugi <em>un card nou.</em></h3>
+          <p>Pentru securitate, cardurile se salvează direct prin Stripe la plata unei comenzi. Nu permitem introducerea în afara unei tranzacții.</p>
+        </div>
+        <button class="close" data-close><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="stripe-stub">
+        <span class="sl">Securizat prin <span class="stripe-logo">stripe</span></span>
+        <div class="body">La <strong>următoarea ta comandă</strong>, la pasul Plată, bifează opțiunea <strong>„Salvează cardul pentru plăți viitoare”</strong>. Stripe tokenizează cardul, iar tokenul apare aici.</div>
+        <ul>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Tu introduci numărul complet o singură dată, în formularul Stripe.</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Confirmi prin 3D Secure în aplicația băncii.</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Cardul apare aici, gata de folosit la următoarele plăți.</li>
+        </ul>
+      </div>
+      <div class="modal-actions">
+        <button class="cancel" data-close>Mai târziu</button>
+        <a class="primary" href="Pagina Cos - Cart.html">
+          Mergi la coș
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Şterge card -->
+  <div class="modal-backdrop" id="modalDelete">
+    <div class="modal">
+      <div class="modal-head danger">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></div>
+        <div class="copy">
+          <h3 id="delTitle">Şterge cardul Visa •••• 7821?</h3>
+          <p id="delSub">Dacă e folosit pentru un abonament activ, va trebui să alegi alt card înainte de ștergere. Cardul se șterge și din baza Stripe imediat.</p>
+        </div>
+        <button class="close" data-close><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="modal-actions">
+        <button class="cancel" data-close>Anulează</button>
+        <button class="danger-btn" id="confirmDel">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+          Şterge cardul
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+    <span id="toastMsg">Salvat</span>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  // ===== Toast =====
+  var toast = document.getElementById('toast');
+  var toastMsg = document.getElementById('toastMsg');
+  var toastT;
+  function showToast(msg){
+    toastMsg.textContent = msg || 'Salvat';
+    toast.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+  }
+
+  // ===== Card labels (for modals) =====
+  var cardLabels = {
+    'visa7821': 'Visa •••• 7821',
+    'mc4521':   'Mastercard •••• 4521'
+  };
+
+  // ===== Modal helpers =====
+  var modalAdd = document.getElementById('modalAdd');
+  var modalDelete = document.getElementById('modalDelete');
+  function openModal(el){ el.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal(el){ el.classList.remove('open'); document.body.style.overflow=''; }
+  document.querySelectorAll('[data-close]').forEach(function(b){
+    b.addEventListener('click', function(){ closeModal(modalAdd); closeModal(modalDelete); });
+  });
+  [modalAdd, modalDelete].forEach(function(m){
+    m.addEventListener('click', function(e){ if(e.target === m) closeModal(m); });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeModal(modalAdd); closeModal(modalDelete); }
+  });
+
+  // ===== Add card =====
+  document.getElementById('btnAdd').addEventListener('click', function(){
+    openModal(modalAdd);
+  });
+
+  // ===== Renew (mock) =====
+  function bindRenew(){
+    document.querySelectorAll('[data-renew]').forEach(function(b){
+      if(b.dataset.bound) return;
+      b.dataset.bound = '1';
+      b.addEventListener('click', function(){
+        showToast('Vei putea actualiza cardul la următoarea plată');
+      });
+    });
+  }
+  bindRenew();
+
+  // ===== Set default =====
+  function bindSetDefault(){
+    document.querySelectorAll('[data-setdefault]').forEach(function(b){
+      if(b.dataset.bound) return;
+      b.dataset.bound = '1';
+      b.addEventListener('click', function(){
+        var clickedCard = b.closest('.pay-card');
+        var newId = b.dataset.setdefault;
+
+        // Remove default from all
+        document.querySelectorAll('.pay-card').forEach(function(card){
+          if(card === clickedCard) return;
+          card.classList.remove('is-default');
+          // Remove badge from visual
+          var oldBadge = card.querySelector('.cv-badge');
+          if(oldBadge) oldBadge.remove();
+          // Replace "E default" marker with active Setează default button
+          var pf = card.querySelector('.pay-foot');
+          var marker = pf.querySelector('.is-default-marker');
+          if(marker){
+            var newBtn = document.createElement('button');
+            newBtn.className = 'act';
+            newBtn.setAttribute('data-setdefault', card.dataset.id);
+            newBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-6 4 2 8-6-5-6 5 2-8-6-4h7z"/></svg>Setează default';
+            marker.replaceWith(newBtn);
+          }
+        });
+
+        // Apply default to clicked
+        clickedCard.classList.add('is-default');
+        // Add badge to visual
+        var visual = clickedCard.querySelector('.card-visual');
+        if(visual && !visual.querySelector('.cv-badge')){
+          var bd = document.createElement('span');
+          bd.className = 'cv-badge';
+          bd.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Default';
+          visual.insertBefore(bd, visual.firstChild);
+        }
+        // Replace this button with "E default" marker
+        var marker = document.createElement('span');
+        marker.className = 'act is-default-marker';
+        marker.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 8-6-5-6 5 2-8-6-4h7z"/></svg>E default';
+        b.replaceWith(marker);
+
+        bindSetDefault(); bindDelete(); bindRenew();
+        showToast('Card default actualizat');
+      });
+    });
+  }
+  bindSetDefault();
+
+  // ===== Delete =====
+  var pendingDeleteId = null;
+  function bindDelete(){
+    document.querySelectorAll('[data-delete]').forEach(function(b){
+      if(b.dataset.bound) return;
+      b.dataset.bound = '1';
+      b.addEventListener('click', function(){
+        pendingDeleteId = b.dataset.delete;
+        var card = b.closest('.pay-card');
+        var isDefault = card.classList.contains('is-default');
+        document.getElementById('delTitle').textContent = 'Şterge cardul ' + (cardLabels[pendingDeleteId] || '') + '?';
+        document.getElementById('delSub').textContent = isDefault
+          ? 'Acesta e cardul tău default. Va trebui să setezi alt card default după ștergere. Cardul se șterge și din baza Stripe imediat.'
+          : 'Dacă e folosit pentru un abonament activ, va trebui să alegi alt card înainte de ștergere. Cardul se șterge și din baza Stripe imediat.';
+        openModal(modalDelete);
+      });
+    });
+  }
+  bindDelete();
+
+  document.getElementById('confirmDel').addEventListener('click', function(){
+    if(!pendingDeleteId) return;
+    var card = document.querySelector('.pay-card[data-id="'+pendingDeleteId+'"]');
+    if(card) card.remove();
+    closeModal(modalDelete);
+    showToast('Card șters');
+    // Update count
+    var n = document.querySelectorAll('.pay-card').length;
+    var countEl = document.getElementById('cardCount');
+    countEl.innerHTML = '<strong>' + n + ' card' + (n===1?'':'uri') + '</strong> salvat' + (n===1?'':'e') + ' <span class="sep-dot"></span> Maxim 5 per cont';
+    pendingDeleteId = null;
+  });
+
+})();
+</script>
+</body>
+</html>

@@ -68,6 +68,23 @@
 :root {
   --green: #386356;
   --dark-green: #2c5047;
+
+  /* Real brand palette (mana-naturii.css v2.1) — additive tokens used ONLY by
+     the site chrome (topbar/header/nav/footer) so the rest of the bundles keep
+     their current palette until they're migrated separately. Do NOT repoint
+     --green here: it's referenced site-wide. */
+  --mn-green-deep: #073a1f;
+  --mn-green: #0c542f;
+  --mn-green-medium: #428c62;
+  --mn-gold: #caa44a;
+  --mn-gold-hover: #b58f38;
+  --mn-terra: #b85a3c;
+  --mn-terra-hover: #a04e33;
+  --mn-border: #dce5d6;
+  --mn-bg-page: #f4f8f1;
+  --mn-text-muted: #4a5e51;
+  --mn-text-faint: #7b8c7f;
+  --mn-topbar-text: #d2e2d3;
 }
 
 /* ============================================
@@ -134,11 +151,11 @@ a {
    ============================================ */
 .topbar {
   width: 100%;
-  background: #2d5a3d;
-  color: #fff;
+  background: var(--mn-green-deep);
+  color: var(--mn-topbar-text);
   font-size: 12.5px;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   line-height: 1.3;
 }
 
@@ -157,14 +174,14 @@ a {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 18px;
 }
 
 .topbar .left .dot {
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.45);
+  background: #56795f;
   flex-shrink: 0;
 }
 
@@ -178,9 +195,10 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #fff;
+  color: var(--mn-gold);
   text-decoration: none;
   font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .topbar .wa svg {
@@ -227,8 +245,9 @@ a {
   position: sticky;
   top: 0;
   z-index: 999;
-  background: #fff;
-  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.08);
+  background: var(--color-bg-card, #fff);
+  border-bottom: 1px solid var(--mn-border);
+  box-shadow: 0 6px 18px -12px rgba(7, 58, 31, 0.25);
 }
 
 .navbar__menu > .container {
@@ -241,6 +260,8 @@ a {
   align-items: center;
   gap: 50px;
   justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--mn-border);
 }
 
 /* Logo */
@@ -334,7 +355,7 @@ a {
   position: absolute;
   top: -6px;
   right: -6px;
-  background: var(--green);
+  background: var(--mn-terra);
   color: #fff;
   font-size: 12px !important;
   border-radius: 50%;
@@ -372,7 +393,7 @@ a {
   min-width: 18px;
   height: 18px;
   padding: 0 5px;
-  background-color: var(--green);
+  background-color: var(--mn-terra);
   color: #fff;
   font-size: 12px;
   font-weight: 500;
@@ -406,6 +427,7 @@ a {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 16px 36px;
+  padding: 4px 0;
 }
 
 .navbar__menu__items.is-hidden {
@@ -528,10 +550,12 @@ a {
 }
 
 .navbar__menu__items ul {
+  flex: 1;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 45px;
+  justify-content: center;
+  gap: 10px 12px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -546,29 +570,31 @@ a {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #000;
-  font-size: 16px;
+  color: var(--color-text-primary, #0f2317);
+  font-size: 14.5px;
   font-weight: 500;
+  letter-spacing: 0.005em;
   line-height: 24px;
-  padding: 15px 0;
+  padding: 15px 18px;
   transition: color 0.2s ease;
 }
 
 .navbar__menu__items ul > li > a::after {
   content: "";
   position: absolute;
-  bottom: 10px;
-  left: 0;
+  bottom: 8px;
+  left: 18px;
+  right: 18px;
   height: 2px;
-  width: 100%;
-  background-color: var(--green);
+  width: auto;
+  background-color: var(--mn-terra);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.25s ease;
 }
 
 .navbar__menu__items ul > li > a:hover {
-  color: var(--green);
+  color: var(--mn-green);
 }
 
 .navbar__menu__items ul > li > a:hover::after {
@@ -578,7 +604,8 @@ a {
 /* Active menu item */
 .navbar__menu__items ul > li.current_page_item > a,
 .navbar__menu__items ul > li.current-menu-item > a {
-  color: var(--green);
+  color: var(--color-text-primary, #0f2317);
+  font-weight: 600;
 }
 
 .navbar__menu__items ul > li.current_page_item > a::after,
@@ -691,8 +718,8 @@ a {
 }
 
 .mega-menu-list li a:hover {
-  background: rgba(56, 99, 86, 0.08) !important;
-  color: var(--green) !important;
+  background: rgba(12, 84, 47, 0.08) !important;
+  color: var(--mn-green) !important;
 }
 
 .mega-menu-cta {
@@ -701,7 +728,7 @@ a {
   gap: 8px;
   margin-top: 18px;
   padding: 10px 20px;
-  background: var(--green);
+  background: var(--mn-green);
   color: #fff;
   border-radius: 999px;
   font-size: 14px;
@@ -816,36 +843,75 @@ a {
 
 .custom-search {
   display: flex;
+  align-items: center;
   width: 100%;
-  height: 56px;
-  border-radius: 12px;
+  height: 52px;
+  border-radius: 999px;
   overflow: visible;
-  background: #f3f3f5;
+  background: var(--mn-bg-page);
+  border: 1px solid var(--mn-border);
+  padding: 0 18px 0 0;
   position: relative;
 }
 
 .wc-search-input {
-  width: 100%;
-  padding: 16px 20px;
-  font-size: 16px;
+  flex: 1;
+  min-width: 0;
+  padding: 0 4px;
+  font-size: 14.5px;
   font-family: 'Inter', sans-serif;
   border: none;
   outline: none;
   background: none;
-  border-radius: 12px 0 0 12px;
+  color: var(--color-text-primary, #0f2317);
+  border-radius: 999px;
 }
 
+.wc-search-input::placeholder {
+  color: var(--mn-text-faint);
+}
+
+/* Magnifier sits inline at the left of the pill (mockup .search look); the
+   button keeps its submit behaviour, just restyled from the old green block. */
 .wc-search-btn {
-  background: var(--green);
-  color: #fff;
-  width: 70px;
-  border-radius: 0 12px 12px 0;
+  background: transparent;
+  color: var(--mn-text-faint);
+  width: auto;
+  padding: 0 10px 0 18px;
+  border-radius: 0;
   border: none;
   cursor: pointer;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.wc-search-btn:hover {
+  color: var(--mn-green);
+}
+
+/* ⌘K hint pill at the right of the search bar (mockup .pill-cream). Clicking
+   it (or pressing ⌘K / Ctrl+K) focuses the search — see app.js. */
+.wc-search-kbd {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #ecf2e6;
+  color: var(--mn-text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.wc-search-kbd:hover {
+  background: var(--mn-green);
+  color: #fff;
 }
 
 .wc-search-results {
@@ -905,7 +971,7 @@ a {
   display: block;
   font-size: 14px;
   margin-top: 4px;
-  color: var(--green);
+  color: var(--mn-green);
   font-weight: 600;
 }
 
@@ -913,7 +979,7 @@ a {
   display: block;
   text-align: center;
   padding: 14px 20px;
-  background: var(--green);
+  background: var(--mn-green);
   color: #fff;
   font-size: 14px;
   font-weight: 600;
@@ -923,7 +989,7 @@ a {
 }
 
 .wc-search-view-all:hover {
-  background: var(--dark-green);
+  background: var(--mn-green-deep);
   color: #fff;
 }
 

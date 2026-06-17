@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Mâna Naturii — Contact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="mana-naturii.css" />
+<style>
+  .announce{background:var(--color-green-deep);color:#D2E2D3;font-size:12.5px}
+  .announce .container{display:flex;align-items:center;justify-content:space-between;height:40px}
+  .announce .left{display:flex;gap:18px;align-items:center}
+  .announce .left .dot{width:3px;height:3px;border-radius:50%;background:#56795f}
+  .announce .right{display:inline-flex;align-items:center;gap:8px;color:var(--color-gold-soft);font-weight:600}
+
+  .breadcrumb{padding:22px 64px;font-size:13px;color:var(--color-text-faint);display:flex;align-items:center;gap:10px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .breadcrumb .sep{opacity:.5}
+  .breadcrumb .here{color:var(--color-text-primary);font-weight:600}
+
+  /* HERO */
+  .c-hero{padding:64px 64px 32px;background:var(--color-bg-page);text-align:center;position:relative;overflow:hidden}
+  .c-hero::before{content:"";position:absolute;left:50%;top:48px;transform:translateX(-50%);width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,var(--color-green-soft-card),transparent 65%);pointer-events:none;opacity:.5}
+  .c-hero-inner{max-width:780px;margin:0 auto;position:relative}
+  .c-hero .eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--font-sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:18px}
+  .c-hero .eyebrow::before,.c-hero .eyebrow::after{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .c-hero h1{font-family:var(--font-serif);font-weight:400;font-size:60px;line-height:1.03;letter-spacing:-0.025em;margin:0 0 18px;color:var(--color-text-primary)}
+  .c-hero h1 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .c-hero .sub{font-family:var(--font-serif);font-style:italic;font-size:18px;line-height:1.6;color:var(--color-text-muted);margin:0;max-width:640px;margin-left:auto;margin-right:auto}
+  .c-hero .sub strong{color:var(--color-text-primary);font-style:normal;font-family:var(--font-sans);font-weight:600}
+
+  /* 3 channels */
+  .channels{padding:64px 64px;background:var(--color-bg-page)}
+  .channels-inner{max-width:1180px;margin:0 auto}
+  .channels-head{margin-bottom:28px;text-align:center}
+  .channels-head .eyebrow{font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;display:inline-block}
+  .channels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .ch-card{background:#fff;border:1px solid var(--color-border);border-radius:18px;padding:32px 30px;display:flex;flex-direction:column;gap:14px;position:relative;transition:all .15s}
+  .ch-card:hover{border-color:var(--color-green-medium);box-shadow:0 12px 24px -10px rgba(15,42,29,.10)}
+  .ch-card.featured{border-color:var(--color-green-primary);background:linear-gradient(160deg,#fff,var(--color-green-soft-card))}
+  .ch-card .badge{position:absolute;top:-12px;left:30px;background:var(--color-gold);color:var(--color-text-primary);font-family:var(--font-sans);font-size:10.5px;letter-spacing:.10em;text-transform:uppercase;font-weight:700;padding:5px 12px;border-radius:999px}
+  .ch-card .ico{width:48px;height:48px;border-radius:50%;display:grid;place-items:center}
+  .ch-card .ico.wa{background:#25D366;color:#fff}
+  .ch-card .ico.em{background:var(--color-green-soft-card);color:var(--color-green-primary)}
+  .ch-card .ico.tel{background:var(--color-gold-soft);color:#7A5530}
+  .ch-card h3{font-family:var(--font-serif);font-size:22px;font-weight:500;line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--color-text-primary)}
+  .ch-card .time{font-family:var(--font-sans);font-size:11.5px;color:var(--color-text-muted);font-weight:600;letter-spacing:.02em}
+  .ch-card .time strong{color:var(--color-green-primary);font-weight:700}
+  .ch-card .addr{font-family:var(--font-serif);font-size:18px;font-weight:500;color:var(--color-text-primary);letter-spacing:-0.01em;padding:8px 0 4px}
+  .ch-card .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:48px;padding:0 24px;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:14px;text-decoration:none;margin-top:6px}
+  .ch-card .btn.primary{background:var(--color-cta-primary);color:#fff;box-shadow:var(--shadow-cta)}
+  .ch-card .btn.primary:hover{background:var(--color-cta-primary-hover)}
+  .ch-card .btn.outline{background:transparent;color:var(--color-green-primary);border:1.5px solid var(--color-green-primary)}
+  .ch-card .btn.outline:hover{background:var(--color-green-soft-card)}
+  .ch-card .desc{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);line-height:1.55;margin:0}
+
+  /* Before-contact self-service */
+  .self-serve{padding:80px 64px;background:var(--color-bg-card);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
+  .ss-inner{max-width:1180px;margin:0 auto}
+  .ss-head{margin-bottom:32px;max-width:680px}
+  .ss-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px}
+  .ss-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .ss-head h2{font-family:var(--font-serif);font-weight:400;font-size:32px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 12px;color:var(--color-text-primary)}
+  .ss-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .ss-head p{font-family:var(--font-serif);font-style:italic;font-size:14.5px;color:var(--color-text-muted);line-height:1.65;margin:0}
+  .ss-head p strong{color:var(--color-text-primary);font-style:normal;font-family:var(--font-sans);font-weight:600}
+  .ss-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .ss-card{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:all .12s}
+  .ss-card:hover{border-color:var(--color-green-medium);box-shadow:0 8px 16px -8px rgba(15,42,29,.10);transform:translateY(-2px)}
+  .ss-card .ico{width:36px;height:36px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;margin-bottom:2px}
+  .ss-card h4{font-family:var(--font-serif);font-size:17px;font-weight:500;line-height:1.3;margin:0;color:var(--color-text-primary);letter-spacing:-0.005em}
+  .ss-card .qs{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--color-text-muted);line-height:1.55;margin:0;flex:1}
+  .ss-card .link{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--color-green-primary);display:inline-flex;align-items:center;gap:6px;margin-top:6px;text-decoration:underline;text-underline-offset:3px}
+
+  /* Form */
+  .form-section{padding:96px 64px;background:var(--color-bg-page)}
+  .form-inner{max-width:1180px;margin:0 auto}
+  .form-head{margin-bottom:36px;max-width:720px}
+  .form-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px}
+  .form-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .form-head h2{font-family:var(--font-serif);font-weight:400;font-size:34px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 10px;color:var(--color-text-primary)}
+  .form-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .form-head p{font-family:var(--font-serif);font-style:italic;font-size:15px;color:var(--color-text-muted);line-height:1.7;margin:0}
+  .form-head p strong{color:var(--color-text-primary);font-style:normal;font-family:var(--font-sans);font-weight:600}
+  .form-grid{display:grid;grid-template-columns:1fr 340px;gap:30px;align-items:start}
+
+  .form-block{background:#fff;border:1px solid var(--color-border);border-radius:18px;padding:30px 32px;display:flex;flex-direction:column;gap:20px}
+  .group-title{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;display:flex;align-items:center;gap:10px;padding-top:6px}
+  .group-title:first-child{padding-top:0}
+  .group-title .step{width:22px;height:22px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;font-family:var(--font-serif);font-weight:500;font-size:12px}
+
+  /* Category radio */
+  .cat-list{display:flex;flex-direction:column;gap:8px}
+  .cat-opt{display:grid;grid-template-columns:22px 1fr;gap:14px;padding:13px 18px;border:1.5px solid var(--color-border);border-radius:10px;cursor:pointer;background:#fff;align-items:flex-start}
+  .cat-opt:hover{border-color:var(--color-green-medium)}
+  .cat-opt.selected{border-color:var(--color-green-primary);background:var(--color-green-soft-card)}
+  .cat-opt .rd{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--color-border-2);background:#fff;display:grid;place-items:center;flex-shrink:0;margin-top:2px}
+  .cat-opt.selected .rd{border-color:var(--color-green-primary);background:var(--color-green-primary)}
+  .cat-opt.selected .rd::after{content:"";width:7px;height:7px;border-radius:50%;background:#fff}
+  .cat-opt .body{display:flex;flex-direction:column;gap:3px}
+  .cat-opt .body .l{font-family:var(--font-sans);font-size:14px;color:var(--color-text-primary);font-weight:500;line-height:1.4}
+  .cat-opt .body .hint{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-faint);line-height:1.45}
+  .cat-opt .body .hint a{color:var(--color-green-primary);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+  .cat-opt .sub-input{display:none;grid-column:1/-1;margin-top:6px;padding-top:10px;border-top:1px dashed var(--color-border)}
+  .cat-opt.selected .sub-input.active{display:block}
+  .cat-opt .sub-input label{display:block;font-family:var(--font-sans);font-size:10.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--color-text-muted);font-weight:600;margin-bottom:5px}
+  .cat-opt .sub-input input{width:100%;height:40px;border:1.5px solid var(--color-border);border-radius:8px;padding:0 12px;font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary);background:#fff;outline:none;box-sizing:border-box}
+
+  /* Fields */
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field.full{grid-column:1 / -1}
+  .field label{font-family:var(--font-sans);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-muted);font-weight:600}
+  .field label .req{color:var(--color-cta-primary);font-weight:700;margin-left:3px}
+  .field label .opt{font-family:var(--font-serif);font-style:italic;font-weight:400;color:var(--color-text-faint);text-transform:none;letter-spacing:0;font-size:12px;margin-left:6px}
+  .field input,.field textarea{height:46px;border:1.5px solid var(--color-border);border-radius:10px;padding:0 14px;font-family:var(--font-sans);font-size:14px;color:var(--color-text-primary);background:#fff;outline:none;width:100%;box-sizing:border-box}
+  .field textarea{height:auto;min-height:120px;padding:14px;line-height:1.6;resize:vertical}
+  .field input::placeholder,.field textarea::placeholder{color:var(--color-text-faint)}
+  .field input:focus,.field textarea:focus{border-color:var(--color-green-primary)}
+  .field .counter{font-family:var(--font-sans);font-size:11.5px;color:var(--color-text-faint);text-align:right;margin-top:4px}
+  .field .counter strong{color:var(--color-text-muted);font-weight:600}
+
+  /* File upload */
+  .file-upload{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px dashed var(--color-border);border-radius:10px;background:var(--color-bg-page);cursor:pointer}
+  .file-upload:hover{border-color:var(--color-green-medium)}
+  .file-upload .ico{width:34px;height:34px;border-radius:50%;background:var(--color-green-soft-card);color:var(--color-green-primary);display:grid;place-items:center;flex-shrink:0}
+  .file-upload .copy{flex:1}
+  .file-upload .copy .l{font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary);font-weight:600;line-height:1.4}
+  .file-upload .copy .hint{font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint)}
+  .file-upload input[type="file"]{display:none}
+
+  /* Consent + submit */
+  .consent-row{display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+  .consent-row .cb{width:22px;height:22px;border:1.5px solid var(--color-border-2);border-radius:6px;background:#fff;display:grid;place-items:center;flex-shrink:0;margin-top:1px;color:transparent}
+  .consent-row.checked .cb{background:var(--color-green-primary);border-color:var(--color-green-primary);color:#fff}
+  .consent-row .text{font-family:var(--font-sans);font-size:13.5px;color:var(--color-text-primary);line-height:1.55}
+  .consent-row .text a{color:var(--color-green-primary);text-decoration:underline;text-underline-offset:3px;font-weight:600}
+  .submit-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:56px;background:var(--color-cta-primary);color:#fff;border:0;border-radius:999px;font-family:var(--font-sans);font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;box-shadow:var(--shadow-cta);width:100%}
+  .submit-btn:hover{background:var(--color-cta-primary-hover)}
+  .submit-note{font-family:var(--font-serif);font-style:italic;font-size:12.5px;color:var(--color-text-faint);text-align:center;line-height:1.6}
+
+  /* Sidebar info */
+  .info-stack{display:flex;flex-direction:column;gap:14px;position:sticky;top:24px}
+  .info-card{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+  .info-card h4{font-family:var(--font-serif);font-size:16px;font-weight:500;line-height:1.3;margin:0;color:var(--color-text-primary)}
+  .info-card h4 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .info-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+  .info-card ul li{font-size:13px;color:var(--color-text-primary);line-height:1.5;display:flex;gap:9px;align-items:flex-start}
+  .info-card ul li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--color-green-medium);flex-shrink:0;margin-top:8px}
+  .info-card ul li strong{color:var(--color-text-primary);font-weight:600}
+  .info-card.urgent{background:var(--color-gold-soft);border:1.5px solid var(--color-cta-primary);border-left:5px solid var(--color-cta-primary)}
+  .info-card.urgent h4{color:var(--color-cta-primary)}
+  .info-card.urgent p{font-family:var(--font-serif);font-style:italic;font-size:13px;color:#5A3A1A;line-height:1.6;margin:0}
+  .info-card.urgent p strong{color:#3A2510;font-family:var(--font-sans);font-style:normal;font-weight:600}
+
+  .priority-list{display:flex;flex-direction:column;gap:8px}
+  .pri-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;padding:6px 0;border-bottom:1px dashed var(--color-border)}
+  .pri-row:last-child{border-bottom:0}
+  .pri-row .lbl{color:var(--color-text-muted);line-height:1.4;flex:1;padding-right:8px}
+  .pri-row .val{font-family:var(--font-sans);font-weight:700;color:var(--color-green-primary);font-size:12px;white-space:nowrap}
+
+  /* Sediu & date firma */
+  .sediu{padding:80px 64px;background:var(--color-bg-card);border-top:1px solid var(--color-border)}
+  .sediu-inner{max-width:1080px;margin:0 auto}
+  .sediu-head{margin-bottom:28px;max-width:680px}
+  .sediu-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px}
+  .sediu-head .eyebrow::before{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .sediu-head h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0}
+  .sediu-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .sediu-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}
+  .sediu-card{background:#fff;border:1px solid var(--color-border);border-radius:16px;padding:28px 30px;display:flex;flex-direction:column;gap:14px}
+  .sediu-card h3{font-family:var(--font-serif);font-size:19px;font-weight:500;line-height:1.3;margin:0 0 6px;color:var(--color-text-primary)}
+  .sediu-card h3 em{font-style:italic;color:var(--color-green-primary);font-weight:400}
+  .sediu-row{display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--color-border);font-size:13.5px}
+  .sediu-row:last-child{border-bottom:0}
+  .sediu-row .k{font-family:var(--font-sans);font-size:10.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700}
+  .sediu-row .v{color:var(--color-text-primary);font-weight:500;line-height:1.5}
+  .sediu-row .v small{display:block;font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint);font-weight:400;margin-top:3px}
+  .map-mock{aspect-ratio:1.4/1;background:linear-gradient(160deg,var(--color-green-soft-card),var(--color-green-mute));border-radius:14px;display:grid;place-items:center;position:relative;overflow:hidden;border:1px solid var(--color-border)}
+  .map-mock::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0 14px,rgba(255,255,255,.18) 14px 15px);pointer-events:none}
+  .map-mock .pin{width:42px;height:42px;border-radius:50% 50% 50% 0;background:var(--color-cta-primary);transform:rotate(-45deg);display:grid;place-items:center;color:#fff;box-shadow:0 10px 20px -6px rgba(196,98,63,.5);position:relative}
+  .map-mock .pin svg{transform:rotate(45deg)}
+  .map-mock .label{position:absolute;bottom:16px;left:16px;background:#fff;border:1px solid var(--color-border);padding:7px 12px;border-radius:8px;font-family:var(--font-sans);font-size:11.5px;font-weight:600;color:var(--color-text-primary);box-shadow:0 4px 12px -4px rgba(0,0,0,.15)}
+
+  /* Program */
+  .program{padding:80px 64px;background:var(--color-bg-page)}
+  .program-inner{max-width:880px;margin:0 auto}
+  .program-head{margin-bottom:24px;text-align:center}
+  .program-head .eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--font-sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-green-primary);font-weight:700;margin-bottom:14px}
+  .program-head .eyebrow::before,.program-head .eyebrow::after{content:"";width:24px;height:1px;background:var(--color-green-medium)}
+  .program-head h2{font-family:var(--font-serif);font-weight:400;font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0}
+  .program-head h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .program-table{background:#fff;border:1px solid var(--color-border);border-radius:16px;overflow:hidden}
+  .program-table table{width:100%;border-collapse:collapse;font-size:14px}
+  .program-table thead th{font-family:var(--font-sans);font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:var(--color-text-faint);font-weight:700;text-align:left;padding:16px 22px;background:var(--color-bg-page);border-bottom:1px solid var(--color-border)}
+  .program-table thead th:not(:first-child),
+  .program-table tbody td:not(:first-child){text-align:center}
+  .program-table tbody td{padding:16px 22px;border-bottom:1px solid var(--color-border);color:var(--color-text-primary)}
+  .program-table tbody tr:last-child td{border-bottom:0}
+  .program-table tbody td.ch{font-family:var(--font-sans);font-weight:600;display:flex;align-items:center;gap:10px}
+  .program-table tbody td.ch svg{color:var(--color-green-primary);flex-shrink:0}
+  .program-table tbody td.t-on{color:var(--color-green-primary);font-weight:600;font-family:var(--font-serif);font-style:italic}
+  .program-table tbody td.t-off{color:var(--color-text-faint)}
+  .program-table tbody td.t-24{color:var(--color-text-primary);font-weight:500;background:var(--color-green-soft-card)}
+  .program-foot{font-family:var(--font-serif);font-style:italic;font-size:13.5px;color:var(--color-text-muted);text-align:center;margin-top:16px;line-height:1.6}
+  .program-foot strong{color:var(--color-text-primary);font-style:normal;font-family:var(--font-sans);font-weight:600}
+
+  /* Social */
+  .social{padding:64px;background:var(--color-bg-card);border-top:1px solid var(--color-border);text-align:center}
+  .social-inner{max-width:680px;margin:0 auto}
+  .social-inner h2{font-family:var(--font-serif);font-weight:400;font-size:28px;line-height:1.15;letter-spacing:-0.015em;margin:0 0 6px}
+  .social-inner h2 em{font-style:italic;color:var(--color-green-primary);font-weight:300}
+  .social-inner .sub{font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--color-text-muted);margin:0 0 24px;line-height:1.6}
+  .social-grid{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+  .social-card{background:#fff;border:1px solid var(--color-border);border-radius:12px;padding:14px 22px;display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:inherit;min-width:180px}
+  .social-card:hover{border-color:var(--color-green-medium)}
+  .social-card .ico{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;color:#fff}
+  .social-card .ico.ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)}
+  .social-card .ico.fb{background:#1877F2}
+  .social-card .ico.tt{background:#000}
+  .social-card .info{display:flex;flex-direction:column;text-align:left}
+  .social-card .info .name{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--color-text-primary)}
+  .social-card .info .handle{font-family:var(--font-serif);font-style:italic;font-size:12px;color:var(--color-text-faint)}
+</style>
+</head>
+<body>
+<div class="stage" data-screen-label="Contact">
+
+  <div class="announce">
+    <div class="container">
+      <div class="left">
+        <span>Transport gratuit peste 199 lei</span><span class="dot"></span>
+        <span>Livrare 24–48h</span><span class="dot"></span>
+        <span>Plata ramburs</span>
+      </div>
+      <div class="right">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>Suport WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container header-row">
+      <a class="logo" href="Mana Naturii - Homepage.html">
+        <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>
+        <span class="stack"><span>mâna naturii</span><small>by vivens genetica</small></span>
+      </a>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Caută după obiectiv, simptom sau produs..." />
+        <span class="pill pill-cream">⌘ K</span>
+      </div>
+      <div class="header-actions">
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="icon-label">Favorite</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="icon-label">Cont</span></div>
+        <div class="icon-stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6H19M7 13L5.4 5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span class="icon-label">Coș</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="breadcrumb"><a>Acasă</a><span class="sep">›</span><span class="here">Contact</span></div>
+
+  <!-- HERO -->
+  <section class="c-hero">
+    <div class="c-hero-inner">
+      <div class="eyebrow">Vorbim direct, fără filtre</div>
+      <h1>Hai să <em>vorbim.</em></h1>
+      <p class="sub">Îți răspundem în <strong>maxim 24h</strong> pe email, în <strong>maxim 2h</strong> pe WhatsApp luni–vineri 9–17.</p>
+    </div>
+  </section>
+
+  <!-- 3 CHANNELS -->
+  <section class="channels">
+    <div class="channels-inner">
+      <div class="channels-head">
+        <span class="eyebrow">Cel mai rapid</span>
+      </div>
+      <div class="channels-grid">
+
+        <div class="ch-card featured">
+          <span class="badge">Recomandat</span>
+          <div class="ico wa">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5z"/></svg>
+          </div>
+          <h3>WhatsApp.</h3>
+          <span class="time">Răspuns în <strong>maxim 2h</strong> · luni–vineri 9–17</span>
+          <div class="addr">+40 749 492 794</div>
+          <a class="btn primary" href="https://wa.me/40749492794" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>
+            Deschide WhatsApp
+          </a>
+          <p class="desc">Cel mai rapid — pentru întrebări urgente despre comenzi.</p>
+        </div>
+
+        <div class="ch-card">
+          <div class="ico em">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
+          </div>
+          <h3>Email.</h3>
+          <span class="time">Răspuns în <strong>maxim 24h</strong> · luni–vineri</span>
+          <div class="addr">suport@mananaturii.ro</div>
+          <a class="btn outline" href="mailto:suport@mananaturii.ro">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+            Trimite email
+          </a>
+          <p class="desc">Pentru întrebări detaliate, retururi sau probleme complexe.</p>
+        </div>
+
+        <div class="ch-card">
+          <div class="ico tel">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h3>Telefon.</h3>
+          <span class="time">Luni–vineri <strong>9:00–17:00</strong></span>
+          <div class="addr">+40 749 492 794</div>
+          <a class="btn outline" href="tel:+40749492794">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+            Sună
+          </a>
+          <p class="desc">Pentru consultanță personalizată și discuții lungi.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SELF-SERVICE -->
+  <section class="self-serve">
+    <div class="ss-inner">
+      <div class="ss-head">
+        <div class="eyebrow">Înainte să ne contactezi</div>
+        <h2>Poate găsești răspunsul <em>mai rapid aici.</em></h2>
+        <p>Multe întrebări au răspuns deja în paginile noastre. Verifică întâi — poate <strong>economisești timpul de așteptare</strong>.</p>
+      </div>
+      <div class="ss-grid">
+
+        <a class="ss-card" href="Cont - Gestionare Abonament.html">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M16 2v4M8 2v4M2 10h20"/></svg></div>
+          <h4>Despre <em>comanda mea.</em></h4>
+          <p class="qs">„Cum verific status comanda?" · „Când vine?" · „Pot anula?"</p>
+          <span class="link">Vezi „Comenzile mele"
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          </span>
+        </a>
+
+        <a class="ss-card" href="Pagina Retur RMA.html">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></div>
+          <h4>Vreau să <em>returnez.</em></h4>
+          <p class="qs">„Cum returnez în 14 zile?" · „Cine plătește transportul?" · „Pot returna desigilat?"</p>
+          <span class="link">Vezi Politica de retur
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          </span>
+        </a>
+
+        <a class="ss-card" href="Test de 60 sec - Quiz Wizard.html">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
+          <h4>Despre <em>un produs.</em></h4>
+          <p class="qs">„Cum se ia?" · „Cura cât durează?" · „E sigur pentru copii sau în sarcină?"</p>
+          <span class="link">Fă testul de 60 sec
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          </span>
+        </a>
+
+        <a class="ss-card" href="Pagina Esec Plata.html">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/><path d="M6 14h2"/></svg></div>
+          <h4>Probleme cu <em>plata.</em></h4>
+          <p class="qs">„Plata mea a eșuat — ce fac?" · „Pot plăti la livrare?" · „Card refuzat?"</p>
+          <span class="link">Vezi pagina recuperare plată
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM -->
+  <section class="form-section">
+    <div class="form-inner">
+      <div class="form-head">
+        <div class="eyebrow">Formular contact</div>
+        <h2>Sau <em>scrie-ne direct.</em></h2>
+        <p>Formular structurat. <strong>Categoria pe care o alegi</strong> ne ajută să prioritizăm mai bine — comenzile cu plata eșuată primesc răspuns în 2h, restul în 24h.</p>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-block">
+
+          <div class="group-title"><span class="step">1</span>Categoria solicitării</div>
+          <div class="cat-list">
+            <label class="cat-opt selected" onclick="this.parentElement.querySelectorAll('.cat-opt').forEach(o=>o.classList.remove('selected'));this.classList.add('selected');var s=this.querySelector('.sub-input');if(s)s.classList.add('active');">
+              <div class="rd"></div>
+              <div class="body">
+                <span class="l">Întrebare despre o comandă existentă</span>
+                <span class="hint">Status, modificare, anulare, problemă cu livrarea.</span>
+                <div class="sub-input active">
+                  <label>Număr comandă</label>
+                  <input type="text" placeholder="Ex: MN-2026-04827" />
+                </div>
+              </div>
+            </label>
+            <label class="cat-opt" onclick="this.parentElement.querySelectorAll('.cat-opt').forEach(o=>o.classList.remove('selected'));this.classList.add('selected');">
+              <div class="rd"></div>
+              <div class="body">
+                <span class="l">Întrebare despre un produs sau o cură</span>
+                <span class="hint">Cum se ia, durata curei, contraindicații, ingrediente.</span>
+              </div>
+            </label>
+            <label class="cat-opt" onclick="this.parentElement.querySelectorAll('.cat-opt').forEach(o=>o.classList.remove('selected'));this.classList.add('selected');">
+              <div class="rd"></div>
+              <div class="body">
+                <span class="l">Solicitare retur sau rambursare</span>
+                <span class="hint">Pentru cele mai multe cazuri, e mai rapid <a href="Pagina Retur RMA.html">formularul RMA dedicat →</a></span>
+              </div>
+            </label>
+            <label class="cat-opt" onclick="this.parentElement.querySelectorAll('.cat-opt').forEach(o=>o.classList.remove('selected'));this.classList.add('selected');">
+              <div class="rd"></div>
+              <div class="body">
+                <span class="l">Problemă tehnică pe site</span>
+                <span class="hint">Eroare la checkout, login, afișare incorectă, link rupt.</span>
+              </div>
+            </label>
+            <label class="cat-opt" onclick="this.parentElement.querySelectorAll('.cat-opt').forEach(o=>o.classList.remove('selected'));this.classList.add('selected');">
+              <div class="rd"></div>
+              <div class="body">
+                <span class="l">Parteneriate, presă, colaborare</span>
+                <span class="hint">Propuneri B2B, invitații, recenzii media. Răspundem în 48–72h.</span>
+              </div>
+            </label>
+            <label class="cat-opt" onclick="this.parentElement.querySelectorAll('.cat-opt').forEach(o=>o.classList.remove('selected'));this.classList.add('selected');">
+              <div class="rd"></div>
+              <div class="body">
+                <span class="l">Altceva</span>
+                <span class="hint">Pentru orice nu se încadrează mai sus.</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="group-title"><span class="step">2</span>Date de contact</div>
+          <div class="field-row">
+            <div class="field">
+              <label for="nume">Nume <span class="req">*</span></label>
+              <input type="text" id="nume" placeholder="Maria" />
+            </div>
+            <div class="field">
+              <label for="prenume">Prenume <span class="req">*</span></label>
+              <input type="text" id="prenume" placeholder="Popescu" />
+            </div>
+            <div class="field">
+              <label for="phone">Telefon <span class="req">*</span></label>
+              <input type="tel" id="phone" placeholder="07XX XXX XXX" />
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="req">*</span></label>
+              <input type="email" id="email" placeholder="email@exemplu.ro" />
+            </div>
+          </div>
+
+          <div class="group-title"><span class="step">3</span>Mesajul tău</div>
+          <div class="field full">
+            <label for="msg">Mesaj <span class="opt">(max 500 caractere)</span></label>
+            <textarea id="msg" placeholder="Scrie scurt și concret — mai puțin text înseamnă răspuns mai rapid de la noi." maxlength="500"></textarea>
+            <span class="counter"><strong>0</strong> / 500 caractere</span>
+          </div>
+          <label class="file-upload" for="file-input">
+            <div class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05 12.25 20.24a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></div>
+            <div class="copy">
+              <span class="l">Atașament <span class="opt">(opțional)</span></span>
+              <span class="hint">Adaugă o poză sau document dacă e relevant — max 5 MB.</span>
+            </div>
+            <input type="file" id="file-input" accept="image/*,.pdf" />
+          </label>
+
+          <div class="group-title"><span class="step">4</span>Confirmare</div>
+          <label class="consent-row" onclick="this.classList.toggle('checked')">
+            <div class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="text">Am citit și sunt de acord cu <a>Termenii și Condițiile</a> și <a>Politica de confidențialitate</a>.</span>
+          </label>
+
+          <button class="submit-btn" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+            Trimite mesajul
+          </button>
+          <p class="submit-note">Îți vom răspunde în maxim 24h luni–vineri 9–17 pe adresa de email indicată mai sus.</p>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="info-stack">
+          <div class="info-card">
+            <h4>Ce primești <em>după trimitere.</em></h4>
+            <ul>
+              <li>Email automat de confirmare în <strong>5 minute</strong></li>
+              <li>Număr tichet de referință <strong>#SUP-XXXXX</strong></li>
+              <li>Răspuns personal în <strong>24h</strong> luni–vineri</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h4>Prioritate <em>răspuns.</em></h4>
+            <div class="priority-list">
+              <div class="pri-row"><span class="lbl">Comenzi cu plata eșuată</span><span class="val">2h</span></div>
+              <div class="pri-row"><span class="lbl">Probleme cu livrare</span><span class="val">4h</span></div>
+              <div class="pri-row"><span class="lbl">Retururi</span><span class="val">24h</span></div>
+              <div class="pri-row"><span class="lbl">Întrebări produse</span><span class="val">24–48h</span></div>
+              <div class="pri-row"><span class="lbl">Parteneriate / presă</span><span class="val">48–72h</span></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SEDIU -->
+  <section class="sediu">
+    <div class="sediu-inner">
+      <div class="sediu-head">
+        <div class="eyebrow">Despre firmă</div>
+        <h2>Sediul și <em>date legale.</em></h2>
+      </div>
+      <div class="sediu-grid">
+
+        <div class="sediu-card">
+          <h3>Date <em>operator.</em></h3>
+          <div class="sediu-row">
+            <span class="k">Operator</span>
+            <span class="v">Vivens Genetica SRL<small>operatorul brandului Mâna Naturii</small></span>
+          </div>
+          <div class="sediu-row">
+            <span class="k">Adresă sediu</span>
+            <span class="v">Str. Exemplu nr. 12, Sector 1<br/>București, cod poștal 010001<small>(adresa exactă se confirmă — placeholder)</small></span>
+          </div>
+          <div class="sediu-row">
+            <span class="k">CUI</span>
+            <span class="v">RO XXXXXXXX<small>(placeholder — se completează)</small></span>
+          </div>
+          <div class="sediu-row">
+            <span class="k">Reg. comerț</span>
+            <span class="v">J40/XXXXX/2024<small>(placeholder)</small></span>
+          </div>
+          <div class="sediu-row">
+            <span class="k">IBAN</span>
+            <span class="v">Se transmite la cerere<small>pentru facturi B2B sau transfer bancar</small></span>
+          </div>
+          <div class="sediu-row">
+            <span class="k">ANSVSA</span>
+            <span class="v">Notificat — producător/distribuitor suplimente alimentare</span>
+          </div>
+        </div>
+
+        <div class="map-mock">
+          <div class="pin">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="label">Mâna Naturii · București</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section class="program">
+    <div class="program-inner">
+      <div class="program-head">
+        <div class="eyebrow">Program suport</div>
+        <h2>Când suntem <em>disponibili.</em></h2>
+      </div>
+      <div class="program-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Canal</th>
+              <th>Luni–Vineri</th>
+              <th>Sâmbătă</th>
+              <th>Duminică</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ch"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1z"/></svg>WhatsApp</td>
+              <td class="t-on">9:00–17:00</td>
+              <td class="t-on">10:00–14:00</td>
+              <td class="t-off">—</td>
+            </tr>
+            <tr>
+              <td class="ch"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>Telefon</td>
+              <td class="t-on">9:00–17:00</td>
+              <td class="t-off">—</td>
+              <td class="t-off">—</td>
+            </tr>
+            <tr>
+              <td class="ch"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>Email</td>
+              <td class="t-24" colspan="3">Trimite oricând · răspuns în 24h L–V</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="program-foot">În afara programului răspundem la <strong>primul ceas L–V</strong>. Comenzile online se procesează zilnic, inclusiv weekend.</p>
+    </div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section class="social">
+    <div class="social-inner">
+      <h2>Pe <em>rețele sociale.</em></h2>
+      <p class="sub">Postăm o dată pe săptămână. <strong style="color:var(--color-text-primary);font-style:normal;font-family:var(--font-sans);font-weight:600">Fără spam</strong>, fără reclame agresive.</p>
+      <div class="social-grid">
+        <a class="social-card" target="_blank" rel="noopener">
+          <div class="ico ig"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+          <div class="info"><span class="name">Instagram</span><span class="handle">@mananaturii.ro</span></div>
+        </a>
+        <a class="social-card" target="_blank" rel="noopener">
+          <div class="ico fb"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+          <div class="info"><span class="name">Facebook</span><span class="handle">Mâna Naturii</span></div>
+        </a>
+        <a class="social-card" target="_blank" rel="noopener">
+          <div class="ico tt"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.66a8.16 8.16 0 0 0 4.77 1.52V6.69z"/></svg></div>
+          <div class="info"><span class="name">TikTok</span><span class="handle">@mananaturii</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22S2 16 2 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/></svg></span>mâna naturii</div>
+        <p class="tag">Suplimente naturale formulate în Uniunea Europeană. Marca Vivens Genetica.</p>
+      </div>
+      <div class="footer-col"><h5>Cumpără</h5><ul><li>Suplimente</li><li>După obiectiv</li><li>După simptom</li><li>Performanță</li><li>Pachete</li></ul></div>
+      <div class="footer-col"><h5>Ajutor</h5><ul><li>Cum comand</li><li>Livrare</li><li>Retur 14 zile</li><li>FAQ</li><li>WhatsApp</li></ul></div>
+      <div class="footer-col"><h5>Despre noi</h5><ul><li>Povestea</li><li>Laborator</li><li>Analize lot</li><li>Blog</li><li>Cariere</li></ul></div>
+      <div class="footer-col"><h5>Legal</h5><ul><li>Termeni</li><li>Confidențialitate</li><li>Cookie-uri</li><li>ANPC SAL</li><li>ANPC SOL</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Mâna Naturii · Vivens Genetica SRL · CUI RO12345678 · <span style="color:var(--color-gold);font-weight:600">Ediția de toamnă, Octombrie 2025</span></div>
+      <div class="pay"><span class="card">VISA</span><span class="card">MasterCard</span><span class="card">Ramburs</span></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
